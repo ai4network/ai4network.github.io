@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>宋丛溪 | AI4network 实验室</title>
+    <link>https://ai4network.github.io/zh/author/%E5%AE%8B%E4%B8%9B%E6%BA%AA/</link>
+      <atom:link href="https://ai4network.github.io/zh/author/%E5%AE%8B%E4%B8%9B%E6%BA%AA/index.xml" rel="self" type="application/rss+xml" />
+    <description>宋丛溪</description>
+    <generator>Wowchemy (https://wowchemy.com)</generator><language>zh-Hans</language><lastBuildDate>Fri, 11 Nov 2022 19:30:00 +0000</lastBuildDate>
+    <image>
+      <url>https://ai4network.github.io/zh/author/%E5%AE%8B%E4%B8%9B%E6%BA%AA/avatar_hu6b6a8378a4acf448b86d77478a06d0f8_113361_270x270_fill_q75_lanczos_center.jpg</url>
+      <title>宋丛溪</title>
+      <link>https://ai4network.github.io/zh/author/%E5%AE%8B%E4%B8%9B%E6%BA%AA/</link>
+    </image>
+    
+    <item>
+      <title>2022年秋季学期第13周组会</title>
+      <link>https://ai4network.github.io/zh/event/3/</link>
+      <pubDate>Fri, 11 Nov 2022 19:30:00 +0000</pubDate>
+      <guid>https://ai4network.github.io/zh/event/3/</guid>
+      <description>&lt;p&gt;文献来源：NSDI22&lt;/p&gt;
+&lt;p&gt;文献题目：Swift: Adaptive Video Streaming with Layered Neural Codecs&lt;/p&gt;
+&lt;p&gt;摘要：Layered video coding compresses video segments into layers (additional code bits). Decoding with each additional layer improves video quality incrementally. This approach has potential for very fine-grained rate adaptation. However, layered coding has not seen much success in practice because of its cross-layer compression overheads and decoding latencies. We take a fresh new approach to layered video coding by exploiting recent advances in video coding using deep learning techniques. We develop Swift, an adaptive video streaming system that includes i) a layered encoder that learns to encode a video frame into layered codes by purely encoding residuals from previous layers without introducing any cross-layer compression overheads, ii) a decoder that can fuse together a subset of these codes (based on availability) and decode them all in one go, and, iii) an adaptive bit rate (ABR) protocol that synergistically adapts video quality based on available network and client-side compute capacity. Swift can be integrated easily in the current streaming ecosystem without any change to network protocols and applications by simply replacing the current codecs with the proposed layered neural video codec when appropriate GPU or similar accelerator functionality is available on the client side. Extensive evaluations reveal Swift’s multi-dimensional benefits over prior video streaming systems.&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

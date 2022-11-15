@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>李亚辉 | AI4network 实验室</title>
+    <link>https://ai4network.github.io/zh/author/%E6%9D%8E%E4%BA%9A%E8%BE%89/</link>
+      <atom:link href="https://ai4network.github.io/zh/author/%E6%9D%8E%E4%BA%9A%E8%BE%89/index.xml" rel="self" type="application/rss+xml" />
+    <description>李亚辉</description>
+    <generator>Wowchemy (https://wowchemy.com)</generator><language>zh-Hans</language><lastBuildDate>Thu, 17 Nov 2022 19:30:00 +0000</lastBuildDate>
+    <image>
+      <url>https://ai4network.github.io/zh/author/%E6%9D%8E%E4%BA%9A%E8%BE%89/avatar_hue9154d83fe882131df15fe9572478c84_115481_270x270_fill_q75_lanczos_center.jpeg</url>
+      <title>李亚辉</title>
+      <link>https://ai4network.github.io/zh/author/%E6%9D%8E%E4%BA%9A%E8%BE%89/</link>
+    </image>
+    
+    <item>
+      <title>2022年秋季学期第14周论文分享</title>
+      <link>https://ai4network.github.io/zh/event/4/</link>
+      <pubDate>Thu, 17 Nov 2022 19:30:00 +0000</pubDate>
+      <guid>https://ai4network.github.io/zh/event/4/</guid>
+      <description>&lt;p&gt;文献来源：SIGCOMM22&lt;/p&gt;
+&lt;p&gt;文献题目：LiveNet: a low-latency video transport network for large-scale live streaming&lt;/p&gt;
+&lt;p&gt;摘要：Low-latency live streaming has imposed stringent latency requirements on video transport networks. In this paper we report on the design and operation of the Alibaba low-latency video transport network, LiveNet. LiveNet builds on a flat CDN overlay with a centralized controller for global optimization. As part of this, we present our design of the global routing computation and path assignment, as well as our fast data transmission architecture with fine-grained control of video frames. The performance results obtained from three years of operation demonstrate the effectiveness of LiveNet in improving CDN performance and QoE metrics. Compared with our prior state-of-the-art hierarchical CDN deployment, LiveNet halves the CDN delay and ensures 98% of views do not experience stalls and that 95% can start playback within 1 second. We further report our experiences of running LiveNet over the last 3 years.&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Recent &amp; Upcoming Events | AI4network Group</title>
+    <link>https://ai4network.github.io/event/</link>
+      <atom:link href="https://ai4network.github.io/event/index.xml" rel="self" type="application/rss+xml" />
+    <description>Recent &amp; Upcoming Events</description>
+    <generator>Wowchemy (https://wowchemy.com)</generator><language>en-us</language><lastBuildDate>Thu, 17 Nov 2022 19:30:00 +0000</lastBuildDate>
+    <image>
+      <url>https://ai4network.github.io/media/icon_hua2ec155b4296a9c9791d015323e16eb5_11927_512x512_fill_lanczos_center_3.png</url>
+      <title>Recent &amp; Upcoming Events</title>
+      <link>https://ai4network.github.io/event/</link>
+    </image>
+    
+    <item>
+      <title>2022年秋季学期第14周论文分享</title>
+      <link>https://ai4network.github.io/event/4/</link>
+      <pubDate>Thu, 17 Nov 2022 19:30:00 +0000</pubDate>
+      <guid>https://ai4network.github.io/event/4/</guid>
+      <description>&lt;p&gt;文献来源：SIGCOMM22&lt;/p&gt;
+&lt;p&gt;文献题目：LiveNet: a low-latency video transport network for large-scale live streaming&lt;/p&gt;
+&lt;p&gt;摘要：Low-latency live streaming has imposed stringent latency requirements on video transport networks. In this paper we report on the design and operation of the Alibaba low-latency video transport network, LiveNet. LiveNet builds on a flat CDN overlay with a centralized controller for global optimization. As part of this, we present our design of the global routing computation and path assignment, as well as our fast data transmission architecture with fine-grained control of video frames. The performance results obtained from three years of operation demonstrate the effectiveness of LiveNet in improving CDN performance and QoE metrics. Compared with our prior state-of-the-art hierarchical CDN deployment, LiveNet halves the CDN delay and ensures 98% of views do not experience stalls and that 95% can start playback within 1 second. We further report our experiences of running LiveNet over the last 3 years.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>2022年秋季学期第13周组会</title>
+      <link>https://ai4network.github.io/event/3/</link>
+      <pubDate>Fri, 11 Nov 2022 19:30:00 +0000</pubDate>
+      <guid>https://ai4network.github.io/event/3/</guid>
+      <description>&lt;p&gt;文献来源：NSDI22&lt;/p&gt;
+&lt;p&gt;文献题目：Swift: Adaptive Video Streaming with Layered Neural Codecs&lt;/p&gt;
+&lt;p&gt;摘要：Layered video coding compresses video segments into layers (additional code bits). Decoding with each additional layer improves video quality incrementally. This approach has potential for very fine-grained rate adaptation. However, layered coding has not seen much success in practice because of its cross-layer compression overheads and decoding latencies. We take a fresh new approach to layered video coding by exploiting recent advances in video coding using deep learning techniques. We develop Swift, an adaptive video streaming system that includes i) a layered encoder that learns to encode a video frame into layered codes by purely encoding residuals from previous layers without introducing any cross-layer compression overheads, ii) a decoder that can fuse together a subset of these codes (based on availability) and decode them all in one go, and, iii) an adaptive bit rate (ABR) protocol that synergistically adapts video quality based on available network and client-side compute capacity. Swift can be integrated easily in the current streaming ecosystem without any change to network protocols and applications by simply replacing the current codecs with the proposed layered neural video codec when appropriate GPU or similar accelerator functionality is available on the client side. Extensive evaluations reveal Swift’s multi-dimensional benefits over prior video streaming systems.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>2022年秋季学期第13周文献分享</title>
+      <link>https://ai4network.github.io/event/2/</link>
+      <pubDate>Thu, 10 Nov 2022 19:30:00 +0000</pubDate>
+      <guid>https://ai4network.github.io/event/2/</guid>
+      <description>&lt;p&gt;文献来源：SIGCOMM22&lt;/p&gt;
+&lt;p&gt;文献题目：Elasticity detection: a building block for internet congestion control&lt;/p&gt;
+&lt;p&gt;摘要：This paper introduces a new metric, “elasticity,” which characterizes the nature of cross-traffic competing with a flow. Elasticity captures whether the cross traffic reacts to changes in available bandwidth. We show that it is possible to robustly detect the elasticity of cross traffic at a sender without router support, and that elasticity detection can reduce delays in the Internet by enabling delay-controlling congestion control protocols to be deployed without hurting flow throughput. Our results show that the proposed method achieves more than 85% accuracy under a variety of network conditions, and that congestion control using elasticity detection achieves throughput comparable to Cubic but with delays that are 50–70 ms lower when cross traffic is inelastic.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>2022年秋季学期第6周组会</title>
+      <link>https://ai4network.github.io/event/1/</link>
+      <pubDate>Mon, 19 Sep 2022 19:30:00 +0000</pubDate>
+      <guid>https://ai4network.github.io/event/1/</guid>
+      <description>&lt;p&gt;Slides can be added in a few ways:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Create&lt;/strong&gt; slides using Wowchemy&amp;rsquo;s &lt;a href=&#34;https://wowchemy.com/docs/managing-content/#create-slides&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;&lt;em&gt;Slides&lt;/em&gt;&lt;/a&gt; feature and link using &lt;code&gt;slides&lt;/code&gt; parameter in the front matter of the talk file&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Upload&lt;/strong&gt; an existing slide deck to &lt;code&gt;static/&lt;/code&gt; and link using &lt;code&gt;url_slides&lt;/code&gt; parameter in the front matter of the talk file&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Embed&lt;/strong&gt; your slides (e.g. Google Slides) or presentation video on this page using &lt;a href=&#34;https://wowchemy.com/docs/writing-markdown-latex/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;shortcodes&lt;/a&gt;.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Further event details, including page elements such as image galleries, can be added to the body of this page.&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

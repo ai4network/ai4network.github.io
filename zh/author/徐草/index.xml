@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>徐草 | AI4network 实验室</title>
+    <link>https://ai4network.github.io/zh/author/%E5%BE%90%E8%8D%89/</link>
+      <atom:link href="https://ai4network.github.io/zh/author/%E5%BE%90%E8%8D%89/index.xml" rel="self" type="application/rss+xml" />
+    <description>徐草</description>
+    <generator>Wowchemy (https://wowchemy.com)</generator><language>zh-Hans</language>
+    <image>
+      <url>https://ai4network.github.io/zh/author/%E5%BE%90%E8%8D%89/avatar_hu44d3a75bf29b763fb88ed35a7ff4aa66_86167_270x270_fill_q75_lanczos_center.jpeg</url>
+      <title>徐草</title>
+      <link>https://ai4network.github.io/zh/author/%E5%BE%90%E8%8D%89/</link>
+    </image>
+    
+  </channel>
+</rss>

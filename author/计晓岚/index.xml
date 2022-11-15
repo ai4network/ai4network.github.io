@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>计晓岚 | AI4network Group</title>
+    <link>https://ai4network.github.io/author/%E8%AE%A1%E6%99%93%E5%B2%9A/</link>
+      <atom:link href="https://ai4network.github.io/author/%E8%AE%A1%E6%99%93%E5%B2%9A/index.xml" rel="self" type="application/rss+xml" />
+    <description>计晓岚</description>
+    <generator>Wowchemy (https://wowchemy.com)</generator><language>en-us</language><lastBuildDate>Thu, 10 Nov 2022 19:30:00 +0000</lastBuildDate>
+    <image>
+      <url>https://ai4network.github.io/author/%E8%AE%A1%E6%99%93%E5%B2%9A/avatar_hu933d16a9fd2a1b1f3765ff42731090c2_105214_270x270_fill_q75_lanczos_center.jpeg</url>
+      <title>计晓岚</title>
+      <link>https://ai4network.github.io/author/%E8%AE%A1%E6%99%93%E5%B2%9A/</link>
+    </image>
+    
+    <item>
+      <title>2022年秋季学期第13周文献分享</title>
+      <link>https://ai4network.github.io/event/2/</link>
+      <pubDate>Thu, 10 Nov 2022 19:30:00 +0000</pubDate>
+      <guid>https://ai4network.github.io/event/2/</guid>
+      <description>&lt;p&gt;文献来源：SIGCOMM22&lt;/p&gt;
+&lt;p&gt;文献题目：Elasticity detection: a building block for internet congestion control&lt;/p&gt;
+&lt;p&gt;摘要：This paper introduces a new metric, “elasticity,” which characterizes the nature of cross-traffic competing with a flow. Elasticity captures whether the cross traffic reacts to changes in available bandwidth. We show that it is possible to robustly detect the elasticity of cross traffic at a sender without router support, and that elasticity detection can reduce delays in the Internet by enabling delay-controlling congestion control protocols to be deployed without hurting flow throughput. Our results show that the proposed method achieves more than 85% accuracy under a variety of network conditions, and that congestion control using elasticity detection achieves throughput comparable to Cubic but with delays that are 50–70 ms lower when cross traffic is inelastic.&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>
