@@ -5,12 +5,22 @@
     <link>https://ai4network.github.io/zh/event/</link>
       <atom:link href="https://ai4network.github.io/zh/event/index.xml" rel="self" type="application/rss+xml" />
     <description>组内活动</description>
-    <generator>Wowchemy (https://wowchemy.com)</generator><language>zh-Hans</language><lastBuildDate>Thu, 17 Nov 2022 19:30:00 +0000</lastBuildDate>
+    <generator>Wowchemy (https://wowchemy.com)</generator><language>zh-Hans</language><lastBuildDate>Fri, 18 Nov 2022 19:30:00 +0000</lastBuildDate>
     <image>
       <url>https://ai4network.github.io/media/icon_hua2ec155b4296a9c9791d015323e16eb5_11927_512x512_fill_lanczos_center_3.png</url>
       <title>组内活动</title>
       <link>https://ai4network.github.io/zh/event/</link>
     </image>
+    
+    <item>
+      <title>2022年秋季学期第14周组会</title>
+      <link>https://ai4network.github.io/zh/event/5/</link>
+      <pubDate>Fri, 18 Nov 2022 19:30:00 +0000</pubDate>
+      <guid>https://ai4network.github.io/zh/event/5/</guid>
+      <description>&lt;p&gt;腾讯会议：899-899-777
+会议密码：123456&lt;/p&gt;
+</description>
+    </item>
     
     <item>
       <title>2022年秋季学期第14周论文分享</title>
@@ -20,6 +30,8 @@
       <description>&lt;p&gt;文献来源：SIGCOMM22&lt;/p&gt;
 &lt;p&gt;文献题目：LiveNet: a low-latency video transport network for large-scale live streaming&lt;/p&gt;
 &lt;p&gt;摘要：Low-latency live streaming has imposed stringent latency requirements on video transport networks. In this paper we report on the design and operation of the Alibaba low-latency video transport network, LiveNet. LiveNet builds on a flat CDN overlay with a centralized controller for global optimization. As part of this, we present our design of the global routing computation and path assignment, as well as our fast data transmission architecture with fine-grained control of video frames. The performance results obtained from three years of operation demonstrate the effectiveness of LiveNet in improving CDN performance and QoE metrics. Compared with our prior state-of-the-art hierarchical CDN deployment, LiveNet halves the CDN delay and ensures 98% of views do not experience stalls and that 95% can start playback within 1 second. We further report our experiences of running LiveNet over the last 3 years.&lt;/p&gt;
+&lt;p&gt;腾讯会议：657-649-839
+会议密码：123456&lt;/p&gt;
 </description>
     </item>
     
