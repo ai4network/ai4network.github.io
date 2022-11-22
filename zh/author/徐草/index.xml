@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>徐草 | AI4network 实验室</title>
+    <link>https://ai4network.github.io/zh/author/%E5%BE%90%E8%8D%89/</link>
+      <atom:link href="https://ai4network.github.io/zh/author/%E5%BE%90%E8%8D%89/index.xml" rel="self" type="application/rss+xml" />
+    <description>徐草</description>
+    <generator>Wowchemy (https://wowchemy.com)</generator><language>zh-Hans</language><lastBuildDate>Fri, 18 Nov 2022 19:30:00 +0000</lastBuildDate>
+    <image>
+      <url>https://ai4network.github.io/zh/author/%E5%BE%90%E8%8D%89/avatar_hu1151adf2f49fa2c9e9162196a4e79dfb_81611_270x270_fill_q75_lanczos_center.jpeg</url>
+      <title>徐草</title>
+      <link>https://ai4network.github.io/zh/author/%E5%BE%90%E8%8D%89/</link>
+    </image>
+    
+    <item>
+      <title>2022年秋季学期第14周组会</title>
+      <link>https://ai4network.github.io/zh/event/5/</link>
+      <pubDate>Fri, 18 Nov 2022 19:30:00 +0000</pubDate>
+      <guid>https://ai4network.github.io/zh/event/5/</guid>
+      <description>&lt;p&gt;腾讯会议：899-899-777
+会议密码：123456&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>
