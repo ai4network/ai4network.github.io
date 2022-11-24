@@ -5,7 +5,7 @@
     <link>https://ai4network.github.io/</link>
       <atom:link href="https://ai4network.github.io/index.xml" rel="self" type="application/rss+xml" />
     <description>AI4network Group</description>
-    <generator>Wowchemy (https://wowchemy.com)</generator><language>en-us</language><lastBuildDate>Mon, 21 Nov 2022 19:47:34 +0800</lastBuildDate>
+    <generator>Wowchemy (https://wowchemy.com)</generator><language>en-us</language><lastBuildDate>Thu, 24 Nov 2022 20:58:16 +0800</lastBuildDate>
     <image>
       <url>https://ai4network.github.io/media/icon_hua2ec155b4296a9c9791d015323e16eb5_11927_512x512_fill_lanczos_center_3.png</url>
       <title>AI4network Group</title>
@@ -13,14 +13,405 @@
     </image>
     
     <item>
+      <title>SIGCOMM22 论文分享 | LiveNet: a low-latency video transport network for large-scale live streaming</title>
+      <link>https://ai4network.github.io/post/paper-sharing-3/</link>
+      <pubDate>Thu, 24 Nov 2022 20:58:16 +0800</pubDate>
+      <guid>https://ai4network.github.io/post/paper-sharing-3/</guid>
+      <description>&lt;h2 id=&#34;1-动机和背景&#34;&gt;1. 动机和背景&lt;/h2&gt;
+&lt;p&gt;  随着全球新冠疫情的肆虐，实时视频传输在我们日常生活中已必不可少。与此同时，在线视频购物、在线视频会议在这两年的受众不断增多，具有较低端到端延迟的直播方案因此备受重视。本文基于此需求，力求减少直播中的端到端延迟，即减少从直播者采集到一个视频帧到该视频帧在观众客户端上被渲染所经历的时间。&lt;/p&gt;
+&lt;p&gt;  对于在线购物而言，作者认为理想的端到端延迟应该小于1秒。如图一所示，端到端延迟又包括了四部分：第一公里延迟、CDN延迟、最后一公里延迟、缓存延迟。其对应的说明如下：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;第一公里延迟：直播者采集一个视频帧并将其编解码的延迟、推到CDN网络的接入点（称为CDN生产者）的传输延迟，这一部分通常为150ms。&lt;/li&gt;
+&lt;li&gt;最后一公里延迟：观看者从CDN网络的接入点（称为CDN消费者）拉取一个视频帧的传输延迟，加上解码渲染到屏幕的延迟。这一部分通常为150ms。&lt;/li&gt;
+&lt;li&gt;缓存延迟：为了避免网络环境抖动造成观众观看视频时的卡顿，通常在观众的客户端内缓存一定的视频帧，该视频帧的播放时长为300ms。&lt;/li&gt;
+&lt;li&gt;CDN延迟：该延迟是指CDN网络从CDN生产者接收到视频帧之后，经过转解码和CDN网络内部的传输处理之后转发到CDN消费者所经历的延迟。在端到端延迟为1s的约束下，减去上面三部分的总和，该部分延迟一般要求小于300ms。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;图一&#34; srcset=&#34;
+               /post/paper-sharing-3/picture/picture1_hu82b7c76ab698a4a7a6c76509bdb75a16_1676266_32fd1cb7ec1dd542aa94a6278fc2203a.webp 400w,
+               /post/paper-sharing-3/picture/picture1_hu82b7c76ab698a4a7a6c76509bdb75a16_1676266_6f3736fdce681e67763efdf220bde1ab.webp 760w,
+               /post/paper-sharing-3/picture/picture1_hu82b7c76ab698a4a7a6c76509bdb75a16_1676266_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://ai4network.github.io/post/paper-sharing-3/picture/picture1_hu82b7c76ab698a4a7a6c76509bdb75a16_1676266_32fd1cb7ec1dd542aa94a6278fc2203a.webp&#34;
+               width=&#34;760&#34;
+               height=&#34;289&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;  作者在阿里巴巴工作时，观察到目前阿里的CDN网络架构无法满足300ms的CDN延迟要求。如图二所示，蓝色线条为阿里巴巴的CDN架构的平均传输延迟。一周的观测结果表明：该部分延迟通常400ms左右，超过了直播对CDN延迟的300ms的最低要求。因此，本文的目标是改进阿里的CDN的架构，以降低直播时的端到端延迟。&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;图片二&#34; srcset=&#34;
+               /post/paper-sharing-3/picture/picture2_hu3874566e18b94005168e7b165d0af27f_116373_d57d031ab1f01560357c62f987272326.webp 400w,
+               /post/paper-sharing-3/picture/picture2_hu3874566e18b94005168e7b165d0af27f_116373_996186095c369ffa22ed0a84da30ffc0.webp 760w,
+               /post/paper-sharing-3/picture/picture2_hu3874566e18b94005168e7b165d0af27f_116373_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://ai4network.github.io/post/paper-sharing-3/picture/picture2_hu3874566e18b94005168e7b165d0af27f_116373_d57d031ab1f01560357c62f987272326.webp&#34;
+               width=&#34;760&#34;
+               height=&#34;288&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;h2 id=&#34;2-问题引入&#34;&gt;2 问题引入&lt;/h2&gt;
+&lt;p&gt;  作者为了降低直播时的端到端延迟，尝试在两方面优化以期达到理想效果。这两方面分别是：CDN架构和CDN节点的报文转发和处理逻辑。&lt;/p&gt;
+&lt;h3 id=&#34;21-传统cdn架构的问题&#34;&gt;2.1 传统CDN架构的问题&lt;/h3&gt;
+&lt;p&gt;  作者认为，阿里的基于分层的CDN架构（称为HIER）并不适合于传输对实时性有严格要求的视频流。如图三所示，HIER包含了一个统一的视频流处理中心，该部分负责处理所有视频流（比如视频编解码）以及管理其他CDN节点。CDN节点，在逻辑上分为了两层，它们负责转发视频流内容，但不处理视频流内容。因此，当一个节点收到直播者推送的视频流数据之后，需要先从L1层转发到L2层，直到根部的视频流处理中心。最后再以反方向的逻辑转发给视频流的观看者。这样一来一回将会经过五个节点。&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;图三&#34; srcset=&#34;
+               /post/paper-sharing-3/picture/picture3_hu742bb15802927a8f1f86d42f34257d55_60164_5f96d6c21faba54aab217966238db337.webp 400w,
+               /post/paper-sharing-3/picture/picture3_hu742bb15802927a8f1f86d42f34257d55_60164_946e490a57da6680daf278bcac77e85e.webp 760w,
+               /post/paper-sharing-3/picture/picture3_hu742bb15802927a8f1f86d42f34257d55_60164_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://ai4network.github.io/post/paper-sharing-3/picture/picture3_hu742bb15802927a8f1f86d42f34257d55_60164_5f96d6c21faba54aab217966238db337.webp&#34;
+               width=&#34;760&#34;
+               height=&#34;496&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;因此HIER存在的问题如下：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;经过的CDN节点太多，报文每转发一次都要消耗一定的时间，在时间上造成了大的开销。&lt;/li&gt;
+&lt;li&gt;上层节点是逐渐减少的，当底层的多个结点同时需要传输视频流，并且它们逻辑上和同一个高层节点相连接时，这会造成高层节点的过载，最终导致服务质量下降。&lt;/li&gt;
+&lt;li&gt;这样树形的CDN网络很难被扩展，灵活性比较低。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;  因此, 作者希望改进这种树形的CDN架构，将其扁平化。例如能否通过某种方式，将一个CDN生产者接收到的数据直接经过一个或者两个中转节点转发到CDN消费者节点，中间经过的路径尽可能的被减短。&lt;/p&gt;
+&lt;h3 id=&#34;22-报文转发处理逻辑的问题&#34;&gt;2.2 报文转发处理逻辑的问题&lt;/h3&gt;
+&lt;p&gt;  数据中心网络的节点与节点之间使用专网，这样的网络具有带宽高、丢包率低的特点。因此使用传统的TCP传输协议，报文不可避免的需要经过内核态的拥塞控制、流量控制等复杂逻辑，这也会带来一定的开销，对于实时性的数据传输并不友好。如图四所示，作者在阿里巴巴工作时，观察到网络丢包率最高也只有百分之0.175。基于此事实，作者认为CDN节点应该避免将报文经TCP协议栈传输，而应该直接转发，同时也应该设计一种补偿机制，在报文丢失的情况下再对其进行重传。&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;图四&#34; srcset=&#34;
+               /post/paper-sharing-3/picture/picture4_hu19c28afd5f04fdac9079f076967b922a_78647_32f91a2a777ad2663decf45752aa888e.webp 400w,
+               /post/paper-sharing-3/picture/picture4_hu19c28afd5f04fdac9079f076967b922a_78647_d109d86ff9bcaf453d752fd03e45d4c9.webp 760w,
+               /post/paper-sharing-3/picture/picture4_hu19c28afd5f04fdac9079f076967b922a_78647_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://ai4network.github.io/post/paper-sharing-3/picture/picture4_hu19c28afd5f04fdac9079f076967b922a_78647_32f91a2a777ad2663decf45752aa888e.webp&#34;
+               width=&#34;760&#34;
+               height=&#34;285&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;h2 id=&#34;3-关键技术&#34;&gt;3 关键技术&lt;/h2&gt;
+&lt;p&gt;  针对上面两个问题，下文就作者的解决方案进行介绍。&lt;/p&gt;
+&lt;h3 id=&#34;31-扁平化的cdn架构&#34;&gt;3.1 扁平化的CDN架构&lt;/h3&gt;
+&lt;p&gt;  如图五所示，作者将所有的CDN节点分为了四种，分别为：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;CDN生产者节点：在直播者发起直播请求之后，通过DNS重定向到CDN生产者节点。用以从直播者接受视频帧，必要时对视频帧进行转码。&lt;/li&gt;
+&lt;li&gt;CDN消费者节点：接收观众的观看请求，
+&lt;ul&gt;
+&lt;li&gt;如果该请求是一个该CDN节点不知道的视频流ID，该CDN节点首先向中心节点（即图中的Streaming Brain）查询通往CDN生产者的路径，然后建立路径之后传输视频流。&lt;/li&gt;
+&lt;li&gt;如果该请求是一个该CDN节点已知的视频流ID，则直接转发属于该视频流的视频帧到观众。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;中继节点：中继节点负责接收来着CDN生产者的视频帧，并缓存到本地。另外有了中继节点可以建立自CDN生产者到CDN消费者节点的多条路径。&lt;/li&gt;
+&lt;li&gt;控制平面节点：即图中的Streaming Brain，是一个整体的控制平面逻辑，又包括三个组件：
+&lt;ul&gt;
+&lt;li&gt;全局发现组件：收集所有CDN节点的状态信息，包括与之关联链路的负载、CDN节点本身的负载。&lt;/li&gt;
+&lt;li&gt;路径决定组件：负责接收来自客户端的路径查询请求，并返回路径。另外，当CDN生产者节点收到一个直播流，要向该组件注册，注册的数据为：&amp;lt;生产者节点ID，视频流ID&amp;gt;。&lt;/li&gt;
+&lt;li&gt;全局路由组件：根据收到的CDN节点的状态信息，计算每对节点之间的路径。更新路径到路径决定组件的路径表中。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;图五&#34; srcset=&#34;
+               /post/paper-sharing-3/picture/picture5_hudf826948fe24474c641b98d6298718d3_109929_88dcf93b52f1d086dd5efcf37d62e8bc.webp 400w,
+               /post/paper-sharing-3/picture/picture5_hudf826948fe24474c641b98d6298718d3_109929_7c15c43ef181a95989bb739b79541dc6.webp 760w,
+               /post/paper-sharing-3/picture/picture5_hudf826948fe24474c641b98d6298718d3_109929_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://ai4network.github.io/post/paper-sharing-3/picture/picture5_hudf826948fe24474c641b98d6298718d3_109929_88dcf93b52f1d086dd5efcf37d62e8bc.webp&#34;
+               width=&#34;760&#34;
+               height=&#34;604&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;h3 id=&#34;32-扁平化的cdn节点工作流&#34;&gt;3.2 扁平化的CDN节点工作流&lt;/h3&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;图六&#34; srcset=&#34;
+               /post/paper-sharing-3/picture/picture6_hu000834b6f5bb664ffa2ccf3724f1093a_64662_1a5afede2e4ac6570e0e7b2c7c4f4832.webp 400w,
+               /post/paper-sharing-3/picture/picture6_hu000834b6f5bb664ffa2ccf3724f1093a_64662_f2ed42bbc0c6ba0fc5e9c4aff7eb1751.webp 760w,
+               /post/paper-sharing-3/picture/picture6_hu000834b6f5bb664ffa2ccf3724f1093a_64662_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://ai4network.github.io/post/paper-sharing-3/picture/picture6_hu000834b6f5bb664ffa2ccf3724f1093a_64662_1a5afede2e4ac6570e0e7b2c7c4f4832.webp&#34;
+               width=&#34;760&#34;
+               height=&#34;193&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;  以下就上图介绍该扁平化的CDN节点的工作流和其实现方法：&lt;/p&gt;
+&lt;h4 id=&#34;321-路由表建立流程&#34;&gt;3.2.1 路由表建立流程&lt;/h4&gt;
+&lt;ol&gt;
+&lt;li&gt;每一个CDN节点定期更新该节点的负载信息到全局发现组件（一分钟一次）。另外，当任何一个节点负载达到一个阈值时，会立刻通知到全局发现组件。&lt;/li&gt;
+&lt;li&gt;全局路由组件收到来自全局发现组件的负载信息之后，形成一个类似网状的图，相连接的节点之间都有权重值，权重值的计算主要综合考虑一个CDN节点的负载情况、一个链路的丢包率、传输往返延迟、链路的负载情况，具体计算过程可参考论文，篇幅所限此处不再展开。然后通过KSP（最短路径算法）算法计算每一对节点之间的最短路径，随后将其更新到路径决定组件的路径表中，即PIB。另外该KSP算法会保证该路径中间的跳数少于两个节点，以避免报文转发时经过太长的路径导致CDN延迟增高。&lt;/li&gt;
+&lt;li&gt;路径表一旦收到一个过载信号，与该过载链路或过载节点相关的路径将会被作废。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h4 id=&#34;322-直播流工作流程&#34;&gt;3.2.2 直播流工作流程&lt;/h4&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;当生产者CDN节点收到一个直播流的请求，首先会向路径决定组件注册该流，如路径决定组件中的 SIB表所示，注册的信息为&amp;lt;视频流ID，CDN生产者节点ID&amp;gt;二元组。然后接收来自客户端的视频帧，并根据本地的转发表转发该视频流。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;客户端向CDN生产者节点发起一个视频流的请求并附上相应的视频流ID。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;CDN消费者节点接收到该视频流请求之后，如果该请求是一个该CDN节点未知的视频流ID，该CDN节点首先向中心节点（即图六的路径决策组件）查询通往CDN生产者的路径，在建立路径之后才能够传输该视频流。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;假设该CDN消费者节点第一次收到对该视频流ID的请求，向路径决定模块发起查询，提交视频流ID号和其节点号DstNdID。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;路径决策组件收到该视频流ID号和DstNdID后，用视频流ID号在SIB表中查询对应的SrcNDID。接着，使用SrcNDID和DstNDID从PIB表中查询相应的三个候选路径&amp;lt;path1，path2，path3&amp;gt;，最后交付给CDN消费者节点。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;CDN消费者节点收到三个候选路径&amp;lt;path1，path2，path3&amp;gt;后, 根据自己的偏好策略从中选择一条路径。假如选择的路径为path1，其包含的节点为&amp;lt;生产者节点，中转节点1，中转节点2，消费者节点&amp;gt;。消费者节点向中转节点2发送视频流ID和path1路径&amp;lt;生产者节点，中转节点1，中转节点2，消费者节点&amp;gt;。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;中转节点2将在本地注册转发表，表项为&amp;lt;StreamID, 消费者节点&amp;gt;，译为将与StreamID相关的视频流帧转发到下一跳节点，即消费者节点。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;中转节点2重复CDN消费者节点的动作，向它的前一个节点（即中转节点1）转发StreamID和path1。直到达到根部的生产者节点。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;path1上的所有节点的转发表项建立完成之后，每一个节点收到与StreamID相关的视频帧之后，将会根据转发表项，转发到下一个节点。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id=&#34;33--优化报文转发和处理逻辑&#34;&gt;3.3  优化报文转发和处理逻辑&lt;/h2&gt;
+&lt;p&gt;  传统的数据中心网络使用TCP传输数据，内核态的处理逻辑太复杂，导致报文转发的迟滞。因此作者改用RTP协议结合RTCP来做，并提出了快慢路的概念。其中RTP协议用来转发数据，一旦一个节点收到一个报文，立刻将其转发到下一个节点，个人理解这是借助了RTP协议的优势：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;基于UDP可以直接转发，不需要经过TCP相应的复杂逻辑。&lt;/li&gt;
+&lt;li&gt;尽管RTP协议并不是可靠的，但提供了有序的保障，会为每一个报文标序号，并在接收方重组（因为不可靠可能出现空缺）。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;  RTCP协议又提供了相应的控制逻辑，接收方会将最近的丢包情况以50ms的粒度反馈给发送方，发送方据此调整其发送速率，同时将丢失的报文重发到接收方。&lt;/p&gt;
+&lt;p&gt;  整体的逻辑如图七所示，此处就该图对快慢路的主要逻辑做介绍：&lt;/p&gt;
+&lt;p&gt;绿色部分：慢路&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;接收控制逻辑：CDN节点的快路收到一个报文之后，在将其通过快路再次立即转发出去的。同时，本地留一备份到慢路上，以在丢失的时候重传。&lt;/li&gt;
+&lt;li&gt;发送控制逻辑：该逻辑会接收下游节点在快路上的丢包信息，并调整速率并反馈到快路上，同时将丢失的报文（这就是上面备份的意义）通过快路快速转发出去，重传的报文优先放在快路的转发队列前。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;黄色部分：快路&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;每收到一个报文，将其放入本地的发送队列中。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;报文发送器（pacer）负责将报文按照速率的要求，以相应的频率从队列中取报文并发出。&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;图七&#34; srcset=&#34;
+               /post/paper-sharing-3/picture/picture7_hu5dced0489d752043557e396df11fffc6_174151_bb7a167a432079e5b83d5bbf2c6b92a7.webp 400w,
+               /post/paper-sharing-3/picture/picture7_hu5dced0489d752043557e396df11fffc6_174151_522e16f3d5273b2171e69ea8b28ad7ea.webp 760w,
+               /post/paper-sharing-3/picture/picture7_hu5dced0489d752043557e396df11fffc6_174151_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://ai4network.github.io/post/paper-sharing-3/picture/picture7_hu5dced0489d752043557e396df11fffc6_174151_bb7a167a432079e5b83d5bbf2c6b92a7.webp&#34;
+               width=&#34;760&#34;
+               height=&#34;590&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;  需要注意快慢路本质上是一种逻辑上的概念，作者将其抽象，控制逻辑为慢路，其负责可靠性。转发逻辑为快路，其负责快速的转发报文，并绕开TCP协议栈。&lt;/p&gt;
+&lt;h2 id=&#34;4-实验结果&#34;&gt;4 实验结果&lt;/h2&gt;
+&lt;p&gt;  作者在实验结果部分将所提出的工作（即LiveNet）和先前的HIER做了对比，主要关注了以下指标：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;CDN内部延迟：一个视频帧到CDN生产者，传输到CDN消费者所经历的延迟。&lt;/li&gt;
+&lt;li&gt;端到端延迟：直播者到观看者之间整体的视频流延迟。&lt;/li&gt;
+&lt;li&gt;卡顿率：用户在观看视频时，使用LiveNet和HIER在观看期间经历卡顿的概率。&lt;/li&gt;
+&lt;li&gt;快速启动率：从观看者点击一个直播视频开始计时，到接收到第一个视频帧的时间是否低于一秒，低于一秒，为快速启动。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;  接下来对作者的实验结果做一些介绍：&lt;/p&gt;
+&lt;p&gt;  首先看图二，为期一周的测量结果表明，LiveNet（蓝色部分）相比HIER（红色部分）大幅度降低了CDN内部延迟，从平均的400ms延迟降低到了200ms左右。另外根据图八的CDF图所示，百分之五十以上的视频流在经过LiveNet传输时，端到端延迟都能满足在一秒以下，而HIER只有不到百分之二十五的视频流满足此要求。&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;图八&#34; srcset=&#34;
+               /post/paper-sharing-3/picture/picture8_hu613cae86c53f2d33f9b0e09176a063bc_74903_29928fd1c7691168d03d60e90a9250c9.webp 400w,
+               /post/paper-sharing-3/picture/picture8_hu613cae86c53f2d33f9b0e09176a063bc_74903_c0753abd7c81d5d6741298605a51c216.webp 760w,
+               /post/paper-sharing-3/picture/picture8_hu613cae86c53f2d33f9b0e09176a063bc_74903_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://ai4network.github.io/post/paper-sharing-3/picture/picture8_hu613cae86c53f2d33f9b0e09176a063bc_74903_29928fd1c7691168d03d60e90a9250c9.webp&#34;
+               width=&#34;760&#34;
+               height=&#34;370&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;  接着看图九，作者分别对卡顿率和快速启动率做了测量。在卡顿率指标上，用户观看视频时经历的卡顿次数（1、2、3、4、&amp;gt;=5）的概率相比HIER都有了显著的降低。另外在快速启动率指标上，LiveNet能够保证百分之九十五左右的快速启动率。作为对比，HIER只有百分之九十二左右。&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;图九&#34; srcset=&#34;
+               /post/paper-sharing-3/picture/picture9_hudb1561d4cf21c39b585ae8e963820716_111760_882bfcf8e1cb67503d2f9b35276491da.webp 400w,
+               /post/paper-sharing-3/picture/picture9_hudb1561d4cf21c39b585ae8e963820716_111760_a498721500a634518087c5cd08126041.webp 760w,
+               /post/paper-sharing-3/picture/picture9_hudb1561d4cf21c39b585ae8e963820716_111760_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://ai4network.github.io/post/paper-sharing-3/picture/picture9_hudb1561d4cf21c39b585ae8e963820716_111760_882bfcf8e1cb67503d2f9b35276491da.webp&#34;
+               width=&#34;760&#34;
+               height=&#34;177&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;h2 id=&#34;5-个人总结&#34;&gt;5 个人总结&lt;/h2&gt;
+&lt;p&gt;  本文作者针对阿里传统的层次型CDN架构所存在的问题，将节点和节点之间的路径转化成扁平的形式，带来的最明显的好处就是能够有效的减小CDN内部报文转发延迟。另外快慢路本质上是一种逻辑上的抽象，快路本质上是转发逻辑,负责报文的快速转发，绕开了TCP的复杂处理逻辑;而慢路本质上是控制逻辑，负责调整发送速率和重传报文。因此作者采用了RTCP和RTP协议来替代以往的RTMP协议，这本质上是一种工程上的考量，目的是为了解决现在的直播系统存在的问题——为了端到端延迟而服务。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>2022年秋季学期第14周论文分享</title>
+      <link>https://ai4network.github.io/event/6/</link>
+      <pubDate>Thu, 24 Nov 2022 09:36:13 +0800</pubDate>
+      <guid>https://ai4network.github.io/event/6/</guid>
+      <description>&lt;p&gt;文献来源：SIGCOMM22&lt;/p&gt;
+&lt;p&gt;文献题目：Achieving consistent low latency for wireless real-time communications with the shortest control loop&lt;/p&gt;
+&lt;p&gt;摘要：Real-time communication (RTC) applications like video conferencing or cloud gaming require consistent low latency to provide a seamless interactive experience. However, wireless networks including WiFi and cellular, albeit providing a satisfactory median latency, drastically degrade at the tail due to frequent and substantial wireless bandwidth fluctuations. We observe that the control loop for the sending rate of RTC applications is inflated when congestion happens at the wireless access point (AP), resulting in untimely rate adaption to wireless dynamics. Existing solutions, however, suffer from the inflated control loop and fail to quickly adapt to bandwidth fluctuations. In this paper, we propose Zhuge, a pure wireless AP based solution that reduces the control loop of RTC applications by separating congestion feedback from congested queues. We design a Fortune Teller to precisely estimate per-packet wireless latency upon its arrival at the wireless AP. To make Zhuge deployable at scale, we also design a Feedback Updater that translates the estimated latency to comprehensible feedback messages for various protocols and immediately delivers them back to senders for rate adaption. Trace-driven and real-world evaluation shows that Zhuge reduces the ratio of large tail latency and RTC performance degradation by 17% to 95%.&lt;/p&gt;
+&lt;p&gt;时间：2022/11/24 19:00-22:00
+地点：腾讯会议
+会议号：116-536-575
+会议密码：123456&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
       <title>SIGCOMM22 论文分享 | Elasticity Detection: A Building Block for Internet Congestion Control</title>
       <link>https://ai4network.github.io/post/paper-sharing-2/</link>
       <pubDate>Mon, 21 Nov 2022 19:47:34 +0800</pubDate>
       <guid>https://ai4network.github.io/post/paper-sharing-2/</guid>
-      <description>&lt;p&gt;摘要
-This paper introduces a new metric, “elasticity,” which characterizes the nature of cross-traffic competing with a flow. Elasticity captures whether the cross traffic reacts to changes in available bandwidth. We show that it is possible to robustly detect the elasticity of cross traffic at a sender without router support, and that elasticity detection can reduce delays in the Internet by enabling delay-controlling congestion control protocols to be deployed without hurting flow throughput. Our results show that the proposed method achieves more than 85% accuracy under a variety of network conditions, and that congestion control using elasticity detection achieves throughput comparable to Cubic but with delays that are 50-70 ms lower when cross traffic is inelastic.&lt;/p&gt;
-&lt;h1 id=&#34;研究动机&#34;&gt;研究动机&lt;/h1&gt;
-&lt;p&gt;该文首先揭示了“延迟控制”的拥塞控制机制（例如Copa、Vegas等）与其他流量竞争时的性能问题：（1）当它和其他更具有带宽竞争力的“缓冲填充”的拥塞控制机制（例如Cubic、Reno等）竞争时，瓶颈链路的延迟增加后，“延迟控制”拥塞控制机制很快降低了发送速率，从而导致吞吐量低；（2）当它和固定比特率的流量（CBR）竞争时，不仅减少了延迟并且没有损失吞吐量；而对于“缓冲填充”的拥塞控制机制来说，和同类的机制以及CBR流竞争带宽时属公平竞争，但延迟都比较高。&lt;/p&gt;
+      <description>&lt;p&gt;Abstract—This paper introduces a new metric, “elasticity,” which characterizes the nature of cross-traffic competing with a flow. Elasticity captures whether the cross traffic reacts to changes in available bandwidth. We show that it is possible to robustly detect the elasticity of cross traffic at a sender without router support, and that elasticity detection can reduce delays in the Internet by enabling delay-controlling congestion control protocols to be deployed without hurting flow throughput. Our results show that the proposed method achieves more than 85% accuracy under a variety of network conditions, and that congestion control using elasticity detection achieves throughput comparable to Cubic but with delays that are 50-70 ms lower when cross traffic is inelastic.&lt;/p&gt;
+&lt;h2 id=&#34;研究动机&#34;&gt;研究动机&lt;/h2&gt;
+&lt;p&gt;  该文首先揭示了“延迟控制”的拥塞控制机制（例如Copa、Vegas等）与其他流量竞争时的性能问题：（1）当它和其他更具有带宽竞争力的“缓冲填充”的拥塞控制机制（例如Cubic、Reno等）竞争时，瓶颈链路的延迟增加后，“延迟控制”拥塞控制机制很快降低了发送速率，从而导致吞吐量低；（2）当它和固定比特率的流量（CBR）竞争时，不仅减少了延迟并且没有损失吞吐量；而对于“缓冲填充”的拥塞控制机制来说，和同类的机制以及CBR流竞争带宽时属公平竞争，但延迟都比较高。&lt;/p&gt;
 &lt;p&gt;
 
 
@@ -40,10 +431,10 @@ This paper introduces a new metric, “elasticity,” which characterizes the na
 &lt;figure  &gt;
   &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
     &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;picture1&#34; srcset=&#34;
-               /post/paper-sharing-2/picture1_hudeaf8b130eca033ef1a865d23e979785_150612_9ed51923ee17233b53fb59305a19b38f.webp 400w,
-               /post/paper-sharing-2/picture1_hudeaf8b130eca033ef1a865d23e979785_150612_e6f7724d450375e91c809ee062663913.webp 760w,
-               /post/paper-sharing-2/picture1_hudeaf8b130eca033ef1a865d23e979785_150612_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
-               src=&#34;https://ai4network.github.io/post/paper-sharing-2/picture1_hudeaf8b130eca033ef1a865d23e979785_150612_9ed51923ee17233b53fb59305a19b38f.webp&#34;
+               /post/paper-sharing-2/picture/picture1_hudeaf8b130eca033ef1a865d23e979785_150612_9ed51923ee17233b53fb59305a19b38f.webp 400w,
+               /post/paper-sharing-2/picture/picture1_hudeaf8b130eca033ef1a865d23e979785_150612_e6f7724d450375e91c809ee062663913.webp 760w,
+               /post/paper-sharing-2/picture/picture1_hudeaf8b130eca033ef1a865d23e979785_150612_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://ai4network.github.io/post/paper-sharing-2/picture/picture1_hudeaf8b130eca033ef1a865d23e979785_150612_9ed51923ee17233b53fb59305a19b38f.webp&#34;
                width=&#34;760&#34;
                height=&#34;264&#34;
                loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
@@ -68,10 +459,10 @@ This paper introduces a new metric, “elasticity,” which characterizes the na
 &lt;figure  &gt;
   &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
     &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;picture2&#34; srcset=&#34;
-               /post/paper-sharing-2/picture2_huf529575b65c633bf77999e308600dc51_148902_ec10f1d4b1e101bb77332fd804418a2c.webp 400w,
-               /post/paper-sharing-2/picture2_huf529575b65c633bf77999e308600dc51_148902_b826b50084661afa45f74c3f6e8ad711.webp 760w,
-               /post/paper-sharing-2/picture2_huf529575b65c633bf77999e308600dc51_148902_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
-               src=&#34;https://ai4network.github.io/post/paper-sharing-2/picture2_huf529575b65c633bf77999e308600dc51_148902_ec10f1d4b1e101bb77332fd804418a2c.webp&#34;
+               /post/paper-sharing-2/picture/picture2_huf529575b65c633bf77999e308600dc51_148902_ec10f1d4b1e101bb77332fd804418a2c.webp 400w,
+               /post/paper-sharing-2/picture/picture2_huf529575b65c633bf77999e308600dc51_148902_b826b50084661afa45f74c3f6e8ad711.webp 760w,
+               /post/paper-sharing-2/picture/picture2_huf529575b65c633bf77999e308600dc51_148902_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://ai4network.github.io/post/paper-sharing-2/picture/picture2_huf529575b65c633bf77999e308600dc51_148902_ec10f1d4b1e101bb77332fd804418a2c.webp&#34;
                width=&#34;760&#34;
                height=&#34;266&#34;
                loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
@@ -96,19 +487,19 @@ This paper introduces a new metric, “elasticity,” which characterizes the na
 &lt;figure  &gt;
   &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
     &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;picture3&#34; srcset=&#34;
-               /post/paper-sharing-2/picture3_huf3fb8326073b585765fcf7f1d861b218_146071_fce7e24b7bef0a7633ee9f9835b49980.webp 400w,
-               /post/paper-sharing-2/picture3_huf3fb8326073b585765fcf7f1d861b218_146071_fa5d214117ee47d155220569732fe20a.webp 760w,
-               /post/paper-sharing-2/picture3_huf3fb8326073b585765fcf7f1d861b218_146071_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
-               src=&#34;https://ai4network.github.io/post/paper-sharing-2/picture3_huf3fb8326073b585765fcf7f1d861b218_146071_fce7e24b7bef0a7633ee9f9835b49980.webp&#34;
+               /post/paper-sharing-2/picture/picture3_huf3fb8326073b585765fcf7f1d861b218_146071_fce7e24b7bef0a7633ee9f9835b49980.webp 400w,
+               /post/paper-sharing-2/picture/picture3_huf3fb8326073b585765fcf7f1d861b218_146071_fa5d214117ee47d155220569732fe20a.webp 760w,
+               /post/paper-sharing-2/picture/picture3_huf3fb8326073b585765fcf7f1d861b218_146071_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://ai4network.github.io/post/paper-sharing-2/picture/picture3_huf3fb8326073b585765fcf7f1d861b218_146071_fce7e24b7bef0a7633ee9f9835b49980.webp&#34;
                width=&#34;760&#34;
                height=&#34;272&#34;
                loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
   &lt;/div&gt;&lt;/figure&gt;
 &lt;/p&gt;
-&lt;p&gt;结合上述发现，该文得到了一个关键发现也就是它的研究目标：当发送方拥塞控制机制认为交叉流量是非弹性时，发送方可以使用“延迟控制”协议来减少发送方和交叉流量的延迟，而不用担心降低吞吐量。反之，如果是弹性的，它可以切换到TCP竞争的“缓冲填充”拥塞控制机制。这样能够更好地利用“延迟控制”机制，在具有带宽竞争力的同时，“安全”地降低延迟。&lt;/p&gt;
-&lt;h1 id=&#34;关键技术&#34;&gt;关键技术&lt;/h1&gt;
-&lt;p&gt;为了实现研究目标，该文首先总结并抽象了不同交叉流量进行带宽竞争时的一种属性：弹性。弹性表征了交叉流量在和其他流量竞争时，能够受其他流量带来的瓶颈可用带宽的影响，改变发送速率。比如一些应用限制的流量或者可用带宽超过比特率的视频流是不会对可用带宽变化而作出反应，因此为非弹性流。&lt;/p&gt;
-&lt;p&gt;接下来，按照目标需要让发送方知道交叉流量的弹性属性，也就是需要进行弹性检测。这里提出的弹性检测是主动的，是鲁棒的。第一步，他们建立了如下图的交叉流量测速的模型，通过非空非满的瓶颈中，进出流量中发送方和交叉流所占比例守恒这一结论，能够在发送方进入瓶颈的速率S、接收速率R、以及瓶颈估计速率μ已知的情况下，得到交叉流量的速率Z。&lt;/p&gt;
+&lt;p&gt;  结合上述发现，该文得到了一个关键发现也就是它的研究目标：当发送方拥塞控制机制认为交叉流量是非弹性时，发送方可以使用“延迟控制”协议来减少发送方和交叉流量的延迟，而不用担心降低吞吐量。反之，如果是弹性的，它可以切换到TCP竞争的“缓冲填充”拥塞控制机制。这样能够更好地利用“延迟控制”机制，在具有带宽竞争力的同时，“安全”地降低延迟。&lt;/p&gt;
+&lt;h2 id=&#34;关键技术&#34;&gt;关键技术&lt;/h2&gt;
+&lt;p&gt;  为了实现研究目标，该文首先总结并抽象了不同交叉流量进行带宽竞争时的一种属性：弹性。弹性表征了交叉流量在和其他流量竞争时，能够受其他流量带来的瓶颈可用带宽的影响，改变发送速率。比如一些应用限制的流量或者可用带宽超过比特率的视频流是不会对可用带宽变化而作出反应，因此为非弹性流。&lt;/p&gt;
+&lt;p&gt;  接下来，按照目标需要让发送方知道交叉流量的弹性属性，也就是需要进行弹性检测。这里提出的弹性检测是主动的，是鲁棒的。第一步，他们建立了如下图的交叉流量测速的模型，通过非空非满的瓶颈中，进出流量中发送方和交叉流所占比例守恒这一结论，能够在发送方进入瓶颈的速率S、接收速率R、以及瓶颈估计速率μ已知的情况下，得到交叉流量的速率Z。&lt;/p&gt;
 &lt;p&gt;
 
 
@@ -128,16 +519,16 @@ This paper introduces a new metric, “elasticity,” which characterizes the na
 &lt;figure  &gt;
   &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
     &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;picture4&#34; srcset=&#34;
-               /post/paper-sharing-2/picture4_huadcf8d13206d05b5a690fc3d17b13c09_143827_1ca91ce9d36c4e5e387606af4d96b0c5.webp 400w,
-               /post/paper-sharing-2/picture4_huadcf8d13206d05b5a690fc3d17b13c09_143827_d354d993c572dbb9fce7748863e96b24.webp 760w,
-               /post/paper-sharing-2/picture4_huadcf8d13206d05b5a690fc3d17b13c09_143827_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
-               src=&#34;https://ai4network.github.io/post/paper-sharing-2/picture4_huadcf8d13206d05b5a690fc3d17b13c09_143827_1ca91ce9d36c4e5e387606af4d96b0c5.webp&#34;
+               /post/paper-sharing-2/picture/picture4_huadcf8d13206d05b5a690fc3d17b13c09_143827_1ca91ce9d36c4e5e387606af4d96b0c5.webp 400w,
+               /post/paper-sharing-2/picture/picture4_huadcf8d13206d05b5a690fc3d17b13c09_143827_d354d993c572dbb9fce7748863e96b24.webp 760w,
+               /post/paper-sharing-2/picture/picture4_huadcf8d13206d05b5a690fc3d17b13c09_143827_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://ai4network.github.io/post/paper-sharing-2/picture/picture4_huadcf8d13206d05b5a690fc3d17b13c09_143827_1ca91ce9d36c4e5e387606af4d96b0c5.webp&#34;
                width=&#34;760&#34;
                height=&#34;261&#34;
                loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
   &lt;/div&gt;&lt;/figure&gt;
 &lt;/p&gt;
-&lt;p&gt;接着，他们并没有直接通过交叉流量速率来衡量弹性，而是通过主动增加发送方速率脉冲，然后根据交叉流会以相同频率响应脉冲的原理，在频域上分析交叉流的FFT，如果FFT在发送脉冲相应频率上具有更高的幅值，就证明更具有弹性。
+&lt;p&gt;  接着，他们并没有直接通过交叉流量速率来衡量弹性，而是通过主动增加发送方速率脉冲，然后根据交叉流会以相同频率响应脉冲的原理，在频域上分析交叉流的FFT，如果FFT在发送脉冲相应频率上具有更高的幅值，就证明更具有弹性。
 最后，在发送方根据弹性阈值来切换NimbusCC的模式和应用机制，当交叉流是非弹性时，则应用“延迟控制”机制进行延迟控制模式，以此减少延迟并不损失吞吐量；而当交叉流是弹性时，切换TCP竞争模式，应用类似Cubic之类的机制公平竞争带宽，不考虑延迟问题。总结NimbusCC的整个流程如下图。
 【模式切换】
 
@@ -159,17 +550,17 @@ This paper introduces a new metric, “elasticity,” which characterizes the na
 &lt;figure  &gt;
   &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
     &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;picture5&#34; srcset=&#34;
-               /post/paper-sharing-2/picture5_hu1d14368f60f102f3bf343193d275987f_43326_c21ef3a3ec04cf823fc6a3dbced70aed.webp 400w,
-               /post/paper-sharing-2/picture5_hu1d14368f60f102f3bf343193d275987f_43326_8f197073de3eb465e064674ab19f1120.webp 760w,
-               /post/paper-sharing-2/picture5_hu1d14368f60f102f3bf343193d275987f_43326_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
-               src=&#34;https://ai4network.github.io/post/paper-sharing-2/picture5_hu1d14368f60f102f3bf343193d275987f_43326_c21ef3a3ec04cf823fc6a3dbced70aed.webp&#34;
+               /post/paper-sharing-2/picture/picture5_hu1d14368f60f102f3bf343193d275987f_43326_c21ef3a3ec04cf823fc6a3dbced70aed.webp 400w,
+               /post/paper-sharing-2/picture/picture5_hu1d14368f60f102f3bf343193d275987f_43326_8f197073de3eb465e064674ab19f1120.webp 760w,
+               /post/paper-sharing-2/picture/picture5_hu1d14368f60f102f3bf343193d275987f_43326_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://ai4network.github.io/post/paper-sharing-2/picture/picture5_hu1d14368f60f102f3bf343193d275987f_43326_c21ef3a3ec04cf823fc6a3dbced70aed.webp&#34;
                width=&#34;549&#34;
                height=&#34;374&#34;
                loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
   &lt;/div&gt;&lt;/figure&gt;
 &lt;/p&gt;
-&lt;h1 id=&#34;实验验证&#34;&gt;实验验证&lt;/h1&gt;
-&lt;p&gt;该文做了十分充分的实验验证，包括模拟和真实网络情况下，对于理想情况下的基于弹性检测和模式切换的拥塞控制的性能评估，也有一些不满足假设的情况下性能问题的评估等等。而下图就是对比不同的机制，评估NimbusCC在弹性/非弹性交叉流的背景下的吞吐量和延迟，发现NimbusCC在灰色区域的，竞争模式下比单纯的“延迟控制”机制更具有公平竞争带宽的能力；而在后60s，判断交叉流量是弹性的，切换为延迟控制模式，能够有效减少延迟，并且吞吐量和非弹交叉流公平竞争瓶颈带宽。&lt;/p&gt;
+&lt;h2 id=&#34;实验验证&#34;&gt;实验验证&lt;/h2&gt;
+&lt;p&gt;  该文做了十分充分的实验验证，包括模拟和真实网络情况下，对于理想情况下的基于弹性检测和模式切换的拥塞控制的性能评估，也有一些不满足假设的情况下性能问题的评估等等。而下图就是对比不同的机制，评估NimbusCC在弹性/非弹性交叉流的背景下的吞吐量和延迟，发现NimbusCC在灰色区域的，竞争模式下比单纯的“延迟控制”机制更具有公平竞争带宽的能力；而在后60s，判断交叉流量是弹性的，切换为延迟控制模式，能够有效减少延迟，并且吞吐量和非弹交叉流公平竞争瓶颈带宽。&lt;/p&gt;
 &lt;p&gt;
 
 
@@ -189,17 +580,17 @@ This paper introduces a new metric, “elasticity,” which characterizes the na
 &lt;figure  &gt;
   &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
     &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;picture6&#34; srcset=&#34;
-               /post/paper-sharing-2/picture6_hu7466ebdd386623c30c006f912bfb60c5_377725_ab907fb67755ed81cb9e9f286d4ded25.webp 400w,
-               /post/paper-sharing-2/picture6_hu7466ebdd386623c30c006f912bfb60c5_377725_6af8bc3bf0f4d94921a2933fbb0dd93d.webp 760w,
-               /post/paper-sharing-2/picture6_hu7466ebdd386623c30c006f912bfb60c5_377725_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
-               src=&#34;https://ai4network.github.io/post/paper-sharing-2/picture6_hu7466ebdd386623c30c006f912bfb60c5_377725_ab907fb67755ed81cb9e9f286d4ded25.webp&#34;
+               /post/paper-sharing-2/picture/picture6_hu7466ebdd386623c30c006f912bfb60c5_377725_ab907fb67755ed81cb9e9f286d4ded25.webp 400w,
+               /post/paper-sharing-2/picture/picture6_hu7466ebdd386623c30c006f912bfb60c5_377725_6af8bc3bf0f4d94921a2933fbb0dd93d.webp 760w,
+               /post/paper-sharing-2/picture/picture6_hu7466ebdd386623c30c006f912bfb60c5_377725_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://ai4network.github.io/post/paper-sharing-2/picture/picture6_hu7466ebdd386623c30c006f912bfb60c5_377725_ab907fb67755ed81cb9e9f286d4ded25.webp&#34;
                width=&#34;524&#34;
                height=&#34;670&#34;
                loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
   &lt;/div&gt;&lt;/figure&gt;
 &lt;/p&gt;
-&lt;h1 id=&#34;个人观点&#34;&gt;个人观点&lt;/h1&gt;
-&lt;p&gt;作为计算机网络领域顶级会议的文章，我认为它同时具备了发现问题的重要性，解决思路的创新性，以及实现技术的实用性。在拥塞控制研究这么多年的背景下，它发现了“延迟控制”这类机制在应用时的问题和现象。而解决问题的思路又不同于大部分能做到的方法创新，而首先基于“概念”创新，能够抽象并提出新的概念，并且具有一定的数理分析。最后，实际的实现技术时利用现有的一些拥塞控制的实现机制进行切换，简单而实用。所以，希望我们都能够从方法论创新走向思想创新，做更有用的研究吧！&lt;/p&gt;</description>
+&lt;h2 id=&#34;个人观点&#34;&gt;个人观点&lt;/h2&gt;
+&lt;p&gt;  作为计算机网络领域顶级会议的文章，我认为它同时具备了发现问题的重要性，解决思路的创新性，以及实现技术的实用性。在拥塞控制研究这么多年的背景下，它发现了“延迟控制”这类机制在应用时的问题和现象。而解决问题的思路又不同于大部分能做到的方法创新，而首先基于“概念”创新，能够抽象并提出新的概念，并且具有一定的数理分析。最后，实际的实现技术时利用现有的一些拥塞控制的实现机制进行切换，简单而实用。所以，希望我们都能够从方法论创新走向思想创新，做更有用的研究吧！&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -207,10 +598,10 @@ This paper introduces a new metric, “elasticity,” which characterizes the na
       <link>https://ai4network.github.io/post/paper-sharing-1/</link>
       <pubDate>Mon, 21 Nov 2022 08:22:45 +0800</pubDate>
       <guid>https://ai4network.github.io/post/paper-sharing-1/</guid>
-      <description>&lt;p&gt;今天给大家介绍一篇NSDI22年的论文，这篇论文从层次编码的问题出发，利用自编码器对每一层的残差进行编码，并设计了single-shot和multi-exit机制用来降低解码延迟和根据用户计算资源动态调节解码，同时优化了自适应码率选择算法。&lt;/p&gt;
-&lt;h1 id=&#34;一问题提出&#34;&gt;一、问题提出&lt;/h1&gt;
+      <description>&lt;p&gt;  今天给大家介绍一篇NSDI22年的论文，这篇论文从层次编码的问题出发，利用自编码器对每一层的残差进行编码，并设计了single-shot和multi-exit机制用来降低解码延迟和根据用户计算资源动态调节解码，同时优化了自适应码率选择算法。&lt;/p&gt;
+&lt;h2 id=&#34;一问题提出&#34;&gt;一、问题提出&lt;/h2&gt;
 &lt;p&gt;问题一：
-当前的自适应码率选择算法难以预测实时的带宽变化，造成码率调节不准，从而影响视频播放质量。如图所示，蓝色的线为实时带宽，在60秒前，码率选择算法过高估计了带宽，选择了4K清晰度的码率，从而造成了播放卡顿的问题。在60-200秒，又过低估计了码率，造成长时间的收看清晰度低下。&lt;/p&gt;
+  当前的自适应码率选择算法难以预测实时的带宽变化，造成码率调节不准，从而影响视频播放质量。如图所示，蓝色的线为实时带宽，在60秒前，码率选择算法过高估计了带宽，选择了4K清晰度的码率，从而造成了播放卡顿的问题。在60-200秒，又过低估计了码率，造成长时间的收看清晰度低下。&lt;/p&gt;
 &lt;p&gt;
 
 
@@ -230,16 +621,16 @@ This paper introduces a new metric, “elasticity,” which characterizes the na
 &lt;figure  &gt;
   &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
     &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;picture1&#34; srcset=&#34;
-               /post/paper-sharing-1/picture1_hu81e5a3ccd78a206b120ae961e9f735be_32016_78ce81184413c99f8c4c069275862af0.webp 400w,
-               /post/paper-sharing-1/picture1_hu81e5a3ccd78a206b120ae961e9f735be_32016_2366e7c3247a72e4a962b82f11de748b.webp 760w,
-               /post/paper-sharing-1/picture1_hu81e5a3ccd78a206b120ae961e9f735be_32016_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
-               src=&#34;https://ai4network.github.io/post/paper-sharing-1/picture1_hu81e5a3ccd78a206b120ae961e9f735be_32016_78ce81184413c99f8c4c069275862af0.webp&#34;
+               /post/paper-sharing-1/picture/picture1_hu81e5a3ccd78a206b120ae961e9f735be_32016_78ce81184413c99f8c4c069275862af0.webp 400w,
+               /post/paper-sharing-1/picture/picture1_hu81e5a3ccd78a206b120ae961e9f735be_32016_2366e7c3247a72e4a962b82f11de748b.webp 760w,
+               /post/paper-sharing-1/picture/picture1_hu81e5a3ccd78a206b120ae961e9f735be_32016_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://ai4network.github.io/post/paper-sharing-1/picture/picture1_hu81e5a3ccd78a206b120ae961e9f735be_32016_78ce81184413c99f8c4c069275862af0.webp&#34;
                width=&#34;432&#34;
                height=&#34;153&#34;
                loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
   &lt;/div&gt;&lt;/figure&gt;
 &lt;/p&gt;
-&lt;p&gt;那么现在的码率选择算法还会产生什么问题呢？拿BOLA和BOLA-FS举例，BOLA对于带宽的变化响应很慢，带宽上升75秒后才进行了码率上调的响应，它的改进工作BOLA-FS虽然可以在感知到当前带宽利用不足的情况下进行高码率片段的下载，但是这样带来了带宽资源的浪费。&lt;/p&gt;
+&lt;p&gt;  那么现在的码率选择算法还会产生什么问题呢？拿BOLA和BOLA-FS举例，BOLA对于带宽的变化响应很慢，带宽上升75秒后才进行了码率上调的响应，它的改进工作BOLA-FS虽然可以在感知到当前带宽利用不足的情况下进行高码率片段的下载，但是这样带来了带宽资源的浪费。&lt;/p&gt;
 &lt;p&gt;
 
 
@@ -259,16 +650,16 @@ This paper introduces a new metric, “elasticity,” which characterizes the na
 &lt;figure  &gt;
   &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
     &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;picture2&#34; srcset=&#34;
-               /post/paper-sharing-1/picture2_hu60ca15d6f946d7af9a16208fb0f7e804_28017_dc486fa4ced2c96d3d4c22aee7b29e72.webp 400w,
-               /post/paper-sharing-1/picture2_hu60ca15d6f946d7af9a16208fb0f7e804_28017_714bfb91999b6b66fdcb339bc2775acd.webp 760w,
-               /post/paper-sharing-1/picture2_hu60ca15d6f946d7af9a16208fb0f7e804_28017_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
-               src=&#34;https://ai4network.github.io/post/paper-sharing-1/picture2_hu60ca15d6f946d7af9a16208fb0f7e804_28017_dc486fa4ced2c96d3d4c22aee7b29e72.webp&#34;
+               /post/paper-sharing-1/picture/picture2_hu60ca15d6f946d7af9a16208fb0f7e804_28017_dc486fa4ced2c96d3d4c22aee7b29e72.webp 400w,
+               /post/paper-sharing-1/picture/picture2_hu60ca15d6f946d7af9a16208fb0f7e804_28017_714bfb91999b6b66fdcb339bc2775acd.webp 760w,
+               /post/paper-sharing-1/picture/picture2_hu60ca15d6f946d7af9a16208fb0f7e804_28017_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://ai4network.github.io/post/paper-sharing-1/picture/picture2_hu60ca15d6f946d7af9a16208fb0f7e804_28017_dc486fa4ced2c96d3d4c22aee7b29e72.webp&#34;
                width=&#34;432&#34;
                height=&#34;212&#34;
                loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
   &lt;/div&gt;&lt;/figure&gt;
 &lt;/p&gt;
-&lt;p&gt;层次编码可以很好地解决这个问题，因为层次编码不是将同一个视频端编码成多个码率的视频，而是一种层层增强的关系，如果发现当前码率不能较好利用带宽，可以通过请求增强层来增强视频质量，不会带来带宽的浪费。但是层次编码也会产生新的问题。&lt;/p&gt;
+&lt;p&gt;  层次编码可以很好地解决这个问题，因为层次编码不是将同一个视频端编码成多个码率的视频，而是一种层层增强的关系，如果发现当前码率不能较好利用带宽，可以通过请求增强层来增强视频质量，不会带来带宽的浪费。但是层次编码也会产生新的问题。&lt;/p&gt;
 &lt;p&gt;
 
 
@@ -288,17 +679,17 @@ This paper introduces a new metric, “elasticity,” which characterizes the na
 &lt;figure  &gt;
   &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
     &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;picture3&#34; srcset=&#34;
-               /post/paper-sharing-1/picture3_hu559ae49b04f277e75296dc5dc3cabd6c_15705_0e5a6b94985c3b6f71a8b946dc28caac.webp 400w,
-               /post/paper-sharing-1/picture3_hu559ae49b04f277e75296dc5dc3cabd6c_15705_b9789c3162adf9142c487e0d7d18c9e2.webp 760w,
-               /post/paper-sharing-1/picture3_hu559ae49b04f277e75296dc5dc3cabd6c_15705_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
-               src=&#34;https://ai4network.github.io/post/paper-sharing-1/picture3_hu559ae49b04f277e75296dc5dc3cabd6c_15705_0e5a6b94985c3b6f71a8b946dc28caac.webp&#34;
+               /post/paper-sharing-1/picture/picture3_hu559ae49b04f277e75296dc5dc3cabd6c_15705_0e5a6b94985c3b6f71a8b946dc28caac.webp 400w,
+               /post/paper-sharing-1/picture/picture3_hu559ae49b04f277e75296dc5dc3cabd6c_15705_b9789c3162adf9142c487e0d7d18c9e2.webp 760w,
+               /post/paper-sharing-1/picture/picture3_hu559ae49b04f277e75296dc5dc3cabd6c_15705_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://ai4network.github.io/post/paper-sharing-1/picture/picture3_hu559ae49b04f277e75296dc5dc3cabd6c_15705_0e5a6b94985c3b6f71a8b946dc28caac.webp&#34;
                width=&#34;432&#34;
                height=&#34;94&#34;
                loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
   &lt;/div&gt;&lt;/figure&gt;
 &lt;/p&gt;
 &lt;p&gt;问题二：
-层次编码的第一个问题就是压缩比不如传统编码方式高，带来空间上的开销，原因是由于层次编码为了防止帧间漂移问题所以没有引入帧间预测。
+  层次编码的第一个问题就是压缩比不如传统编码方式高，带来空间上的开销，原因是由于层次编码为了防止帧间漂移问题所以没有引入帧间预测。
 第二个问题就是层次编码的解码时间开销较大，且随层次上升。也正是因为这两个问题，层次编码难以被大规模地应用。&lt;/p&gt;
 &lt;p&gt;
 
@@ -319,16 +710,16 @@ This paper introduces a new metric, “elasticity,” which characterizes the na
 &lt;figure  &gt;
   &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
     &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;picture4&#34; srcset=&#34;
-               /post/paper-sharing-1/picture4_hu9388ae57238b4793d1969007c7e3d734_27014_e42218adc421206532565aed9256e57e.webp 400w,
-               /post/paper-sharing-1/picture4_hu9388ae57238b4793d1969007c7e3d734_27014_6ec47ac68f0fb05dfb1cb5dc87311608.webp 760w,
-               /post/paper-sharing-1/picture4_hu9388ae57238b4793d1969007c7e3d734_27014_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
-               src=&#34;https://ai4network.github.io/post/paper-sharing-1/picture4_hu9388ae57238b4793d1969007c7e3d734_27014_e42218adc421206532565aed9256e57e.webp&#34;
+               /post/paper-sharing-1/picture/picture4_hu9388ae57238b4793d1969007c7e3d734_27014_e42218adc421206532565aed9256e57e.webp 400w,
+               /post/paper-sharing-1/picture/picture4_hu9388ae57238b4793d1969007c7e3d734_27014_6ec47ac68f0fb05dfb1cb5dc87311608.webp 760w,
+               /post/paper-sharing-1/picture/picture4_hu9388ae57238b4793d1969007c7e3d734_27014_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://ai4network.github.io/post/paper-sharing-1/picture/picture4_hu9388ae57238b4793d1969007c7e3d734_27014_e42218adc421206532565aed9256e57e.webp&#34;
                width=&#34;432&#34;
                height=&#34;179&#34;
                loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
   &lt;/div&gt;&lt;/figure&gt;
 &lt;/p&gt;
-&lt;p&gt;传统的层次压缩编码的压缩比和时间复杂度已经基本达到瓶颈了，所以基于学习的压缩越来越普遍。比如下图的基于利用自编码器（AutoEncoder(AE)）的编码，利用AE将视频或图像降维为成中间的”code”,从而达到压缩的目的。本文提出的Swift也是在此基础上进行的优化改进。&lt;/p&gt;
+&lt;p&gt;  传统的层次压缩编码的压缩比和时间复杂度已经基本达到瓶颈了，所以基于学习的压缩越来越普遍。比如下图的基于利用自编码器（AutoEncoder(AE)）的编码，利用AE将视频或图像降维为成中间的”code”,从而达到压缩的目的。本文提出的Swift也是在此基础上进行的优化改进。&lt;/p&gt;
 &lt;p&gt;
 
 
@@ -348,16 +739,16 @@ This paper introduces a new metric, “elasticity,” which characterizes the na
 &lt;figure  &gt;
   &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
     &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;picture5&#34; srcset=&#34;
-               /post/paper-sharing-1/picture5_hu69673571220ecf6672c137c504cf0f98_43031_c46d4512cb567d579693217222f66312.webp 400w,
-               /post/paper-sharing-1/picture5_hu69673571220ecf6672c137c504cf0f98_43031_bf612d68affc5506c98bc19a9bcdc481.webp 760w,
-               /post/paper-sharing-1/picture5_hu69673571220ecf6672c137c504cf0f98_43031_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
-               src=&#34;https://ai4network.github.io/post/paper-sharing-1/picture5_hu69673571220ecf6672c137c504cf0f98_43031_c46d4512cb567d579693217222f66312.webp&#34;
+               /post/paper-sharing-1/picture/picture5_hu69673571220ecf6672c137c504cf0f98_43031_c46d4512cb567d579693217222f66312.webp 400w,
+               /post/paper-sharing-1/picture/picture5_hu69673571220ecf6672c137c504cf0f98_43031_bf612d68affc5506c98bc19a9bcdc481.webp 760w,
+               /post/paper-sharing-1/picture/picture5_hu69673571220ecf6672c137c504cf0f98_43031_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://ai4network.github.io/post/paper-sharing-1/picture/picture5_hu69673571220ecf6672c137c504cf0f98_43031_c46d4512cb567d579693217222f66312.webp&#34;
                width=&#34;432&#34;
                height=&#34;161&#34;
                loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
   &lt;/div&gt;&lt;/figure&gt;
 &lt;/p&gt;
-&lt;h1 id=&#34;二方法设计&#34;&gt;二、方法设计&lt;/h1&gt;
+&lt;h2 id=&#34;二方法设计&#34;&gt;二、方法设计&lt;/h2&gt;
 &lt;p&gt;Swift的方法设计主要可以被分成三块：&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;Encoder：编码器优化&lt;/li&gt;
@@ -387,16 +778,16 @@ This paper introduces a new metric, “elasticity,” which characterizes the na
 &lt;figure  &gt;
   &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
     &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;picture6&#34; srcset=&#34;
-               /post/paper-sharing-1/picture6_hu997cf8e4293fd0afd7fe9f5cf76f4f2d_48369_28b438d68babd0f0cb8d368394a7fac9.webp 400w,
-               /post/paper-sharing-1/picture6_hu997cf8e4293fd0afd7fe9f5cf76f4f2d_48369_f7932c081c10fffdc1f98ab5539c65bb.webp 760w,
-               /post/paper-sharing-1/picture6_hu997cf8e4293fd0afd7fe9f5cf76f4f2d_48369_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
-               src=&#34;https://ai4network.github.io/post/paper-sharing-1/picture6_hu997cf8e4293fd0afd7fe9f5cf76f4f2d_48369_28b438d68babd0f0cb8d368394a7fac9.webp&#34;
+               /post/paper-sharing-1/picture/picture6_hu997cf8e4293fd0afd7fe9f5cf76f4f2d_48369_28b438d68babd0f0cb8d368394a7fac9.webp 400w,
+               /post/paper-sharing-1/picture/picture6_hu997cf8e4293fd0afd7fe9f5cf76f4f2d_48369_f7932c081c10fffdc1f98ab5539c65bb.webp 760w,
+               /post/paper-sharing-1/picture/picture6_hu997cf8e4293fd0afd7fe9f5cf76f4f2d_48369_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://ai4network.github.io/post/paper-sharing-1/picture/picture6_hu997cf8e4293fd0afd7fe9f5cf76f4f2d_48369_28b438d68babd0f0cb8d368394a7fac9.webp&#34;
                width=&#34;432&#34;
                height=&#34;236&#34;
                loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
   &lt;/div&gt;&lt;/figure&gt;
 &lt;/p&gt;
-&lt;p&gt;编码器（E）将每个在时间t的帧作为输入，生成一个代码向量(c)，即ct = E(It)。解码器（D）重建给定ct的帧 Iˆt ，即，Iˆt =D(ct)。这里的优化问题是要训练E和D，以使Iˆt 和D(ct)之间的差异最小它的差值最小，训练用损失函数如下式。为了使每层可以尽可能减少对于上一层的冗余信息，将Iˆt 和D(ct)之间的残差ri作为下一层的编码输入，即 ci = E(ri)。&lt;/p&gt;
+&lt;p&gt;  编码器（E）将每个在时间t的帧作为输入，生成一个代码向量(c)，即ct = E(It)。解码器（D）重建给定ct的帧 Iˆt ，即，Iˆt =D(ct)。这里的优化问题是要训练E和D，以使Iˆt 和D(ct)之间的差异最小它的差值最小，训练用损失函数如下式。为了使每层可以尽可能减少对于上一层的冗余信息，将Iˆt 和D(ct)之间的残差ri作为下一层的编码输入，即 ci = E(ri)。&lt;/p&gt;
 
 
 
@@ -408,7 +799,7 @@ $$
 &lt;li&gt;Decoder&lt;/li&gt;
 &lt;/ol&gt;
 &lt;p&gt;（1）Single-shot机制
-为了解决上文提到的层次解码时间开销随层数线性增长的问题，本文设计了一种single-shot的解码机制，在一些层数的数据还无法解码时，直接用0填充，这样用较少的画面清晰度损失缓解解码开销对时延敏感型视频的影响，解码器的设计如下图所示。&lt;/p&gt;
+  为了解决上文提到的层次解码时间开销随层数线性增长的问题，本文设计了一种single-shot的解码机制，在一些层数的数据还无法解码时，直接用0填充，这样用较少的画面清晰度损失缓解解码开销对时延敏感型视频的影响，解码器的设计如下图所示。&lt;/p&gt;
 &lt;p&gt;
 
 
@@ -428,10 +819,10 @@ $$
 &lt;figure  &gt;
   &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
     &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;picture7&#34; srcset=&#34;
-               /post/paper-sharing-1/picture7_hu8dcbc418d9b1f808f9731ae81a22b051_13161_12545493645bc0db5d4f87163aa83257.webp 400w,
-               /post/paper-sharing-1/picture7_hu8dcbc418d9b1f808f9731ae81a22b051_13161_72082c0994752b77d9fbe291dc8b1ab9.webp 760w,
-               /post/paper-sharing-1/picture7_hu8dcbc418d9b1f808f9731ae81a22b051_13161_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
-               src=&#34;https://ai4network.github.io/post/paper-sharing-1/picture7_hu8dcbc418d9b1f808f9731ae81a22b051_13161_12545493645bc0db5d4f87163aa83257.webp&#34;
+               /post/paper-sharing-1/picture/picture7_hu8dcbc418d9b1f808f9731ae81a22b051_13161_12545493645bc0db5d4f87163aa83257.webp 400w,
+               /post/paper-sharing-1/picture/picture7_hu8dcbc418d9b1f808f9731ae81a22b051_13161_72082c0994752b77d9fbe291dc8b1ab9.webp 760w,
+               /post/paper-sharing-1/picture/picture7_hu8dcbc418d9b1f808f9731ae81a22b051_13161_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://ai4network.github.io/post/paper-sharing-1/picture/picture7_hu8dcbc418d9b1f808f9731ae81a22b051_13161_12545493645bc0db5d4f87163aa83257.webp&#34;
                width=&#34;173&#34;
                height=&#34;158&#34;
                loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
@@ -465,17 +856,17 @@ $$
 &lt;figure  &gt;
   &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
     &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;picture8&#34; srcset=&#34;
-               /post/paper-sharing-1/picture8_hu16f6a6a46ad0d585b75620d0a16dbd13_14409_cc4e5c9236225b89a1c843743aff9e00.webp 400w,
-               /post/paper-sharing-1/picture8_hu16f6a6a46ad0d585b75620d0a16dbd13_14409_c522e8f1c7ea2a33ebf0ae01712cb61a.webp 760w,
-               /post/paper-sharing-1/picture8_hu16f6a6a46ad0d585b75620d0a16dbd13_14409_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
-               src=&#34;https://ai4network.github.io/post/paper-sharing-1/picture8_hu16f6a6a46ad0d585b75620d0a16dbd13_14409_cc4e5c9236225b89a1c843743aff9e00.webp&#34;
+               /post/paper-sharing-1/picture/picture8_hu16f6a6a46ad0d585b75620d0a16dbd13_14409_cc4e5c9236225b89a1c843743aff9e00.webp 400w,
+               /post/paper-sharing-1/picture/picture8_hu16f6a6a46ad0d585b75620d0a16dbd13_14409_c522e8f1c7ea2a33ebf0ae01712cb61a.webp 760w,
+               /post/paper-sharing-1/picture/picture8_hu16f6a6a46ad0d585b75620d0a16dbd13_14409_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://ai4network.github.io/post/paper-sharing-1/picture/picture8_hu16f6a6a46ad0d585b75620d0a16dbd13_14409_cc4e5c9236225b89a1c843743aff9e00.webp&#34;
                width=&#34;219&#34;
                height=&#34;150&#34;
                loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
   &lt;/div&gt;&lt;/figure&gt;
 &lt;/p&gt;
 &lt;p&gt;（2）Multi-exit机制
-由于基于自编码器的视频编解码依赖于用户的GPU，所以我们也不得不靠考虑客户端主机的计算资源问题。为此，作者设计了一个multi-exit机制。机制的网络模型如下图所示&lt;/p&gt;
+  由于基于自编码器的视频编解码依赖于用户的GPU，所以我们也不得不靠考虑客户端主机的计算资源问题。为此，作者设计了一个multi-exit机制。机制的网络模型如下图所示&lt;/p&gt;
 &lt;p&gt;
 
 
@@ -495,16 +886,16 @@ $$
 &lt;figure  &gt;
   &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
     &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;picture9&#34; srcset=&#34;
-               /post/paper-sharing-1/picture9_hudcb302fc52e9cddd4cc79cfb71254af1_23351_57ae99160bc5fad45b87c2cc7d67b651.webp 400w,
-               /post/paper-sharing-1/picture9_hudcb302fc52e9cddd4cc79cfb71254af1_23351_fdf3dc1c5cd699e0c8f78f64778c1af0.webp 760w,
-               /post/paper-sharing-1/picture9_hudcb302fc52e9cddd4cc79cfb71254af1_23351_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
-               src=&#34;https://ai4network.github.io/post/paper-sharing-1/picture9_hudcb302fc52e9cddd4cc79cfb71254af1_23351_57ae99160bc5fad45b87c2cc7d67b651.webp&#34;
+               /post/paper-sharing-1/picture/picture9_hudcb302fc52e9cddd4cc79cfb71254af1_23351_57ae99160bc5fad45b87c2cc7d67b651.webp 400w,
+               /post/paper-sharing-1/picture/picture9_hudcb302fc52e9cddd4cc79cfb71254af1_23351_fdf3dc1c5cd699e0c8f78f64778c1af0.webp 760w,
+               /post/paper-sharing-1/picture/picture9_hudcb302fc52e9cddd4cc79cfb71254af1_23351_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://ai4network.github.io/post/paper-sharing-1/picture/picture9_hudcb302fc52e9cddd4cc79cfb71254af1_23351_57ae99160bc5fad45b87c2cc7d67b651.webp&#34;
                width=&#34;275&#34;
                height=&#34;227&#34;
                loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
   &lt;/div&gt;&lt;/figure&gt;
 &lt;/p&gt;
-&lt;p&gt;即在解码器处设置了多个出口。作者在这里认为，出口所在层数越多，输出视频质量更好，测量了层数、出口深度和视频质量的关系，如这个热力图所示。&lt;/p&gt;
+&lt;p&gt;  即在解码器处设置了多个出口。作者在这里认为，出口所在层数越多，输出视频质量更好，测量了层数、出口深度和视频质量的关系，如这个热力图所示。&lt;/p&gt;
 &lt;p&gt;
 
 
@@ -524,10 +915,10 @@ $$
 &lt;figure  &gt;
   &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
     &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;picture10&#34; srcset=&#34;
-               /post/paper-sharing-1/picture10_hue018bba52697c46675915bd6fdc4ff3f_14340_1540a31a9fbf54e8076d0079f65151b9.webp 400w,
-               /post/paper-sharing-1/picture10_hue018bba52697c46675915bd6fdc4ff3f_14340_e1e9edf36441b96e79613cfdb939d7a1.webp 760w,
-               /post/paper-sharing-1/picture10_hue018bba52697c46675915bd6fdc4ff3f_14340_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
-               src=&#34;https://ai4network.github.io/post/paper-sharing-1/picture10_hue018bba52697c46675915bd6fdc4ff3f_14340_1540a31a9fbf54e8076d0079f65151b9.webp&#34;
+               /post/paper-sharing-1/picture/picture10_hue018bba52697c46675915bd6fdc4ff3f_14340_1540a31a9fbf54e8076d0079f65151b9.webp 400w,
+               /post/paper-sharing-1/picture/picture10_hue018bba52697c46675915bd6fdc4ff3f_14340_e1e9edf36441b96e79613cfdb939d7a1.webp 760w,
+               /post/paper-sharing-1/picture/picture10_hue018bba52697c46675915bd6fdc4ff3f_14340_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://ai4network.github.io/post/paper-sharing-1/picture/picture10_hue018bba52697c46675915bd6fdc4ff3f_14340_1540a31a9fbf54e8076d0079f65151b9.webp&#34;
                width=&#34;261&#34;
                height=&#34;157&#34;
                loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
@@ -536,7 +927,7 @@ $$
 &lt;ol start=&#34;3&#34;&gt;
 &lt;li&gt;Streamer&lt;/li&gt;
 &lt;/ol&gt;
-&lt;p&gt;最后是码率选择算法(ABR)上的优化，码率选择算法主要解决的问题就是最大化流媒体传输的QoE，即最大化视频质量、卡顿时间、和平滑度的加权和。这里的算法设计基于2017年Sigcomm的工作Pensieve，一个基于强化学习的码率选择算法。在此基础上，作者为码率选择算法添加了一些新的输入，如当前的GPU可使用量、GPU和视频质量的映射矩阵等，输出的动作为请求的视频段和层数。&lt;/p&gt;
+&lt;p&gt;  最后是码率选择算法(ABR)上的优化，码率选择算法主要解决的问题就是最大化流媒体传输的QoE，即最大化视频质量、卡顿时间、和平滑度的加权和。这里的算法设计基于2017年Sigcomm的工作Pensieve，一个基于强化学习的码率选择算法。在此基础上，作者为码率选择算法添加了一些新的输入，如当前的GPU可使用量、GPU和视频质量的映射矩阵等，输出的动作为请求的视频段和层数。&lt;/p&gt;
 &lt;p&gt;下图为Swift的整体运行流程。&lt;/p&gt;
 &lt;p&gt;
 
@@ -557,18 +948,18 @@ $$
 &lt;figure  &gt;
   &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
     &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;picture11&#34; srcset=&#34;
-               /post/paper-sharing-1/picture11_huacd7e5f054a9028ffaaf463d93a1f4d3_35215_f223bea284cb254948660a2bc0b91492.webp 400w,
-               /post/paper-sharing-1/picture11_huacd7e5f054a9028ffaaf463d93a1f4d3_35215_26741913fedd49237105caac02c04651.webp 760w,
-               /post/paper-sharing-1/picture11_huacd7e5f054a9028ffaaf463d93a1f4d3_35215_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
-               src=&#34;https://ai4network.github.io/post/paper-sharing-1/picture11_huacd7e5f054a9028ffaaf463d93a1f4d3_35215_f223bea284cb254948660a2bc0b91492.webp&#34;
+               /post/paper-sharing-1/picture/picture11_huacd7e5f054a9028ffaaf463d93a1f4d3_35215_f223bea284cb254948660a2bc0b91492.webp 400w,
+               /post/paper-sharing-1/picture/picture11_huacd7e5f054a9028ffaaf463d93a1f4d3_35215_26741913fedd49237105caac02c04651.webp 760w,
+               /post/paper-sharing-1/picture/picture11_huacd7e5f054a9028ffaaf463d93a1f4d3_35215_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://ai4network.github.io/post/paper-sharing-1/picture/picture11_huacd7e5f054a9028ffaaf463d93a1f4d3_35215_f223bea284cb254948660a2bc0b91492.webp&#34;
                width=&#34;432&#34;
                height=&#34;179&#34;
                loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
   &lt;/div&gt;&lt;/figure&gt;
 &lt;/p&gt;
-&lt;h1 id=&#34;三实验效果&#34;&gt;三、实验效果&lt;/h1&gt;
-&lt;p&gt;作者为衡量Swift的性能做了充分的实验。
-实验一：各个码率选择算法对于当前网络带宽的响应速度。黑色的线为当前网络的带宽，我们可以看到绿色线代表的Swift可以在很短的时间内响应网络带宽的增加。&lt;/p&gt;
+&lt;h2 id=&#34;三实验效果&#34;&gt;三、实验效果&lt;/h2&gt;
+&lt;p&gt;  作者为衡量Swift的性能做了充分的实验。
+  实验一：各个码率选择算法对于当前网络带宽的响应速度。黑色的线为当前网络的带宽，我们可以看到绿色线代表的Swift可以在很短的时间内响应网络带宽的增加。&lt;/p&gt;
 &lt;p&gt;
 
 
@@ -588,16 +979,16 @@ $$
 &lt;figure  &gt;
   &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
     &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;picture12&#34; srcset=&#34;
-               /post/paper-sharing-1/picture12_huc72dd9a3323fdddec631e90853afcd11_28128_bb126b0a5c2999f6e644258fc1288343.webp 400w,
-               /post/paper-sharing-1/picture12_huc72dd9a3323fdddec631e90853afcd11_28128_ed8e2d115100f4c675cbfd7f16af9621.webp 760w,
-               /post/paper-sharing-1/picture12_huc72dd9a3323fdddec631e90853afcd11_28128_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
-               src=&#34;https://ai4network.github.io/post/paper-sharing-1/picture12_huc72dd9a3323fdddec631e90853afcd11_28128_bb126b0a5c2999f6e644258fc1288343.webp&#34;
+               /post/paper-sharing-1/picture/picture12_huc72dd9a3323fdddec631e90853afcd11_28128_bb126b0a5c2999f6e644258fc1288343.webp 400w,
+               /post/paper-sharing-1/picture/picture12_huc72dd9a3323fdddec631e90853afcd11_28128_ed8e2d115100f4c675cbfd7f16af9621.webp 760w,
+               /post/paper-sharing-1/picture/picture12_huc72dd9a3323fdddec631e90853afcd11_28128_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://ai4network.github.io/post/paper-sharing-1/picture/picture12_huc72dd9a3323fdddec631e90853afcd11_28128_bb126b0a5c2999f6e644258fc1288343.webp&#34;
                width=&#34;432&#34;
                height=&#34;217&#34;
                loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
   &lt;/div&gt;&lt;/figure&gt;
 &lt;/p&gt;
-&lt;p&gt;实验二：各个码率选择算法带宽使用量的对比。可以看出，在同等的实验条件下，Swift占用的带宽是最低的，减少了网络资源的浪费。&lt;/p&gt;
+&lt;p&gt;  实验二：各个码率选择算法带宽使用量的对比。可以看出，在同等的实验条件下，Swift占用的带宽是最低的，减少了网络资源的浪费。&lt;/p&gt;
 &lt;p&gt;
 
 
@@ -617,17 +1008,17 @@ $$
 &lt;figure  &gt;
   &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
     &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;picture13&#34; srcset=&#34;
-               /post/paper-sharing-1/picture13_hu19cd5d58b68baf5e55b6640ce2404df1_70270_96419e2f51be93df2f1217a213620a42.webp 400w,
-               /post/paper-sharing-1/picture13_hu19cd5d58b68baf5e55b6640ce2404df1_70270_0b50b46cdbfc5867dc2c57b43cc586fa.webp 760w,
-               /post/paper-sharing-1/picture13_hu19cd5d58b68baf5e55b6640ce2404df1_70270_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
-               src=&#34;https://ai4network.github.io/post/paper-sharing-1/picture13_hu19cd5d58b68baf5e55b6640ce2404df1_70270_96419e2f51be93df2f1217a213620a42.webp&#34;
+               /post/paper-sharing-1/picture/picture13_hu19cd5d58b68baf5e55b6640ce2404df1_70270_96419e2f51be93df2f1217a213620a42.webp 400w,
+               /post/paper-sharing-1/picture/picture13_hu19cd5d58b68baf5e55b6640ce2404df1_70270_0b50b46cdbfc5867dc2c57b43cc586fa.webp 760w,
+               /post/paper-sharing-1/picture/picture13_hu19cd5d58b68baf5e55b6640ce2404df1_70270_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://ai4network.github.io/post/paper-sharing-1/picture/picture13_hu19cd5d58b68baf5e55b6640ce2404df1_70270_96419e2f51be93df2f1217a213620a42.webp&#34;
                width=&#34;432&#34;
                height=&#34;229&#34;
                loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
   &lt;/div&gt;&lt;/figure&gt;
 &lt;/p&gt;
-&lt;h1 id=&#34;四启发&#34;&gt;四、启发&lt;/h1&gt;
-&lt;p&gt;虽然都是面向流媒体传输的优化，本文与我们之前专注的传输层方向是垂直的，它从编码和码率选择的角度去解决流媒体传输的问题，像是一种将网络的压力卸载到端上的操作。&lt;/p&gt;</description>
+&lt;h2 id=&#34;四启发&#34;&gt;四、启发&lt;/h2&gt;
+&lt;p&gt;  虽然都是面向流媒体传输的优化，本文与我们之前专注的传输层方向是垂直的，它从编码和码率选择的角度去解决流媒体传输的问题，像是一种将网络的压力卸载到端上的操作。&lt;/p&gt;</description>
     </item>
     
     <item>
