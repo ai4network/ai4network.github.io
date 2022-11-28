@@ -5,12 +5,27 @@
     <link>https://ai4network.github.io/zh/event/</link>
       <atom:link href="https://ai4network.github.io/zh/event/index.xml" rel="self" type="application/rss+xml" />
     <description>组内活动</description>
-    <generator>Wowchemy (https://wowchemy.com)</generator><language>zh-Hans</language><lastBuildDate>Fri, 18 Nov 2022 19:30:00 +0000</lastBuildDate>
+    <generator>Wowchemy (https://wowchemy.com)</generator><language>zh-Hans</language><lastBuildDate>Thu, 24 Nov 2022 09:36:13 +0800</lastBuildDate>
     <image>
       <url>https://ai4network.github.io/media/icon_hua2ec155b4296a9c9791d015323e16eb5_11927_512x512_fill_lanczos_center_3.png</url>
       <title>组内活动</title>
       <link>https://ai4network.github.io/zh/event/</link>
     </image>
+    
+    <item>
+      <title>2022年秋季学期第14周论文分享</title>
+      <link>https://ai4network.github.io/zh/event/6/</link>
+      <pubDate>Thu, 24 Nov 2022 09:36:13 +0800</pubDate>
+      <guid>https://ai4network.github.io/zh/event/6/</guid>
+      <description>&lt;p&gt;文献来源：SIGCOMM22&lt;/p&gt;
+&lt;p&gt;文献题目：Achieving consistent low latency for wireless real-time communications with the shortest control loop&lt;/p&gt;
+&lt;p&gt;摘要：Real-time communication (RTC) applications like video conferencing or cloud gaming require consistent low latency to provide a seamless interactive experience. However, wireless networks including WiFi and cellular, albeit providing a satisfactory median latency, drastically degrade at the tail due to frequent and substantial wireless bandwidth fluctuations. We observe that the control loop for the sending rate of RTC applications is inflated when congestion happens at the wireless access point (AP), resulting in untimely rate adaption to wireless dynamics. Existing solutions, however, suffer from the inflated control loop and fail to quickly adapt to bandwidth fluctuations. In this paper, we propose Zhuge, a pure wireless AP based solution that reduces the control loop of RTC applications by separating congestion feedback from congested queues. We design a Fortune Teller to precisely estimate per-packet wireless latency upon its arrival at the wireless AP. To make Zhuge deployable at scale, we also design a Feedback Updater that translates the estimated latency to comprehensible feedback messages for various protocols and immediately delivers them back to senders for rate adaption. Trace-driven and real-world evaluation shows that Zhuge reduces the ratio of large tail latency and RTC performance degradation by 17% to 95%.&lt;/p&gt;
+&lt;p&gt;时间：2022/11/24 19:00-22:00
+地点：腾讯会议
+会议号：116-536-575
+会议密码：123456&lt;/p&gt;
+</description>
+    </item>
     
     <item>
       <title>2022年秋季学期第14周组会</title>

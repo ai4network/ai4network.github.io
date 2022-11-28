@@ -1,0 +1,690 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>徐草 | AI4network 实验室</title>
+    <link>https://ai4network.github.io/zh/tag/%E5%BE%90%E8%8D%89/</link>
+      <atom:link href="https://ai4network.github.io/zh/tag/%E5%BE%90%E8%8D%89/index.xml" rel="self" type="application/rss+xml" />
+    <description>徐草</description>
+    <generator>Wowchemy (https://wowchemy.com)</generator><language>zh-Hans</language><lastBuildDate>Sun, 27 Nov 2022 20:58:16 +0800</lastBuildDate>
+    <image>
+      <url>https://ai4network.github.io/media/icon_hua2ec155b4296a9c9791d015323e16eb5_11927_512x512_fill_lanczos_center_3.png</url>
+      <title>徐草</title>
+      <link>https://ai4network.github.io/zh/tag/%E5%BE%90%E8%8D%89/</link>
+    </image>
+    
+    <item>
+      <title>SIGCOMM22 论文分享 | LiveNet: a low-latency video transport network for large-scale live streaming</title>
+      <link>https://ai4network.github.io/zh/post/paper-sharing-4/</link>
+      <pubDate>Sun, 27 Nov 2022 20:58:16 +0800</pubDate>
+      <guid>https://ai4network.github.io/zh/post/paper-sharing-4/</guid>
+      <description>&lt;p&gt;  本期分享SIGCOMM22拥塞控制专题下的论文： Achieving Consistent Low Latency for Wireless Real-Time Communications with the Shortest Control Loop。该文作者来自清华大学、阿里巴巴与卡耐基梅隆大学。&lt;/p&gt;
+&lt;h1 id=&#34;sigcomm22--诸葛-跳过last-mile的拥塞控制回路&#34;&gt;SIGCOMM22 | 诸葛: 跳过last-mile的拥塞控制回路&lt;/h1&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img src=&#34;picture/picture%20%281%29.png&#34; alt=&#34;截屏2022-11-28 17.34.28.png&#34; loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;实时会议与云游戏这类RTC应用需要持续稳定的低延迟来提供良好的交互体验。然而无线网络只能提供较好的延迟中值，当带宽波动时其尾部延迟可能很大。文章发现当无线AP处发生拥塞时，RTC的控制回路会膨胀，导致发送方无法自适应地及时调整发送速率。因此以缩小控制回路的思路设计了“诸葛”：使数据包在到达无线AP时就预测其延迟，并立即将预测值传回发送方，避免拥塞控制信号经历last-mile的拥塞过程，从而达到加快发送方反应速度的效果。实验结果表明诸葛能将尾部高延迟的比例以及RTC性能降级的情况减少17%到95%。&lt;/strong&gt;&lt;/p&gt;
+&lt;h1 id=&#34;1简介&#34;&gt;1.简介&lt;/h1&gt;
+&lt;p&gt;RTC（Real-time Communication）应用需要&lt;strong&gt;持续低延时&lt;/strong&gt;，这在无线场景中并不能被满足，问题主要出现在&lt;strong&gt;尾部&lt;/strong&gt;：&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;无线用户的RTT中位数低于100ms，与以太网用户相当；但99分位数的尾部延迟约400ms，意味着播放20帧的视频时每5s就会出现一次高延时。观察还发现无线用户经历的重缓冲是以太网用户的两倍。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;对于无线场景（论文关注last-mile）来说，可用带宽的骤变（可能由多用户接入或人为干扰引起）会导致暂时拥塞，让数据包在无线AP内排队，导致端到端延迟变大。对此，理想情况是发送方立刻减小发送速率以防止排队、高延迟、丢包的出现。&lt;strong&gt;但实际情况是发送方的反应速度恰恰被排队给限制了。&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;如何解释？拿TCP中时延敏感的拥塞控制算法来说，其拥塞信号是RTT变大。虽然数据包到达AP时就遭遇拥塞 ，但发送方仍需等待一段时间才能得知拥塞。这段时间包括：该数据包从AP中出队，AP转发给接收方，接收方再发送ACK经AP返回至发送方，发送方收到ACK计算RTT得知拥塞。这个过程中拥塞信号经过的路径与数据包及其ACK经过的一致。图1中五步表示拥塞信号的传递路径（控制回路），红色的是在发生拥塞时膨胀（时间变长）的部分，表明&lt;strong&gt;拥塞越严重，发送方就需要越久才获取拥塞信号&lt;/strong&gt;。&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img src=&#34;picture/picture%20%282%29.png&#34; alt=&#34;截屏2022-11-19 13.01.12.png&#34; loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;因此论文的关注点在：&lt;strong&gt;让拥塞控制回路从完整的数据包传输路径中解耦，从而防止其经历排队与无线网络的延迟&lt;/strong&gt;。如上图所示：在数据包进入（i）之前，发现出现拥塞时，预测其后续可能经历的延迟，随即让AP将预测值通过（iv）把拥塞信号传给发送方，从而跳过膨胀的（i）（ii）（iii），也就是绕过拥塞瓶颈。&lt;/p&gt;
+&lt;p&gt;要实现文章的想法（减少控制循环），主要会有两个问题：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;数据包还没真正经历延迟，如何预测？&lt;/li&gt;
+&lt;li&gt;AP怎么把拥塞信号（预测的延迟）传给发送方？&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;对此论文提出了&lt;strong&gt;诸葛&lt;/strong&gt;，目的是最小化拥塞控制回路，从而达到无线网络环境中的持续低时延。诸葛包括两个模块：“算命先生”（Fortune Teller，后文简称FT）和“反馈更新器”（Feedback Updater，后文简称FU），前者基于两部分预测时延，后者根据不同协议特点，更新并上传预测的延迟。&lt;/p&gt;
+&lt;h1 id=&#34;2背景和动机&#34;&gt;2.背景和动机&lt;/h1&gt;
+&lt;h2 id=&#34;21-理解无线网络的尾部延迟&#34;&gt;2.1 理解无线网络的尾部延迟&lt;/h2&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;为什么尾部延迟对于无线网络中的RTC应用那么重要？&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;为什么无线网络的尾部延迟更明显？&lt;/strong&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;strong&gt;对于第一个问题&lt;/strong&gt;，一言以蔽之：RTC应用需要的低延迟不只是中值（median）小，尾部（tail）值也要低，但目前的无线接入网的情况无法满足后者。文章给出了统计：&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img src=&#34;picture/picture%20%283%29.png&#34; alt=&#34;截屏2022-11-19 14.22.54.png&#34; loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;文章认为不管是4G、5G还是WiFi的尾部延迟都不够好。假设在大部分时候无线网络用户拥有良好的RTT(&amp;lt;100ms)，但其99分位数的RTT&amp;gt;400ms，这就会导致每百帧就有一帧高延迟。&lt;/p&gt;
+&lt;p&gt;文章还测试了他们自己的RTC应用（日活跃量百万用户），对比了以太网、WiFi、4G接入网络的网络状况和应用表现，如下图2。&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img src=&#34;picture/picture%20%284%29.png&#34; alt=&#34;截屏2022-11-19 14.42.44.png&#34; loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;并观察得出：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;WiFi和4G的表现相近;&lt;/li&gt;
+&lt;li&gt;
+&lt;blockquote&gt;
+&lt;p&gt;400ms RTT时前两者为1%，以太网则在千分位与万分位之间；&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;/li&gt;
+&lt;li&gt;应用层的帧延迟&amp;gt;400ms的前两者的比例是以太网的2倍；&lt;/li&gt;
+&lt;li&gt;应用层帧率&amp;lt;8时前两者是以太网的10倍。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;对于第二个问题&lt;/strong&gt;，明显的尾部延迟源于：发送速率与瓶颈队列可用带宽 (Available Bandwitdh, ABW) 的不匹配。&lt;strong&gt;从AP的视角来看&lt;/strong&gt;，如下图：&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img src=&#34;picture/picture%20%285%29.png&#34; alt=&#34;截屏2022-11-21 12.08.42.png&#34; loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;蓝线表示RTC流的ABW在瓶颈处（连接client的AP）骤降&lt;em&gt;k&lt;/em&gt;倍，此后CCA需要一个控制回路 𝜏 才降低发送速率（绿虚线）。而在此 𝜏 期间，瓶颈队列仍以发送方的原发送速率接收数据包，这些过多的包会开始排队（红色块），需要 k𝜏才能被排空 。排空期间所有的包都会经历更高的延迟。所以影响延迟的骤变程度的因素为：（i）ABW波动程度→k（ii）发送方反应速度→𝜏。&lt;/p&gt;
+&lt;p&gt;无线信道的多变性导致了其比有线信道波动更大 。文章根据开放数据集、实测数据，以200ms为周期（认为这是CCA反应时间）计算带宽。结果如下图，横轴代表下降的倍数，纵轴代表小于相应倍数的占比，实线是开放数据集，虚线是文章所测，可以看到以太网的下降更少：&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img src=&#34;picture/picture%20%286%29.png&#34; alt=&#34;截屏2022-11-21 12.38.26.png&#34; loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;无线网络的波动程度让其尾部延迟更明显，要想缓解就需要让发送方反应速度更快。&lt;/strong&gt;&lt;/p&gt;
+&lt;h2 id=&#34;22-现有解决方案&#34;&gt;2.2 现有解决方案&lt;/h2&gt;
+&lt;p&gt;有很多创新工作提升了连接中的稳定状态下的中值（&lt;em&gt;steady state median&lt;/em&gt;）延迟。比如BBR（CCA）通过维持空队列来保证延时；CoDel（AQM）会丢队列前端的包加快拥塞反馈；还有根据不同反馈信号来维持良好工作状态。不过文章认为这些工作还不足以减少尾部延迟，并进行了分析：&lt;/p&gt;
+&lt;p&gt;******************************************基于端用户的解决方案。******************************************主要问题还是前面说的拥塞控制的控制回路中的无线部分会在拥塞发生时膨胀，延迟拥塞信号的反馈。&lt;/p&gt;
+&lt;p&gt;下图4a展示模拟实验中，带宽降低不同倍数时，时延敏感CCAs（BBR、Copa和GCC）与AQMs的表现。&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img src=&#34;picture/picture%20%287%29.png&#34; alt=&#34;截屏2022-11-21 13.10.01.png&#34; loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;当ABW降低十倍以上时，所有这些算法，无论是否使用延迟感知AQM，都会有数秒的RTT降级时间。&lt;/p&gt;
+&lt;p&gt;**********************基于网络内部的解决方案。**********************CoDel通过丢弃队列前部的包试图加快拥塞信号的生成，但信号仍会经历（ii）和（iii）的无线延迟（可能超过100ms）。此外，AQM主要设计用于丢弃一些数据包，而许多CCAs对丢包并不敏感。图4a可以验证：CoDel几乎无法改善如Copa这种基于时延的CCA。也有一些方案是协调端和网络路由器来达到更好的网络反馈，比如XCP、RCP、Kickass和ABC。但文章认为它们的目标是从路由器获取更好的网络状态估计，收集到的信息却还是要经历完整的控制回路。&lt;/p&gt;
+&lt;h2 id=&#34;23-论文方案减小控制回路&#34;&gt;2.3 论文方案：减小控制回路&lt;/h2&gt;
+&lt;p&gt;论文的想法很直接，就是通过尽快感知拥塞，并及早反馈来缩小控制回路。另外还想方便部署。&lt;/p&gt;
+&lt;p&gt;**最早的信号。**相对于丢包率、实际延迟这些拥塞信号来说，是否会有更早的信号？文章认为有：大部分情况下，数据包到达瓶颈队列时就可以预测自己的延迟。比如包的排队延迟可以通过队列大小除以出队速率来大致估算。因此预测的排队延迟是ABW下降的最早信号。论文作者受此启发，想利用这个最早信号来加快发送方的反应速度。&lt;/p&gt;
+&lt;p&gt;****************************************快速反馈最早信号给发送方。****************************************发现了最早信号没用，还要赶紧发给发送方。理想方案是直接告诉发送方当前的队列状态，让信号绕过控制回路中膨胀的部分。&lt;/p&gt;
+&lt;p&gt;**只改last-mile路由器方便部署。**回顾传输层设计历史，有很多优秀的工作未被实际应用。像XCP、RCP、Kickass、ABC和&lt;em&gt;active network&lt;/em&gt;等都需要同时更改服务器端和路由器。但是服务器通常由谷歌、Facebook这些内容提供商控制，而路由器则由Netgear、华为、思科这些厂商提供，协调他们一起推进一项传输创新工作比较麻烦。所以论文提出：只改“最后一英里”的路由器，方便其大规模部署。&lt;/p&gt;
+&lt;h1 id=&#34;3诸葛的设计&#34;&gt;3.诸葛的设计&lt;/h1&gt;
+&lt;p&gt;本文把自己的工作取名Zhuge，希望像诸葛亮一样神机妙算、未卜先知。&lt;/p&gt;
+&lt;h2 id=&#34;31-设计的挑战&#34;&gt;3.1 设计的挑战&lt;/h2&gt;
+&lt;p&gt;诸葛的设计主要两点，网络状态的&lt;strong&gt;准确估计&lt;/strong&gt;和&lt;strong&gt;快速反馈&lt;/strong&gt;：&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;第一点&lt;/strong&gt;的难点在于流量的突发性：&lt;strong&gt;一是RTC流的数据包的突发式到达&lt;/strong&gt;。RTC应用以视频帧为单位生成内容，为了减少端到端延迟，发送方倾向于突发性地发送同一帧的数据包。导致即使在稳定状态下，也可能快速出现排队现象。**二是无线信道上的数据包的突发式离开。**无线网络的共享性导致了无线信道资源的竞争和频繁的带宽波动。无线协议倾向于聚合多个数据包同时出队。&lt;/p&gt;
+&lt;p&gt;简单的估计方法是将队列长度除以出队速率。然而，这种方法面临着&lt;strong&gt;瞬态-稳态矛盾&lt;/strong&gt;（&lt;em&gt;&lt;strong&gt;transience-equilibrium nexus.&lt;/strong&gt; 参考文献见文末&lt;/em&gt;）：比如在计算出队速率时时间窗口长度的设定，窗口短则易波动，导致稳态期间也可能有明显波动，而窗口长则无法捕捉瞬态的延迟波动。许多拥塞算法都存在无法兼顾瞬态与稳态性能的问题。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;第二点&lt;/strong&gt;。如何将估计的无线网络状态尽快告知发送方？直接的方法是可以构建一种新的反馈包给发送方，但对于现实中部署的大多CCAs来说，网络状态不是显式传递的（有可能根据ACK进行计算），直接把网络状态告诉发送方，后者不能直接理解，而需要同时修改发送方，这与论文之前提的“只改AP，方便部署”的理念背道而驰。&lt;/p&gt;
+&lt;p&gt;另外，实际采用的传输层协议和CCAs高度多样化：不同传输协议头可以是不加密（TCP）或加密（QUIC）的；RTC应用也可能会定制化CCAs，使用不同信号来调整发送速率，有的还会在内核中修改TCP CCA。基于RTC的应用会将网络状况定期汇总到一个特殊的反馈包中显示反馈。面对不同的CCAs，该如何把网络状态有效传递给发送方呢？&lt;/p&gt;
+&lt;h2 id=&#34;32-框架概览&#34;&gt;3.2 框架概览&lt;/h2&gt;
+&lt;p&gt;诸葛针对上述两个问题各自设计了一个模块：算命先生 &lt;em&gt;Fortune Teller, FT&lt;/em&gt; 和反馈更新器 &lt;em&gt;Feedback Updater, FU&lt;/em&gt;。&lt;/p&gt;
+&lt;p&gt;FT为了克服瞬态-稳态矛盾，将排队延迟分割成长期和短期延迟。&lt;/p&gt;
+&lt;p&gt;FU将RTC应用中的现有协议分为带外（out-of-band）反馈和（in-band）带内反馈两类。对于带外反馈协议，反馈包的到达就是给发送方的信号（比如TCP中的ACK包）。带内反馈协议在反馈包的有效载荷中携带网络状态，比如WebRTC中的transport-wide congestion control Feedback（TWCC-FB）包。FU用不同逻辑更新修改两类反馈。&lt;/p&gt;
+&lt;p&gt;下图5是诸葛的完整工作流程：&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img src=&#34;picture/picture%20%288%29.png&#34; alt=&#34;截屏2022-11-21 22.38.22.png&#34; loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;当一个包通过以太网端口到达无线接入点时，FT会预测其延迟，同时照常转发给下行队列。FU则把预测信息更新到去往发送者方向的反馈包里。这个过程中，会将最早的信号绕过控制回路的排队延迟和无线传输延迟，直接从AP发给发送方。&lt;/p&gt;
+&lt;h1 id=&#34;4算命先生-fortune-teller&#34;&gt;4.“算命先生” Fortune Teller&lt;/h1&gt;
+&lt;p&gt;“算命”就是预测一个包何时会到达客户端，也就是它随后会经历的延迟。无线网络中的这个延迟可分为两段：在AP队列中的&lt;strong&gt;&lt;strong&gt;&lt;strong&gt;&lt;strong&gt;排队延迟&lt;/strong&gt;&lt;/strong&gt;&lt;/strong&gt;&lt;/strong&gt;和在链路中的&lt;strong&gt;传输延迟&lt;/strong&gt;。&lt;/p&gt;
+&lt;h2 id=&#34;41-排队延迟的预测&#34;&gt;4.1 排队延迟的预测&lt;/h2&gt;
+&lt;p&gt;如3.1讨论，简单地用队列长除以出队速率预测延迟会有瞬态-稳态矛盾。文章因此将排队延迟分为两部分：长期排队延迟（qLong）和短期排队延迟（qShort），如下图6：&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img src=&#34;picture/picture%20%289%29.png&#34; alt=&#34;截屏2022-11-22 20.43.11.png&#34; loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;qLong是一个包从刚到达队列直至来到队列前端的时间。它能覆盖由无线竞争和突发RTC流量引起的延迟波动。可以用当前队列大小除以平均出队速率来估计qLong。&lt;/p&gt;
+&lt;p&gt;qShort是一个位于队列前端的包等待完全出队的时间，其与链路层的发送模式更相关（比如MAC数据单元的聚合会导致其波动）。&lt;/p&gt;
+&lt;p&gt;排队延迟就是把两者相加。以图7说明，这样分开估算的好处是：&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img src=&#34;picture/picture%20%2810%29.png&#34; alt=&#34;截屏2022-11-22 20.56.41.png&#34; loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;qShort能快速检测ABW的下降。&lt;strong&gt;当ABW下降时，队列需要时间建立，txRate（出队速率）需要时间窗口更新，qLong增长较慢。但队列前端的数据包会等更长时间才能发送，这个现象会被立刻观察到。从上图来看，当5ms ABW下降时，5-15ms中总排队延迟的增加里qShort占主要，代表反应迅速；而在15ms后ABW继续下降时，qLong占主要，提供了&lt;/strong&gt;稳定而准确&lt;/strong&gt;的估计。&lt;/p&gt;
+&lt;p&gt;关于&lt;strong&gt;qSize的确定&lt;/strong&gt;，文中提出链路层将几个包聚合同时发送的行为会影响估计的精准度，这种波动应该由qShort来反映，所以用下式来计算qSize，&lt;em&gt;maxBurstSize&lt;/em&gt;是1ms内同时离开的包的最大数量。&lt;/p&gt;
+&lt;p&gt;$$&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;					qSize=max(sizeOfPacketsInQueue−maxBurstSize,0) 
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;$$&lt;/p&gt;
+&lt;h2 id=&#34;42-传输延迟预测&#34;&gt;4.2 传输延迟预测&lt;/h2&gt;
+&lt;p&gt;论文根据参考文献提出：1. 无线信道的传输中只能有一个数据单元；2. 目前Linux中下层协议栈也已使用队列规则（下层不排队会影响方案效果）。于是就如图6所示，用数据包离开网络层队列的间隔时间当做传输时延 tx。&lt;/p&gt;
+&lt;h1 id=&#34;5反馈更新器-feedback-updater&#34;&gt;5.“反馈更新器” Feedback Updater&lt;/h1&gt;
+&lt;p&gt;FT对带外反馈协议的反馈包进行直接的延迟干预，对带内协议则重构（伪造）反馈包。&lt;/p&gt;
+&lt;h2 id=&#34;51-反馈机制分类&#34;&gt;5.1 反馈机制分类&lt;/h2&gt;
+&lt;p&gt;可以分为带内（In-band）和带外（Out-of-band）两类，如下表2.&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img src=&#34;picture/picture%20%2811%29.png&#34; alt=&#34;截屏2022-11-22 21.53.27.png&#34; loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;如下图8，两种差别上文已述，主要是拥塞信号是隐式还是显式。&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img src=&#34;picture/picture%20%2812%29.png&#34; alt=&#34;截屏2022-11-22 21.54.39.png&#34; loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;针对两种反馈机制论文用了不同做法。&lt;/p&gt;
+&lt;h2 id=&#34;52-带外反馈延迟acks&#34;&gt;5.2 带外反馈：延迟ACKs&lt;/h2&gt;
+&lt;p&gt;带外反馈依赖ACK包，不过不同CCAs对此的利用方式不一样，比如BBR计算接收速率并查询ACK包的最小RTT以进行速率适配；Copa对每包延迟都敏感。所以论文用FU直接操控每一个ACK包的延迟（即FU会扣留ACK包，延迟一定时间再发送）。CCAs收到ACK后的操作与原本没差别。&lt;/p&gt;
+&lt;p&gt;用图9从AP的视角说明诸葛如何携带预测信息给发送方：&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img src=&#34;picture/picture%20%2813%29.png&#34; alt=&#34;截屏2022-11-22 22.07.13.png&#34; loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;先看不用诸葛的情况（蓝色）。首先Server发送k和k+1两个包到AP，此时ABW下降。k+1因此会有增加的排队延迟而更晚出队（蓝色1），于是Client会收到更大间隔的k和k+1，并以该间隔确认两个包。Client发出的ACK到达并以该间隔离开AP（蓝色2）。结果如下图10所示，发送方只能在deltaDelay时确认RTT的增加。&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img src=&#34;picture/picture%20%2814%29.png&#34; alt=&#34;截屏2022-11-22 22.24.25.png&#34; loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;如果使用诸葛，k和k+1的延迟在它们到达AP时就被预测（图9红1）。假如FT发现延迟增加，就可以立即把之前的包（j+1和j+2）的ACKs延迟。可以通过故意扩大其他ACK包之间的间隔（j+1和j+2）来及时提醒发送方（图9红2）。如此，发送方可以在红3时就探测到带宽的下降。从图10来看，Server将更早检测到变长的RTT。因此CCAs的控制回路减少了（k+1)-(j-1)。这里的序号只是方便说明，实际诸葛只需要用五元组来区分流即可，用这种方法的诸葛甚至适用于加密的协议比如QUIC。&lt;/p&gt;
+&lt;p&gt;不过上行与下行的数据包都是异步到达的，不可能总是一一对应。FT会随时在包到达时更新并保存信息，最终计算公式即图6中的：&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;					$totalDelay=qLong+qShort+tx$ 
+				
+			
+		
+	.
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;实现细节&#34;&gt;实现细节&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;&lt;strong&gt;&lt;strong&gt;&lt;strong&gt;&lt;strong&gt;&lt;strong&gt;&lt;strong&gt;&lt;strong&gt;&lt;strong&gt;&lt;strong&gt;&lt;strong&gt;&lt;strong&gt;&lt;strong&gt;&lt;strong&gt;&lt;strong&gt;&lt;strong&gt;&lt;strong&gt;&lt;strong&gt;&lt;strong&gt;&lt;strong&gt;&lt;strong&gt;&lt;strong&gt;&lt;strong&gt;&lt;strong&gt;&lt;strong&gt;&lt;strong&gt;&lt;strong&gt;&lt;strong&gt;&lt;strong&gt;&lt;strong&gt;&lt;strong&gt;&lt;strong&gt;&lt;strong&gt;&lt;strong&gt;&lt;strong&gt;&lt;strong&gt;&lt;strong&gt;ACK要延迟多久才会被发送？&lt;/strong&gt;&lt;/strong&gt;&lt;/strong&gt;&lt;/strong&gt;&lt;/strong&gt;&lt;/strong&gt;&lt;/strong&gt;&lt;/strong&gt;&lt;/strong&gt;&lt;/strong&gt;&lt;/strong&gt;&lt;/strong&gt;&lt;/strong&gt;&lt;/strong&gt;&lt;/strong&gt;&lt;/strong&gt;&lt;/strong&gt;&lt;/strong&gt;&lt;/strong&gt;&lt;/strong&gt;&lt;/strong&gt;&lt;/strong&gt;&lt;/strong&gt;&lt;/strong&gt;&lt;/strong&gt;&lt;/strong&gt;&lt;/strong&gt;&lt;/strong&gt;&lt;/strong&gt;&lt;/strong&gt;&lt;/strong&gt;&lt;/strong&gt;&lt;/strong&gt;&lt;/strong&gt;&lt;/strong&gt;&lt;/strong&gt;&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;诸葛会记录&lt;strong&gt;延迟相对值&lt;/strong&gt;。记录连续下行链路包之间的延迟差——当预估延迟增加时，记录下行链路上的一系列正延迟增量，并逐渐增加上行链路方向的延迟。当队列趋于稳定，延迟增量趋于0，上行链路的反馈包不再被延迟。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;模拟&lt;strong&gt;&lt;strong&gt;&lt;strong&gt;&lt;strong&gt;&lt;strong&gt;&lt;strong&gt;&lt;strong&gt;&lt;strong&gt;&lt;strong&gt;&lt;strong&gt;&lt;strong&gt;&lt;strong&gt;&lt;strong&gt;&lt;strong&gt;&lt;strong&gt;&lt;strong&gt;&lt;strong&gt;&lt;strong&gt;&lt;strong&gt;&lt;strong&gt;&lt;strong&gt;&lt;strong&gt;&lt;strong&gt;&lt;strong&gt;&lt;strong&gt;&lt;strong&gt;&lt;strong&gt;延迟分布。&lt;/strong&gt;&lt;/strong&gt;&lt;/strong&gt;&lt;/strong&gt;&lt;/strong&gt;&lt;/strong&gt;&lt;/strong&gt;&lt;/strong&gt;&lt;/strong&gt;&lt;/strong&gt;&lt;/strong&gt;&lt;/strong&gt;&lt;/strong&gt;&lt;/strong&gt;&lt;/strong&gt;&lt;/strong&gt;&lt;/strong&gt;&lt;/strong&gt;&lt;/strong&gt;&lt;/strong&gt;&lt;/strong&gt;&lt;/strong&gt;&lt;/strong&gt;&lt;/strong&gt;&lt;/strong&gt;&lt;/strong&gt;&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;举例来说，AP若收到3个数据包延迟增量都为+1ms，此时若直接给下一个ACk延迟+3ms则会导致比实际更大的延迟。&lt;/p&gt;
+&lt;p&gt;为了解决这个问题，论文希望保持下行链路延迟增量和上行链路ACK延迟之间的&lt;strong&gt;分布等效&lt;/strong&gt;。也就是：记录下行数据包到达时被FT预测的延迟增量，当上行包到达时则对记录的近期下行增量进行采样，并据此给上行包增加延迟。如此，即便有突发流，也可以对反馈包&lt;strong&gt;模拟延迟分布&lt;/strong&gt;。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;反馈包保序。&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;假如有两个同时到达的ACK j+1、j+2，j+2 采样延迟小于 j+1，AP可能会先发送 j+2，导致乱序。但如果硬卡时间保序，会让发送方对RTT估计过大。&lt;/p&gt;
+&lt;p&gt;论文用一个延时令牌来保序并避免高估RTT。当想让后面的反馈包等待之前的包的发送时，将等待时间存为一个延迟令牌。下次采样到一个正向延迟增益时，首先尝试消耗令牌。如此，实际延迟的&lt;strong&gt;平均值&lt;/strong&gt;会维持与预测值相当。&lt;/p&gt;
+&lt;p&gt;如下代码展示诸葛的工作流程：&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img src=&#34;picture/picture%20%2815%29.png&#34; alt=&#34;截屏2022-11-23 10.28.08.png&#34; loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;算法1：当一个包到达并经FT预测其延迟，随后计算延迟增益 &lt;em&gt;deltaDelay&lt;/em&gt;。若增益非负则存入一个滑动窗口，否则存入令牌。&lt;/p&gt;
+&lt;p&gt;当ACK包到达时，算法2用于异步地执行合理延迟ACKs的操作。&lt;em&gt;&lt;strong&gt;&lt;strong&gt;&lt;strong&gt;&lt;strong&gt;&lt;strong&gt;curArrvTime&lt;/strong&gt;&lt;/strong&gt;&lt;/strong&gt;&lt;/strong&gt;&lt;/strong&gt;&lt;/em&gt;是当前ACK的到达时间，&lt;strong&gt;&lt;strong&gt;lastSentTime&lt;/strong&gt;&lt;/strong&gt;是上一个ACK包离开AP前往Server的时间。为了保序，诸葛首先计算当前包的最小延迟，延迟必须大于0，确保不会早于前一个ACK包发送（line1）。随后从滑动窗口中从最近的延迟增益中随机采样（line2）。接着检查是否需要消耗延迟令牌（line3-10）。&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img src=&#34;picture/picture%20%2816%29.png&#34; alt=&#34;截屏2022-11-23 10.31.02.png&#34; loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;53-带内反馈上传负载&#34;&gt;5.3 带内反馈：上传负载&lt;/h2&gt;
+&lt;p&gt;对于如RTCP这样的带内反馈机制，反馈信息（比如每包接收时间都是）写在反馈包的负载中的，因此需要更新它们的负载来携带最新估计的延迟给发送方。下面用RTP（data）/RTCP（feedback）协议对来介绍诸葛如何更新信息，分两步：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;em&gt;&lt;strong&gt;&lt;strong&gt;Step 1：记录&lt;/strong&gt;&lt;/strong&gt;&lt;/em&gt;。预测每一个到达RTP包的延迟并记录，同时记录其头部的TWCC序号。&lt;/li&gt;
+&lt;li&gt;&lt;em&gt;&lt;strong&gt;&lt;strong&gt;&lt;strong&gt;Step 2：重构&lt;/strong&gt;&lt;/strong&gt;&lt;/strong&gt;&lt;/em&gt;。当要给发送方反馈网络状态时（比如每RTT或每帧），诸葛会像一个RTP接收方一样：基于记录的延迟和序号构建一个TWCC反馈包。为了保证时间戳的一致性，诸葛只发送自己构建的TWCC包，而丢弃所有来自Client的TWCC。对于其他种类的反馈包（如NACK），诸葛不作改变。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;诸葛需要知道不同带内反馈协议的格式类型，才能真正实现其作用。&lt;/p&gt;
+&lt;h1 id=&#34;6一些考虑&#34;&gt;6.一些考虑&lt;/h1&gt;
+&lt;p&gt;论文在本节讨论部署诸葛的实际考虑和一些限制。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;&lt;strong&gt;&lt;strong&gt;&lt;strong&gt;&lt;strong&gt;&lt;strong&gt;&lt;strong&gt;&lt;strong&gt;&lt;strong&gt;&lt;strong&gt;&lt;strong&gt;&lt;strong&gt;&lt;strong&gt;&lt;strong&gt;&lt;strong&gt;&lt;strong&gt;&lt;strong&gt;&lt;strong&gt;&lt;strong&gt;&lt;strong&gt;&lt;strong&gt;&lt;strong&gt;&lt;strong&gt;&lt;strong&gt;&lt;strong&gt;Last-miel v.s. first-mile.&lt;/strong&gt;&lt;/strong&gt;&lt;/strong&gt;&lt;/strong&gt;&lt;/strong&gt;&lt;/strong&gt;&lt;/strong&gt;&lt;/strong&gt;&lt;/strong&gt;&lt;/strong&gt;&lt;/strong&gt;&lt;/strong&gt;&lt;/strong&gt;&lt;/strong&gt;&lt;/strong&gt;&lt;/strong&gt;&lt;/strong&gt;&lt;/strong&gt;&lt;/strong&gt;&lt;/strong&gt;&lt;/strong&gt;&lt;/strong&gt;&lt;/strong&gt;&lt;/strong&gt;&lt;/strong&gt; 论文基于的场景是RTC应用如远程桌面、云游戏，它们都是从servers到clients，其中无线网络作为&lt;em&gt;last-mile&lt;/em&gt;，只需考虑发送方如何调整发送率。其他P2P的RTC应用（视频会议）中，无线网络也可能作为&lt;em&gt;first-mile&lt;/em&gt;而同样产生尾部延迟。&lt;/p&gt;
+&lt;p&gt;****公平性。****论文认为诸葛流和其他流之间是公平的。当发送速率增加时，无线AP队列接近空，诸葛流和其他流的控制回路相似，诸葛不会更激进；当发送速率下降时，诸葛只是减小了控制循环来加快拥塞窗口收敛，但收敛的公平性还是由不同的CCAs决定的。&lt;/p&gt;
+&lt;p&gt;******************************************对新协议的扩展性。******************************************论文给TCP、QUIC或RTP/RTCP都提供了方案，并称对于新的带外反馈协议，只要能从数据包中识别出流信息，诸葛仍然可以在网络层起作用。比如QUIC，不需要知道数据包的具体序列号，即使QUIC对所有数据包进行端到端的加密，诸葛也有用。但对于新的带内反馈协议，则需要操作者给出协议的格式来让诸葛能相应修改FU。&lt;/p&gt;
+&lt;h1 id=&#34;7测试&#34;&gt;7.测试&lt;/h1&gt;
+&lt;p&gt;测试要回答的几个问题：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;诸葛能在实际无线网络的轨迹（traces）下提高尾部性能吗？&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;答：在5个实际traces中测试基于RTCP/RTP和TCP的诸葛的性能：能减少最高75%的长尾延迟，提高应用性能最高95%。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;诸葛在不同的无线竞争中表现如何？&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;答：在带宽再分配、流量竞争和无线干扰的无线场景中诸葛都能提升性能。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;诸葛能给实际应用带来多少提升？&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;答：在办公环境下提升网络和应用指标从17%到94.7%。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;诸葛在静态性能、公平性和CPU资源方面的开销是多少？&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;答：诸葛并不影响RTC流的稳态比特率，也不影响与其他流的公平性，并且具有可接受的开销。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;71-实现&#34;&gt;7.1 实现&lt;/h2&gt;
+&lt;p&gt;用NS-3和测试床（基于无线AP产品）来实现诸葛并进行相应实验。使用的是1080p 24fps 2Mbps比特率的视频。其他详见论文。&lt;/p&gt;
+&lt;h2 id=&#34;72-基于trace下的模拟实验&#34;&gt;7.2 基于trace下的模拟实验&lt;/h2&gt;
+&lt;p&gt;模拟实验使用5个真实采集的traces。两个来自WiFi网络，三个来自蜂窝网络，traces记录了带宽和延迟的变化。&lt;/p&gt;
+&lt;p&gt;图11所示基于RTP/RTCP的实验结果，与基线相比诸葛能把延时降低到45%-75%，因此延迟帧率也能降到38%-92%。&lt;/p&gt;
+&lt;p&gt;图12所示基于TCP的实验结果。&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img src=&#34;picture/picture%20%2817%29.png&#34; alt=&#34;截屏2022-11-23 15.01.24.png&#34; loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;h3 id=&#34;带宽降低&#34;&gt;带宽降低&lt;/h3&gt;
+&lt;p&gt;图14评估诸葛快速适应带宽缩减的能力。首先模拟具有50ms RTT和30Mbps带宽的链路并开始传输。当CCA达到稳定状态时，将带宽减少k倍（𝑘从2到50），并在收敛之前测量RTT&amp;gt;200ms、帧延迟&amp;gt;400ms和帧速率&amp;lt;10fps的持续时间。对于RTP/RTCP，Gcc+诸葛在广泛的设置范围内将网络降级的持续时间和应用程序性能降低了至少50%。&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img src=&#34;picture/picture%20%2818%29.png&#34; alt=&#34;截屏2022-11-23 15.43.03.png&#34; loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;TCP上的结果显示了类似的结果，如下图15所示。对于𝑘 ⩾ 30，论文认为由于严重的数据包丢失，降级持续时间主要受TCP重传超时（RTO）的限制，所以诸葛的性能改善并不显著。可以看其实到Copa的性能已经很好了，诸葛对于TCP的改善效果不如RTP。&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img src=&#34;picture/picture%20%2819%29.png&#34; alt=&#34;截屏2022-11-23 15.46.53.png&#34; loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;h3 id=&#34;估计的准确度&#34;&gt;估计的准确度&lt;/h3&gt;
+&lt;p&gt;实验设置RTT=50ms。图19（a）展示不同traces中预测误差的分布。&lt;/p&gt;
+&lt;p&gt;图19（b）展示估计与真实值的分布频率热图。当估计的延迟较低（1-64ms）时，估计比较准；当估计的延迟比较高（&amp;gt;64ms）时可能不准确（出现高估）。&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img src=&#34;picture/picture%20%2820%29.png&#34; alt=&#34;截屏2022-11-23 16.22.13.png&#34; loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;h2 id=&#34;73-真实环境下的实验&#34;&gt;7.3 真实环境下的实验&lt;/h2&gt;
+&lt;p&gt;实验使用基于OpenWrt的WiFi AP测试床进一步评估诸葛的性能。在两台笔记本电脑上使用Microsoft Edge浏览器中的WebRTC API设置了RTC服务器和客户端。服务器通过基于RTP/RTCP+GCC的对等连接（peerconnection）API将带时间戳的视频流式传输到客户端。服务器有线连接到AP，而客户端通过WiFi连接到AP。评估诸葛在以下场景中的表现，每个场景持续6小时。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;scp. 该实验用于评估基于RTC的诸葛流在与其他流竞争时的性能。实验每隔30秒定期启动和停止从服务器到客户端的scp文件传输。&lt;/li&gt;
+&lt;li&gt;mcs. 该实验旨在模拟波动的无线信道。802.11接入点将在链路层动态地改变调制编码方案（MCS）以适应信道条件。因此，与类似使用Linux iw命令每30秒随机更改MCS，并评估诸葛对波动的反应。&lt;/li&gt;
+&lt;li&gt;raw. 办公室中运行RTC应用程序的结果，无需额外配置。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;文章通过分析数据包捕获来测量网络RTT，通过计算发送的视频和接收的视频之间的时间戳差来测量帧延迟，并比较平均比特率&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img src=&#34;picture/picture%20%2821%29.png&#34; alt=&#34;截屏2022-11-23 16.15.35.png&#34; loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;h3 id=&#34;公平性&#34;&gt;公平性&lt;/h3&gt;
+&lt;p&gt;如下图20记录了当RTC流竞争同一AP时，根据链路容量进行归一化处理后的RTC流的吞吐。&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img src=&#34;picture/picture%20%2822%29.png&#34; alt=&#34;截屏2022-11-23 16.26.08.png&#34; loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;h3 id=&#34;cpu开销&#34;&gt;CPU开销&lt;/h3&gt;
+&lt;p&gt;实验在基于OpenWrt的Netgear WiFi AP以及TP Link TL-WDR4900 AP上的实现诸葛，并测量诸葛的CPU利用率。&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img src=&#34;picture/picture%20%2823%29.png&#34; alt=&#34;截屏2022-11-23 16.35.13.png&#34; loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;论文提出有几个方向可以优化诸葛的资源开销。首先，当CPU利用率较高时，诸葛可以有选择地更新网络状况，而不是估计所有下行链路数据包，只要估计之间的时间间隔是可忽略的（几毫秒），控制回路仍然被减少。此外，诸葛的实现是基于用户空间的套接字，可以通过将诸葛作为内核模块插入来进一步优化。最后，很多商业AP中部署了每包状态维护的功能可以供利用。&lt;/p&gt;
+&lt;h1 id=&#34;9总结与思考&#34;&gt;9.总结与思考&lt;/h1&gt;
+&lt;p&gt;诸葛是一个纯基于AP的方案，用于缩减控制回路来减小RTC应用在无线网络场景（最后一英里）中的尾部延迟现象。诸葛会用“算命先生”预测每个到达包之后的延迟，再把这个预测信息通过“反馈更新器”立即上传给发送方，而不再经过最后一英里。实验主要通过尾部延迟、帧延迟、帧率三个指标进行性能评估。另外：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;实验的评估指标如尾部延迟与RTC应用的真实用户主观体验之间有怎样的对应关系？&lt;/li&gt;
+&lt;li&gt;实验其他评估指标或可用更多实验论证。&lt;/li&gt;
+&lt;li&gt;瞬态稳态矛盾是很经典的问题。
+Shiyu Liu, Ahmad Ghalayini, Mohammad Alizadeh, Balaji Prabhakar, Mendel Rosenblum, and Anirudh Sivaraman. 2021. Breaking the Transience-Equilibrium Nexus: A New Approach to Datacenter Packet Transport. In Proc. USENIX NSDI.&lt;/li&gt;
+&lt;/ol&gt;</description>
+    </item>
+    
+  </channel>
+</rss>
