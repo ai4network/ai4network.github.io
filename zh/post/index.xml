@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>新闻动态 | AI4network 实验室</title>
+    <title>文献分享 | AI4network 实验室</title>
     <link>https://ai4network.github.io/zh/post/</link>
       <atom:link href="https://ai4network.github.io/zh/post/index.xml" rel="self" type="application/rss+xml" />
-    <description>新闻动态</description>
+    <description>文献分享</description>
     <generator>Wowchemy (https://wowchemy.com)</generator><language>zh-Hans</language><lastBuildDate>Sun, 27 Nov 2022 20:58:16 +0800</lastBuildDate>
     <image>
       <url>https://ai4network.github.io/media/icon_hua2ec155b4296a9c9791d015323e16eb5_11927_512x512_fill_lanczos_center_3.png</url>
-      <title>新闻动态</title>
+      <title>文献分享</title>
       <link>https://ai4network.github.io/zh/post/</link>
     </image>
     
     <item>
-      <title>SIGCOMM22 论文分享 | LiveNet: a low-latency video transport network for large-scale live streaming</title>
+      <title>SIGCOMM22 论文分享 | Achieving Consistent Low Latency for Wireless Real-Time Communications with the Shortest Control Loop</title>
       <link>https://ai4network.github.io/zh/post/paper-sharing-4/</link>
       <pubDate>Sun, 27 Nov 2022 20:58:16 +0800</pubDate>
       <guid>https://ai4network.github.io/zh/post/paper-sharing-4/</guid>
@@ -676,7 +676,7 @@
   &lt;/div&gt;&lt;/figure&gt;
 &lt;/p&gt;
 &lt;p&gt;论文提出有几个方向可以优化诸葛的资源开销。首先，当CPU利用率较高时，诸葛可以有选择地更新网络状况，而不是估计所有下行链路数据包，只要估计之间的时间间隔是可忽略的（几毫秒），控制回路仍然被减少。此外，诸葛的实现是基于用户空间的套接字，可以通过将诸葛作为内核模块插入来进一步优化。最后，很多商业AP中部署了每包状态维护的功能可以供利用。&lt;/p&gt;
-&lt;h1 id=&#34;9总结与思考&#34;&gt;9.总结与思考&lt;/h1&gt;
+&lt;h1 id=&#34;8总结与思考&#34;&gt;8.总结与思考&lt;/h1&gt;
 &lt;p&gt;诸葛是一个纯基于AP的方案，用于缩减控制回路来减小RTC应用在无线网络场景（最后一英里）中的尾部延迟现象。诸葛会用“算命先生”预测每个到达包之后的延迟，再把这个预测信息通过“反馈更新器”立即上传给发送方，而不再经过最后一英里。实验主要通过尾部延迟、帧延迟、帧率三个指标进行性能评估。另外：&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;实验的评估指标如尾部延迟与RTC应用的真实用户主观体验之间有怎样的对应关系？&lt;/li&gt;
