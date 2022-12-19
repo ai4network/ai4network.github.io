@@ -2,8 +2,27 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
+<<<<<<< HEAD
     <loc>https://ai4network.github.io/</loc>
     <lastmod>2022-12-19T19:16:23+08:00</lastmod>
+=======
+    <loc>https://ai4network.github.io/event/7/</loc>
+    <lastmod>2022-12-02T19:30:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh"
+                href="https://ai4network.github.io/zh/event/7/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://ai4network.github.io/event/7/"
+                />
+  </url><url>
+    <loc>https://ai4network.github.io/</loc>
+    <lastmod>2022-12-02T19:30:00+00:00</lastmod>
+>>>>>>> 20cc6a1d9cfb5756ec77ac0452f2375ee98f5c2b
     <changefreq>weekly</changefreq>
     <xhtml:link
                 rel="alternate"
@@ -17,7 +36,11 @@
                 />
   </url><url>
     <loc>https://ai4network.github.io/authors/</loc>
+<<<<<<< HEAD
     <lastmod>2022-12-19T19:16:23+08:00</lastmod>
+=======
+    <lastmod>2022-12-02T19:30:00+00:00</lastmod>
+>>>>>>> 20cc6a1d9cfb5756ec77ac0452f2375ee98f5c2b
     <changefreq>weekly</changefreq>
     <xhtml:link
                 rel="alternate"
@@ -28,6 +51,48 @@
                 rel="alternate"
                 hreflang="en"
                 href="https://ai4network.github.io/authors/"
+                />
+  </url><url>
+    <loc>https://ai4network.github.io/event/</loc>
+    <lastmod>2022-12-02T19:30:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh"
+                href="https://ai4network.github.io/zh/event/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://ai4network.github.io/event/"
+                />
+  </url><url>
+    <loc>https://ai4network.github.io/author/%E6%9D%8E%E4%BA%9A%E8%BE%89/</loc>
+    <lastmod>2022-12-02T19:30:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh"
+                href="https://ai4network.github.io/zh/author/%E6%9D%8E%E4%BA%9A%E8%BE%89/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://ai4network.github.io/author/%E6%9D%8E%E4%BA%9A%E8%BE%89/"
+                />
+  </url><url>
+    <loc>https://ai4network.github.io/author/%E8%AE%A1%E6%99%93%E5%B2%9A/</loc>
+    <lastmod>2022-12-02T19:30:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh"
+                href="https://ai4network.github.io/zh/author/%E8%AE%A1%E6%99%93%E5%B2%9A/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://ai4network.github.io/author/%E8%AE%A1%E6%99%93%E5%B2%9A/"
                 />
   </url><url>
     <loc>https://ai4network.github.io/categories/</loc>
@@ -101,7 +166,11 @@
                 />
   </url><url>
     <loc>https://ai4network.github.io/post/</loc>
+<<<<<<< HEAD
     <lastmod>2022-12-19T19:16:23+08:00</lastmod>
+=======
+    <lastmod>2022-11-27T20:58:16+08:00</lastmod>
+>>>>>>> 20cc6a1d9cfb5756ec77ac0452f2375ee98f5c2b
     <changefreq>weekly</changefreq>
     <xhtml:link
                 rel="alternate"
@@ -114,6 +183,7 @@
                 href="https://ai4network.github.io/post/"
                 />
   </url><url>
+<<<<<<< HEAD
     <loc>https://ai4network.github.io/tags/</loc>
     <lastmod>2022-12-19T19:16:23+08:00</lastmod>
     <changefreq>weekly</changefreq>
@@ -212,6 +282,8 @@
                 href="https://ai4network.github.io/author/%E8%AE%A1%E6%99%93%E5%B2%9A/"
                 />
   </url><url>
+=======
+>>>>>>> 20cc6a1d9cfb5756ec77ac0452f2375ee98f5c2b
     <loc>https://ai4network.github.io/tag/sigcomm22/</loc>
     <lastmod>2022-11-27T20:58:16+08:00</lastmod>
     <changefreq>weekly</changefreq>

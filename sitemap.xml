@@ -4,14 +4,22 @@
   <sitemap>
     <loc>https://ai4network.github.io/en/sitemap.xml</loc>
     
+<<<<<<< HEAD
       <lastmod>2022-12-19T19:16:23+08:00</lastmod>
+=======
+      <lastmod>2022-12-02T19:30:00+00:00</lastmod>
+>>>>>>> 20cc6a1d9cfb5756ec77ac0452f2375ee98f5c2b
     
   </sitemap>
   
   <sitemap>
     <loc>https://ai4network.github.io/zh/sitemap.xml</loc>
     
+<<<<<<< HEAD
       <lastmod>2022-12-19T19:16:23+08:00</lastmod>
+=======
+      <lastmod>2022-12-02T19:30:00+00:00</lastmod>
+>>>>>>> 20cc6a1d9cfb5756ec77ac0452f2375ee98f5c2b
     
   </sitemap>
   

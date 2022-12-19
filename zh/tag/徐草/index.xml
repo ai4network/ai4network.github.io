@@ -13,6 +13,7 @@
     </image>
     
     <item>
+<<<<<<< HEAD
       <title>MobiCom22 论文分享 | Real-time Neural Network Inference on Extremely WeakDevices: Agile Offloading with Explainable Al</title>
       <link>https://ai4network.github.io/zh/post/paper-sharing-5/</link>
       <pubDate>Mon, 19 Dec 2022 19:16:23 +0800</pubDate>
@@ -354,6 +355,8 @@ $$
     </item>
     
     <item>
+=======
+>>>>>>> 20cc6a1d9cfb5756ec77ac0452f2375ee98f5c2b
       <title>SIGCOMM22 论文分享 | Achieving Consistent Low Latency for Wireless Real-Time Communications with the Shortest Control Loop</title>
       <link>https://ai4network.github.io/zh/post/paper-sharing-4/</link>
       <pubDate>Sun, 27 Nov 2022 20:58:16 +0800</pubDate>
