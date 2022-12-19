@@ -5,12 +5,24 @@
     <link>https://ai4network.github.io/author/%E8%AE%A1%E6%99%93%E5%B2%9A/</link>
       <atom:link href="https://ai4network.github.io/author/%E8%AE%A1%E6%99%93%E5%B2%9A/index.xml" rel="self" type="application/rss+xml" />
     <description>计晓岚</description>
-    <generator>Wowchemy (https://wowchemy.com)</generator><language>en-us</language><lastBuildDate>Mon, 21 Nov 2022 19:47:34 +0800</lastBuildDate>
+    <generator>Wowchemy (https://wowchemy.com)</generator><language>en-us</language><lastBuildDate>Fri, 02 Dec 2022 19:30:00 +0000</lastBuildDate>
     <image>
       <url>https://ai4network.github.io/author/%E8%AE%A1%E6%99%93%E5%B2%9A/avatar_hu933d16a9fd2a1b1f3765ff42731090c2_105214_270x270_fill_q75_lanczos_center.jpeg</url>
       <title>计晓岚</title>
       <link>https://ai4network.github.io/author/%E8%AE%A1%E6%99%93%E5%B2%9A/</link>
     </image>
+    
+    <item>
+      <title>2022年秋季学期第16周组会</title>
+      <link>https://ai4network.github.io/event/7/</link>
+      <pubDate>Fri, 02 Dec 2022 19:30:00 +0000</pubDate>
+      <guid>https://ai4network.github.io/event/7/</guid>
+      <description>&lt;p&gt;点击链接入会，或添加至会议列表：
+&lt;a href=&#34;https://meeting.tencent.com/dm/B1P5KTsmzDA7&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://meeting.tencent.com/dm/B1P5KTsmzDA7&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;腾讯会议：961-601-710
+会议密码：123456&lt;/p&gt;
+</description>
+    </item>
     
     <item>
       <title>SIGCOMM22 论文分享 | Elasticity Detection: A Building Block for Internet Congestion Control</title>

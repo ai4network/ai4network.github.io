@@ -5,12 +5,24 @@
     <link>https://ai4network.github.io/zh/author/%E6%9D%8E%E4%BA%9A%E8%BE%89/</link>
       <atom:link href="https://ai4network.github.io/zh/author/%E6%9D%8E%E4%BA%9A%E8%BE%89/index.xml" rel="self" type="application/rss+xml" />
     <description>李亚辉</description>
-    <generator>Wowchemy (https://wowchemy.com)</generator><language>zh-Hans</language><lastBuildDate>Thu, 24 Nov 2022 20:58:16 +0800</lastBuildDate>
+    <generator>Wowchemy (https://wowchemy.com)</generator><language>zh-Hans</language><lastBuildDate>Fri, 02 Dec 2022 19:30:00 +0000</lastBuildDate>
     <image>
       <url>https://ai4network.github.io/zh/author/%E6%9D%8E%E4%BA%9A%E8%BE%89/avatar_hu0094e9b6ea2d87e337a57240e6129c87_108081_270x270_fill_q75_lanczos_center.jpeg</url>
       <title>李亚辉</title>
       <link>https://ai4network.github.io/zh/author/%E6%9D%8E%E4%BA%9A%E8%BE%89/</link>
     </image>
+    
+    <item>
+      <title>2022年秋季学期第16周组会</title>
+      <link>https://ai4network.github.io/zh/event/7/</link>
+      <pubDate>Fri, 02 Dec 2022 19:30:00 +0000</pubDate>
+      <guid>https://ai4network.github.io/zh/event/7/</guid>
+      <description>&lt;p&gt;点击链接入会，或添加至会议列表：
+&lt;a href=&#34;https://meeting.tencent.com/dm/B1P5KTsmzDA7&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://meeting.tencent.com/dm/B1P5KTsmzDA7&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;腾讯会议：961-601-710
+会议密码：123456&lt;/p&gt;
+</description>
+    </item>
     
     <item>
       <title>SIGCOMM22 论文分享 | LiveNet: a low-latency video transport network for large-scale live streaming</title>

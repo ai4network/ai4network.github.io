@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <!-- This site was created with Wowchemy. https://www.wowchemy.com -->
-<!-- Last Published: 2022年11月29日 --><html lang="zh-Hans" >
+<!-- Last Published: 2022年12月19日 --><html lang="zh-Hans" >
 
 
 <head>
@@ -320,7 +320,7 @@
 <meta property="twitter:image" content="https://ai4network.github.io/zh/post/paper-sharing-4/featured.png" />
 <meta property="og:site_name" content="AI4network 实验室" />
 <meta property="og:url" content="https://ai4network.github.io/zh/post/paper-sharing-4/" />
-<meta property="og:title" content="SIGCOMM22 论文分享 | LiveNet: a low-latency video transport network for large-scale live streaming | AI4network 实验室" />
+<meta property="og:title" content="SIGCOMM22 论文分享 | Achieving Consistent Low Latency for Wireless Real-Time Communications with the Shortest Control Loop | AI4network 实验室" />
 <meta property="og:description" content="  本期分享SIGCOMM22拥塞控制专题下的论文： Achieving Consistent Low Latency for Wireless Real-Time Communications with the Shortest Control Loop。该文作者来自清华大学、阿里巴巴与卡耐基梅隆大学。" /><meta property="og:image" content="https://ai4network.github.io/zh/post/paper-sharing-4/featured.png" /><meta property="og:locale" content="zh-Hans" />
 
   
@@ -358,7 +358,7 @@
     "@type": "WebPage",
     "@id": "https://ai4network.github.io/zh/post/paper-sharing-4/"
   },
-  "headline": "SIGCOMM22 论文分享 | LiveNet: a low-latency video transport network for large-scale live streaming",
+  "headline": "SIGCOMM22 论文分享 | Achieving Consistent Low Latency for Wireless Real-Time Communications with the Shortest Control Loop",
   
   "image": [
     "https://ai4network.github.io/zh/post/paper-sharing-4/featured.png"
@@ -402,7 +402,7 @@
 
 
   
-  <title>SIGCOMM22 论文分享 | LiveNet: a low-latency video transport network for large-scale live streaming | AI4network 实验室</title>
+  <title>SIGCOMM22 论文分享 | Achieving Consistent Low Latency for Wireless Real-Time Communications with the Shortest Control Loop | AI4network 实验室</title>
 
   
   
@@ -602,7 +602,7 @@
           
 
           <li class="nav-item">
-            <a class="nav-link " href="/zh/post"><span>新闻动态</span></a>
+            <a class="nav-link " href="/zh/post"><span>文献分享</span></a>
           </li>
 
           
@@ -833,7 +833,7 @@
 
 
 <div class="article-container pt-3">
-  <h1>SIGCOMM22 论文分享 | LiveNet: a low-latency video transport network for large-scale live streaming</h1>
+  <h1>SIGCOMM22 论文分享 | Achieving Consistent Low Latency for Wireless Real-Time Communications with the Shortest Control Loop</h1>
 
   
 
@@ -1568,7 +1568,7 @@
   </div></figure>
 </p>
 <p>论文提出有几个方向可以优化诸葛的资源开销。首先，当CPU利用率较高时，诸葛可以有选择地更新网络状况，而不是估计所有下行链路数据包，只要估计之间的时间间隔是可忽略的（几毫秒），控制回路仍然被减少。此外，诸葛的实现是基于用户空间的套接字，可以通过将诸葛作为内核模块插入来进一步优化。最后，很多商业AP中部署了每包状态维护的功能可以供利用。</p>
-<h1 id="9总结与思考">9.总结与思考</h1>
+<h1 id="8总结与思考">8.总结与思考</h1>
 <p>诸葛是一个纯基于AP的方案，用于缩减控制回路来减小RTC应用在无线网络场景（最后一英里）中的尾部延迟现象。诸葛会用“算命先生”预测每个到达包之后的延迟，再把这个预测信息通过“反馈更新器”立即上传给发送方，而不再经过最后一英里。实验主要通过尾部延迟、帧延迟、帧率三个指标进行性能评估。另外：</p>
 <ol>
 <li>实验的评估指标如尾部延迟与RTC应用的真实用户主观体验之间有怎样的对应关系？</li>
@@ -1611,7 +1611,7 @@ Shiyu Liu, Ahmad Ghalayini, Mohammad Alizadeh, Balaji Prabhakar, Mendel Rosenblu
       
       
       <li>
-        <a href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fai4network.github.io%2Fzh%2Fpost%2Fpaper-sharing-4%2F&amp;text=SIGCOMM22&#43;%E8%AE%BA%E6%96%87%E5%88%86%E4%BA%AB&#43;%7C&#43;LiveNet%3A&#43;a&#43;low-latency&#43;video&#43;transport&#43;network&#43;for&#43;large-scale&#43;live&#43;streaming" target="_blank" rel="noopener" class="share-btn-twitter" aria-label="twitter">
+        <a href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fai4network.github.io%2Fzh%2Fpost%2Fpaper-sharing-4%2F&amp;text=SIGCOMM22&#43;%E8%AE%BA%E6%96%87%E5%88%86%E4%BA%AB&#43;%7C&#43;Achieving&#43;Consistent&#43;Low&#43;Latency&#43;for&#43;Wireless&#43;Real-Time&#43;Communications&#43;with&#43;the&#43;Shortest&#43;Control&#43;Loop" target="_blank" rel="noopener" class="share-btn-twitter" aria-label="twitter">
           <i class="fab fa-twitter"></i>
         </a>
       </li>
@@ -1628,7 +1628,7 @@ Shiyu Liu, Ahmad Ghalayini, Mohammad Alizadeh, Balaji Prabhakar, Mendel Rosenblu
       
       
       <li>
-        <a href="https://www.facebook.com/sharer.php?u=https%3A%2F%2Fai4network.github.io%2Fzh%2Fpost%2Fpaper-sharing-4%2F&amp;t=SIGCOMM22&#43;%E8%AE%BA%E6%96%87%E5%88%86%E4%BA%AB&#43;%7C&#43;LiveNet%3A&#43;a&#43;low-latency&#43;video&#43;transport&#43;network&#43;for&#43;large-scale&#43;live&#43;streaming" target="_blank" rel="noopener" class="share-btn-facebook" aria-label="facebook">
+        <a href="https://www.facebook.com/sharer.php?u=https%3A%2F%2Fai4network.github.io%2Fzh%2Fpost%2Fpaper-sharing-4%2F&amp;t=SIGCOMM22&#43;%E8%AE%BA%E6%96%87%E5%88%86%E4%BA%AB&#43;%7C&#43;Achieving&#43;Consistent&#43;Low&#43;Latency&#43;for&#43;Wireless&#43;Real-Time&#43;Communications&#43;with&#43;the&#43;Shortest&#43;Control&#43;Loop" target="_blank" rel="noopener" class="share-btn-facebook" aria-label="facebook">
           <i class="fab fa-facebook"></i>
         </a>
       </li>
@@ -1647,7 +1647,7 @@ Shiyu Liu, Ahmad Ghalayini, Mohammad Alizadeh, Balaji Prabhakar, Mendel Rosenblu
         
       
       <li>
-        <a href="mailto:?subject=SIGCOMM22%20%E8%AE%BA%E6%96%87%E5%88%86%E4%BA%AB%20%7C%20LiveNet%3A%20a%20low-latency%20video%20transport%20network%20for%20large-scale%20live%20streaming&amp;body=https%3A%2F%2Fai4network.github.io%2Fzh%2Fpost%2Fpaper-sharing-4%2F" target="_blank" rel="noopener" class="share-btn-email" aria-label="envelope">
+        <a href="mailto:?subject=SIGCOMM22%20%E8%AE%BA%E6%96%87%E5%88%86%E4%BA%AB%20%7C%20Achieving%20Consistent%20Low%20Latency%20for%20Wireless%20Real-Time%20Communications%20with%20the%20Shortest%20Control%20Loop&amp;body=https%3A%2F%2Fai4network.github.io%2Fzh%2Fpost%2Fpaper-sharing-4%2F" target="_blank" rel="noopener" class="share-btn-email" aria-label="envelope">
           <i class="fas fa-envelope"></i>
         </a>
       </li>
@@ -1664,7 +1664,7 @@ Shiyu Liu, Ahmad Ghalayini, Mohammad Alizadeh, Balaji Prabhakar, Mendel Rosenblu
       
       
       <li>
-        <a href="https://www.linkedin.com/shareArticle?url=https%3A%2F%2Fai4network.github.io%2Fzh%2Fpost%2Fpaper-sharing-4%2F&amp;title=SIGCOMM22&#43;%E8%AE%BA%E6%96%87%E5%88%86%E4%BA%AB&#43;%7C&#43;LiveNet%3A&#43;a&#43;low-latency&#43;video&#43;transport&#43;network&#43;for&#43;large-scale&#43;live&#43;streaming" target="_blank" rel="noopener" class="share-btn-linkedin" aria-label="linkedin-in">
+        <a href="https://www.linkedin.com/shareArticle?url=https%3A%2F%2Fai4network.github.io%2Fzh%2Fpost%2Fpaper-sharing-4%2F&amp;title=SIGCOMM22&#43;%E8%AE%BA%E6%96%87%E5%88%86%E4%BA%AB&#43;%7C&#43;Achieving&#43;Consistent&#43;Low&#43;Latency&#43;for&#43;Wireless&#43;Real-Time&#43;Communications&#43;with&#43;the&#43;Shortest&#43;Control&#43;Loop" target="_blank" rel="noopener" class="share-btn-linkedin" aria-label="linkedin-in">
           <i class="fab fa-linkedin-in"></i>
         </a>
       </li>
@@ -1681,7 +1681,7 @@ Shiyu Liu, Ahmad Ghalayini, Mohammad Alizadeh, Balaji Prabhakar, Mendel Rosenblu
       
       
       <li>
-        <a href="whatsapp://send?text=SIGCOMM22&#43;%E8%AE%BA%E6%96%87%E5%88%86%E4%BA%AB&#43;%7C&#43;LiveNet%3A&#43;a&#43;low-latency&#43;video&#43;transport&#43;network&#43;for&#43;large-scale&#43;live&#43;streaming%20https%3A%2F%2Fai4network.github.io%2Fzh%2Fpost%2Fpaper-sharing-4%2F" target="_blank" rel="noopener" class="share-btn-whatsapp" aria-label="whatsapp">
+        <a href="whatsapp://send?text=SIGCOMM22&#43;%E8%AE%BA%E6%96%87%E5%88%86%E4%BA%AB&#43;%7C&#43;Achieving&#43;Consistent&#43;Low&#43;Latency&#43;for&#43;Wireless&#43;Real-Time&#43;Communications&#43;with&#43;the&#43;Shortest&#43;Control&#43;Loop%20https%3A%2F%2Fai4network.github.io%2Fzh%2Fpost%2Fpaper-sharing-4%2F" target="_blank" rel="noopener" class="share-btn-whatsapp" aria-label="whatsapp">
           <i class="fab fa-whatsapp"></i>
         </a>
       </li>
@@ -1698,7 +1698,7 @@ Shiyu Liu, Ahmad Ghalayini, Mohammad Alizadeh, Balaji Prabhakar, Mendel Rosenblu
       
       
       <li>
-        <a href="https://service.weibo.com/share/share.php?url=https%3A%2F%2Fai4network.github.io%2Fzh%2Fpost%2Fpaper-sharing-4%2F&amp;title=SIGCOMM22&#43;%E8%AE%BA%E6%96%87%E5%88%86%E4%BA%AB&#43;%7C&#43;LiveNet%3A&#43;a&#43;low-latency&#43;video&#43;transport&#43;network&#43;for&#43;large-scale&#43;live&#43;streaming" target="_blank" rel="noopener" class="share-btn-weibo" aria-label="weibo">
+        <a href="https://service.weibo.com/share/share.php?url=https%3A%2F%2Fai4network.github.io%2Fzh%2Fpost%2Fpaper-sharing-4%2F&amp;title=SIGCOMM22&#43;%E8%AE%BA%E6%96%87%E5%88%86%E4%BA%AB&#43;%7C&#43;Achieving&#43;Consistent&#43;Low&#43;Latency&#43;for&#43;Wireless&#43;Real-Time&#43;Communications&#43;with&#43;the&#43;Shortest&#43;Control&#43;Loop" target="_blank" rel="noopener" class="share-btn-weibo" aria-label="weibo">
           <i class="fab fa-weibo"></i>
         </a>
       </li>
