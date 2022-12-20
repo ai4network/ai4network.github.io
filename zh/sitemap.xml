@@ -114,20 +114,6 @@
                 href="https://ai4network.github.io/zh/tags/"
                 />
   </url><url>
-    <loc>https://ai4network.github.io/zh/tag/%E5%BE%90%E8%8D%89/</loc>
-    <lastmod>2022-12-19T19:16:23+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <xhtml:link
-                rel="alternate"
-                hreflang="en"
-                href="https://ai4network.github.io/tag/%E5%BE%90%E8%8D%89/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="zh"
-                href="https://ai4network.github.io/zh/tag/%E5%BE%90%E8%8D%89/"
-                />
-  </url><url>
     <loc>https://ai4network.github.io/zh/post/</loc>
     <lastmod>2022-12-19T19:16:23+08:00</lastmod>
     <changefreq>weekly</changefreq>
@@ -140,6 +126,20 @@
                 rel="alternate"
                 hreflang="zh"
                 href="https://ai4network.github.io/zh/post/"
+                />
+  </url><url>
+    <loc>https://ai4network.github.io/zh/tag/%E9%9F%A9%E9%9B%AA%E5%BC%BA/</loc>
+    <lastmod>2022-12-19T19:16:23+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://ai4network.github.io/tag/%E9%9F%A9%E9%9B%AA%E5%BC%BA/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh"
+                href="https://ai4network.github.io/zh/tag/%E9%9F%A9%E9%9B%AA%E5%BC%BA/"
                 />
   </url><url>
     <loc>https://ai4network.github.io/zh/author/%E9%9F%A9%E9%9B%AA%E5%BC%BA/</loc>
@@ -238,6 +238,20 @@
                 rel="alternate"
                 hreflang="zh"
                 href="https://ai4network.github.io/zh/post/paper-sharing-4/"
+                />
+  </url><url>
+    <loc>https://ai4network.github.io/zh/tag/%E5%BE%90%E8%8D%89/</loc>
+    <lastmod>2022-11-27T20:58:16+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://ai4network.github.io/tag/%E5%BE%90%E8%8D%89/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh"
+                href="https://ai4network.github.io/zh/tag/%E5%BE%90%E8%8D%89/"
                 />
   </url><url>
     <loc>https://ai4network.github.io/zh/author/%E5%BE%90%E8%8D%89/</loc>
