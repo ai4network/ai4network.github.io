@@ -3,7 +3,7 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://ai4network.github.io/zh/</loc>
-    <lastmod>2022-12-19T19:16:23+08:00</lastmod>
+    <lastmod>2023-01-10T15:40:06+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <xhtml:link
                 rel="alternate"
@@ -17,7 +17,7 @@
                 />
   </url><url>
     <loc>https://ai4network.github.io/zh/authors/</loc>
-    <lastmod>2022-12-19T19:16:23+08:00</lastmod>
+    <lastmod>2023-01-10T15:40:06+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <xhtml:link
                 rel="alternate"
@@ -31,7 +31,7 @@
                 />
   </url><url>
     <loc>https://ai4network.github.io/zh/categories/</loc>
-    <lastmod>2022-12-19T19:16:23+08:00</lastmod>
+    <lastmod>2023-01-10T15:40:06+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <xhtml:link
                 rel="alternate"
@@ -42,6 +42,244 @@
                 rel="alternate"
                 hreflang="zh"
                 href="https://ai4network.github.io/zh/categories/"
+                />
+  </url><url>
+    <loc>https://ai4network.github.io/zh/category/paper-share/</loc>
+    <lastmod>2023-01-10T15:40:06+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://ai4network.github.io/category/paper-share/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh"
+                href="https://ai4network.github.io/zh/category/paper-share/"
+                />
+  </url><url>
+    <loc>https://ai4network.github.io/zh/tag/paper-sharing/</loc>
+    <lastmod>2023-01-10T15:40:06+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://ai4network.github.io/tag/paper-sharing/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh"
+                href="https://ai4network.github.io/zh/tag/paper-sharing/"
+                />
+  </url><url>
+    <loc>https://ai4network.github.io/zh/tag/sigcomm22/</loc>
+    <lastmod>2023-01-10T15:40:06+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://ai4network.github.io/tag/sigcomm22/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh"
+                href="https://ai4network.github.io/zh/tag/sigcomm22/"
+                />
+  </url><url>
+    <loc>https://ai4network.github.io/zh/post/paper-sharing-9/</loc>
+    <lastmod>2023-01-10T15:40:06+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://ai4network.github.io/post/paper-sharing-9/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh"
+                href="https://ai4network.github.io/zh/post/paper-sharing-9/"
+                />
+  </url><url>
+    <loc>https://ai4network.github.io/zh/tags/</loc>
+    <lastmod>2023-01-10T15:40:06+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://ai4network.github.io/tags/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh"
+                href="https://ai4network.github.io/zh/tags/"
+                />
+  </url><url>
+    <loc>https://ai4network.github.io/zh/post/</loc>
+    <lastmod>2023-01-10T15:40:06+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://ai4network.github.io/post/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh"
+                href="https://ai4network.github.io/zh/post/"
+                />
+  </url><url>
+    <loc>https://ai4network.github.io/zh/tag/%E6%A2%81%E8%A7%82%E5%B9%B3/</loc>
+    <lastmod>2023-01-10T15:40:06+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://ai4network.github.io/tag/%E6%A2%81%E8%A7%82%E5%B9%B3/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh"
+                href="https://ai4network.github.io/zh/tag/%E6%A2%81%E8%A7%82%E5%B9%B3/"
+                />
+  </url><url>
+    <loc>https://ai4network.github.io/zh/author/%E6%A2%81%E8%A7%82%E5%B9%B3/</loc>
+    <lastmod>2023-01-10T15:40:06+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://ai4network.github.io/author/%E6%A2%81%E8%A7%82%E5%B9%B3/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh"
+                href="https://ai4network.github.io/zh/author/%E6%A2%81%E8%A7%82%E5%B9%B3/"
+                />
+  </url><url>
+    <loc>https://ai4network.github.io/zh/post/paper-sharing-8/</loc>
+    <lastmod>2023-01-04T15:32:47+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://ai4network.github.io/post/paper-sharing-8/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh"
+                href="https://ai4network.github.io/zh/post/paper-sharing-8/"
+                />
+  </url><url>
+    <loc>https://ai4network.github.io/zh/tag/%E9%99%88%E9%91%AB/</loc>
+    <lastmod>2023-01-04T15:32:47+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://ai4network.github.io/tag/%E9%99%88%E9%91%AB/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh"
+                href="https://ai4network.github.io/zh/tag/%E9%99%88%E9%91%AB/"
+                />
+  </url><url>
+    <loc>https://ai4network.github.io/zh/author/%E9%99%88%E9%91%AB/</loc>
+    <lastmod>2023-01-04T15:32:47+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://ai4network.github.io/author/%E9%99%88%E9%91%AB/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh"
+                href="https://ai4network.github.io/zh/author/%E9%99%88%E9%91%AB/"
+                />
+  </url><url>
+    <loc>https://ai4network.github.io/zh/post/paper-sharing-7/</loc>
+    <lastmod>2022-12-26T09:14:17+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://ai4network.github.io/post/paper-sharing-7/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh"
+                href="https://ai4network.github.io/zh/post/paper-sharing-7/"
+                />
+  </url><url>
+    <loc>https://ai4network.github.io/zh/tag/%E5%AE%8B%E4%B8%9B%E6%BA%AA/</loc>
+    <lastmod>2022-12-26T09:14:17+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://ai4network.github.io/tag/%E5%AE%8B%E4%B8%9B%E6%BA%AA/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh"
+                href="https://ai4network.github.io/zh/tag/%E5%AE%8B%E4%B8%9B%E6%BA%AA/"
+                />
+  </url><url>
+    <loc>https://ai4network.github.io/zh/author/%E5%AE%8B%E4%B8%9B%E6%BA%AA/</loc>
+    <lastmod>2022-12-26T09:14:17+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://ai4network.github.io/author/%E5%AE%8B%E4%B8%9B%E6%BA%AA/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh"
+                href="https://ai4network.github.io/zh/author/%E5%AE%8B%E4%B8%9B%E6%BA%AA/"
+                />
+  </url><url>
+    <loc>https://ai4network.github.io/zh/post/paper-sharing-6/</loc>
+    <lastmod>2022-12-20T14:51:07+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://ai4network.github.io/post/paper-sharing-6/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh"
+                href="https://ai4network.github.io/zh/post/paper-sharing-6/"
+                />
+  </url><url>
+    <loc>https://ai4network.github.io/zh/tag/%E9%9F%A9%E9%9B%AA%E5%BC%BA/</loc>
+    <lastmod>2022-12-20T14:51:07+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://ai4network.github.io/tag/%E9%9F%A9%E9%9B%AA%E5%BC%BA/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh"
+                href="https://ai4network.github.io/zh/tag/%E9%9F%A9%E9%9B%AA%E5%BC%BA/"
+                />
+  </url><url>
+    <loc>https://ai4network.github.io/zh/author/%E9%9F%A9%E9%9B%AA%E5%BC%BA/</loc>
+    <lastmod>2022-12-20T14:51:07+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://ai4network.github.io/author/%E9%9F%A9%E9%9B%AA%E5%BC%BA/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh"
+                href="https://ai4network.github.io/zh/author/%E9%9F%A9%E9%9B%AA%E5%BC%BA/"
                 />
   </url><url>
     <loc>https://ai4network.github.io/zh/tag/mobicom22/</loc>
@@ -70,90 +308,6 @@
                 rel="alternate"
                 hreflang="zh"
                 href="https://ai4network.github.io/zh/post/paper-sharing-5/"
-                />
-  </url><url>
-    <loc>https://ai4network.github.io/zh/category/paper-share/</loc>
-    <lastmod>2022-12-19T19:16:23+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <xhtml:link
-                rel="alternate"
-                hreflang="en"
-                href="https://ai4network.github.io/category/paper-share/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="zh"
-                href="https://ai4network.github.io/zh/category/paper-share/"
-                />
-  </url><url>
-    <loc>https://ai4network.github.io/zh/tag/paper-sharing/</loc>
-    <lastmod>2022-12-19T19:16:23+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <xhtml:link
-                rel="alternate"
-                hreflang="en"
-                href="https://ai4network.github.io/tag/paper-sharing/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="zh"
-                href="https://ai4network.github.io/zh/tag/paper-sharing/"
-                />
-  </url><url>
-    <loc>https://ai4network.github.io/zh/tags/</loc>
-    <lastmod>2022-12-19T19:16:23+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <xhtml:link
-                rel="alternate"
-                hreflang="en"
-                href="https://ai4network.github.io/tags/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="zh"
-                href="https://ai4network.github.io/zh/tags/"
-                />
-  </url><url>
-    <loc>https://ai4network.github.io/zh/post/</loc>
-    <lastmod>2022-12-19T19:16:23+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <xhtml:link
-                rel="alternate"
-                hreflang="en"
-                href="https://ai4network.github.io/post/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="zh"
-                href="https://ai4network.github.io/zh/post/"
-                />
-  </url><url>
-    <loc>https://ai4network.github.io/zh/tag/%E9%9F%A9%E9%9B%AA%E5%BC%BA/</loc>
-    <lastmod>2022-12-19T19:16:23+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <xhtml:link
-                rel="alternate"
-                hreflang="en"
-                href="https://ai4network.github.io/tag/%E9%9F%A9%E9%9B%AA%E5%BC%BA/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="zh"
-                href="https://ai4network.github.io/zh/tag/%E9%9F%A9%E9%9B%AA%E5%BC%BA/"
-                />
-  </url><url>
-    <loc>https://ai4network.github.io/zh/author/%E9%9F%A9%E9%9B%AA%E5%BC%BA/</loc>
-    <lastmod>2022-12-19T19:16:23+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <xhtml:link
-                rel="alternate"
-                hreflang="en"
-                href="https://ai4network.github.io/author/%E9%9F%A9%E9%9B%AA%E5%BC%BA/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="zh"
-                href="https://ai4network.github.io/zh/author/%E9%9F%A9%E9%9B%AA%E5%BC%BA/"
                 />
   </url><url>
     <loc>https://ai4network.github.io/zh/event/7/</loc>
@@ -210,20 +364,6 @@
                 rel="alternate"
                 hreflang="zh"
                 href="https://ai4network.github.io/zh/author/%E8%AE%A1%E6%99%93%E5%B2%9A/"
-                />
-  </url><url>
-    <loc>https://ai4network.github.io/zh/tag/sigcomm22/</loc>
-    <lastmod>2022-11-27T20:58:16+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <xhtml:link
-                rel="alternate"
-                hreflang="en"
-                href="https://ai4network.github.io/tag/sigcomm22/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="zh"
-                href="https://ai4network.github.io/zh/tag/sigcomm22/"
                 />
   </url><url>
     <loc>https://ai4network.github.io/zh/post/paper-sharing-4/</loc>
@@ -364,34 +504,6 @@
                 rel="alternate"
                 hreflang="zh"
                 href="https://ai4network.github.io/zh/post/paper-sharing-1/"
-                />
-  </url><url>
-    <loc>https://ai4network.github.io/zh/tag/%E5%AE%8B%E4%B8%9B%E6%BA%AA/</loc>
-    <lastmod>2022-11-21T08:22:45+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <xhtml:link
-                rel="alternate"
-                hreflang="en"
-                href="https://ai4network.github.io/tag/%E5%AE%8B%E4%B8%9B%E6%BA%AA/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="zh"
-                href="https://ai4network.github.io/zh/tag/%E5%AE%8B%E4%B8%9B%E6%BA%AA/"
-                />
-  </url><url>
-    <loc>https://ai4network.github.io/zh/author/%E5%AE%8B%E4%B8%9B%E6%BA%AA/</loc>
-    <lastmod>2022-11-21T08:22:45+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <xhtml:link
-                rel="alternate"
-                hreflang="en"
-                href="https://ai4network.github.io/author/%E5%AE%8B%E4%B8%9B%E6%BA%AA/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="zh"
-                href="https://ai4network.github.io/zh/author/%E5%AE%8B%E4%B8%9B%E6%BA%AA/"
                 />
   </url><url>
     <loc>https://ai4network.github.io/zh/event/5/</loc>
@@ -723,19 +835,6 @@
                 href="https://ai4network.github.io/zh/author/%E6%9D%8E%E9%87%91%E8%9E%8D/"
                 />
   </url><url>
-    <loc>https://ai4network.github.io/zh/author/%E6%A2%81%E8%A7%82%E5%B9%B3/</loc>
-    <changefreq>weekly</changefreq>
-    <xhtml:link
-                rel="alternate"
-                hreflang="en"
-                href="https://ai4network.github.io/author/%E6%A2%81%E8%A7%82%E5%B9%B3/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="zh"
-                href="https://ai4network.github.io/zh/author/%E6%A2%81%E8%A7%82%E5%B9%B3/"
-                />
-  </url><url>
     <loc>https://ai4network.github.io/zh/author/%E7%8E%8B%E9%9F%AC/</loc>
     <changefreq>weekly</changefreq>
     <xhtml:link
@@ -773,19 +872,6 @@
                 rel="alternate"
                 hreflang="zh"
                 href="https://ai4network.github.io/zh/author/%E8%B5%B5%E5%A8%9C/"
-                />
-  </url><url>
-    <loc>https://ai4network.github.io/zh/author/%E9%99%88%E9%91%AB/</loc>
-    <changefreq>weekly</changefreq>
-    <xhtml:link
-                rel="alternate"
-                hreflang="en"
-                href="https://ai4network.github.io/author/%E9%99%88%E9%91%AB/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="zh"
-                href="https://ai4network.github.io/zh/author/%E9%99%88%E9%91%AB/"
                 />
   </url><url>
     <loc>https://ai4network.github.io/zh/author/%E9%9F%A9%E5%BD%AA/</loc>

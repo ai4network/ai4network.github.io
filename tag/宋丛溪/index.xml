@@ -5,12 +5,444 @@
     <link>https://ai4network.github.io/tag/%E5%AE%8B%E4%B8%9B%E6%BA%AA/</link>
       <atom:link href="https://ai4network.github.io/tag/%E5%AE%8B%E4%B8%9B%E6%BA%AA/index.xml" rel="self" type="application/rss+xml" />
     <description>宋丛溪</description>
-    <generator>Wowchemy (https://wowchemy.com)</generator><language>en-us</language><lastBuildDate>Mon, 21 Nov 2022 08:22:45 +0800</lastBuildDate>
+    <generator>Wowchemy (https://wowchemy.com)</generator><language>en-us</language><lastBuildDate>Mon, 26 Dec 2022 09:14:17 +0800</lastBuildDate>
     <image>
       <url>https://ai4network.github.io/media/icon_hua2ec155b4296a9c9791d015323e16eb5_11927_512x512_fill_lanczos_center_3.png</url>
       <title>宋丛溪</title>
       <link>https://ai4network.github.io/tag/%E5%AE%8B%E4%B8%9B%E6%BA%AA/</link>
     </image>
+    
+    <item>
+      <title>CoNEXT22 论文分享 | Coal Not Diamonds: How Memory Pressure Falters Mobile Video QoE</title>
+      <link>https://ai4network.github.io/post/paper-sharing-7/</link>
+      <pubDate>Mon, 26 Dec 2022 09:14:17 +0800</pubDate>
+      <guid>https://ai4network.github.io/post/paper-sharing-7/</guid>
+      <description>&lt;p&gt;  “在远古时候，煤和钻石属于同一种物质，但经过上亿年的时光，它们却成为了两种不同的物品。那么，是什么造成的呢？是压力的作用。受压力小的变成了煤，而受压力大的，变成了钻石。”但是，当手机的内存压力变大时，视频的QoE反而变得更糟糕，此时，压力并没有促成更有价值的钻石的产生，而是生成了煤炭。&lt;/p&gt;
+&lt;p&gt;  今天介绍的文章是发表在CoNEXT22会议上的，作者是来自LUMS的团队。本文做了大量的实验探究视频播放设备的内存压力与视频用户体验之间的关系，并给出了几点解决方案。&lt;/p&gt;
+&lt;h2 id=&#34;背景&#34;&gt;背景&lt;/h2&gt;
+&lt;p&gt;  随着智能手机的广泛应用，人们愈发热衷使用手机收看视频，根据资料显示，在2021年，全球有63%的智能手机用户收看Youtube。平均美国成年人，每天收看至少50分钟的视频。并且，人们愈发追求更高清的视频内容和更流畅的观看体验，这就对视频内容的分辨率和帧率有了更高的要求。&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;picture1&#34; srcset=&#34;
+               /post/paper-sharing-7/picture/picture1_hu5f29d62d04a7f6a44c15c1ae83e50634_223111_e8d58f106198b49365749339f7b1ae11.webp 400w,
+               /post/paper-sharing-7/picture/picture1_hu5f29d62d04a7f6a44c15c1ae83e50634_223111_645e08cdd6ac70b72c745b0588db9518.webp 760w,
+               /post/paper-sharing-7/picture/picture1_hu5f29d62d04a7f6a44c15c1ae83e50634_223111_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://ai4network.github.io/post/paper-sharing-7/picture/picture1_hu5f29d62d04a7f6a44c15c1ae83e50634_223111_e8d58f106198b49365749339f7b1ae11.webp&#34;
+               width=&#34;362&#34;
+               height=&#34;706&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;picture2&#34; srcset=&#34;
+               /post/paper-sharing-7/picture/picture2_hu5f486f5f06db4a83c801573ad2ceca87_177585_956c9f68a8bead9294728686d4438940.webp 400w,
+               /post/paper-sharing-7/picture/picture2_hu5f486f5f06db4a83c801573ad2ceca87_177585_32d0369825f6aa330ab5517560b09a0b.webp 760w,
+               /post/paper-sharing-7/picture/picture2_hu5f486f5f06db4a83c801573ad2ceca87_177585_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://ai4network.github.io/post/paper-sharing-7/picture/picture2_hu5f486f5f06db4a83c801573ad2ceca87_177585_956c9f68a8bead9294728686d4438940.webp&#34;
+               width=&#34;656&#34;
+               height=&#34;358&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;  先前研究视频传输的工作较多关注于网络对传输的瓶颈，即如何在网络带宽不足的情况下调整视频传输的码率。但是，较少人关注到，视频播放设备本身（内存、CPU等性能）也会对视频用户体验造成影响。于是，本文从内存的分析出发，探究对视频QoE的影响。&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;picture3&#34; srcset=&#34;
+               /post/paper-sharing-7/picture/picture3_hueecae70caf4925ed6f70581fa59c6abc_176581_e8295f168f731c600e526a900197db04.webp 400w,
+               /post/paper-sharing-7/picture/picture3_hueecae70caf4925ed6f70581fa59c6abc_176581_cbcd59d24bafc856b66f3e2ad0add1e4.webp 760w,
+               /post/paper-sharing-7/picture/picture3_hueecae70caf4925ed6f70581fa59c6abc_176581_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://ai4network.github.io/post/paper-sharing-7/picture/picture3_hueecae70caf4925ed6f70581fa59c6abc_176581_e8295f168f731c600e526a900197db04.webp&#34;
+               width=&#34;760&#34;
+               height=&#34;289&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;picture4&#34; srcset=&#34;
+               /post/paper-sharing-7/picture/picture4_huc9d2c4d7fd170c20ef4aaefbbd768b95_249554_7351dbda6bd7ff912dc7a39169f8037c.webp 400w,
+               /post/paper-sharing-7/picture/picture4_huc9d2c4d7fd170c20ef4aaefbbd768b95_249554_d0ec94288bf2f748237eec1c9c1458b7.webp 760w,
+               /post/paper-sharing-7/picture/picture4_huc9d2c4d7fd170c20ef4aaefbbd768b95_249554_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://ai4network.github.io/post/paper-sharing-7/picture/picture4_huc9d2c4d7fd170c20ef4aaefbbd768b95_249554_7351dbda6bd7ff912dc7a39169f8037c.webp&#34;
+               width=&#34;760&#34;
+               height=&#34;395&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;  首先，我们来介绍一些手机内存相关的背景知识：&lt;/p&gt;
+&lt;p&gt;  1.手机内存中也是采用页表管理，页可以可分为三类，一是被进程使用中的内存（Used），二是没有被使用的(Free)，三是缓存在硬盘上的页(Cached)，需要的时候可以被回收。&lt;/p&gt;
+&lt;p&gt;  2.两个可以被用来回收内存的守护进程，The kernel swap daemon (kswapd)负责回收背景中的内存，Low-memory killer daemon (lmkd) 用来在低内存状态时杀掉其他进程回收内存资源。&lt;/p&gt;
+&lt;p&gt;  针对运行中的应用，内存压力可以被分为四个等级：Normal：没有内存压力; Moderate: kswapd启动，开始回收内存; Low：回收不足，已经影响前景应用的性能; Critical：不能再维持任何的背景进程，甚至要杀掉前景进程。&lt;/p&gt;
+&lt;h2 id=&#34;实验一手机内存压力分析实验&#34;&gt;实验一、手机内存压力分析实验&lt;/h2&gt;
+&lt;p&gt;  在了解了上述背景之后，作者进行了大量的实验分析，从手机内存压力分析实验到内存压力与视频QoE关系的实验层层递进。首先是进行了内存压力分析实验。
+在这一实验当中，采用了自己设计的signalcapter应用，在背景中收集内存压力信号进行分析，受试者80人，手机内存从1GB-8GB不等，共收集了9950小时的实验数据。&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;picture5&#34; srcset=&#34;
+               /post/paper-sharing-7/picture/picture5_hubd05b4bcd40283ec338e79b5c8ea710c_313001_c8faff9f47cc37af5f31c4b22af11ba3.webp 400w,
+               /post/paper-sharing-7/picture/picture5_hubd05b4bcd40283ec338e79b5c8ea710c_313001_77343c5e5b21a95e52ab139d7bba688e.webp 760w,
+               /post/paper-sharing-7/picture/picture5_hubd05b4bcd40283ec338e79b5c8ea710c_313001_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://ai4network.github.io/post/paper-sharing-7/picture/picture5_hubd05b4bcd40283ec338e79b5c8ea710c_313001_c8faff9f47cc37af5f31c4b22af11ba3.webp&#34;
+               width=&#34;760&#34;
+               height=&#34;293&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;  作者统计了一小时内手机出现不同内存压力信号的频率，从图中可以看出63%的手机经历每小时大于一次的内存压力，19%大于10次Critical内存压力，6.3%大于70次内存压力。所以，内存压力现象频繁出现在手机中。&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;picture6&#34; srcset=&#34;
+               /post/paper-sharing-7/picture/picture6_hu4d9ff9ecdadb64a6e1006d52c8a4667b_108241_b2065cf69e5b7cb3f518d4c64fee1376.webp 400w,
+               /post/paper-sharing-7/picture/picture6_hu4d9ff9ecdadb64a6e1006d52c8a4667b_108241_c2c8dd085e434435238ecdebb72e6869.webp 760w,
+               /post/paper-sharing-7/picture/picture6_hu4d9ff9ecdadb64a6e1006d52c8a4667b_108241_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://ai4network.github.io/post/paper-sharing-7/picture/picture6_hu4d9ff9ecdadb64a6e1006d52c8a4667b_108241_b2065cf69e5b7cb3f518d4c64fee1376.webp&#34;
+               width=&#34;452&#34;
+               height=&#34;401&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;picture7&#34; srcset=&#34;
+               /post/paper-sharing-7/picture/picture7_hua57c5762586532c4b33761d05682106b_86532_68f56cd0143d29acc80cc2041fd19072.webp 400w,
+               /post/paper-sharing-7/picture/picture7_hua57c5762586532c4b33761d05682106b_86532_9343b2e31f73e84195d5247bf086de07.webp 760w,
+               /post/paper-sharing-7/picture/picture7_hua57c5762586532c4b33761d05682106b_86532_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://ai4network.github.io/post/paper-sharing-7/picture/picture7_hua57c5762586532c4b33761d05682106b_86532_68f56cd0143d29acc80cc2041fd19072.webp&#34;
+               width=&#34;430&#34;
+               height=&#34;334&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;  之后，作者又统计了在经历过Critical内存压力后，转移到其他压力状态的概率，以及在Critical转移到其他状态之前的持续时间。从图中可以看出，转移到Low状态大于占67.2%,并且会持续12.8秒左右的时间，这说明内存压力很难被立即缓解。
+通过以上实验作者总结，手机端经常处于高内存利用状态，终端频繁观测出长时间的内存压力，内核不能快速缓解内存压力。&lt;/p&gt;
+&lt;h2 id=&#34;实验二手机内存压力对视频qoe影响实验&#34;&gt;实验二、手机内存压力对视频QoE影响实验&lt;/h2&gt;
+&lt;p&gt;  在得出实验一的结论后，作者进而开始分析内存压力对视频QoE的影响。在接下来的实验中，实验受试者使用了1GB-3GB内存的手机如下图所示，并通过从浏览器收看视频的方法进行实验。&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;picture8&#34; srcset=&#34;
+               /post/paper-sharing-7/picture/picture8_hu9036dca131baa88ba4baf092a3a2bb1a_391117_ddef5697597de72e595cfdbd464be74b.webp 400w,
+               /post/paper-sharing-7/picture/picture8_hu9036dca131baa88ba4baf092a3a2bb1a_391117_86eebb960b4cd99fe081e1e62af54862.webp 760w,
+               /post/paper-sharing-7/picture/picture8_hu9036dca131baa88ba4baf092a3a2bb1a_391117_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://ai4network.github.io/post/paper-sharing-7/picture/picture8_hu9036dca131baa88ba4baf092a3a2bb1a_391117_ddef5697597de72e595cfdbd464be74b.webp&#34;
+               width=&#34;760&#34;
+               height=&#34;317&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;picture9&#34; srcset=&#34;
+               /post/paper-sharing-7/picture/picture9_hu77e35fc09917d597c0266c62774a6e6e_319275_bbb80ebd22046a04dece8f5f4ffb080b.webp 400w,
+               /post/paper-sharing-7/picture/picture9_hu77e35fc09917d597c0266c62774a6e6e_319275_5cd49f642ea4e714a4397ede4f9a6e51.webp 760w,
+               /post/paper-sharing-7/picture/picture9_hu77e35fc09917d597c0266c62774a6e6e_319275_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://ai4network.github.io/post/paper-sharing-7/picture/picture9_hu77e35fc09917d597c0266c62774a6e6e_319275_bbb80ebd22046a04dece8f5f4ffb080b.webp&#34;
+               width=&#34;760&#34;
+               height=&#34;369&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;  作者首先分析了视频丢帧率这一指标，从图中可以看出，对于1GB内存的手机，在收看720P以上的视频会产生75%的丢帧率，对于2GB和3GB的设备，在收看1080P的视频会出现25%和9%的丢帧率。&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;picture10&#34; srcset=&#34;
+               /post/paper-sharing-7/picture/picture10_hu00969070b0e5c5a1c52de5dea227c437_512205_5f247ef89eaf85cfdc15aae340a1afb4.webp 400w,
+               /post/paper-sharing-7/picture/picture10_hu00969070b0e5c5a1c52de5dea227c437_512205_1c17f7c5fb8b5600a6efdc8e370843b3.webp 760w,
+               /post/paper-sharing-7/picture/picture10_hu00969070b0e5c5a1c52de5dea227c437_512205_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://ai4network.github.io/post/paper-sharing-7/picture/picture10_hu00969070b0e5c5a1c52de5dea227c437_512205_5f247ef89eaf85cfdc15aae340a1afb4.webp&#34;
+               width=&#34;741&#34;
+               height=&#34;760&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;  之后，作者还分析了手机视频播放发生崩溃的情况。1GB的设备，崩溃在大于480P的视频时就发生了，在有内存压力的情况下大于720p的视频会经常发生崩溃。对于2GB的设备，大于1080P总发生崩溃，而3GB的设备没有检测到崩溃。&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;picture11&#34; srcset=&#34;
+               /post/paper-sharing-7/picture/picture11_hu759cf75ea2a8da4c645e2d9da9dfd733_320353_2d5745143043d3d79097c843b5f5ade5.webp 400w,
+               /post/paper-sharing-7/picture/picture11_hu759cf75ea2a8da4c645e2d9da9dfd733_320353_1dc6a19422635cfe1ac36b99672301ab.webp 760w,
+               /post/paper-sharing-7/picture/picture11_hu759cf75ea2a8da4c645e2d9da9dfd733_320353_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://ai4network.github.io/post/paper-sharing-7/picture/picture11_hu759cf75ea2a8da4c645e2d9da9dfd733_320353_2d5745143043d3d79097c843b5f5ade5.webp&#34;
+               width=&#34;760&#34;
+               height=&#34;274&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;  作者又对比了不同的视频类型对丢帧率的影响，对于所有类别，帧率为30fps的视频只在720P以上才发生丢帧，但是对于60fps帧率的视频，随着内存压力和分辨率的上升，丢帧变得严重。另外对比不同的视频类型，新闻类画面相对静止，所以丢帧率较低。因此视频内容和视频应用的性能指标也有一定的关系。&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;picture12&#34; srcset=&#34;
+               /post/paper-sharing-7/picture/picture12_hu54cf6656eb7de8bcbeeb709bfc1618cf_236968_ebca5819378db7e7cc1ffddae9c2debd.webp 400w,
+               /post/paper-sharing-7/picture/picture12_hu54cf6656eb7de8bcbeeb709bfc1618cf_236968_75f88d20da8f96c11c13051b1563cc9f.webp 760w,
+               /post/paper-sharing-7/picture/picture12_hu54cf6656eb7de8bcbeeb709bfc1618cf_236968_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://ai4network.github.io/post/paper-sharing-7/picture/picture12_hu54cf6656eb7de8bcbeeb709bfc1618cf_236968_ebca5819378db7e7cc1ffddae9c2debd.webp&#34;
+               width=&#34;760&#34;
+               height=&#34;439&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;  作者还让受试者观看Normal内存压力状态下和Moderate压力状态下的视频，并收集他们的观感。在99个受试者中，绝大多数都能感知到视频间的差距。&lt;/p&gt;
+&lt;h2 id=&#34;原因分析&#34;&gt;原因分析&lt;/h2&gt;
+&lt;p&gt;  在进行了以上的实验观察后，作者开始分析内存对视频性能产生影响的真实原因。定位到了以下的三个进程，一个是负责硬盘I/O的mmcqd，它经常使用CPU并且具有较高的调度优先级；第二个是kswapd，具有较高的CPU利用率，经常在内存较低时启动回收CPU内存;第三个是lmkd，会在内存不足时杀掉视频客户端，导致崩溃。&lt;/p&gt;
+&lt;p&gt;  于是，作者通过profile工具观察了各个进程的运行情况。进程的运行状态可分成三类：(1) Running：进程占用CPU内核运行中;(2) Runnable,CPU不可用，进程等待中; (3) Runnable (Preempted), 进程等待CPU时被其他进程抢占。经过观察，mmcqd进程在Normal内存压力下运行时间处于进程中的第50名，运行0.4秒，而当内存压力转为Moderate时就变成了第6名，运行4.6秒。Kswapd也是从第14名的2.3秒跃升到了第1名的22秒。与它相比，视频客户端只有7.9秒。因此，可以看出，这些内存管理进程大量抢占了视频进程的运行时间，进而导致卡顿和崩溃的发生。&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;picture13&#34; srcset=&#34;
+               /post/paper-sharing-7/picture/picture13_hub590cbd0b83614807dbdade6f82f2dfa_90099_79615e0614fc90e4cc5f0d7c40d65487.webp 400w,
+               /post/paper-sharing-7/picture/picture13_hub590cbd0b83614807dbdade6f82f2dfa_90099_b03d668ff1dd2d385bdc9de1c82ec4a8.webp 760w,
+               /post/paper-sharing-7/picture/picture13_hub590cbd0b83614807dbdade6f82f2dfa_90099_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://ai4network.github.io/post/paper-sharing-7/picture/picture13_hub590cbd0b83614807dbdade6f82f2dfa_90099_79615e0614fc90e4cc5f0d7c40d65487.webp&#34;
+               width=&#34;760&#34;
+               height=&#34;374&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;h2 id=&#34;解决方案&#34;&gt;解决方案&lt;/h2&gt;
+&lt;p&gt;  在进行了上述的实验观察和原因分析后，作者对视频流自适应算法设计者、平台内容提供者、系统设计者以及手机生产者提出了以下几点建议：&lt;/p&gt;
+&lt;p&gt;  1.对视频流自适应算法设计者：传统的自适应码率调整算法通常以估算网络带宽为输入调整视频的码率，算法可以将设备内存压力信号作为输入，调整码率或帧率，从而达到更好的播放效果。如图所示，如果合理降低帧率，将降低视频的丢帧率。&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;picture14&#34; srcset=&#34;
+               /post/paper-sharing-7/picture/picture14_hu3f856961f854a05809a10b946c72eb88_321196_1d4f94113e6c648a0dba82b30db284f4.webp 400w,
+               /post/paper-sharing-7/picture/picture14_hu3f856961f854a05809a10b946c72eb88_321196_84eec5fef885f4500eda36b61e6ccf4d.webp 760w,
+               /post/paper-sharing-7/picture/picture14_hu3f856961f854a05809a10b946c72eb88_321196_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://ai4network.github.io/post/paper-sharing-7/picture/picture14_hu3f856961f854a05809a10b946c72eb88_321196_1d4f94113e6c648a0dba82b30db284f4.webp&#34;
+               width=&#34;760&#34;
+               height=&#34;265&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;  2.对平台内容提供者：增强客户端的遥测，提供大量的视频编解码和帧率方案。&lt;/p&gt;
+&lt;p&gt;  3.对操作系统设计者：合理设计内存管理进程，不要过多抢占视频应用的资源。&lt;/p&gt;
+&lt;p&gt;  4.对于收集生产者：分配给小内存的设备更多的CPU资源，可以提升视频播放的性能。&lt;/p&gt;
+&lt;h2 id=&#34;总结与展望&#34;&gt;总结与展望&lt;/h2&gt;
+&lt;p&gt;  另辟蹊径：转换思路，脱离从网络与视频QoE的传统角度，分析设备本身的性能和QoE的关系。&lt;/p&gt;
+&lt;p&gt;  写作思路：大部分论文的写作思路一种是从实验观察到问题发现再到提出方法解决和实验验证，另一种是通过理论建模到提出优化方案再到实验分析或理论证明。而本文是通过大量的实验一步步观察挖掘出设备本身的指标与应用性能之间的联系，并建设性地提出解决方案。从中可以看出，学术研究的重点不一定要放在解决问题上，发掘一个好问题也是十分关键的，这样一来问题可以牵引出新的研究点，启发人们从新的角度去提出更多的解决方案。&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>NSDI22 论文分享 | Swift: Adaptive Video Streaming with Layered Neural Codecs</title>
