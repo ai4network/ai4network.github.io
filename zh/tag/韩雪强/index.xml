@@ -1,0 +1,1032 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>韩雪强 | AI4network 实验室</title>
+    <link>https://ai4network.github.io/zh/tag/%E9%9F%A9%E9%9B%AA%E5%BC%BA/</link>
+      <atom:link href="https://ai4network.github.io/zh/tag/%E9%9F%A9%E9%9B%AA%E5%BC%BA/index.xml" rel="self" type="application/rss+xml" />
+    <description>韩雪强</description>
+    <generator>Wowchemy (https://wowchemy.com)</generator><language>zh-Hans</language><lastBuildDate>Wed, 24 May 2023 15:52:45 +0800</lastBuildDate>
+    <image>
+      <url>https://ai4network.github.io/media/icon_hua2ec155b4296a9c9791d015323e16eb5_11927_512x512_fill_lanczos_center_3.png</url>
+      <title>韩雪强</title>
+      <link>https://ai4network.github.io/zh/tag/%E9%9F%A9%E9%9B%AA%E5%BC%BA/</link>
+    </image>
+    
+    <item>
+      <title>AI4Network团队发布多路径流媒体传输加速器“星云”</title>
+      <link>https://ai4network.github.io/zh/event/work-sharing-2/</link>
+      <pubDate>Wed, 24 May 2023 15:52:45 +0800</pubDate>
+      <guid>https://ai4network.github.io/zh/event/work-sharing-2/</guid>
+      <description>&lt;p&gt;  近年来，随着实时流媒体等应用种类和数量的增多，流媒体应用对网络带宽、传输稳定性、用户体验的需求不断提升，仅仅依靠TCP协议难以满足高清流媒体传输的个性化服务质量需求。此外，随着网络接入技术的不断发展，终端设备具备WiFi、4G、5G等多种入网手段，流媒体传输性能受制于底层单路径、单一网络传输协议所提供的网络服务，难以在复杂多变的的动态网络环境下提供高质量可靠传输。&lt;/p&gt;
+&lt;p&gt;  为此，AI4Network团队自主研发了多路径流媒体传输加速器原型系统——“星云”，该系统可广泛部署于普通端系统设备，仅需配备多张无线网卡(Wifi/4G/5G等)，即可提供高清流媒体、实时流媒体等应用所需的多路径带宽聚合性能和用户体验优化,无额外硬件开销，便捷易用。系统内置TCP/QUIC/MPTCP/MPQUIC等多种网络传输协议，提供灵活的传输协议定制选择功能，核心技术包括自主研发的智能多路径报文调度算法和拥塞控制算法。&lt;/p&gt;
+&lt;h2 id=&#34;星云演示视频&#34;&gt;“星云”演示视频&lt;/h2&gt;
+&lt;p&gt;   “星云”演示视频&lt;/p&gt;
+&lt;p&gt;下面是一段“星云”系统的演示视频。客户端配备有一张WiFi网卡和一张4G网卡。我们选择公开的8K视频数据集3D_Mark _Night Raid，视频总时长4分钟，视频帧率60fps。通过测试分析，相比于传统单路径的流媒体播放器，多路径加速后带宽提升了近1倍，端到端延时降低约30%。系统演示了基于TCP(左上)、QUIC(右上)、带有缓冲区膨胀缓解功能(bufferbloat-mitigation)的多路径QUIC(左下)以及我们自主研发的多智能体多路径QUIC(右下)等协议的流媒体传输效果。可以看到，集成基于多智能体的多路径智能调度算法(MARS)的多路径QUIC协议，具有更高的聚合吞吐率，视频播放的卡顿率更低，提供了比其它传输协议更优的用户体验。&lt;/p&gt;
+&lt;p&gt;&lt;video data-v-a5b21ca9=&#34;&#34; src=&#34;http://mpvideo.qpic.cn/0bc3k4aa6aaasuagg6lnjvsfav6db5lqadya.f10002.mp4?dis_k=1884e8995b3779974c8b621819ee686d&amp;amp;dis_t=1688611275&amp;amp;play_scene=10120&amp;amp;auth_info=fN/I4PVaPHFJpIXG6QlXGmtAPxhUJTpNVhNhfzpXeElDYk9zP2g=&amp;amp;auth_key=4004c03b6a65df509cfecb6345962c18&amp;amp;vid=wxv_2941055962193592320&amp;amp;format_id=10002&amp;amp;support_redirect=0&amp;amp;mmversion=false&#34; poster=&#34;http://mmbiz.qpic.cn/mmbiz_jpg/OZ1GcCKY7UbHhvFOj5XIyXKImaYGhyicH0d2CfpzWeWe35jpfeIad5Nr89zUB8kmHGKErRicFU7lSZic7fUqKiaOrg/0?wx_fmt=jpeg&amp;amp;wxfrom=16&#34; webkit-playsinline=&#34;isiPhoneShowPlaysinline&#34; playsinline=&#34;isiPhoneShowPlaysinline&#34; preload=&#34;metadata&#34; crossorigin=&#34;anonymous&#34; controlslist=&#34;nodownload&#34; class=&#34;&#34;&gt; 您的浏览器不支持 video 标签 &lt;/video&gt;&lt;/p&gt;
+&lt;h2 id=&#34;星云系统简介&#34;&gt;“星云”系统简介&lt;/h2&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  id=&#34;figure-图1-星云系统部署架构&#34;&gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;picture1&#34; srcset=&#34;
+               /zh/event/work-sharing-2/picture/picture1_hu270523d910ec95880d45ca918007c84b_131305_464404160ed66566adb77978d9e1945b.webp 400w,
+               /zh/event/work-sharing-2/picture/picture1_hu270523d910ec95880d45ca918007c84b_131305_ab8c11a2b1376007b3f472f327bcca30.webp 760w,
+               /zh/event/work-sharing-2/picture/picture1_hu270523d910ec95880d45ca918007c84b_131305_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://ai4network.github.io/zh/event/work-sharing-2/picture/picture1_hu270523d910ec95880d45ca918007c84b_131305_464404160ed66566adb77978d9e1945b.webp&#34;
+               width=&#34;760&#34;
+               height=&#34;251&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;figcaption&gt;
+      图1 “星云”系统部署架构
+    &lt;/figcaption&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;  “星云”系统架构如图1所示。其中硬件组成包括：多个(Wi-Fi/4G)无线网卡。软件系统包括：TCP、QUIC、MPTCP、MPQUIC等传输协议，智能报文调度算法、Web播放器前端。&lt;/p&gt;
+&lt;p&gt;  “星云”客户端部署在具有多张网卡的端设备上，Web播放器前端提供解码视频以及自适应码率调整(ABR)功能。客户端底层传输协议是一个集成多种传输协议的智能化定制传输协议栈。&lt;/p&gt;
+&lt;p&gt;  “星云”服务端是一个云视频服务器，通过单个网卡向外提供http服务，具有解析http请求并发出响应的能力。对于底层传输层协议，服务端部署有单路径TCP、QUIC以及多路径TCP和多路径QUIC，并且多路径传输协议配备有自主设计的智能多路径报文调度器和拥塞控制算法。&lt;/p&gt;
+&lt;p&gt;  当用户通过播放器前端发起浏览视频请求后，云视频服务器端能够根据网络状态以及应用的类型智能地切换和调整不同网络传输协议，并告知客户端，然后与客户端建立适应当前网络状态的传输连接。通过这样的方式，该系统实现传输定制，为用户提供更好的视频流体验质量。&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  id=&#34;figure-图2-星云系统的智能多路径报文调度算法mars&#34;&gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;picture2&#34; srcset=&#34;
+               /zh/event/work-sharing-2/picture/picture2_huc4b02acda6f296380ff9f7ea5fff41de_141951_b5100d441be500522fd2a981077c7b66.webp 400w,
+               /zh/event/work-sharing-2/picture/picture2_huc4b02acda6f296380ff9f7ea5fff41de_141951_fd6fc4a31463f517d08b7014adf7066b.webp 760w,
+               /zh/event/work-sharing-2/picture/picture2_huc4b02acda6f296380ff9f7ea5fff41de_141951_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://ai4network.github.io/zh/event/work-sharing-2/picture/picture2_huc4b02acda6f296380ff9f7ea5fff41de_141951_b5100d441be500522fd2a981077c7b66.webp&#34;
+               width=&#34;579&#34;
+               height=&#34;501&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;figcaption&gt;
+      图2 “星云”系统的智能多路径报文调度算法—MARS
+    &lt;/figcaption&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;  我们设计了基于多智能体的多路径智能调度算法，通过智能感知网络状态，获取路径的特征以及网络状态的实时变化，从而让智能算法学习网络状态进行决策。这一决策过程是具有自适应能力以及根据网络状态动态变化能力的。同时算法克服了唯一的智能体为所有的路径提供决策，导致随着路径的增加，学习难度越大的问题，使用多智能体强化学习框架，每条路径看作一个智能体，根据自己的观测进行独立决策，产生更优的决策。另外，调度过程是面向多维服务质量指标的，利用深度强化学习算法从状态中获取信息，面向多维服务质量设计的奖励函数训练，在此基础上作出最优决策。&lt;/p&gt;
+&lt;h2 id=&#34;多路径传输协议背景介绍&#34;&gt;多路径传输协议背景介绍&lt;/h2&gt;
+&lt;p&gt;  多路径传输协议允许单个连接同时利用多条网络链路，具有带宽聚合和提升传输稳定性等优势。多路径TCP协议(MPTCP)在2013年IETF工作组标准化。然而，MPTCP更新需重新编译操作系统内核，阻碍了其大规模部署。近年来，快速UDP网络连接(Quick UDP Internet Connection, QUIC)协议快速发展，其多路径扩展——多路径QUIC协议(MPQUIC)，作为MPTCP的替代方案被提出。MPQUIC作为一种用户空间协议，可以持续快速升级。&lt;/p&gt;
+&lt;p&gt;  QUIC是新型传输层协议，提供具有加密、多流复用、低延迟等特点的数据传输，通过多流复用解决队头堵塞问题，通过0-RTT握手降低传输层握手时延，通过连接迁移为移动性提供更好的支持，通过在用户态实现提供了更好的可扩展性以及部署便捷性，理论上拥有比TCP更好的性能。实际上由于网络环境和设备终端的多样性，以及互联网中存在的各种攻击和各种版本的实现，QUIC在实际网络中的表现并没有达到预期。&lt;/p&gt;
+&lt;p&gt;  基于QUIC的多路径传输协议可以利用终端的多种网络接口，聚合多条物理链路，从而提高聚合带宽和传输稳定性。基于QUIC的多路径协议中的路径概念与MPTCP的子流概念类似，在握手阶段，客户端与服务端会先在一条路径上建立QUIC连接，之后每当有新的网络链路需要使用，便添加一个新的路径。基于QUIC的多路径传输设计在概念上超越了MPTCP，它提供了细粒度的流到路径调度，减少了队头阻塞，并且可以更快地建立子流，但在实际应用上缺乏成熟稳定的设计以及大规模的实验验证。&lt;/p&gt;
+&lt;h2 id=&#34;参考文献&#34;&gt;参考文献&lt;/h2&gt;
+&lt;p&gt;[1]  J. Iyengar and M. Thomson, “QUIC: A UDP-Based Multiplexed and Secure Transport,” RFC 9000, May 2021. [Online]. Available: &lt;a href=&#34;https://www.rfc-editor.org/info/rfc9000&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://www.rfc-editor.org/info/rfc9000&lt;/a&gt;
+[2] A. Ford, C. Raiciu, M. Handley, and O. Bonaventure, “TCP extensions for multipath operation with multiple addresses,” Tech. Rep., 2013.
+[3] Q. De Coninck and O. Bonaventure, “Multipath quic: Design and evaluation,” in Proceedings of the 13th international conference on emerging networking experiments and technologies, 2017, pp. 160–166.
+[4] Han X, Han B, Li R, et al. MARS: An Adaptive Multi-Agent DRL-based Scheduler for Multipath QUIC in Dynamic Networks, 2023 IEEE/ACM 31st International Symposium on Quality of Service (IWQoS). IEEE, 2023, accepted.
+[5] Ji X, Han B, Li R, et al. ACCeSS: Adaptive QoS-aware Congestion Control for Multipath TCP[C]//2022 IEEE/ACM 30th International Symposium on Quality of Service (IWQoS). IEEE, 2022: 1-10.
+[6] Taraghi B, Amirpour H, Timmerer C. Multi-codec ultra high definition 8k mpeg-dash dataset[C]//Proceedings of the 13th ACM Multimedia Systems Conference. 2022: 216-220.
+[7] Ferlin-Oliveira S, Dreibholz T, Alay Ö. Tackling the challenge of bufferbloat in multi-path transport over heterogeneous wireless networks[C]//2014 IEEE 22nd International Symposium of Quality of Service (IWQoS). IEEE, 2014: 123-128.&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>AI4Network团队在智能多路径QUIC协议方向工作被国际会议IEEE IWQoS2023录用</title>
+      <link>https://ai4network.github.io/zh/event/work-sharing-1/</link>
+      <pubDate>Tue, 04 Apr 2023 16:42:35 +0800</pubDate>
+      <guid>https://ai4network.github.io/zh/event/work-sharing-1/</guid>
+      <description>&lt;p&gt;  近日，&lt;strong&gt;AI4Network&lt;/strong&gt;团队在多路径QUIC协议智能调度方面的工作“&lt;strong&gt;MARS: An Efficient Multi-agent DRL-based Scheduler for Multipath QUIC in Dynamic Networks&lt;/strong&gt;”被第31届IEEE/ACM &lt;strong&gt;IWQoS 2023 (IEEE/ACM International Symposium on Quality of Service)国际会议&lt;/strong&gt;录用。&lt;strong&gt;IWQoS&lt;/strong&gt;是网络领域知名国际会议，专注于网络通信的服务质量领域，涵盖所有与&lt;strong&gt;QoS&lt;/strong&gt;(服务质量)相关的最新理论和实验研究工作，长期以来一直是该领域受关注较高的国际会议，属于CCF（中国计算机学会）推荐的B类国际会议，会议录用率长期保持在**20%**左右。该工作作者为2021级硕士研究生韩雪强（第一作者），2023级博士研究生计晓岚，指导老师韩彪。&lt;/p&gt;
+&lt;p&gt;  该工作聚焦解决当前多路径QUIC(MPQUIC)协议报文调度器在动态网络环境下无法满足多样化应用QoS需求的难点，提出使用多智能体强化学习框架对服务器端QUIC协议多条路径上的报文发送量进行分布式智能控制，结合多路径拥塞控制决策，在仿真和真实的动态网络环境下，实现了MPQUIC协议吞吐量、传输延迟等性能指标的明显提升，显著减少了乱序报文，降低了接收缓冲区开销。基于该工作团队已同步开发搭建了多路径QUIC协议传输系统，可支持文件、网页、视频、实时视频流、VR/AR等多种网络应用，为设计可移植高可靠的用户态多路径传输方案提供了参考思路。&lt;/p&gt;
+&lt;h2 id=&#34;动机与背景&#34;&gt;动机与背景&lt;/h2&gt;
+&lt;p&gt;  随着视频流媒体、虚拟现实和增强现实等应用的深入发展，应用对底层传输网络的服务质量提出了更高的要求。多路径传输协议允许单个连接同时利用多个网络链路，如WiFi和LTE。多路径TCP协议（MPTCP）在2013年IETF工作组标准化。然而，MPTCP需要操作系统支持，阻碍了其大规模部署。快速UDP网络连接(Quick UDP Internet Connection, QUIC)协议深入发展，其多路径扩展，多路径QUIC协议（MPQUIC），作为MPTCP的替代方案被提出。MPQUIC作为一种用户空间协议，可以持续快速升级。&lt;/p&gt;
+&lt;p&gt;  MPQUIC的关键问题之一是数据包调度。根据MPQUIC的大规模部署实验，其存在严重的队头阻塞问题:高延迟路径上调度的数据包到达时间晚于低延迟路径上的数据包，导致乱序数据包到达。由于队头（Head of Line, HoL）阻塞问题，接收端不得不分配较大内存来缓存乱序数据包。通过大量的预备实验分析，我们观测到接收方缓冲区的大小严重影响了MPQUIC的吞吐量性能（图1）。此外，随着实时视频流等应用的发展，应用迫切追求低延迟，而大多数的调度器仅针对特定应用需求设计。例如，基于强化学习(RL )的调度器 Peekaboo只关注最大化吞吐量，而不考虑数据包所经历的延迟。另一方面，bufferbloat-mitigation(BM)算法旨在降低缓存膨胀的影响以获得低延迟，但无法实现高吞吐量。多路径调度性能与应用需求仍有差距，如图2所示。&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  id=&#34;figure-图1-不同大小缓冲区下多路径调度器的吞吐量&#34;&gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;picture0&#34; srcset=&#34;
+               /zh/event/work-sharing-1/picture/picture0_hu4486ac4b89fe44baae6e6e44b1f245f1_24175_d71173bfc8f0b95d8bfecf7264c94dbe.webp 400w,
+               /zh/event/work-sharing-1/picture/picture0_hu4486ac4b89fe44baae6e6e44b1f245f1_24175_b75befa9e38dad5fb13ef8fbfa550043.webp 760w,
+               /zh/event/work-sharing-1/picture/picture0_hu4486ac4b89fe44baae6e6e44b1f245f1_24175_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://ai4network.github.io/zh/event/work-sharing-1/picture/picture0_hu4486ac4b89fe44baae6e6e44b1f245f1_24175_d71173bfc8f0b95d8bfecf7264c94dbe.webp&#34;
+               width=&#34;257&#34;
+               height=&#34;197&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;figcaption&gt;
+      图1 不同大小缓冲区下多路径调度器的吞吐量
+    &lt;/figcaption&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  id=&#34;figure-图2-不同多路径调度器的rtt百分位分布图&#34;&gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;picture1&#34; srcset=&#34;
+               /zh/event/work-sharing-1/picture/picture1_hu189613c1ffbbdb0ac692b764000cd156_29799_4ddc93be90a6fd9d782e2b6dcfd905df.webp 400w,
+               /zh/event/work-sharing-1/picture/picture1_hu189613c1ffbbdb0ac692b764000cd156_29799_c41550a0aa3e828212fe56918f6caee8.webp 760w,
+               /zh/event/work-sharing-1/picture/picture1_hu189613c1ffbbdb0ac692b764000cd156_29799_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://ai4network.github.io/zh/event/work-sharing-1/picture/picture1_hu189613c1ffbbdb0ac692b764000cd156_29799_4ddc93be90a6fd9d782e2b6dcfd905df.webp&#34;
+               width=&#34;261&#34;
+               height=&#34;196&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;figcaption&gt;
+      图2 不同多路径调度器的RTT百分位分布图
+    &lt;/figcaption&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;h2 id=&#34;设计方案&#34;&gt;设计方案&lt;/h2&gt;
+&lt;p&gt;  针对上述问题，该工作提出使用多智能体强化学习的方法，结合多目标奖励函数来实现在动态网络环境下对应用多样化QoS需求的动态适应。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;1.多智能体强化学习&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;  1）为什么使用多智能体强化学习&lt;/p&gt;
+&lt;p&gt;  从方法论的角度，我们将多路径调度视为一个决策问题，采用强化学习(RL)方法进行求解。与使用规则式策略的启发式方法不同，基于RL的调度器通过学习产生能够适应动态网络环境的数据包调度策略。之前的研究工作也考虑了将RL方法用于数据包调度问题：如Peekaboo使用在线RL算法生成调度策略，但收敛时间是在线方案的一个基本问题，并未得到很好解决；ReLeS探索了通过深度强化学习(DRL)方法来解决MPTCP中的调度问题，使用单智能体DRL为所有路径生成连接级控制策略。然而，当路径数量增加时，唯一的智能体学习最优调度策略的能力受限。因此在本工作中，我们应用多智能体强化学习(MADRL)方法对每条路径进行单独控制，以减轻单个智能体的负担，生成更优的策略。&lt;/p&gt;
+&lt;p&gt;  2）设计框架&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  id=&#34;figure-图3-mars的实现框架图&#34;&gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;picture2&#34; srcset=&#34;
+               /zh/event/work-sharing-1/picture/picture2_hu15bd4a66fe83590dbad30f9a3ff41ca3_46444_8cc2979df5d684792121a3b3ebbc1cae.webp 400w,
+               /zh/event/work-sharing-1/picture/picture2_hu15bd4a66fe83590dbad30f9a3ff41ca3_46444_bfd2b6de334cdcdaa806670e35bf8a2b.webp 760w,
+               /zh/event/work-sharing-1/picture/picture2_hu15bd4a66fe83590dbad30f9a3ff41ca3_46444_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://ai4network.github.io/zh/event/work-sharing-1/picture/picture2_hu15bd4a66fe83590dbad30f9a3ff41ca3_46444_8cc2979df5d684792121a3b3ebbc1cae.webp&#34;
+               width=&#34;293&#34;
+               height=&#34;253&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;figcaption&gt;
+      图3 MARS的实现框架图
+    &lt;/figcaption&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;  MARS框架如图3所示。MARS采用了MADDPG算法，一种多智能体和演员-评论家深度强化学习算法。在MARS中，每个智能体都有一个演员和评论家神经网络。我们采用异步训练算法，将数据收集和模型训练分离，以保证实时的数据包调度。因此，MARS框架主要由在线执行和离线训练两部分组成。&lt;/p&gt;
+&lt;p&gt;  在线执行。在线执行过程中(图3右半部分)，运行在发送端(服务器)的智能体感知网络环境，获取网络状态 $O_{i,t}$。然后，智能体将它们输入到执行器神经网络，该神经网络输出动作 $∏(O_{i,t})$。深度强化学习智能体面临的一个根本性挑战是解决探索与利用的困境。为了使智能体能够更好地探索未知环境，我们在演员神经网络生成的动作中加入衰减高斯噪声，可以表示为 $a_{i,t} = ∏(O_{i,t}) + N ( 0,σ_{i,t})$。智能体执行动作并得到结果奖励 $r_{i，t}$，然后转移到下一个新状态 $O_{i,t+1}$。为了有效地从经验中学习，智能体在一步转移中收集状态、动作和奖励，并将它们打包成一个元组 $&amp;lt;O_{i,t}，O_{_i,t}，a_{i,t}，a_{_i,t}，r_{i,t}，O_{i,t+1}，O_{i,t+1}&amp;gt;$，并将元组存储到经验回放缓冲区$D_i$中。&lt;/p&gt;
+&lt;p&gt;  离线训练。在离线训练过程中(图3左图部分)，智能体从经验回放缓冲区中采样，然后使用深度确定性策略梯度训练算法训练演员和评论家神经网络。每次训练后，MARS将训练好的演员神经网络与调度器进行同步，使其向最优策略移动。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;2.多目标奖励函数设计&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;  考虑具有n条路径(记N = { 1 , &amp;hellip; , n })的多路径传输协议。它的网络资源有限，包括缓冲区和数据包等。这些资源被路径共享。在MARS中，每条路径都有一个带着独立奖励函数的深度强化学习智能体。对于传统的单智能体深度强化学习智能体，它自私地最大化自身奖励。但在MARS中，如果所有的智能体简单地最大化自己的奖励，并不能使多路径传输协议获得最大的性能。因此，我们将多路径传输协议调度问题看成一个一般和的n人博弈，其中每个智能体是一个玩家。我们通过设计利他奖励项，将利他行为引入到每个智能体中。这说明智能体并不是单纯最大化自身的性能，还关心其他路径的性能。它们相互竞争资源，同时为了获得更好的性能，它们合作将所有的数据传输到接收端。此外，在奖励函数的设计中，我们考虑了吞吐量、时延和乱序队列大小。智能体i的奖励函数记为：&lt;/p&gt;
+
+
+
+$$
+r_{i,t} = V^{th}-\beta V^{RTT} - \zeta V^{OFO}
+$$
+
+&lt;h2 id=&#34;实验验证&#34;&gt;实验验证&lt;/h2&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  id=&#34;figure-图4-网络拓扑图&#34;&gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;picture3&#34; srcset=&#34;
+               /zh/event/work-sharing-1/picture/picture3_hu0907e9451f8cc848792f3fb89b198d16_19264_b025e5b53cbdf5bdd61104c86796d462.webp 400w,
+               /zh/event/work-sharing-1/picture/picture3_hu0907e9451f8cc848792f3fb89b198d16_19264_d5bb09df329b706da0847c1b0d6a76c3.webp 760w,
+               /zh/event/work-sharing-1/picture/picture3_hu0907e9451f8cc848792f3fb89b198d16_19264_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://ai4network.github.io/zh/event/work-sharing-1/picture/picture3_hu0907e9451f8cc848792f3fb89b198d16_19264_b025e5b53cbdf5bdd61104c86796d462.webp&#34;
+               width=&#34;553&#34;
+               height=&#34;110&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;figcaption&gt;
+      图4 网络拓扑图
+    &lt;/figcaption&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;  仿真实验采用如图4所示的网络拓扑结构。对于两条路径，我们分别设定了根据真实实验中的测量值选择的具体网络特征。采用32MB的文件下载应用程序进行性能评估。每个实验重复了20次。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;1.不同接收方缓冲区下的吞吐表现&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;  图5展示了不同调度器在不同接收缓存大小下的聚合吞吐量。当接收缓存大小受限(&amp;lt;3MB)时，我们的调度器相比RR可以提高约16 %的吞吐量。当接收缓存足够大(≥3MB)时，没有HoL阻塞，因此6个调度器都能获得较好的带宽聚合效果。但是MARS的表现仍然优于其它调度器。&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  id=&#34;figure-图5-不同调度器在不同接收缓存大小下的聚合吞吐量&#34;&gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;picture4&#34; srcset=&#34;
+               /zh/event/work-sharing-1/picture/picture4_hu3873e819bd0faaf373a54aa3bcb4c469_40485_fbd36052c1d8994ff5205ca072ab19db.webp 400w,
+               /zh/event/work-sharing-1/picture/picture4_hu3873e819bd0faaf373a54aa3bcb4c469_40485_e31e761e0b3385e26410065bc806c69f.webp 760w,
+               /zh/event/work-sharing-1/picture/picture4_hu3873e819bd0faaf373a54aa3bcb4c469_40485_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://ai4network.github.io/zh/event/work-sharing-1/picture/picture4_hu3873e819bd0faaf373a54aa3bcb4c469_40485_fbd36052c1d8994ff5205ca072ab19db.webp&#34;
+               width=&#34;333&#34;
+               height=&#34;253&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;figcaption&gt;
+      图5 不同调度器在不同接收缓存大小下的聚合吞吐量
+    &lt;/figcaption&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;2.减少乱序数据包&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;  我们使用乱序（OFO）队列大小作为度量。OFO队列规模越大，调度器性能越差。图 6给出了不同接收缓冲区大小下不同调度器的平均OFO队列大小。其他调度器在接收缓冲区大小有限的情况下可以保持较小的OFO队列大小，但随着接收缓冲区大小的增加，OFO 队列大小急剧增加。而MARS可以保持非常小的 OFO 队列大小，并且由于OFO队列大小的反馈，受接收缓冲区大小的影响较小。&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  id=&#34;figure-图6-不同接收缓冲区大小下不同调度器的平均ofo队列大小&#34;&gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;picture5&#34; srcset=&#34;
+               /zh/event/work-sharing-1/picture/picture5_hu9234cf72964adb707e63ba5faca90230_41668_caf1e5492cc26ef8e7b3ead1210d252b.webp 400w,
+               /zh/event/work-sharing-1/picture/picture5_hu9234cf72964adb707e63ba5faca90230_41668_90c171e180aec943e1e6036f688c61c0.webp 760w,
+               /zh/event/work-sharing-1/picture/picture5_hu9234cf72964adb707e63ba5faca90230_41668_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://ai4network.github.io/zh/event/work-sharing-1/picture/picture5_hu9234cf72964adb707e63ba5faca90230_41668_caf1e5492cc26ef8e7b3ead1210d252b.webp&#34;
+               width=&#34;267&#34;
+               height=&#34;199&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;figcaption&gt;
+      图6 不同接收缓冲区大小下不同调度器的平均OFO队列大小
+    &lt;/figcaption&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;3.降低传输延迟&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;  图7给出了RTT的百分位分布。从图7中我们可以观察到MARS比其他调度器实现了更小的RTT。这是因为与BM算法相比，MARS算法根据当前网络状态更加智能地做出决策，以降低数据包排队时延。同时，MARS充分利用快速路径来满足应用的低延迟需求。&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  id=&#34;figure-图7-rtt的百分位分布图&#34;&gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;picture6&#34; srcset=&#34;
+               /zh/event/work-sharing-1/picture/picture6_hu4d99e9d74c337d3fd1183b9664c081b0_29015_2bae6db0f5d52edccac389f7d031fa6d.webp 400w,
+               /zh/event/work-sharing-1/picture/picture6_hu4d99e9d74c337d3fd1183b9664c081b0_29015_c03bba8827b0126d22cc72db277cacae.webp 760w,
+               /zh/event/work-sharing-1/picture/picture6_hu4d99e9d74c337d3fd1183b9664c081b0_29015_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://ai4network.github.io/zh/event/work-sharing-1/picture/picture6_hu4d99e9d74c337d3fd1183b9664c081b0_29015_2bae6db0f5d52edccac389f7d031fa6d.webp&#34;
+               width=&#34;255&#34;
+               height=&#34;193&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;figcaption&gt;
+      图7 RTT的百分位分布图
+    &lt;/figcaption&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;4.真实网络环境下的性能表现&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;  通过评估不同调度器的下载时间来研究MARS在异构网络中的性能。我们 通过改变下载大小来模拟不同的流量类型。对于2MB的下载文件大小，MARS实现了与 Peekaboo相近的下载时间，但是与其他调度器相比，下载时间最低。然而，随着下载文件大小越来越大，MARS的优势更加明显。&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  id=&#34;figure-图8-真实网络环境下不同调度器的文件下载时间&#34;&gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;picture7&#34; srcset=&#34;
+               /zh/event/work-sharing-1/picture/picture7_hu0ff6d31df7d1c2bc2cb673862825ba24_19348_f7cd47a90d4862358b886f1e17aac695.webp 400w,
+               /zh/event/work-sharing-1/picture/picture7_hu0ff6d31df7d1c2bc2cb673862825ba24_19348_77f68299ebea6bc83b45fe0b9aaa5a92.webp 760w,
+               /zh/event/work-sharing-1/picture/picture7_hu0ff6d31df7d1c2bc2cb673862825ba24_19348_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://ai4network.github.io/zh/event/work-sharing-1/picture/picture7_hu0ff6d31df7d1c2bc2cb673862825ba24_19348_f7cd47a90d4862358b886f1e17aac695.webp&#34;
+               width=&#34;262&#34;
+               height=&#34;201&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;figcaption&gt;
+      图8 真实网络环境下不同调度器的文件下载时间
+    &lt;/figcaption&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;h2 id=&#34;总结&#34;&gt;总结&lt;/h2&gt;
+&lt;p&gt;  本工作提出了一种基于多智能体强化学习的 MPQUIC调度器 MARS，为适应不同接收端缓存大小和不同应用的QoS需求，MARS利用多智能体强化学习（MADRL） 技术在每条路径上独立生成数据包调度策略。同时，我们设计了一个多目标奖励函数来表征应用程序的QoS需求和乱序队列大小对协议性能的影响。我们在仿真和真实环境下评估了MARS，结果表明MARS的性能表现显著优于现有的多路径调度器。&lt;/p&gt;
+&lt;p&gt;  该工作的源代码和原型系统将于近期发布，敬请关注。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>SIGCOMM22 论文分享 | Starvation in End-to-End Congestion Control</title>
+      <link>https://ai4network.github.io/zh/post/paper-sharing-6/</link>
+      <pubDate>Tue, 20 Dec 2022 14:51:07 +0800</pubDate>
+      <guid>https://ai4network.github.io/zh/post/paper-sharing-6/</guid>
+      <description>&lt;p&gt;  今天分享的是来自MIT的Venkat Arun,Mohammad Alizadeh和Hari Balakrishnan三位学者发表在SIGCOMM的一篇论文。论文讨论了基于延迟的拥塞控制算法存在着极度不公平现象，从算法的机理出发进行说明，具有较强的理论性。同时这篇论文也是SIGCOMM22的最佳论文。&lt;/p&gt;
+&lt;h2 id=&#34;动机与背景&#34;&gt;动机与背景&lt;/h2&gt;
+&lt;p&gt;  随着目前视频以及交互式应用的不断发展，用户对低时延的需求越来越迫切。为了保证传输层的服务质量，基于时延的拥塞控制应运而生，例如BBR、Copa以及PCC等算法。这些拥塞控制算法主要为了在防止引入排队时延的情况下，实现链路的高利用率。但是，该论文发现当共享瓶颈链路的多条流使用同一种基于时延的拥塞控制算法时，存在某些流饿死现象——一种带宽分配的极度不公平现象。&lt;/p&gt;
+&lt;h2 id=&#34;问题引入&#34;&gt;问题引入&lt;/h2&gt;
+&lt;h3 id=&#34;1-延迟收敛现象&#34;&gt;1. 延迟收敛现象&lt;/h3&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;picture1&#34; srcset=&#34;
+               /zh/post/paper-sharing-6/picture/picture1_hud21c180db59ae2462746b57d7e340a45_62103_7dc01f066fa081a99591b659c10aa4a7.webp 400w,
+               /zh/post/paper-sharing-6/picture/picture1_hud21c180db59ae2462746b57d7e340a45_62103_d4eeec2c943a9241f38cf68b9588f20b.webp 760w,
+               /zh/post/paper-sharing-6/picture/picture1_hud21c180db59ae2462746b57d7e340a45_62103_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://ai4network.github.io/zh/post/paper-sharing-6/picture/picture1_hud21c180db59ae2462746b57d7e340a45_62103_7dc01f066fa081a99591b659c10aa4a7.webp&#34;
+               width=&#34;614&#34;
+               height=&#34;315&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;  作者提出诸如BBR、Copa以及PCC等基于延迟的拥塞控制算法均存在一种延迟收敛现象。延迟收敛是指当算法稳定后，发送方与接收方之间的端到端延迟稳定在一个固定区间内，区间上边界记作dmax,下边界记作dmin，区间长度记作δ(C)。&lt;/p&gt;
+&lt;h3 id=&#34;2-非拥塞延迟&#34;&gt;2. 非拥塞延迟&lt;/h3&gt;
+&lt;p&gt;  作者指出当前端到端延迟一共包含三个主要部分:传播延迟(常数)、拥塞延迟(排队延迟)以及非拥塞延迟。wifi的延迟应答、内核对数据包的处理延迟以及发送方/接收方的突发传输/应答等机制均会带来非拥塞延迟。通过上述非拥塞延迟的举例可以看出非拥塞延迟是一个随机值，和稳定后的拥塞延迟一样处在一个固定区间内波动。由于拥塞延迟和非拥塞延迟行为相似因此很难加以区分。作者将非拥塞延迟的波动区间记作D。&lt;/p&gt;
+&lt;h3 id=&#34;3-饿死现象&#34;&gt;3. 饿死现象&lt;/h3&gt;
+&lt;p&gt;  Copa拥塞控制算法族的链路的发送速率与数据包排队延迟成反比关系，如下图所示。从图中可以看到当算法稳定时对排队时延的不同观测所导致的链路发送速率有着巨大差异。同时由于端对端延迟中非拥塞延迟的干扰，对排队时延的观测往往是不准确的，这种观测上的差异也就导致了数据流之间的发送速率出现较大差异，甚至发生饿死现象。&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;picture2&#34; srcset=&#34;
+               /zh/post/paper-sharing-6/picture/picture2_hu34eb991d4da8d461832038753fdf8fa2_46730_b1cca6a7d11aaf9b8584d9ac3146c374.webp 400w,
+               /zh/post/paper-sharing-6/picture/picture2_hu34eb991d4da8d461832038753fdf8fa2_46730_e760965e0a5f0980890998b358916b38.webp 760w,
+               /zh/post/paper-sharing-6/picture/picture2_hu34eb991d4da8d461832038753fdf8fa2_46730_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://ai4network.github.io/zh/post/paper-sharing-6/picture/picture2_hu34eb991d4da8d461832038753fdf8fa2_46730_b1cca6a7d11aaf9b8584d9ac3146c374.webp&#34;
+               width=&#34;545&#34;
+               height=&#34;289&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;  下图中有两条流共享同一个瓶颈链路，一条流记作流1使用CCA1拥塞控制算法同时该条数据链路使用的wifi接收方引入了一定的非拥塞控制延时，另一条流记作流2使用CCA2拥塞控制算法。流1因为存在非拥塞延迟的干扰过高估计了当前的排队时延，就导致流1会降低发送速率，造成不公平现象。&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;picture3&#34; srcset=&#34;
+               /zh/post/paper-sharing-6/picture/picture3_hu4fe3eb0180b89d2615eb4bc11f493cbe_50465_d85a4f565e25ffd41998cd13e23b8584.webp 400w,
+               /zh/post/paper-sharing-6/picture/picture3_hu4fe3eb0180b89d2615eb4bc11f493cbe_50465_7ac5a83d41ea013f88364f2901f84ab7.webp 760w,
+               /zh/post/paper-sharing-6/picture/picture3_hu4fe3eb0180b89d2615eb4bc11f493cbe_50465_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://ai4network.github.io/zh/post/paper-sharing-6/picture/picture3_hu4fe3eb0180b89d2615eb4bc11f493cbe_50465_d85a4f565e25ffd41998cd13e23b8584.webp&#34;
+               width=&#34;572&#34;
+               height=&#34;300&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;h2 id=&#34;问题证明&#34;&gt;问题证明&lt;/h2&gt;
+&lt;h3 id=&#34;1两个定义&#34;&gt;1.两个定义&lt;/h3&gt;
+&lt;ol&gt;
+&lt;li&gt;f-高效的CCA&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;  如果在具有瓶颈链路速率C和最小RTT RM的理想路径，拥塞控制算法(CCA)最终获得至少f C的吞吐量。&lt;/p&gt;
+&lt;ol start=&#34;2&#34;&gt;
+&lt;li&gt;CCA的s-公平性&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;  从任意初始条件开始的两个流 f1 和 f2（例如，其中一个流可能运行了很长时间，而另一个流刚刚开始）。如果始终存在一个有限的时间 t，使得对于超过 t 的所有时间，较快的流与较慢的流实现的吞吐量之比小于 s，则网络是 s 公平的。&lt;/p&gt;
+&lt;h3 id=&#34;2三步证明&#34;&gt;2.三步证明&lt;/h3&gt;
+&lt;p&gt;  作者通过Copa算法族引入了饿死现象，且认为所有基于时延的拥塞控制算法均存在这个现象，并通过以下三步进行证明。&lt;/p&gt;
+&lt;p&gt;  1）假定数据流的延迟上限为dmax，下限为Rm。我们在[Rm,dmax]之间可以构造有限个长度为δmax,且彼此之间的距离为ε的排队延时族。同时定义这些波动的排队延时对应的带宽分别为λ0=λ，λ1&amp;hellip;,且。根据鸽笼原理易得一定存在两个排队时延区间位于δmax+ε内。&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;picture4&#34; srcset=&#34;
+               /zh/post/paper-sharing-6/picture/picture4_hu31e67570f36d6ab6331cb84883ea3910_55397_51cbd3b9df58f9a4258e7176bb7050f3.webp 400w,
+               /zh/post/paper-sharing-6/picture/picture4_hu31e67570f36d6ab6331cb84883ea3910_55397_0605b6961506e10869542766bf35f1e5.webp 760w,
+               /zh/post/paper-sharing-6/picture/picture4_hu31e67570f36d6ab6331cb84883ea3910_55397_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://ai4network.github.io/zh/post/paper-sharing-6/picture/picture4_hu31e67570f36d6ab6331cb84883ea3910_55397_51cbd3b9df58f9a4258e7176bb7050f3.webp&#34;
+               width=&#34;668&#34;
+               height=&#34;361&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;  2）根据第一步的说明，可以构造两条独立的数据流，其分别具有带宽C1和C2(如图4)。可以构造两个CCA，其收敛后的排队时延记作d1(t)，d2(t)差距小于ε且分别获取x1和x2的速率(如图5)。可以说明x2比x1的s倍还大。&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;picture5&#34; srcset=&#34;
+               /zh/post/paper-sharing-6/picture/picture5_hu613da5d33a2426ccc650bc7aa6b0a26b_155969_488c1054c8c10082bc7aa2e8df507aac.webp 400w,
+               /zh/post/paper-sharing-6/picture/picture5_hu613da5d33a2426ccc650bc7aa6b0a26b_155969_146de398cb8383f29cc90574597032c9.webp 760w,
+               /zh/post/paper-sharing-6/picture/picture5_hu613da5d33a2426ccc650bc7aa6b0a26b_155969_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://ai4network.github.io/zh/post/paper-sharing-6/picture/picture5_hu613da5d33a2426ccc650bc7aa6b0a26b_155969_488c1054c8c10082bc7aa2e8df507aac.webp&#34;
+               width=&#34;760&#34;
+               height=&#34;397&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;  3）当两条流共享同一瓶颈链路时，假定将η&lt;em&gt;1(t),η&lt;/em&gt;2(t)∈[0,D]记作两条链路的非拥塞延迟，d&lt;em&gt;1(t),d&lt;/em&gt;2(t)记作两条链路的拥塞延迟。为了构造第二步的时延要求，我们需要控制η&lt;em&gt;1(t),η&lt;/em&gt;2(t)使得η&lt;em&gt;1(t)+d&lt;/em&gt;1(t)=d1(t)以及η&lt;em&gt;2(t)+d&lt;/em&gt;2(t)=d2(t)。根据证明(具体见论文附件A)，我们可以得到d*i(t)的表达式如下：&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;picture6&#34; srcset=&#34;
+               /zh/post/paper-sharing-6/picture/picture6_hu5ffb114120143cec5d5ec5f1008e4c78_22055_f4f260d3782707c0d2883f3a8e043a93.webp 400w,
+               /zh/post/paper-sharing-6/picture/picture6_hu5ffb114120143cec5d5ec5f1008e4c78_22055_0e8444aadc56164c391e5f3f56eb1ace.webp 760w,
+               /zh/post/paper-sharing-6/picture/picture6_hu5ffb114120143cec5d5ec5f1008e4c78_22055_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://ai4network.github.io/zh/post/paper-sharing-6/picture/picture6_hu5ffb114120143cec5d5ec5f1008e4c78_22055_f4f260d3782707c0d2883f3a8e043a93.webp&#34;
+               width=&#34;468&#34;
+               height=&#34;128&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;  易得，d*i(t)具有以下两种性质:&lt;/p&gt;
+&lt;p&gt;d*i(t)&amp;lt;min{d*1(t),d*2(t)}&lt;/p&gt;
+&lt;p&gt;max{d*1(t),d*2(t)}&amp;lt;d*i(t)+D&lt;/p&gt;
+&lt;p&gt;  根据以上两种性质我们知道可以获得 η*1(t),η*2(t)∈[0,D]，使得当两条流共享瓶颈链路时存在 η*1(t)+d*1(t)=d1(t) 以及 η*2(t)+d*2(t)=d2(t) 的可能性。一旦发生这种现象，就出现饿死。&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;picture7&#34; srcset=&#34;
+               /zh/post/paper-sharing-6/picture/picture7_hu7573736e5567b35c4dac441faf6275a8_77453_7e1efdd0ed79182587cec45282c33b12.webp 400w,
+               /zh/post/paper-sharing-6/picture/picture7_hu7573736e5567b35c4dac441faf6275a8_77453_3fb945f42f74051c9672bd83c648b713.webp 760w,
+               /zh/post/paper-sharing-6/picture/picture7_hu7573736e5567b35c4dac441faf6275a8_77453_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://ai4network.github.io/zh/post/paper-sharing-6/picture/picture7_hu7573736e5567b35c4dac441faf6275a8_77453_7e1efdd0ed79182587cec45282c33b12.webp&#34;
+               width=&#34;649&#34;
+               height=&#34;361&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;h2 id=&#34;实验验证&#34;&gt;实验验证&lt;/h2&gt;
+&lt;p&gt;  针对上述理论证明作者给出了两个在模拟环境下的进行的实验进行说明理论证明的结果是正确的。&lt;/p&gt;
+&lt;h3 id=&#34;1-bbr&#34;&gt;1. BBR&lt;/h3&gt;
+&lt;p&gt;  作者使用Mahimahi仿真平台上构造了两个共享同一瓶颈链路的BBR数据流，其传播时延分别是40ms和80ms，共享瓶颈链路的带宽是120Mbit/s。实验进行了60s的持续传输，最终出现一个流获得8.3Mbit/s，另一个获得107Mbit/s。&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;picture8&#34; srcset=&#34;
+               /zh/post/paper-sharing-6/picture/picture8_hud83c2eff785c5ed2fe173e37575a085d_54540_2dbaed6faa01f19347b37dda2e112d26.webp 400w,
+               /zh/post/paper-sharing-6/picture/picture8_hud83c2eff785c5ed2fe173e37575a085d_54540_1a4798f82a102d5f6ec7697246651239.webp 760w,
+               /zh/post/paper-sharing-6/picture/picture8_hud83c2eff785c5ed2fe173e37575a085d_54540_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://ai4network.github.io/zh/post/paper-sharing-6/picture/picture8_hud83c2eff785c5ed2fe173e37575a085d_54540_2dbaed6faa01f19347b37dda2e112d26.webp&#34;
+               width=&#34;760&#34;
+               height=&#34;191&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;h3 id=&#34;2-copa&#34;&gt;2. Copa&lt;/h3&gt;
+&lt;p&gt;  作者使用Mahimahi仿真平台上构造了两个共享同一瓶颈链路的Copa数据流，其传播时延均为60ms，共享瓶颈带宽为120Mbit/s。作者引入一个干扰使得其中一条流的时延估计为59ms，导致了其低估了传播时延也就意味着其之后均会高估排队时延，最终导致两条流的带宽分配为:8.8Mbit/s、95Mbit/s。&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;picture9&#34; srcset=&#34;
+               /zh/post/paper-sharing-6/picture/picture9_huba7547285dc6951fc8cd8ec20a6e08e9_67648_45131218f0ad084da7988df8a751bcd2.webp 400w,
+               /zh/post/paper-sharing-6/picture/picture9_huba7547285dc6951fc8cd8ec20a6e08e9_67648_51c8e9d005c1e2979cae9527bbc80bd4.webp 760w,
+               /zh/post/paper-sharing-6/picture/picture9_huba7547285dc6951fc8cd8ec20a6e08e9_67648_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://ai4network.github.io/zh/post/paper-sharing-6/picture/picture9_huba7547285dc6951fc8cd8ec20a6e08e9_67648_45131218f0ad084da7988df8a751bcd2.webp&#34;
+               width=&#34;760&#34;
+               height=&#34;262&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;h2 id=&#34;可行的解决方案&#34;&gt;可行的解决方案&lt;/h2&gt;
+&lt;h3 id=&#34;1-故意的延迟震荡&#34;&gt;1. 故意的延迟震荡&lt;/h3&gt;
+&lt;p&gt;  根据上面的分析我们得到基于延时的拥塞控制算法产生饿死的根本原因在于其追求低延时即延迟收敛。但是基于丢包的拥塞控制算法采用AIMD的方式填充队列，并不会产生饿死现象。因此作者认为可以允许基于时延的拥塞控制算法像AIMD式的拥塞控制一样容忍更大的延迟波动来对抗非拥塞时延的干扰。&lt;/p&gt;
+&lt;h3 id=&#34;2-显式拥塞信号包括ecn等&#34;&gt;2. 显式拥塞信号，包括ECN等。&lt;/h3&gt;
+&lt;h2 id=&#34;心得体会&#34;&gt;心得体会&lt;/h2&gt;
+&lt;p&gt;  本文以理论分析切入，从基于延时的拥塞控制算法的机理开始，发现这些算法最终导致自己违背了自己的初衷——公平性。文章的最后作者给出了几种针对饿死现象的解决方案，可以作为以后基于延时的拥塞控制的切入点。近年来，BBR以及Copa的大火，使得很多人认为基于丢包的算法已不具有竞争力。但从本论文的视角来看，基于延时的拥塞控制算法比如Copa，BBR等也存在着很大的不足，并不会导致基于丢包的拥塞控制算法退出历史舞台。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>MobiCom22 论文分享 | Real-time Neural Network Inference on Extremely WeakDevices: Agile Offloading with Explainable Al</title>
+      <link>https://ai4network.github.io/zh/post/paper-sharing-5/</link>
+      <pubDate>Mon, 19 Dec 2022 19:16:23 +0800</pubDate>
+      <guid>https://ai4network.github.io/zh/post/paper-sharing-5/</guid>
+      <description>&lt;p&gt;  今天分享是由两位来自Pittsburgh大学的两位学者发表在mobicom22上的一篇论文。该论文主要聚焦于解决当前在性能较弱的小型嵌入式设备上部署神经网络模型并进行实时推理的困难。文章提出了Agile NN——使用可解释神经网络与需要部署的神经网络模型进行协同离线训练，实现将原本需要在线推理的计算迁移到离线训练过程中，进而达到在小型嵌入式设备上部署并实现更加精确的实时神经网络推理。&lt;/p&gt;
+&lt;h2 id=&#34;研究动机&#34;&gt;研究动机&lt;/h2&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;picture1&#34; srcset=&#34;
+               /zh/post/paper-sharing-5/picture/picture1_hue2bfe0aed3de979e25f324ea370f65d3_83245_b15c0b2af94ab31795cc80e9822ffebf.webp 400w,
+               /zh/post/paper-sharing-5/picture/picture1_hue2bfe0aed3de979e25f324ea370f65d3_83245_65a60c1538c7ba3c644f4676ad8c5ce8.webp 760w,
+               /zh/post/paper-sharing-5/picture/picture1_hue2bfe0aed3de979e25f324ea370f65d3_83245_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://ai4network.github.io/zh/post/paper-sharing-5/picture/picture1_hue2bfe0aed3de979e25f324ea370f65d3_83245_b15c0b2af94ab31795cc80e9822ffebf.webp&#34;
+               width=&#34;391&#34;
+               height=&#34;261&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;  随着人脸识别、语音识别等深度学习模型与工业物联网的不断发展，在小型嵌入式设备上部署深度学习模型的需求迫切。但是小型嵌入式设备的内存以及计算能力较弱而深度学习模型的部署与实时推理需要大内存和强算力，因此如何在小型嵌入式设备上部署深度学习模型并进行实时推理成为一大难点。在以往的研究中，研究人员提出了三种解决方案。&lt;/p&gt;
+&lt;p&gt;1.本地推理(fig.1-topleft)&lt;/p&gt;
+&lt;p&gt;  该方案通过对神经网络的权重和结构进行压缩和裁剪操作，减小部署以及运行模型的代价。但是该方案只能在诸如智能手机等具有较强性能的嵌入式设备上进行运行，一旦迁移到小型嵌入式设备上，由于神经网络压缩程度过高导致实时推理精确度下降。&lt;/p&gt;
+&lt;p&gt;2.远程推理(fig.1-topright)&lt;/p&gt;
+&lt;p&gt;  该方案通过云端协同的方式，将嵌入式设备使用深度学习模型的负担迁移到云平台上，利用云服务器的强大性能减少了本地性能压力。但是为了实现云端协同的实时性，需要对神经网络的输入数据进行压缩，损失部分特征(甚至是及其重要的特征)。同时小型嵌入式设备为了节约电量的目的，仅仅使用低速的无线射频信号进行数据传输，导致本地数据需要较大时延传到云端，影响模型的实时性需求。&lt;/p&gt;
+&lt;p&gt;3.神经网络切分(fig.1-buttomright)&lt;/p&gt;
+&lt;p&gt;  该方案在本地部署神经网络用于特征提取以及压缩，同时在云端部署推理神经网络模型。但是部署在本地的神经网络模型为了增强特征稀疏性引入了巨大的计算压力。&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;picture2&#34; srcset=&#34;
+               /zh/post/paper-sharing-5/picture/picture2_huec9a5cbb31cee138006108c68362ae19_58962_a4a72e33e533557bc03a5bb668f647ee.webp 400w,
+               /zh/post/paper-sharing-5/picture/picture2_huec9a5cbb31cee138006108c68362ae19_58962_31d39e02a471c3069275ab12a993e800.webp 760w,
+               /zh/post/paper-sharing-5/picture/picture2_huec9a5cbb31cee138006108c68362ae19_58962_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://ai4network.github.io/zh/post/paper-sharing-5/picture/picture2_huec9a5cbb31cee138006108c68362ae19_58962_a4a72e33e533557bc03a5bb668f647ee.webp&#34;
+               width=&#34;553&#34;
+               height=&#34;153&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;picture3&#34; srcset=&#34;
+               /zh/post/paper-sharing-5/picture/picture3_hu2fee156168d026cb3dd15b8b0d012788_250331_bd290623f67e59ac3eb2cc51f19db1dc.webp 400w,
+               /zh/post/paper-sharing-5/picture/picture3_hu2fee156168d026cb3dd15b8b0d012788_250331_3d2e3eabf7d741c17d6d86ac4e8cddaa.webp 760w,
+               /zh/post/paper-sharing-5/picture/picture3_hu2fee156168d026cb3dd15b8b0d012788_250331_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://ai4network.github.io/zh/post/paper-sharing-5/picture/picture3_hu2fee156168d026cb3dd15b8b0d012788_250331_bd290623f67e59ac3eb2cc51f19db1dc.webp&#34;
+               width=&#34;760&#34;
+               height=&#34;308&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;  为了解决在嵌入式设备上部署实时推理模型的问题，该论文采用神经网络切分的结构，但是论文分析了以前采用神经网络切分中特征数据压缩的比例对云端实时推理的精确性和通信延迟的影响，得出结论:在神经网络切分的结构中通信延迟与实时推理的精确性具有互斥性。为了解决这个问题，本论文采用可解释神经网络方法例如梯度积分(IG)，分析特征数据中对实时推理精确度较为重要的特征(记作top-k特征)保留在本地进行推断，而其余特征数据进行压缩传输到云端输入到神经网络推断模型中进行推理，将两个推理结果进行综合得到最终结果。整个系统离线训练与在线推理结构如fig.5所示，其中嵌入式设备上运行已经训练完成的可解释神经网络和本地经过压缩的实时推理模型，远程云端运行未经压缩的实时推理模型。&lt;/p&gt;
+&lt;p&gt;  下面主要进行AgileNN离线训练部分介绍。AgileNN离线训练包含两个部分:可解释神经网络训练(论文中又称为特征提取器)和实时推理模型训练。但是可解释模型特征重要性评估的精确度依赖于实时推理模型的精确度，因此本论文在训练可解释神经网络模型时，选择了先预训练实时推理模型，在将可解释神经网络模型和实时推理模型进行协同训练。&lt;/p&gt;
+&lt;p&gt;1、可解释AI(因为可解释AI技术并不是该论文的主要创新点且论文的可解释AI算法是可被替换的，因此在此处不对可解释AI技术展开介绍，只对论文中如何使用可解释AI技术进行讲解)&lt;/p&gt;
+&lt;p&gt;  本文默认使用的可解释AI的技术为积分梯度法(IG)，该方法旨在解释模型特征与预测结果之间的关系。由于IG广泛适用于任何可微分模型、易于实现且具有较高的计算效率因此被普遍使用。fig.3为IG方法分析图像分类器中输入图像像素特征重要性的流程。&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;picture4&#34; srcset=&#34;
+               /zh/post/paper-sharing-5/picture/picture4_hua22a2e344273c202b5a2dccce183909f_51738_49d509448aa6adb5a1b73999314a9b73.webp 400w,
+               /zh/post/paper-sharing-5/picture/picture4_hua22a2e344273c202b5a2dccce183909f_51738_df27dae2fd1f611fcb34958048374fc3.webp 760w,
+               /zh/post/paper-sharing-5/picture/picture4_hua22a2e344273c202b5a2dccce183909f_51738_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://ai4network.github.io/zh/post/paper-sharing-5/picture/picture4_hua22a2e344273c202b5a2dccce183909f_51738_49d509448aa6adb5a1b73999314a9b73.webp&#34;
+               width=&#34;348&#34;
+               height=&#34;187&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;1）特征重要性倾斜度(Skewness of feature Importance)保证&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;picture5&#34; srcset=&#34;
+               /zh/post/paper-sharing-5/picture/picture5_hue65f322bf1c1fec8b7127523056245f3_23698_ef5641f14c3ed66893809c51753a31c4.webp 400w,
+               /zh/post/paper-sharing-5/picture/picture5_hue65f322bf1c1fec8b7127523056245f3_23698_7362448c705b3b46aac0d71aaf5a1cf0.webp 760w,
+               /zh/post/paper-sharing-5/picture/picture5_hue65f322bf1c1fec8b7127523056245f3_23698_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://ai4network.github.io/zh/post/paper-sharing-5/picture/picture5_hue65f322bf1c1fec8b7127523056245f3_23698_ef5641f14c3ed66893809c51753a31c4.webp&#34;
+               width=&#34;253&#34;
+               height=&#34;219&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;  特征重要性倾斜度是指由特征提取器分析出的各个输入特征之间重要性差距大小，不同特征之间重要性差距越大代表特征重要性倾斜度越大(fig.4为实例)。在该模型中为了保证本地模型推理的精确性以及更大程度的压缩不重要特征属性保证低通信延迟，作者希望可解释AI工具输出的特征重要性分布差距越大越好。为了达到这个目的，在进行特征提取器训练时将重要性分布作为损失函数的一部分，记为，Lskewness。其中ρ代表top-k特征的重要性阈值。&lt;/p&gt;
+
+
+
+$$
+L_{skewness} = \max(0,\rho - |\overrightarrow{I_1}|)
+$$
+
+&lt;p&gt;2）特征排序&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;picture6&#34; srcset=&#34;
+               /zh/post/paper-sharing-5/picture/picture6_hu0c723150759b1a65115aab3e6edba3a5_31238_13dc4d041a6ee7c369bf27d5e42f6fb1.webp 400w,
+               /zh/post/paper-sharing-5/picture/picture6_hu0c723150759b1a65115aab3e6edba3a5_31238_ef0f5b890cbec8bbd33fb20ea69e729b.webp 760w,
+               /zh/post/paper-sharing-5/picture/picture6_hu0c723150759b1a65115aab3e6edba3a5_31238_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://ai4network.github.io/zh/post/paper-sharing-5/picture/picture6_hu0c723150759b1a65115aab3e6edba3a5_31238_13dc4d041a6ee7c369bf27d5e42f6fb1.webp&#34;
+               width=&#34;326&#34;
+               height=&#34;164&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;  因为特征提取器在嵌入式设备中运行时，要确保top-k特征一定要对应设备的前k个输出管道(由于嵌入式设备硬件逻辑限制)，因此在进行特征提取器离线训练时要确保特征按照重要性进行“非严格降序排列”(保证top-k的特征一定排在其他特征的前面)。作者将排序也作为特征提取器的损失函数的一部分。其中，I代表未排序的特征重要性向量，Isorted代表降序排序的特征重要性向量。&lt;/p&gt;
+
+
+
+$$
+L_{descent} = ||\overrightarrow{I} - \overrightarrow{I}_{sorted}||_2^2
+$$
+
+&lt;p&gt;2、实时推理模型&lt;/p&gt;
+&lt;p&gt;  AgileNN的推理模型包括本地模型和远端模型两部分(fig1-buttomleft)，分别用来处理top-k特征和其余不重要特征的推断。针对远端推断结果和本地推断结果进行加权相加。&lt;/p&gt;
+
+
+
+$$
+Result = LocalNN-R *α+RemoteNN-R*(1-α)
+$$
+
+&lt;p&gt;关于α的确定，作者选择了sigmoid函数。其中，w和T均为超参数。&lt;/p&gt;
+
+
+
+$$
+\alpha(w;T) = \frac{1}{1+e^{-w/T}}
+$$
+
+&lt;h2 id=&#34;实验验证&#34;&gt;实验验证&lt;/h2&gt;
+&lt;p&gt;  作者将模型部署在STM32F746上，并在四个数据集CIFAR10/100、SVHN、ImageNet-200上进行测试。实验模型部署细节如fig.14。&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;picture7&#34; srcset=&#34;
+               /zh/post/paper-sharing-5/picture/picture7_hu20b7a0c23caf6f474f4b68a366aad6be_71523_0b210630a9415eecee7d614f5cd57294.webp 400w,
+               /zh/post/paper-sharing-5/picture/picture7_hu20b7a0c23caf6f474f4b68a366aad6be_71523_49b1cdc277bcc635261d578e6f968049.webp 760w,
+               /zh/post/paper-sharing-5/picture/picture7_hu20b7a0c23caf6f474f4b68a366aad6be_71523_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://ai4network.github.io/zh/post/paper-sharing-5/picture/picture7_hu20b7a0c23caf6f474f4b68a366aad6be_71523_0b210630a9415eecee7d614f5cd57294.webp&#34;
+               width=&#34;393&#34;
+               height=&#34;220&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;  作者在数据集上与现有的4个算法进行了对比。根据fig.16，实验结果显示NgileNN有效减少了云端通信的延迟并且增加了实时推断的精确度。&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;picture8&#34; srcset=&#34;
+               /zh/post/paper-sharing-5/picture/picture8_hu0b3bb6a78e26192c9f142fb98a50c3b4_71802_284eda9058719be3de80476e81d74384.webp 400w,
+               /zh/post/paper-sharing-5/picture/picture8_hu0b3bb6a78e26192c9f142fb98a50c3b4_71802_3c21229908f027ce132008f790bdabd5.webp 760w,
+               /zh/post/paper-sharing-5/picture/picture8_hu0b3bb6a78e26192c9f142fb98a50c3b4_71802_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://ai4network.github.io/zh/post/paper-sharing-5/picture/picture8_hu0b3bb6a78e26192c9f142fb98a50c3b4_71802_284eda9058719be3de80476e81d74384.webp&#34;
+               width=&#34;358&#34;
+               height=&#34;345&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;  针对模型需要花费的部署以及运行开销，作者也进行了评估。根据fig.19可以看出AgileNN运行开销(以消耗的电量为基准)远低于其他模型。根据fig.20可以看到AgileNN在极少的内存占用的情况下实现了较高的推断准确性。&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;picture9&#34; srcset=&#34;
+               /zh/post/paper-sharing-5/picture/picture9_hu46d6d8419dc23c68d0cbd514487ce74a_32295_5f6bdd810898aeb82bb42ec3ab5688c5.webp 400w,
+               /zh/post/paper-sharing-5/picture/picture9_hu46d6d8419dc23c68d0cbd514487ce74a_32295_05bb5a512217f096259c8fd9f408fa94.webp 760w,
+               /zh/post/paper-sharing-5/picture/picture9_hu46d6d8419dc23c68d0cbd514487ce74a_32295_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://ai4network.github.io/zh/post/paper-sharing-5/picture/picture9_hu46d6d8419dc23c68d0cbd514487ce74a_32295_5f6bdd810898aeb82bb42ec3ab5688c5.webp&#34;
+               width=&#34;354&#34;
+               height=&#34;183&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;picture10&#34; srcset=&#34;
+               /zh/post/paper-sharing-5/picture/picture10_hu7f336099c34b67a837d7436d520a1da0_27039_a5c01ee74d0906362556307fabf28e30.webp 400w,
+               /zh/post/paper-sharing-5/picture/picture10_hu7f336099c34b67a837d7436d520a1da0_27039_da88f036d744c56dd3cee6058e827713.webp 760w,
+               /zh/post/paper-sharing-5/picture/picture10_hu7f336099c34b67a837d7436d520a1da0_27039_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://ai4network.github.io/zh/post/paper-sharing-5/picture/picture10_hu7f336099c34b67a837d7436d520a1da0_27039_a5c01ee74d0906362556307fabf28e30.webp&#34;
+               width=&#34;369&#34;
+               height=&#34;184&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;h2 id=&#34;个人总结&#34;&gt;个人总结&lt;/h2&gt;
+&lt;p&gt;  该论文通过使用可解释AI技术有效地将深度学习实时推理模型的在线算力负载迁移到离线训练中，实现了在性能较弱的嵌入式设备中部署并运行深度学习模型同时保证了推理的精确度。论文向我们展示了可解释AI技术的应用，详细介绍了可解释AI的训练以及模型协同训练，可以作为可解释AI工程落地的参考。&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,436 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>黄鑫 | AI4network 实验室</title>
+    <link>https://ai4network.github.io/zh/tag/%E9%BB%84%E9%91%AB/</link>
+      <atom:link href="https://ai4network.github.io/zh/tag/%E9%BB%84%E9%91%AB/index.xml" rel="self" type="application/rss+xml" />
+    <description>黄鑫</description>
+    <generator>Wowchemy (https://wowchemy.com)</generator><language>zh-Hans</language><lastBuildDate>Wed, 18 Jan 2023 16:42:35 +0800</lastBuildDate>
+    <image>
+      <url>https://ai4network.github.io/media/icon_hua2ec155b4296a9c9791d015323e16eb5_11927_512x512_fill_lanczos_center_3.png</url>
+      <title>黄鑫</title>
+      <link>https://ai4network.github.io/zh/tag/%E9%BB%84%E9%91%AB/</link>
+    </image>
+    
+    <item>
+      <title>SIGCOMM22 论文分享 | Predictable vFabric on Informative Data Plane</title>
+      <link>https://ai4network.github.io/zh/post/paper-sharing-11/</link>
+      <pubDate>Wed, 18 Jan 2023 16:42:35 +0800</pubDate>
+      <guid>https://ai4network.github.io/zh/post/paper-sharing-11/</guid>
+      <description>&lt;p&gt;  本次分享的是来自SIGCOMM22可编程数据平面的一篇论文：Predictable vFabric on Informative Data Plane，该文作者来自清华大学，阿里巴巴和剑桥大学。&lt;/p&gt;
+&lt;h2 id=&#34;背景&#34;&gt;背景&lt;/h2&gt;
+&lt;p&gt;  在多租户数据中心中，租户的虚拟机（VM）希望通过虚拟网络结构（VF）进行逻辑互连，就像在一个专门的集群中一样，尽管所有租户共享同一个物理网络。虽然已经提出了许多解决方案来提高多租户数据中心网络（DCN）的性能，它们不能胜任提供强烈的可预测的VF服务&amp;ndash;带宽保证、带宽利用和确定性尾部延迟，其主要因为以下两个原因。&lt;/p&gt;
+&lt;p&gt;  首先，先前可预测的VF工作的收敛速度（几十毫秒）未能赶上当今应用的日益严格的性能要求。例如，作为弹性块存储中最高性能级别的磁盘，增强型固态硬盘要求I/O操作延迟平均为100μs，尾部延迟为1ms。另一方面，随着专业计算加速器的出现，分布式计算应用（如分布式机器学习）的性能瓶颈正在从计算转向通信；因此，每次参数/激活传输开始时，它们都需要即时可用的带宽，尤其是分布式机器学习推理，通常涉及多次传输，需要在10ms内响应在线查询。因此，快速处理流量动态，即在亚毫秒级的时间尺度上，对于满足当今应用的性能需求至关重要。&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;picture0&#34; srcset=&#34;
+               /zh/post/paper-sharing-11/picture/picture0_hu206dd45c18025a84f93a2c6b0ae79a8c_713921_604061ad28b3d24ffe645b9a9a621271.webp 400w,
+               /zh/post/paper-sharing-11/picture/picture0_hu206dd45c18025a84f93a2c6b0ae79a8c_713921_66f241c6c7085b4a4278b24a8d3cc76c.webp 760w,
+               /zh/post/paper-sharing-11/picture/picture0_hu206dd45c18025a84f93a2c6b0ae79a8c_713921_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://ai4network.github.io/zh/post/paper-sharing-11/picture/picture0_hu206dd45c18025a84f93a2c6b0ae79a8c_713921_604061ad28b3d24ffe645b9a9a621271.webp&#34;
+               width=&#34;760&#34;
+               height=&#34;248&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;  其次，端到端的带宽保证很容易被与保证无关的路径管理方案破坏。现有的解决方案在提供带宽保证的同时，还考虑到带宽利用，大多将网络结构视为源和目的地之间的聚合管道，假设具体的路径选择是由互补的负载平衡方案做出的，例如，选择随机路径或利用率最低的路径。然而，由于带宽利用，链路利用率（实际流量）和链路订阅（有带宽保证的流量）并不等同。当一个具有高流量需求的新流量进入网络时，将其分配到利用率最低的路径可能会违反其他路径的带宽保证。因此，这个路径上的所有流量都会收敛到低于其带宽保证的新速率，并面临显著的性能下降。&lt;/p&gt;
+&lt;p&gt;  针对以上问题，阿里巴巴提出μFAB，一个为数据中心租户提供高度可预测的VF服务的框架，μFAB揭示了端网协同的融合设计，利用可编程网络提供的精细网络信息，在端上智能网卡用于速率控制和路径选择。这些设计的部署，极大地提升了网络传输的服务质量，也给云上客户以及未来算力融合带来了持续价值。&lt;/p&gt;
+&lt;h2 id=&#34;设计方案&#34;&gt;设计方案&lt;/h2&gt;
+&lt;p&gt;  （1）层次化的带宽分配。首先，边缘为每个流量选择一个路径，以保持总的有效带宽订阅，即通过链路的租户的最小带宽保证之和，不超过链路容量。因此，如果链路容量被流量按比例分享给它们的最小带宽，那么所有租户的最小带宽都能得到保证。然后，边缘迅速而准确地调整发送速率，使带宽利用率收敛到目标值。因此，即使一些租户的需求不足，未使用的带宽也可以被共享同一链路的其他租户迅速利用；反之，如果一个租户有即时的流量需求，它可以迅速抢回其保证的带宽。我们的理论分析表明，μFAB可以同时实现严格保证的最小带宽和高网络利用率。&lt;/p&gt;
+&lt;p&gt;  （2）两阶段和基于窗口的流量接纳。为了避免排队，每个边缘使用一个由带宽利用率更新的窗口，即基于利用率的窗口，来限制租户在路径上的飞行流量。在整个主机中，μFAB控制每个租户的总突发量，直到他们的最小带宽保证，并加法增加他们的发送窗口，直到基于利用率的窗口斜率下降，并开始使用后者。因此，μFAB可以将瓶颈链路上的队列大小约束为BDP（带宽-延迟乘积）的三倍。&lt;/p&gt;
+&lt;p&gt;  （3）精准和稳定的路径迁移。μFAB通过一个探针对可用带宽和路径上的延迟峰值风险作出及时和准确的判断，而不是真的把流量放在路径上。因此，边缘可以迅速选择一个适当的路径来迁移，以保持端到端的性能，而不需要漫长的收敛过程或影响其他无辜的租户；μFAB的路径迁移还可以避免振荡和数据包重新排序。&lt;/p&gt;
+&lt;h2 id=&#34;μfab服务模型&#34;&gt;μFAB服务模型&lt;/h2&gt;
+&lt;p&gt;  µFAB的目标，是在云数据中心为租户提供带宽保障、低延迟保障，以及最大化利用网络带宽资源。但在目前的网络架构中，要同时实现这三点是非常困难，主要原因是：之前的工作通常把网络当作一个黑盒，利用时延、探测等一系列的启发式算法来做速率控制和路径选择，这样便造成了需要毫秒级别的收敛时间，难以满足应用日渐增加的对于性能的需求。&lt;/p&gt;
+&lt;p&gt;  µFAB的设计理念则恰好相反，其核心思想是网络的透明化和信息化，即利用可编程网络数据平面提供的链路状态和租户信息，并将这些信息反馈到主机侧用于智能的速率控制和路径选择。&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;picture1&#34; srcset=&#34;
+               /zh/post/paper-sharing-11/picture/picture1_hu73baefe36491a11b5b591af275fceccc_77288_15478c3f5fb9c9e6f707f8eb761274f2.webp 400w,
+               /zh/post/paper-sharing-11/picture/picture1_hu73baefe36491a11b5b591af275fceccc_77288_bb99028cccd560c5cab32de91b30b4e2.webp 760w,
+               /zh/post/paper-sharing-11/picture/picture1_hu73baefe36491a11b5b591af275fceccc_77288_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://ai4network.github.io/zh/post/paper-sharing-11/picture/picture1_hu73baefe36491a11b5b591af275fceccc_77288_15478c3f5fb9c9e6f707f8eb761274f2.webp&#34;
+               width=&#34;672&#34;
+               height=&#34;358&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;  上图所示µFAB的服务模型，每个租户会被分配一个虚拟的网络（Virtual Fabric），该虚拟网络为租户提供最小带宽保障、最大化利用资源、低长尾延迟等三个SLA保障。而租户的最小带宽分配遵循云的弹性部署规范，租户总带宽之和不会超过网络物理总带宽。µFAB利用可编程网络提供的精确信息，再通过端网协同的机制达到上述目标。&lt;/p&gt;
+&lt;p&gt;  端网协同的具体工作方式为：一方面，主机侧的µFAB-E模块发送探测包，用以获取网络的信息，从而指导其做“速率控制”和“路径选择”。另一方面，网络交换机上的µFAB-C模块收集链路状态和租户的信息，并将这些信息做聚合，插入到发过来的探测包中，反馈给µFAB-E。&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;picture2&#34; srcset=&#34;
+               /zh/post/paper-sharing-11/picture/picture2_hub1d162d27fceb3760707dccb476ffb0b_60929_9ced07f408d82ce5db0154403afa2c2f.webp 400w,
+               /zh/post/paper-sharing-11/picture/picture2_hub1d162d27fceb3760707dccb476ffb0b_60929_e6ee7cc1a9c9f21523f13fc43e1cf591.webp 760w,
+               /zh/post/paper-sharing-11/picture/picture2_hub1d162d27fceb3760707dccb476ffb0b_60929_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://ai4network.github.io/zh/post/paper-sharing-11/picture/picture2_hub1d162d27fceb3760707dccb476ffb0b_60929_9ced07f408d82ce5db0154403afa2c2f.webp&#34;
+               width=&#34;689&#34;
+               height=&#34;424&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;  上图为μFAB的工作流程：每个&amp;quot;μFAB-E&amp;quot;沿每个活动的底层路径发送探针（步骤1）。探针到达一个μFAB-C后，μFAB-C首先读取捎带的VF信息，并将其与内部VF信息汇总（步骤2），然后将更新的结果插入探针（步骤3）。接下来，探针沿着路径转发，直到到达目的地（步骤4）。当目的地μFAB-E发送的响应回来时（步骤5），源μFAB-E将决定是否继续使用该路径，并根据响应中提供的信息进行速率调整，或者在当前路径不再合格时开始迁移到其他路径（步骤6）。&lt;/p&gt;
+&lt;h2 id=&#34;带宽延迟保障算法&#34;&gt;带宽延迟保障算法&lt;/h2&gt;
+&lt;p&gt;  有了网络透明化和端网协同，如何才能做到带宽和时延的保障呢？&lt;/p&gt;
+&lt;p&gt;  µFAB使用的是按权重分配的做法，这样做的好处是可以很快判断出带宽是否得到了满足。发送窗口的计算方法为：&lt;/p&gt;
+
+
+
+$$
+w = \frac{\phi}{\sum\phi} \times \sum w \times \frac{C \times RTT}{tx \times RTT + q_{lean}}
+$$
+
+&lt;p&gt;  其中，φ/∑φ是按租户的权重进行的按权分配，而 ∑w是交换机维护的所有租户的发送窗口之和，(C*RTT)/(tx*RTT+qlean)则是根据链路的负载进行的调整，用于最大化链路利用，同时做拥塞避免。φ、w由探测包携带到网络交换机中，∑φ、∑w由交换机维护的租户信息的聚合，而tx、qlen是交换机维护的网络链路信息。&lt;/p&gt;
+&lt;p&gt;  当多个租户同时有流量请求的时候，μFAB允许租户无论何时都可以按照最小带宽保障发送，只有在网络有剩余带宽的情况下，才会逐渐增大发送速率。这么做的原理是，最小带宽是租户的SLA保障必须满足，而尽可能地提高发送速率则是额外的奖励，时效性要求相对较低。这样既满足了租户对于随时获取最小带宽的承诺，又使得在有多租户突发流量的冲突的时候，依然能够保障网络的长尾时延。&lt;/p&gt;
+&lt;p&gt;  另一个重要的点是，µFAB能够充分利用整个网络的带宽资源，当一个路径上的带宽资源已经被分配完时，能够快速地进行路径切换，从而使用多个路径的网络带宽资源。在路径切换时，需要考虑两种场景：一是当前路径的带宽已经不满足租户SLA，这种情况需要立刻进行路径切换，但也要注意不要过于频繁地连续切换。二是发现有路径的更多带宽资源的时候，这种情况的路径切换是一种最大化利用网络资源的行为，但相对来说没有紧迫的时间需求，因此不用做得过于频繁。&lt;/p&gt;
+&lt;h2 id=&#34;硬件实验&#34;&gt;硬件实验&lt;/h2&gt;
+&lt;p&gt;  实验团队分别在基于FPGA和SOC的硬件网卡和Tofino交换机上做了相应的算法实现，并在三层fat-tree的网络拓扑上做了网络层验证和应用层验证。&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;picture3&#34; srcset=&#34;
+               /zh/post/paper-sharing-11/picture/picture3_huaa6aad6b085f644183e90cf03217afe3_118346_7723844de4d7d44ec7eaa7eca7d47cca.webp 400w,
+               /zh/post/paper-sharing-11/picture/picture3_huaa6aad6b085f644183e90cf03217afe3_118346_75a46fe6a58126e61dad87dd9b95b042.webp 760w,
+               /zh/post/paper-sharing-11/picture/picture3_huaa6aad6b085f644183e90cf03217afe3_118346_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://ai4network.github.io/zh/post/paper-sharing-11/picture/picture3_huaa6aad6b085f644183e90cf03217afe3_118346_7723844de4d7d44ec7eaa7eca7d47cca.webp&#34;
+               width=&#34;681&#34;
+               height=&#34;275&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;  实验表明，µFAB能提供给租户最小带宽保障和长尾低延迟，同时提供最大化地网络带宽利用，即使面对网络故障的场景下，依然能够快速收敛。&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;picture4&#34; srcset=&#34;
+               /zh/post/paper-sharing-11/picture/picture4_hu7727fe768da948609159d69f2bbeddb1_59203_b021a3c4aa50db1952bb6bab27403fd3.webp 400w,
+               /zh/post/paper-sharing-11/picture/picture4_hu7727fe768da948609159d69f2bbeddb1_59203_ca184b3a04b657826e854a303d6ef596.webp 760w,
+               /zh/post/paper-sharing-11/picture/picture4_hu7727fe768da948609159d69f2bbeddb1_59203_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://ai4network.github.io/zh/post/paper-sharing-11/picture/picture4_hu7727fe768da948609159d69f2bbeddb1_59203_b021a3c4aa50db1952bb6bab27403fd3.webp&#34;
+               width=&#34;696&#34;
+               height=&#34;381&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;  为了验证µFAB对于应用的实际增益，实验团队将一个租户运行时延敏感型的Memcached，另一个租户运行大带宽的MongoDB应用进行对比实验。实验表明，µFAB能实现接近于理想状态下的QPS（Query Per Second）和QCT（Query Completion Time）。这是因为µFAB总是能正确的选择流量路径，从而实现性能的隔离，以及快速的响应网络拥塞。下图可以看出µFAB能为应用等提供2.5倍的QPS提升、21倍的长尾延迟下降。&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;picture5&#34; srcset=&#34;
+               /zh/post/paper-sharing-11/picture/picture5_hu5ea07b165e3248cd8ab6aa0247f2659b_40241_48e3aacdbfcb7f77879f1fae836396aa.webp 400w,
+               /zh/post/paper-sharing-11/picture/picture5_hu5ea07b165e3248cd8ab6aa0247f2659b_40241_6f57253a2812c0fa6c8c7af0c5f5e3e9.webp 760w,
+               /zh/post/paper-sharing-11/picture/picture5_hu5ea07b165e3248cd8ab6aa0247f2659b_40241_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://ai4network.github.io/zh/post/paper-sharing-11/picture/picture5_hu5ea07b165e3248cd8ab6aa0247f2659b_40241_48e3aacdbfcb7f77879f1fae836396aa.webp&#34;
+               width=&#34;701&#34;
+               height=&#34;350&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;h2 id=&#34;总结&#34;&gt;总结&lt;/h2&gt;
+&lt;p&gt;  新兴的可编程数据平面是解决在多租户 DCN 中提供可预测的虚拟结构的特殊挑战的关键——μFAB就是一个例子。该文章提出了μFAB，这是一种可预测的虚拟结构解决方案，μFAB通过活动边缘和信息核心的融合构建了可预测的VF服务，其创新在于通过简单有效的机制，可以为所有流显式选择正确的路径，并且使整个网络在亚毫秒级时间尺度上收敛到可预测的租户级性能（例如，保证带宽和有限延迟）和高利用率。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>SIGCOMM22 论文分享 | Predictable vFabric on Informative Data Plane</title>
+      <link>https://ai4network.github.io/zh/post/paper-sharing-12/</link>
+      <pubDate>Wed, 18 Jan 2023 16:42:35 +0800</pubDate>
+      <guid>https://ai4network.github.io/zh/post/paper-sharing-12/</guid>
+      <description>&lt;p&gt;  本次分享的是来自SIGCOMM22可编程数据平面的一篇论文：Predictable vFabric on Informative Data Plane，该文作者来自清华大学，阿里巴巴和剑桥大学。&lt;/p&gt;
+&lt;h2 id=&#34;背景&#34;&gt;背景&lt;/h2&gt;
+&lt;p&gt;  在多租户数据中心中，租户的虚拟机（VM）希望通过虚拟网络结构（VF）进行逻辑互连，就像在一个专门的集群中一样，尽管所有租户共享同一个物理网络。虽然已经提出了许多解决方案来提高多租户数据中心网络（DCN）的性能，它们不能胜任提供强烈的可预测的VF服务&amp;ndash;带宽保证、带宽利用和确定性尾部延迟，其主要因为以下两个原因。&lt;/p&gt;
+&lt;p&gt;  首先，先前可预测的VF工作的收敛速度（几十毫秒）未能赶上当今应用的日益严格的性能要求。例如，作为弹性块存储中最高性能级别的磁盘，增强型固态硬盘要求I/O操作延迟平均为100μs，尾部延迟为1ms。另一方面，随着专业计算加速器的出现，分布式计算应用（如分布式机器学习）的性能瓶颈正在从计算转向通信；因此，每次参数/激活传输开始时，它们都需要即时可用的带宽，尤其是分布式机器学习推理，通常涉及多次传输，需要在10ms内响应在线查询。因此，快速处理流量动态，即在亚毫秒级的时间尺度上，对于满足当今应用的性能需求至关重要。&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;picture0&#34; srcset=&#34;
+               /zh/post/paper-sharing-12/picture/picture0_hu206dd45c18025a84f93a2c6b0ae79a8c_713921_604061ad28b3d24ffe645b9a9a621271.webp 400w,
+               /zh/post/paper-sharing-12/picture/picture0_hu206dd45c18025a84f93a2c6b0ae79a8c_713921_66f241c6c7085b4a4278b24a8d3cc76c.webp 760w,
+               /zh/post/paper-sharing-12/picture/picture0_hu206dd45c18025a84f93a2c6b0ae79a8c_713921_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://ai4network.github.io/zh/post/paper-sharing-12/picture/picture0_hu206dd45c18025a84f93a2c6b0ae79a8c_713921_604061ad28b3d24ffe645b9a9a621271.webp&#34;
+               width=&#34;760&#34;
+               height=&#34;248&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;  其次，端到端的带宽保证很容易被与保证无关的路径管理方案破坏。现有的解决方案在提供带宽保证的同时，还考虑到带宽利用，大多将网络结构视为源和目的地之间的聚合管道，假设具体的路径选择是由互补的负载平衡方案做出的，例如，选择随机路径或利用率最低的路径。然而，由于带宽利用，链路利用率（实际流量）和链路订阅（有带宽保证的流量）并不等同。当一个具有高流量需求的新流量进入网络时，将其分配到利用率最低的路径可能会违反其他路径的带宽保证。因此，这个路径上的所有流量都会收敛到低于其带宽保证的新速率，并面临显著的性能下降。&lt;/p&gt;
+&lt;p&gt;  针对以上问题，阿里巴巴提出μFAB，一个为数据中心租户提供高度可预测的VF服务的框架，μFAB揭示了端网协同的融合设计，利用可编程网络提供的精细网络信息，在端上智能网卡用于速率控制和路径选择。这些设计的部署，极大地提升了网络传输的服务质量，也给云上客户以及未来算力融合带来了持续价值。&lt;/p&gt;
+&lt;h2 id=&#34;设计方案&#34;&gt;设计方案&lt;/h2&gt;
+&lt;p&gt;  （1）层次化的带宽分配。首先，边缘为每个流量选择一个路径，以保持总的有效带宽订阅，即通过链路的租户的最小带宽保证之和，不超过链路容量。因此，如果链路容量被流量按比例分享给它们的最小带宽，那么所有租户的最小带宽都能得到保证。然后，边缘迅速而准确地调整发送速率，使带宽利用率收敛到目标值。因此，即使一些租户的需求不足，未使用的带宽也可以被共享同一链路的其他租户迅速利用；反之，如果一个租户有即时的流量需求，它可以迅速抢回其保证的带宽。我们的理论分析表明，μFAB可以同时实现严格保证的最小带宽和高网络利用率。&lt;/p&gt;
+&lt;p&gt;  （2）两阶段和基于窗口的流量接纳。为了避免排队，每个边缘使用一个由带宽利用率更新的窗口，即基于利用率的窗口，来限制租户在路径上的飞行流量。在整个主机中，μFAB控制每个租户的总突发量，直到他们的最小带宽保证，并加法增加他们的发送窗口，直到基于利用率的窗口斜率下降，并开始使用后者。因此，μFAB可以将瓶颈链路上的队列大小约束为BDP（带宽-延迟乘积）的三倍。&lt;/p&gt;
+&lt;p&gt;  （3）精准和稳定的路径迁移。μFAB通过一个探针对可用带宽和路径上的延迟峰值风险作出及时和准确的判断，而不是真的把流量放在路径上。因此，边缘可以迅速选择一个适当的路径来迁移，以保持端到端的性能，而不需要漫长的收敛过程或影响其他无辜的租户；μFAB的路径迁移还可以避免振荡和数据包重新排序。&lt;/p&gt;
+&lt;h2 id=&#34;μfab服务模型&#34;&gt;μFAB服务模型&lt;/h2&gt;
+&lt;p&gt;  µFAB的目标，是在云数据中心为租户提供带宽保障、低延迟保障，以及最大化利用网络带宽资源。但在目前的网络架构中，要同时实现这三点是非常困难，主要原因是：之前的工作通常把网络当作一个黑盒，利用时延、探测等一系列的启发式算法来做速率控制和路径选择，这样便造成了需要毫秒级别的收敛时间，难以满足应用日渐增加的对于性能的需求。&lt;/p&gt;
+&lt;p&gt;  µFAB的设计理念则恰好相反，其核心思想是网络的透明化和信息化，即利用可编程网络数据平面提供的链路状态和租户信息，并将这些信息反馈到主机侧用于智能的速率控制和路径选择。&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;picture1&#34; srcset=&#34;
+               /zh/post/paper-sharing-12/picture/picture1_hu73baefe36491a11b5b591af275fceccc_77288_15478c3f5fb9c9e6f707f8eb761274f2.webp 400w,
+               /zh/post/paper-sharing-12/picture/picture1_hu73baefe36491a11b5b591af275fceccc_77288_bb99028cccd560c5cab32de91b30b4e2.webp 760w,
+               /zh/post/paper-sharing-12/picture/picture1_hu73baefe36491a11b5b591af275fceccc_77288_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://ai4network.github.io/zh/post/paper-sharing-12/picture/picture1_hu73baefe36491a11b5b591af275fceccc_77288_15478c3f5fb9c9e6f707f8eb761274f2.webp&#34;
+               width=&#34;672&#34;
+               height=&#34;358&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;  上图所示µFAB的服务模型，每个租户会被分配一个虚拟的网络（Virtual Fabric），该虚拟网络为租户提供最小带宽保障、最大化利用资源、低长尾延迟等三个SLA保障。而租户的最小带宽分配遵循云的弹性部署规范，租户总带宽之和不会超过网络物理总带宽。µFAB利用可编程网络提供的精确信息，再通过端网协同的机制达到上述目标。&lt;/p&gt;
+&lt;p&gt;  端网协同的具体工作方式为：一方面，主机侧的µFAB-E模块发送探测包，用以获取网络的信息，从而指导其做“速率控制”和“路径选择”。另一方面，网络交换机上的µFAB-C模块收集链路状态和租户的信息，并将这些信息做聚合，插入到发过来的探测包中，反馈给µFAB-E。&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;picture2&#34; srcset=&#34;
+               /zh/post/paper-sharing-12/picture/picture2_hub1d162d27fceb3760707dccb476ffb0b_60929_9ced07f408d82ce5db0154403afa2c2f.webp 400w,
+               /zh/post/paper-sharing-12/picture/picture2_hub1d162d27fceb3760707dccb476ffb0b_60929_e6ee7cc1a9c9f21523f13fc43e1cf591.webp 760w,
+               /zh/post/paper-sharing-12/picture/picture2_hub1d162d27fceb3760707dccb476ffb0b_60929_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://ai4network.github.io/zh/post/paper-sharing-12/picture/picture2_hub1d162d27fceb3760707dccb476ffb0b_60929_9ced07f408d82ce5db0154403afa2c2f.webp&#34;
+               width=&#34;689&#34;
+               height=&#34;424&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;  上图为μFAB的工作流程：每个&amp;quot;μFAB-E&amp;quot;沿每个活动的底层路径发送探针（步骤1）。探针到达一个μFAB-C后，μFAB-C首先读取捎带的VF信息，并将其与内部VF信息汇总（步骤2），然后将更新的结果插入探针（步骤3）。接下来，探针沿着路径转发，直到到达目的地（步骤4）。当目的地μFAB-E发送的响应回来时（步骤5），源μFAB-E将决定是否继续使用该路径，并根据响应中提供的信息进行速率调整，或者在当前路径不再合格时开始迁移到其他路径（步骤6）。&lt;/p&gt;
+&lt;h2 id=&#34;带宽延迟保障算法&#34;&gt;带宽延迟保障算法&lt;/h2&gt;
+&lt;p&gt;  有了网络透明化和端网协同，如何才能做到带宽和时延的保障呢？&lt;/p&gt;
+&lt;p&gt;  µFAB使用的是按权重分配的做法，这样做的好处是可以很快判断出带宽是否得到了满足。发送窗口的计算方法为：&lt;/p&gt;
+
+
+
+$$
+w = \frac{\phi}{\sum\phi} \times \sum w \times \frac{C \times RTT}{tx \times RTT + q_{lean}}
+$$
+
+&lt;p&gt;  其中，φ/∑φ是按租户的权重进行的按权分配，而 ∑w是交换机维护的所有租户的发送窗口之和，(C*RTT)/(tx*RTT+qlean)则是根据链路的负载进行的调整，用于最大化链路利用，同时做拥塞避免。φ、w由探测包携带到网络交换机中，∑φ、∑w由交换机维护的租户信息的聚合，而tx、qlen是交换机维护的网络链路信息。&lt;/p&gt;
+&lt;p&gt;  当多个租户同时有流量请求的时候，μFAB允许租户无论何时都可以按照最小带宽保障发送，只有在网络有剩余带宽的情况下，才会逐渐增大发送速率。这么做的原理是，最小带宽是租户的SLA保障必须满足，而尽可能地提高发送速率则是额外的奖励，时效性要求相对较低。这样既满足了租户对于随时获取最小带宽的承诺，又使得在有多租户突发流量的冲突的时候，依然能够保障网络的长尾时延。&lt;/p&gt;
+&lt;p&gt;  另一个重要的点是，µFAB能够充分利用整个网络的带宽资源，当一个路径上的带宽资源已经被分配完时，能够快速地进行路径切换，从而使用多个路径的网络带宽资源。在路径切换时，需要考虑两种场景：一是当前路径的带宽已经不满足租户SLA，这种情况需要立刻进行路径切换，但也要注意不要过于频繁地连续切换。二是发现有路径的更多带宽资源的时候，这种情况的路径切换是一种最大化利用网络资源的行为，但相对来说没有紧迫的时间需求，因此不用做得过于频繁。&lt;/p&gt;
+&lt;h2 id=&#34;硬件实验&#34;&gt;硬件实验&lt;/h2&gt;
+&lt;p&gt;  实验团队分别在基于FPGA和SOC的硬件网卡和Tofino交换机上做了相应的算法实现，并在三层fat-tree的网络拓扑上做了网络层验证和应用层验证。&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;picture3&#34; srcset=&#34;
+               /zh/post/paper-sharing-12/picture/picture3_huaa6aad6b085f644183e90cf03217afe3_118346_7723844de4d7d44ec7eaa7eca7d47cca.webp 400w,
+               /zh/post/paper-sharing-12/picture/picture3_huaa6aad6b085f644183e90cf03217afe3_118346_75a46fe6a58126e61dad87dd9b95b042.webp 760w,
+               /zh/post/paper-sharing-12/picture/picture3_huaa6aad6b085f644183e90cf03217afe3_118346_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://ai4network.github.io/zh/post/paper-sharing-12/picture/picture3_huaa6aad6b085f644183e90cf03217afe3_118346_7723844de4d7d44ec7eaa7eca7d47cca.webp&#34;
+               width=&#34;681&#34;
+               height=&#34;275&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;  实验表明，µFAB能提供给租户最小带宽保障和长尾低延迟，同时提供最大化地网络带宽利用，即使面对网络故障的场景下，依然能够快速收敛。&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;picture4&#34; srcset=&#34;
+               /zh/post/paper-sharing-12/picture/picture4_hu7727fe768da948609159d69f2bbeddb1_59203_b021a3c4aa50db1952bb6bab27403fd3.webp 400w,
+               /zh/post/paper-sharing-12/picture/picture4_hu7727fe768da948609159d69f2bbeddb1_59203_ca184b3a04b657826e854a303d6ef596.webp 760w,
+               /zh/post/paper-sharing-12/picture/picture4_hu7727fe768da948609159d69f2bbeddb1_59203_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://ai4network.github.io/zh/post/paper-sharing-12/picture/picture4_hu7727fe768da948609159d69f2bbeddb1_59203_b021a3c4aa50db1952bb6bab27403fd3.webp&#34;
+               width=&#34;696&#34;
+               height=&#34;381&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;  为了验证µFAB对于应用的实际增益，实验团队将一个租户运行时延敏感型的Memcached，另一个租户运行大带宽的MongoDB应用进行对比实验。实验表明，µFAB能实现接近于理想状态下的QPS（Query Per Second）和QCT（Query Completion Time）。这是因为µFAB总是能正确的选择流量路径，从而实现性能的隔离，以及快速的响应网络拥塞。下图可以看出µFAB能为应用等提供2.5倍的QPS提升、21倍的长尾延迟下降。&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;picture5&#34; srcset=&#34;
+               /zh/post/paper-sharing-12/picture/picture5_hu5ea07b165e3248cd8ab6aa0247f2659b_40241_48e3aacdbfcb7f77879f1fae836396aa.webp 400w,
+               /zh/post/paper-sharing-12/picture/picture5_hu5ea07b165e3248cd8ab6aa0247f2659b_40241_6f57253a2812c0fa6c8c7af0c5f5e3e9.webp 760w,
+               /zh/post/paper-sharing-12/picture/picture5_hu5ea07b165e3248cd8ab6aa0247f2659b_40241_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://ai4network.github.io/zh/post/paper-sharing-12/picture/picture5_hu5ea07b165e3248cd8ab6aa0247f2659b_40241_48e3aacdbfcb7f77879f1fae836396aa.webp&#34;
+               width=&#34;701&#34;
+               height=&#34;350&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;h2 id=&#34;总结&#34;&gt;总结&lt;/h2&gt;
+&lt;p&gt;  新兴的可编程数据平面是解决在多租户 DCN 中提供可预测的虚拟结构的特殊挑战的关键——μFAB就是一个例子。该文章提出了μFAB，这是一种可预测的虚拟结构解决方案，μFAB通过活动边缘和信息核心的融合构建了可预测的VF服务，其创新在于通过简单有效的机制，可以为所有流显式选择正确的路径，并且使整个网络在亚毫秒级时间尺度上收敛到可预测的租户级性能（例如，保证带宽和有限延迟）和高利用率。&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>
