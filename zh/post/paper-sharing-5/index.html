@@ -1,0 +1,1692 @@
+<!DOCTYPE html>
+<!-- This site was created with Wowchemy. https://www.wowchemy.com -->
+<!-- Last Published: 2023年11月3日 --><html lang="zh-Hans" >
+
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  
+  
+  
+    <meta name="generator" content="Wowchemy 5.7.0 for Hugo" />
+  
+
+  
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+  
+  
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  
+
+  
+  
+  
+    
+      
+      <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=B612+Mono&family=B612:wght@400;700&family=Jura:wght@400;700&display=swap">
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=B612+Mono&family=B612:wght@400;700&family=Jura:wght@400;700&display=swap" media="print" onload="this.media='all'">
+    
+  
+
+  
+  
+
+  
+  
+    
+    <script src="/js/mathjax-config.js"></script>
+  
+
+  
+
+  <link rel="stylesheet" href="/css/vendor-bundle.min.16f785cdb553c8c4431db6775122af35.css" media="print" onload="this.media='all'">
+
+  
+  
+  
+    
+    
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/academicons@1.9.2/css/academicons.min.css" integrity="sha512-KlJCpRsLf+KKu2VQa5vmRuClRFjxc5lXO03ixZt82HZUk41+1I0bD8KBSA0fY290ayMfWYI9udIqeOWSu1/uZg==" crossorigin="anonymous" media="print" onload="this.media='all'">
+    
+
+    
+    
+    
+    
+      
+      
+    
+    
+    
+
+    
+    
+    
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.7.1/dist/leaflet.min.css" integrity="" crossorigin="anonymous" media="print" onload="this.media='all'">
+    
+
+    
+
+    
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" integrity="" crossorigin="anonymous" async></script>
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+  
+
+  
+  
+  
+  
+  
+  
+  <link rel="stylesheet" href="/css/wowchemy.e688a8e1beceb969adc2714aa50ada4c.css" />
+
+  
+  
+  
+  
+  
+  
+  
+    
+    
+    <link rel="stylesheet" href="/css/libs/chroma/github-light.min.css" title="hl-light" media="print" onload="this.media='all'" >
+    <link rel="stylesheet" href="/css/libs/chroma/dracula.min.css" title="hl-dark" media="print" onload="this.media='all'" disabled>
+  
+
+  
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  
+
+
+
+
+
+
+  <meta name="author" content="韩彪" />
+
+
+
+
+
+  
+
+<meta name="description" content="  今天分享是由两位来自Pittsburgh大学的两位学者发表在mobicom22上的一篇论文。该论文主要聚焦于解决当前在性能较弱的小型嵌入式设备上部署神经网络模型并进行实时推理的困难。文章提出了Agile NN——使用可解释神经网络与需要部署的神经网络模型进行协同离线训练，实现将原本需要在线推理的计算迁移到离线训练过程中，进而达到在小型嵌入式设备上部署并实现更加精确的实时神经网络推理。" />
+
+
+
+  <link rel="alternate" hreflang="en" href="https://ai4network.github.io/post/paper-sharing-5/" />
+
+<link rel="alternate" hreflang="zh-Hans" href="https://ai4network.github.io/zh/post/paper-sharing-5/" />
+<link rel="canonical" href="https://ai4network.github.io/zh/post/paper-sharing-5/" />
+
+
+
+  <link rel="manifest" href="/zh/manifest.webmanifest" />
+
+
+
+<link rel="icon" type="image/png" href="/media/icon_hua2ec155b4296a9c9791d015323e16eb5_11927_32x32_fill_lanczos_center_3.png" />
+<link rel="apple-touch-icon" type="image/png" href="/media/icon_hua2ec155b4296a9c9791d015323e16eb5_11927_180x180_fill_lanczos_center_3.png" />
+
+<meta name="theme-color" content="#3f51b5" />
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+<meta property="twitter:card" content="summary_large_image" />
+
+  <meta property="twitter:site" content="@wowchemy" />
+  <meta property="twitter:creator" content="@wowchemy" />
+<meta property="twitter:image" content="https://ai4network.github.io/zh/post/paper-sharing-5/featured.png" />
+<meta property="og:site_name" content="AI4network 实验室" />
+<meta property="og:url" content="https://ai4network.github.io/zh/post/paper-sharing-5/" />
+<meta property="og:title" content="MobiCom22 论文分享 | Real-time Neural Network Inference on Extremely WeakDevices: Agile Offloading with Explainable Al | AI4network 实验室" />
+<meta property="og:description" content="  今天分享是由两位来自Pittsburgh大学的两位学者发表在mobicom22上的一篇论文。该论文主要聚焦于解决当前在性能较弱的小型嵌入式设备上部署神经网络模型并进行实时推理的困难。文章提出了Agile NN——使用可解释神经网络与需要部署的神经网络模型进行协同离线训练，实现将原本需要在线推理的计算迁移到离线训练过程中，进而达到在小型嵌入式设备上部署并实现更加精确的实时神经网络推理。" /><meta property="og:image" content="https://ai4network.github.io/zh/post/paper-sharing-5/featured.png" /><meta property="og:locale" content="zh-Hans" />
+
+  
+    <meta
+      property="article:published_time"
+      content="2022-12-19T19:16:23&#43;08:00"
+    />
+  
+  
+    <meta property="article:modified_time" content="2022-12-19T19:16:23&#43;08:00">
+  
+
+
+
+
+
+
+    
+
+
+
+
+
+
+  
+
+
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://ai4network.github.io/zh/post/paper-sharing-5/"
+  },
+  "headline": "MobiCom22 论文分享 | Real-time Neural Network Inference on Extremely WeakDevices: Agile Offloading with Explainable Al",
+  
+  "image": [
+    "https://ai4network.github.io/zh/post/paper-sharing-5/featured.png"
+  ],
+  
+  "datePublished": "2022-12-19T19:16:23+08:00",
+  "dateModified": "2022-12-19T19:16:23+08:00",
+  
+  "author": {
+    "@type": "Person",
+    "name": "韩雪强"
+  },
+  
+  "publisher": {
+    "@type": "Organization",
+    "name": "AI4network 实验室",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://ai4network.github.io/media/icon_hua2ec155b4296a9c9791d015323e16eb5_11927_192x192_fill_lanczos_center_3.png"
+    }
+  },
+  "description": "\u003cp\u003e  今天分享是由两位来自Pittsburgh大学的两位学者发表在mobicom22上的一篇论文。该论文主要聚焦于解决当前在性能较弱的小型嵌入式设备上部署神经网络模型并进行实时推理的困难。文章提出了Agile NN——使用可解释神经网络与需要部署的神经网络模型进行协同离线训练，实现将原本需要在线推理的计算迁移到离线训练过程中，进而达到在小型嵌入式设备上部署并实现更加精确的实时神经网络推理。\u003c/p\u003e"
+}
+</script>
+
+  
+
+  
+
+
+
+
+  
+  
+  
+
+  
+  
+
+  
+
+
+  
+  <title>MobiCom22 论文分享 | Real-time Neural Network Inference on Extremely WeakDevices: Agile Offloading with Explainable Al | AI4network 实验室</title>
+
+  
+  
+  
+  
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+
+<body id="top" data-spy="scroll" data-offset="70" data-target="#TableOfContents" class="page-wrapper   " data-wc-page-id="c80df19afdd9060adcc5773cf2b5c2ba" >
+
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <script src="/js/wowchemy-init.min.3b7d95b5664992609338a09c18bfa7f6.js"></script>
+
+  
+
+
+<aside class="search-modal" id="search">
+  <div class="container">
+    <section class="search-header">
+
+      <div class="row no-gutters justify-content-between mb-3">
+        <div class="col-6">
+          <h1>搜索</h1>
+        </div>
+        <div class="col-6 col-search-close">
+          <a class="js-search" href="#" aria-label="Close"><i class="fas fa-times-circle text-muted" aria-hidden="true"></i></a>
+        </div>
+      </div>
+
+      <div id="search-box">
+        
+        <input name="q" id="search-query" placeholder="搜索..." autocapitalize="off"
+        autocomplete="off" autocorrect="off" spellcheck="false" type="search" class="form-control"
+        aria-label="搜索...">
+        
+      </div>
+
+      
+      
+
+      
+
+    </section>
+    <section class="section-search-results">
+
+      <div id="search-hits">
+        
+      </div>
+
+    </section>
+  </div>
+</aside>
+
+
+
+  <div class="page-header header--fixed">
+    
+
+
+
+
+
+
+
+
+
+
+
+
+<header>
+  <nav class="navbar navbar-expand-lg navbar-light compensate-for-scrollbar" id="navbar-main">
+    <div class="container-xl">
+
+      
+      <div class="d-none d-lg-inline-flex">
+        <a class="navbar-brand" href="/zh/">AI4network 实验室</a>
+      </div>
+      
+
+      
+      <button type="button" class="navbar-toggler" data-toggle="collapse"
+              data-target="#navbar-content" aria-controls="navbar-content" aria-expanded="false" aria-label="切换导航">
+      <span><i class="fas fa-bars"></i></span>
+      </button>
+      
+
+      
+      <div class="navbar-brand-mobile-wrapper d-inline-flex d-lg-none">
+        <a class="navbar-brand" href="/zh/">AI4network 实验室</a>
+      </div>
+      
+
+      
+      
+      <div class="navbar-collapse main-menu-item collapse justify-content-end" id="navbar-content">
+
+        
+        <ul class="navbar-nav d-md-inline-flex">
+          
+
+          
+
+          
+          
+          
+
+          
+
+          
+          
+          
+          
+
+          
+            
+              
+              
+            
+            
+          
+
+          <li class="nav-item">
+            <a class="nav-link " href="/zh/tour"><span>首页</span></a>
+          </li>
+
+          
+          
+
+          
+
+          
+          
+          
+            
+          
+
+          
+
+          
+          
+          
+          
+
+          
+            
+              
+              
+            
+            
+          
+
+          <li class="nav-item">
+            <a class="nav-link " href="/zh/direction"><span>研究方向</span></a>
+          </li>
+
+          
+          
+
+          
+
+          
+          
+          
+
+          
+
+          
+          
+          
+          
+
+          
+            
+              
+              
+            
+            
+          
+
+          <li class="nav-item">
+            <a class="nav-link " href="/zh/post"><span>文献分享</span></a>
+          </li>
+
+          
+          
+
+          
+
+          
+          
+          
+            
+          
+
+          
+
+          
+          
+          
+          
+
+          
+            
+              
+              
+            
+            
+          
+
+          <li class="nav-item">
+            <a class="nav-link " href="/zh/people"><span>团队成员</span></a>
+          </li>
+
+          
+          
+
+          
+
+          
+          
+          
+            
+          
+
+          
+
+          
+          
+          
+          
+
+          
+            
+              
+              
+            
+            
+          
+
+          <li class="nav-item">
+            <a class="nav-link " href="/zh/event"><span>组内活动</span></a>
+          </li>
+
+          
+          
+
+          
+
+          
+          
+          
+            
+          
+
+          
+
+          
+          
+          
+          
+
+          
+            
+              
+              
+            
+            
+          
+
+          <li class="nav-item">
+            <a class="nav-link " href="/zh/publication"><span>论文成果</span></a>
+          </li>
+
+          
+          
+
+          
+
+          
+          
+          
+            
+          
+
+          
+
+          
+          
+          
+          
+
+          
+            
+              
+              
+            
+            
+          
+
+          <li class="nav-item">
+            <a class="nav-link " href="/zh/contact"><span>联系我们</span></a>
+          </li>
+
+          
+          
+
+        
+
+          
+        </ul>
+      </div>
+
+      <ul class="nav-icons navbar-nav flex-row ml-auto d-flex pl-md-2">
+
+        
+        
+          
+        
+
+        
+        
+        
+        <li class="nav-item">
+          <a class="nav-link js-search" href="#" aria-label="搜索"><i class="fas fa-search" aria-hidden="true"></i></a>
+        </li>
+        
+
+        
+        
+        
+        <li class="nav-item dropdown theme-dropdown">
+          <a href="#" class="nav-link" data-toggle="dropdown" aria-haspopup="true" aria-label="Display preferences">
+            <i class="fas fa-moon" aria-hidden="true"></i>
+          </a>
+          <div class="dropdown-menu">
+            <a href="#" class="dropdown-item js-set-theme-light">
+              <span>浅色</span>
+            </a>
+            <a href="#" class="dropdown-item js-set-theme-dark">
+              <span>深色</span>
+            </a>
+            <a href="#" class="dropdown-item js-set-theme-auto">
+              <span>自动</span>
+            </a>
+          </div>
+        </li>
+        
+
+        
+        
+        <li class="nav-item dropdown i18n-dropdown">
+          <a href="#" class="nav-link " data-toggle="dropdown"
+             aria-haspopup="true" aria-label="语言">
+            <i class="fas fa-globe mr-1" aria-hidden="true"></i></a>
+          <div class="dropdown-menu">
+            <div class="dropdown-item dropdown-item-active">
+              <span>中文 (简体)</span>
+            </div>
+            
+            <a class="dropdown-item" href="https://ai4network.github.io/post/paper-sharing-5/">
+              <span>English</span>
+            </a>
+            
+          </div>
+        </li>
+        
+
+      </ul>
+
+    </div>
+  </nav>
+</header>
+
+
+  </div>
+
+  <div class="page-body">
+    
+    
+    
+
+    <article class="article">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+
+
+<div class="article-container pt-3">
+  <h1>MobiCom22 论文分享 | Real-time Neural Network Inference on Extremely WeakDevices: Agile Offloading with Explainable Al</h1>
+
+  
+
+  
+
+
+<div class="article-metadata">
+
+  
+  
+  
+  
+  <div>
+    
+
+  <span >
+      <a href="/zh/author/%E9%9F%A9%E9%9B%AA%E5%BC%BA/">韩雪强</a></span>
+  </div>
+  
+  
+
+  
+  <span class="article-date">
+    
+    
+      
+    
+    12月 19, 2022
+  </span>
+  
+
+  
+
+  
+  <span class="middot-divider"></span>
+  <span class="article-reading-time">
+    1 分钟阅读时长
+  </span>
+  
+
+  
+  
+  
+  
+
+  
+  
+  <span class="middot-divider"></span>
+  <span class="article-categories">
+    <i class="fas fa-folder mr-1"></i><a href="/zh/category/paper-share/">Paper Share</a></span>
+  
+
+</div>
+
+  
+
+
+
+
+
+</div>
+
+
+<div class="article-header article-container featured-image-wrapper mt-4 mb-4" style="max-width: 720px; max-height: 467px;">
+  <div style="position: relative">
+    <img src="/zh/post/paper-sharing-5/featured_hu62ffa602375bf0cc0adb36b535bc0c0b_73037_720x2500_fit_q75_h2_lanczos_3.webp" width="720" height="467" alt="" class="featured-image">
+    
+  </div>
+</div>
+
+
+
+  <div class="article-container">
+
+    <div class="article-style">
+      <p>  今天分享是由两位来自Pittsburgh大学的两位学者发表在mobicom22上的一篇论文。该论文主要聚焦于解决当前在性能较弱的小型嵌入式设备上部署神经网络模型并进行实时推理的困难。文章提出了Agile NN——使用可解释神经网络与需要部署的神经网络模型进行协同离线训练，实现将原本需要在线推理的计算迁移到离线训练过程中，进而达到在小型嵌入式设备上部署并实现更加精确的实时神经网络推理。</p>
+<h2 id="研究动机">研究动机</h2>
+<p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<figure  >
+  <div class="d-flex justify-content-center">
+    <div class="w-100" ><img alt="picture1" srcset="
+               /zh/post/paper-sharing-5/picture/picture1_hue2bfe0aed3de979e25f324ea370f65d3_83245_b15c0b2af94ab31795cc80e9822ffebf.webp 400w,
+               /zh/post/paper-sharing-5/picture/picture1_hue2bfe0aed3de979e25f324ea370f65d3_83245_65a60c1538c7ba3c644f4676ad8c5ce8.webp 760w,
+               /zh/post/paper-sharing-5/picture/picture1_hue2bfe0aed3de979e25f324ea370f65d3_83245_1200x1200_fit_q75_h2_lanczos_3.webp 1200w"
+               src="/zh/post/paper-sharing-5/picture/picture1_hue2bfe0aed3de979e25f324ea370f65d3_83245_b15c0b2af94ab31795cc80e9822ffebf.webp"
+               width="391"
+               height="261"
+               loading="lazy" data-zoomable /></div>
+  </div></figure>
+</p>
+<p>  随着人脸识别、语音识别等深度学习模型与工业物联网的不断发展，在小型嵌入式设备上部署深度学习模型的需求迫切。但是小型嵌入式设备的内存以及计算能力较弱而深度学习模型的部署与实时推理需要大内存和强算力，因此如何在小型嵌入式设备上部署深度学习模型并进行实时推理成为一大难点。在以往的研究中，研究人员提出了三种解决方案。</p>
+<p>1.本地推理(fig.1-topleft)</p>
+<p>  该方案通过对神经网络的权重和结构进行压缩和裁剪操作，减小部署以及运行模型的代价。但是该方案只能在诸如智能手机等具有较强性能的嵌入式设备上进行运行，一旦迁移到小型嵌入式设备上，由于神经网络压缩程度过高导致实时推理精确度下降。</p>
+<p>2.远程推理(fig.1-topright)</p>
+<p>  该方案通过云端协同的方式，将嵌入式设备使用深度学习模型的负担迁移到云平台上，利用云服务器的强大性能减少了本地性能压力。但是为了实现云端协同的实时性，需要对神经网络的输入数据进行压缩，损失部分特征(甚至是及其重要的特征)。同时小型嵌入式设备为了节约电量的目的，仅仅使用低速的无线射频信号进行数据传输，导致本地数据需要较大时延传到云端，影响模型的实时性需求。</p>
+<p>3.神经网络切分(fig.1-buttomright)</p>
+<p>  该方案在本地部署神经网络用于特征提取以及压缩，同时在云端部署推理神经网络模型。但是部署在本地的神经网络模型为了增强特征稀疏性引入了巨大的计算压力。</p>
+<p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<figure  >
+  <div class="d-flex justify-content-center">
+    <div class="w-100" ><img alt="picture2" srcset="
+               /zh/post/paper-sharing-5/picture/picture2_huec9a5cbb31cee138006108c68362ae19_58962_a4a72e33e533557bc03a5bb668f647ee.webp 400w,
+               /zh/post/paper-sharing-5/picture/picture2_huec9a5cbb31cee138006108c68362ae19_58962_31d39e02a471c3069275ab12a993e800.webp 760w,
+               /zh/post/paper-sharing-5/picture/picture2_huec9a5cbb31cee138006108c68362ae19_58962_1200x1200_fit_q75_h2_lanczos_3.webp 1200w"
+               src="/zh/post/paper-sharing-5/picture/picture2_huec9a5cbb31cee138006108c68362ae19_58962_a4a72e33e533557bc03a5bb668f647ee.webp"
+               width="553"
+               height="153"
+               loading="lazy" data-zoomable /></div>
+  </div></figure>
+</p>
+<p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<figure  >
+  <div class="d-flex justify-content-center">
+    <div class="w-100" ><img alt="picture3" srcset="
+               /zh/post/paper-sharing-5/picture/picture3_hu2fee156168d026cb3dd15b8b0d012788_250331_bd290623f67e59ac3eb2cc51f19db1dc.webp 400w,
+               /zh/post/paper-sharing-5/picture/picture3_hu2fee156168d026cb3dd15b8b0d012788_250331_3d2e3eabf7d741c17d6d86ac4e8cddaa.webp 760w,
+               /zh/post/paper-sharing-5/picture/picture3_hu2fee156168d026cb3dd15b8b0d012788_250331_1200x1200_fit_q75_h2_lanczos_3.webp 1200w"
+               src="/zh/post/paper-sharing-5/picture/picture3_hu2fee156168d026cb3dd15b8b0d012788_250331_bd290623f67e59ac3eb2cc51f19db1dc.webp"
+               width="760"
+               height="308"
+               loading="lazy" data-zoomable /></div>
+  </div></figure>
+</p>
+<p>  为了解决在嵌入式设备上部署实时推理模型的问题，该论文采用神经网络切分的结构，但是论文分析了以前采用神经网络切分中特征数据压缩的比例对云端实时推理的精确性和通信延迟的影响，得出结论:在神经网络切分的结构中通信延迟与实时推理的精确性具有互斥性。为了解决这个问题，本论文采用可解释神经网络方法例如梯度积分(IG)，分析特征数据中对实时推理精确度较为重要的特征(记作top-k特征)保留在本地进行推断，而其余特征数据进行压缩传输到云端输入到神经网络推断模型中进行推理，将两个推理结果进行综合得到最终结果。整个系统离线训练与在线推理结构如fig.5所示，其中嵌入式设备上运行已经训练完成的可解释神经网络和本地经过压缩的实时推理模型，远程云端运行未经压缩的实时推理模型。</p>
+<p>  下面主要进行AgileNN离线训练部分介绍。AgileNN离线训练包含两个部分:可解释神经网络训练(论文中又称为特征提取器)和实时推理模型训练。但是可解释模型特征重要性评估的精确度依赖于实时推理模型的精确度，因此本论文在训练可解释神经网络模型时，选择了先预训练实时推理模型，在将可解释神经网络模型和实时推理模型进行协同训练。</p>
+<p>1、可解释AI(因为可解释AI技术并不是该论文的主要创新点且论文的可解释AI算法是可被替换的，因此在此处不对可解释AI技术展开介绍，只对论文中如何使用可解释AI技术进行讲解)</p>
+<p>  本文默认使用的可解释AI的技术为积分梯度法(IG)，该方法旨在解释模型特征与预测结果之间的关系。由于IG广泛适用于任何可微分模型、易于实现且具有较高的计算效率因此被普遍使用。fig.3为IG方法分析图像分类器中输入图像像素特征重要性的流程。</p>
+<p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<figure  >
+  <div class="d-flex justify-content-center">
+    <div class="w-100" ><img alt="picture4" srcset="
+               /zh/post/paper-sharing-5/picture/picture4_hua22a2e344273c202b5a2dccce183909f_51738_49d509448aa6adb5a1b73999314a9b73.webp 400w,
+               /zh/post/paper-sharing-5/picture/picture4_hua22a2e344273c202b5a2dccce183909f_51738_df27dae2fd1f611fcb34958048374fc3.webp 760w,
+               /zh/post/paper-sharing-5/picture/picture4_hua22a2e344273c202b5a2dccce183909f_51738_1200x1200_fit_q75_h2_lanczos_3.webp 1200w"
+               src="/zh/post/paper-sharing-5/picture/picture4_hua22a2e344273c202b5a2dccce183909f_51738_49d509448aa6adb5a1b73999314a9b73.webp"
+               width="348"
+               height="187"
+               loading="lazy" data-zoomable /></div>
+  </div></figure>
+</p>
+<p>1）特征重要性倾斜度(Skewness of feature Importance)保证</p>
+<p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<figure  >
+  <div class="d-flex justify-content-center">
+    <div class="w-100" ><img alt="picture5" srcset="
+               /zh/post/paper-sharing-5/picture/picture5_hue65f322bf1c1fec8b7127523056245f3_23698_ef5641f14c3ed66893809c51753a31c4.webp 400w,
+               /zh/post/paper-sharing-5/picture/picture5_hue65f322bf1c1fec8b7127523056245f3_23698_7362448c705b3b46aac0d71aaf5a1cf0.webp 760w,
+               /zh/post/paper-sharing-5/picture/picture5_hue65f322bf1c1fec8b7127523056245f3_23698_1200x1200_fit_q75_h2_lanczos_3.webp 1200w"
+               src="/zh/post/paper-sharing-5/picture/picture5_hue65f322bf1c1fec8b7127523056245f3_23698_ef5641f14c3ed66893809c51753a31c4.webp"
+               width="253"
+               height="219"
+               loading="lazy" data-zoomable /></div>
+  </div></figure>
+</p>
+<p>  特征重要性倾斜度是指由特征提取器分析出的各个输入特征之间重要性差距大小，不同特征之间重要性差距越大代表特征重要性倾斜度越大(fig.4为实例)。在该模型中为了保证本地模型推理的精确性以及更大程度的压缩不重要特征属性保证低通信延迟，作者希望可解释AI工具输出的特征重要性分布差距越大越好。为了达到这个目的，在进行特征提取器训练时将重要性分布作为损失函数的一部分，记为，Lskewness。其中ρ代表top-k特征的重要性阈值。</p>
+
+
+
+$$
+L_{skewness} = \max(0,\rho - |\overrightarrow{I_1}|)
+$$
+
+<p>2）特征排序</p>
+<p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<figure  >
+  <div class="d-flex justify-content-center">
+    <div class="w-100" ><img alt="picture6" srcset="
+               /zh/post/paper-sharing-5/picture/picture6_hu0c723150759b1a65115aab3e6edba3a5_31238_13dc4d041a6ee7c369bf27d5e42f6fb1.webp 400w,
+               /zh/post/paper-sharing-5/picture/picture6_hu0c723150759b1a65115aab3e6edba3a5_31238_ef0f5b890cbec8bbd33fb20ea69e729b.webp 760w,
+               /zh/post/paper-sharing-5/picture/picture6_hu0c723150759b1a65115aab3e6edba3a5_31238_1200x1200_fit_q75_h2_lanczos_3.webp 1200w"
+               src="/zh/post/paper-sharing-5/picture/picture6_hu0c723150759b1a65115aab3e6edba3a5_31238_13dc4d041a6ee7c369bf27d5e42f6fb1.webp"
+               width="326"
+               height="164"
+               loading="lazy" data-zoomable /></div>
+  </div></figure>
+</p>
+<p>  因为特征提取器在嵌入式设备中运行时，要确保top-k特征一定要对应设备的前k个输出管道(由于嵌入式设备硬件逻辑限制)，因此在进行特征提取器离线训练时要确保特征按照重要性进行“非严格降序排列”(保证top-k的特征一定排在其他特征的前面)。作者将排序也作为特征提取器的损失函数的一部分。其中，I代表未排序的特征重要性向量，Isorted代表降序排序的特征重要性向量。</p>
+
+
+
+$$
+L_{descent} = ||\overrightarrow{I} - \overrightarrow{I}_{sorted}||_2^2
+$$
+
+<p>2、实时推理模型</p>
+<p>  AgileNN的推理模型包括本地模型和远端模型两部分(fig1-buttomleft)，分别用来处理top-k特征和其余不重要特征的推断。针对远端推断结果和本地推断结果进行加权相加。</p>
+
+
+
+$$
+Result = LocalNN-R *α+RemoteNN-R*(1-α)
+$$
+
+<p>关于α的确定，作者选择了sigmoid函数。其中，w和T均为超参数。</p>
+
+
+
+$$
+\alpha(w;T) = \frac{1}{1+e^{-w/T}}
+$$
+
+<h2 id="实验验证">实验验证</h2>
+<p>  作者将模型部署在STM32F746上，并在四个数据集CIFAR10/100、SVHN、ImageNet-200上进行测试。实验模型部署细节如fig.14。</p>
+<p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<figure  >
+  <div class="d-flex justify-content-center">
+    <div class="w-100" ><img alt="picture7" srcset="
+               /zh/post/paper-sharing-5/picture/picture7_hu20b7a0c23caf6f474f4b68a366aad6be_71523_0b210630a9415eecee7d614f5cd57294.webp 400w,
+               /zh/post/paper-sharing-5/picture/picture7_hu20b7a0c23caf6f474f4b68a366aad6be_71523_49b1cdc277bcc635261d578e6f968049.webp 760w,
+               /zh/post/paper-sharing-5/picture/picture7_hu20b7a0c23caf6f474f4b68a366aad6be_71523_1200x1200_fit_q75_h2_lanczos_3.webp 1200w"
+               src="/zh/post/paper-sharing-5/picture/picture7_hu20b7a0c23caf6f474f4b68a366aad6be_71523_0b210630a9415eecee7d614f5cd57294.webp"
+               width="393"
+               height="220"
+               loading="lazy" data-zoomable /></div>
+  </div></figure>
+</p>
+<p>  作者在数据集上与现有的4个算法进行了对比。根据fig.16，实验结果显示NgileNN有效减少了云端通信的延迟并且增加了实时推断的精确度。</p>
+<p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<figure  >
+  <div class="d-flex justify-content-center">
+    <div class="w-100" ><img alt="picture8" srcset="
+               /zh/post/paper-sharing-5/picture/picture8_hu0b3bb6a78e26192c9f142fb98a50c3b4_71802_284eda9058719be3de80476e81d74384.webp 400w,
+               /zh/post/paper-sharing-5/picture/picture8_hu0b3bb6a78e26192c9f142fb98a50c3b4_71802_3c21229908f027ce132008f790bdabd5.webp 760w,
+               /zh/post/paper-sharing-5/picture/picture8_hu0b3bb6a78e26192c9f142fb98a50c3b4_71802_1200x1200_fit_q75_h2_lanczos_3.webp 1200w"
+               src="/zh/post/paper-sharing-5/picture/picture8_hu0b3bb6a78e26192c9f142fb98a50c3b4_71802_284eda9058719be3de80476e81d74384.webp"
+               width="358"
+               height="345"
+               loading="lazy" data-zoomable /></div>
+  </div></figure>
+</p>
+<p>  针对模型需要花费的部署以及运行开销，作者也进行了评估。根据fig.19可以看出AgileNN运行开销(以消耗的电量为基准)远低于其他模型。根据fig.20可以看到AgileNN在极少的内存占用的情况下实现了较高的推断准确性。</p>
+<p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<figure  >
+  <div class="d-flex justify-content-center">
+    <div class="w-100" ><img alt="picture9" srcset="
+               /zh/post/paper-sharing-5/picture/picture9_hu46d6d8419dc23c68d0cbd514487ce74a_32295_5f6bdd810898aeb82bb42ec3ab5688c5.webp 400w,
+               /zh/post/paper-sharing-5/picture/picture9_hu46d6d8419dc23c68d0cbd514487ce74a_32295_05bb5a512217f096259c8fd9f408fa94.webp 760w,
+               /zh/post/paper-sharing-5/picture/picture9_hu46d6d8419dc23c68d0cbd514487ce74a_32295_1200x1200_fit_q75_h2_lanczos_3.webp 1200w"
+               src="/zh/post/paper-sharing-5/picture/picture9_hu46d6d8419dc23c68d0cbd514487ce74a_32295_5f6bdd810898aeb82bb42ec3ab5688c5.webp"
+               width="354"
+               height="183"
+               loading="lazy" data-zoomable /></div>
+  </div></figure>
+</p>
+<p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<figure  >
+  <div class="d-flex justify-content-center">
+    <div class="w-100" ><img alt="picture10" srcset="
+               /zh/post/paper-sharing-5/picture/picture10_hu7f336099c34b67a837d7436d520a1da0_27039_a5c01ee74d0906362556307fabf28e30.webp 400w,
+               /zh/post/paper-sharing-5/picture/picture10_hu7f336099c34b67a837d7436d520a1da0_27039_da88f036d744c56dd3cee6058e827713.webp 760w,
+               /zh/post/paper-sharing-5/picture/picture10_hu7f336099c34b67a837d7436d520a1da0_27039_1200x1200_fit_q75_h2_lanczos_3.webp 1200w"
+               src="/zh/post/paper-sharing-5/picture/picture10_hu7f336099c34b67a837d7436d520a1da0_27039_a5c01ee74d0906362556307fabf28e30.webp"
+               width="369"
+               height="184"
+               loading="lazy" data-zoomable /></div>
+  </div></figure>
+</p>
+<h2 id="个人总结">个人总结</h2>
+<p>  该论文通过使用可解释AI技术有效地将深度学习实时推理模型的在线算力负载迁移到离线训练中，实现了在性能较弱的嵌入式设备中部署并运行深度学习模型同时保证了推理的精确度。论文向我们展示了可解释AI技术的应用，详细介绍了可解释AI的训练以及模型协同训练，可以作为可解释AI工程落地的参考。</p>
+    </div>
+
+    
+
+
+
+
+
+<div class="article-tags">
+  
+  <a class="badge badge-light" href="/zh/tag/paper-sharing/">paper sharing</a>
+  
+  <a class="badge badge-light" href="/zh/tag/mobicom22/">MobiCom22</a>
+  
+  <a class="badge badge-light" href="/zh/tag/%E9%9F%A9%E9%9B%AA%E5%BC%BA/">韩雪强</a>
+  
+</div>
+
+
+
+<div class="share-box">
+  <ul class="share">
+    
+      
+      
+      
+        
+      
+      
+      
+      
+      
+      
+      
+      <li>
+        <a href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fai4network.github.io%2Fzh%2Fpost%2Fpaper-sharing-5%2F&amp;text=MobiCom22&#43;%E8%AE%BA%E6%96%87%E5%88%86%E4%BA%AB&#43;%7C&#43;Real-time&#43;Neural&#43;Network&#43;Inference&#43;on&#43;Extremely&#43;WeakDevices%3A&#43;Agile&#43;Offloading&#43;with&#43;Explainable&#43;Al" target="_blank" rel="noopener" class="share-btn-twitter" aria-label="twitter">
+          <i class="fab fa-twitter"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      
+      
+      
+      
+      <li>
+        <a href="https://www.facebook.com/sharer.php?u=https%3A%2F%2Fai4network.github.io%2Fzh%2Fpost%2Fpaper-sharing-5%2F&amp;t=MobiCom22&#43;%E8%AE%BA%E6%96%87%E5%88%86%E4%BA%AB&#43;%7C&#43;Real-time&#43;Neural&#43;Network&#43;Inference&#43;on&#43;Extremely&#43;WeakDevices%3A&#43;Agile&#43;Offloading&#43;with&#43;Explainable&#43;Al" target="_blank" rel="noopener" class="share-btn-facebook" aria-label="facebook">
+          <i class="fab fa-facebook"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      
+      
+      
+      
+        
+      
+      <li>
+        <a href="mailto:?subject=MobiCom22%20%E8%AE%BA%E6%96%87%E5%88%86%E4%BA%AB%20%7C%20Real-time%20Neural%20Network%20Inference%20on%20Extremely%20WeakDevices%3A%20Agile%20Offloading%20with%20Explainable%20Al&amp;body=https%3A%2F%2Fai4network.github.io%2Fzh%2Fpost%2Fpaper-sharing-5%2F" target="_blank" rel="noopener" class="share-btn-email" aria-label="envelope">
+          <i class="fas fa-envelope"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      
+      
+      
+      
+      <li>
+        <a href="https://www.linkedin.com/shareArticle?url=https%3A%2F%2Fai4network.github.io%2Fzh%2Fpost%2Fpaper-sharing-5%2F&amp;title=MobiCom22&#43;%E8%AE%BA%E6%96%87%E5%88%86%E4%BA%AB&#43;%7C&#43;Real-time&#43;Neural&#43;Network&#43;Inference&#43;on&#43;Extremely&#43;WeakDevices%3A&#43;Agile&#43;Offloading&#43;with&#43;Explainable&#43;Al" target="_blank" rel="noopener" class="share-btn-linkedin" aria-label="linkedin-in">
+          <i class="fab fa-linkedin-in"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      
+      
+      
+      
+      <li>
+        <a href="whatsapp://send?text=MobiCom22&#43;%E8%AE%BA%E6%96%87%E5%88%86%E4%BA%AB&#43;%7C&#43;Real-time&#43;Neural&#43;Network&#43;Inference&#43;on&#43;Extremely&#43;WeakDevices%3A&#43;Agile&#43;Offloading&#43;with&#43;Explainable&#43;Al%20https%3A%2F%2Fai4network.github.io%2Fzh%2Fpost%2Fpaper-sharing-5%2F" target="_blank" rel="noopener" class="share-btn-whatsapp" aria-label="whatsapp">
+          <i class="fab fa-whatsapp"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      
+      
+      
+      
+      <li>
+        <a href="https://service.weibo.com/share/share.php?url=https%3A%2F%2Fai4network.github.io%2Fzh%2Fpost%2Fpaper-sharing-5%2F&amp;title=MobiCom22&#43;%E8%AE%BA%E6%96%87%E5%88%86%E4%BA%AB&#43;%7C&#43;Real-time&#43;Neural&#43;Network&#43;Inference&#43;on&#43;Extremely&#43;WeakDevices%3A&#43;Agile&#43;Offloading&#43;with&#43;Explainable&#43;Al" target="_blank" rel="noopener" class="share-btn-weibo" aria-label="weibo">
+          <i class="fab fa-weibo"></i>
+        </a>
+      </li>
+    
+  </ul>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+
+
+
+  
+  
+  
+  
+  
+  <div class="media author-card content-widget-hr">
+    
+      
+      <a href="/zh/author/%E9%9F%A9%E9%9B%AA%E5%BC%BA/"><img class="avatar mr-3 avatar-circle" src="/zh/author/%E9%9F%A9%E9%9B%AA%E5%BC%BA/avatar_hud2f4d7f50c8a1abcd198008c3052f90e_186665_270x270_fill_q75_lanczos_center.jpeg" alt="韩雪强"></a>
+    
+
+    <div class="media-body">
+      <h5 class="card-title"><a href="/zh/author/%E9%9F%A9%E9%9B%AA%E5%BC%BA/">韩雪强</a></h5>
+      <h6 class="card-subtitle">2021级</h6>
+      
+      <ul class="network-icon" aria-hidden="true">
+  
+    
+    
+    
+      
+    
+    
+    
+    
+    
+      
+    
+    <li>
+      <a href="/zh/hanxueqiangnudt@nudt.edu.cn" >
+        <i class="fas fa-envelope"></i>
+      </a>
+    </li>
+  
+</ul>
+
+    </div>
+  </div>
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+</article>
+  </div>
+
+  <div class="page-footer">
+    
+    
+    <div class="container">
+      <footer class="site-footer">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  
+
+  
+  
+    
+  
+  
+    
+  
+
+  
+
+  
+  <p class="powered-by copyright-license-text">
+    © 2023 Me. This work is licensed under <a href="https://creativecommons.org/licenses/by-nc-nd/4.0" rel="noopener noreferrer" target="_blank">CC BY NC ND 4.0</a>
+  </p>
+  
+
+  <p class="powered-by footer-license-icons">
+    <a href="https://creativecommons.org/licenses/by-nc-nd/4.0" rel="noopener noreferrer" target="_blank" aria-label="Creative Commons">
+      <i class="fab fa-creative-commons fa-2x" aria-hidden="true"></i>
+      <i class="fab fa-creative-commons-by fa-2x" aria-hidden="true"></i>
+      
+        <i class="fab fa-creative-commons-nc fa-2x" aria-hidden="true"></i>
+      
+      
+        <i class="fab fa-creative-commons-nd fa-2x" aria-hidden="true"></i>
+      
+    </a>
+  </p>
+
+
+
+
+
+  <p class="powered-by">
+    
+    
+    
+      
+      
+      
+      
+      
+      
+      由<a href="https://wowchemy.com/?utm_campaign=poweredby" target="_blank" rel="noopener">Wowchemy</a>支持发布——免费<a href="https://github.com/wowchemy/wowchemy-hugo-themes" target="_blank" rel="noopener">开源</a>网站，为创作者赋能。
+    
+  </p>
+</footer>
+
+    </div>
+    
+  </div>
+
+  
+
+
+<script src="/js/vendor-bundle.min.b4708d4364577c16ab7001b265a063a4.js"></script>
+
+
+
+
+  
+
+  
+  
+
+  
+
+
+
+
+
+
+  <script src="https://cdn.jsdelivr.net/npm/leaflet@1.7.1/dist/leaflet.min.js" integrity="" crossorigin="anonymous"></script>
+
+
+
+
+
+
+
+
+  
+  <script id="search-hit-fuse-template" type="text/x-template">
+    <div class="search-hit" id="summary-{{key}}">
+      <div class="search-hit-content">
+        <div class="search-hit-name">
+          <a href="{{relpermalink}}">{{title}}</a>
+          <div class="article-metadata search-hit-type">{{type}}</div>
+          <p class="search-hit-description">{{snippet}}</p>
+        </div>
+      </div>
+    </div>
+  </script>
+  
+    <script src="https://cdn.jsdelivr.net/gh/krisk/Fuse@v3.2.1/dist/fuse.min.js" integrity="sha512-o38bmzBGX+hD3JHWUFCDA09btWaqrNmoJ3RXLlrysA7PP01Kgs4UlE4MhelE1v5dJR3+cxlR4qQlotsW7jKsnw==" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/gh/julmot/mark.js@8.11.1/dist/jquery.mark.min.js" integrity="sha512-mhbv5DqBMgrWL+32MmsDOt/OAvqr/cHimk6B8y/bx/xS88MVkYGPiVv2ixKVrkywF2qHplNRUvFsAHUdxZ3Krg==" crossorigin="anonymous"></script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+<script id="page-data" type="application/json">{"use_headroom":true}</script>
+
+
+
+  <script src="/js/wowchemy-headroom.db4755770454eb63685f8de785c0a172.js" type="module"></script>
+
+
+
+
+
+
+
+
+
+  
+  
+
+
+<script src="/zh/js/wowchemy.min.d06bc4b307d61ec1811f19928b741e02.js"></script>
+
+
+
+  <script src="/js/wowchemy-map.a26e9d2f7238ba5b868384f1c5bc6477.js" type="module"></script>
+
+
+
+
+  
+<div id="modal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">引用</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        
+        <pre><code></code></pre>
+      </div>
+      <div class="modal-footer">
+        <a class="btn btn-outline-primary my-1 js-copy-cite" href="#" target="_blank">
+          <i class="fas fa-copy"></i> 复制
+        </a>
+        <a class="btn btn-outline-primary my-1 js-download-cite" href="#" target="_blank">
+          <i class="fas fa-download"></i> 下载
+        </a>
+        <div id="modal-error"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+  <script src="/js/wowchemy-publication.68f8d7090562ca65fc6d3cb3f8f2d2cb.js" type="module"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

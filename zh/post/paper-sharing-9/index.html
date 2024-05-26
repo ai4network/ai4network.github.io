@@ -1,0 +1,1571 @@
+<!DOCTYPE html>
+<!-- This site was created with Wowchemy. https://www.wowchemy.com -->
+<!-- Last Published: 2023年11月3日 --><html lang="zh-Hans" >
+
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  
+  
+  
+    <meta name="generator" content="Wowchemy 5.7.0 for Hugo" />
+  
+
+  
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+  
+  
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  
+
+  
+  
+  
+    
+      
+      <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=B612+Mono&family=B612:wght@400;700&family=Jura:wght@400;700&display=swap">
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=B612+Mono&family=B612:wght@400;700&family=Jura:wght@400;700&display=swap" media="print" onload="this.media='all'">
+    
+  
+
+  
+  
+
+  
+  
+    
+    <script src="/js/mathjax-config.js"></script>
+  
+
+  
+
+  <link rel="stylesheet" href="/css/vendor-bundle.min.16f785cdb553c8c4431db6775122af35.css" media="print" onload="this.media='all'">
+
+  
+  
+  
+    
+    
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/academicons@1.9.2/css/academicons.min.css" integrity="sha512-KlJCpRsLf+KKu2VQa5vmRuClRFjxc5lXO03ixZt82HZUk41+1I0bD8KBSA0fY290ayMfWYI9udIqeOWSu1/uZg==" crossorigin="anonymous" media="print" onload="this.media='all'">
+    
+
+    
+    
+    
+    
+      
+      
+    
+    
+    
+
+    
+    
+    
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.7.1/dist/leaflet.min.css" integrity="" crossorigin="anonymous" media="print" onload="this.media='all'">
+    
+
+    
+
+    
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" integrity="" crossorigin="anonymous" async></script>
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+  
+
+  
+  
+  
+  
+  
+  
+  <link rel="stylesheet" href="/css/wowchemy.e688a8e1beceb969adc2714aa50ada4c.css" />
+
+  
+  
+  
+  
+  
+  
+  
+    
+    
+    <link rel="stylesheet" href="/css/libs/chroma/github-light.min.css" title="hl-light" media="print" onload="this.media='all'" >
+    <link rel="stylesheet" href="/css/libs/chroma/dracula.min.css" title="hl-dark" media="print" onload="this.media='all'" disabled>
+  
+
+  
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  
+
+
+
+
+
+
+  <meta name="author" content="韩彪" />
+
+
+
+
+
+  
+
+<meta name="description" content="  今天给大家介绍的论文发表在SIGCOMM22会议上，作者团队来自宾夕法尼亚大学。本文提出了Cebinae，这是一种用惩罚超过其最大最小公平份额的流量来增强现有主机网络的公平性。Cebinae将拥塞控制算法作为黑盒，对其进行兼容，可部署在商用可编程交换机上。通过实验发现，在网络带宽分配角度，Cebinae的表现优于其他实现公平性的算法。" />
+
+
+
+  <link rel="alternate" hreflang="en" href="https://ai4network.github.io/post/paper-sharing-9/" />
+
+<link rel="alternate" hreflang="zh-Hans" href="https://ai4network.github.io/zh/post/paper-sharing-9/" />
+<link rel="canonical" href="https://ai4network.github.io/zh/post/paper-sharing-9/" />
+
+
+
+  <link rel="manifest" href="/zh/manifest.webmanifest" />
+
+
+
+<link rel="icon" type="image/png" href="/media/icon_hua2ec155b4296a9c9791d015323e16eb5_11927_32x32_fill_lanczos_center_3.png" />
+<link rel="apple-touch-icon" type="image/png" href="/media/icon_hua2ec155b4296a9c9791d015323e16eb5_11927_180x180_fill_lanczos_center_3.png" />
+
+<meta name="theme-color" content="#3f51b5" />
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+<meta property="twitter:card" content="summary_large_image" />
+
+  <meta property="twitter:site" content="@wowchemy" />
+  <meta property="twitter:creator" content="@wowchemy" />
+<meta property="twitter:image" content="https://ai4network.github.io/zh/post/paper-sharing-9/featured.png" />
+<meta property="og:site_name" content="AI4network 实验室" />
+<meta property="og:url" content="https://ai4network.github.io/zh/post/paper-sharing-9/" />
+<meta property="og:title" content="SIGCOMM22 论文分享 | Cebinae: Scalable ln-network Fairness Augmentation | AI4network 实验室" />
+<meta property="og:description" content="  今天给大家介绍的论文发表在SIGCOMM22会议上，作者团队来自宾夕法尼亚大学。本文提出了Cebinae，这是一种用惩罚超过其最大最小公平份额的流量来增强现有主机网络的公平性。Cebinae将拥塞控制算法作为黑盒，对其进行兼容，可部署在商用可编程交换机上。通过实验发现，在网络带宽分配角度，Cebinae的表现优于其他实现公平性的算法。" /><meta property="og:image" content="https://ai4network.github.io/zh/post/paper-sharing-9/featured.png" /><meta property="og:locale" content="zh-Hans" />
+
+  
+    <meta
+      property="article:published_time"
+      content="2023-01-10T15:40:06&#43;08:00"
+    />
+  
+  
+    <meta property="article:modified_time" content="2023-01-10T15:40:06&#43;08:00">
+  
+
+
+
+
+
+
+    
+
+
+
+
+
+
+  
+
+
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://ai4network.github.io/zh/post/paper-sharing-9/"
+  },
+  "headline": "SIGCOMM22 论文分享 | Cebinae: Scalable ln-network Fairness Augmentation",
+  
+  "image": [
+    "https://ai4network.github.io/zh/post/paper-sharing-9/featured.png"
+  ],
+  
+  "datePublished": "2023-01-10T15:40:06+08:00",
+  "dateModified": "2023-01-10T15:40:06+08:00",
+  
+  "author": {
+    "@type": "Person",
+    "name": "梁观平"
+  },
+  
+  "publisher": {
+    "@type": "Organization",
+    "name": "AI4network 实验室",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://ai4network.github.io/media/icon_hua2ec155b4296a9c9791d015323e16eb5_11927_192x192_fill_lanczos_center_3.png"
+    }
+  },
+  "description": "\u003cp\u003e  今天给大家介绍的论文发表在SIGCOMM22会议上，作者团队来自宾夕法尼亚大学。本文提出了Cebinae，这是一种用惩罚超过其最大最小公平份额的流量来增强现有主机网络的公平性。Cebinae将拥塞控制算法作为黑盒，对其进行兼容，可部署在商用可编程交换机上。通过实验发现，在网络带宽分配角度，Cebinae的表现优于其他实现公平性的算法。\u003c/p\u003e"
+}
+</script>
+
+  
+
+  
+
+
+
+
+  
+  
+  
+
+  
+  
+
+  
+
+
+  
+  <title>SIGCOMM22 论文分享 | Cebinae: Scalable ln-network Fairness Augmentation | AI4network 实验室</title>
+
+  
+  
+  
+  
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+
+<body id="top" data-spy="scroll" data-offset="70" data-target="#TableOfContents" class="page-wrapper   " data-wc-page-id="827108072321dd33dd3570488fc9dc9f" >
+
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <script src="/js/wowchemy-init.min.3b7d95b5664992609338a09c18bfa7f6.js"></script>
+
+  
+
+
+<aside class="search-modal" id="search">
+  <div class="container">
+    <section class="search-header">
+
+      <div class="row no-gutters justify-content-between mb-3">
+        <div class="col-6">
+          <h1>搜索</h1>
+        </div>
+        <div class="col-6 col-search-close">
+          <a class="js-search" href="#" aria-label="Close"><i class="fas fa-times-circle text-muted" aria-hidden="true"></i></a>
+        </div>
+      </div>
+
+      <div id="search-box">
+        
+        <input name="q" id="search-query" placeholder="搜索..." autocapitalize="off"
+        autocomplete="off" autocorrect="off" spellcheck="false" type="search" class="form-control"
+        aria-label="搜索...">
+        
+      </div>
+
+      
+      
+
+      
+
+    </section>
+    <section class="section-search-results">
+
+      <div id="search-hits">
+        
+      </div>
+
+    </section>
+  </div>
+</aside>
+
+
+
+  <div class="page-header header--fixed">
+    
+
+
+
+
+
+
+
+
+
+
+
+
+<header>
+  <nav class="navbar navbar-expand-lg navbar-light compensate-for-scrollbar" id="navbar-main">
+    <div class="container-xl">
+
+      
+      <div class="d-none d-lg-inline-flex">
+        <a class="navbar-brand" href="/zh/">AI4network 实验室</a>
+      </div>
+      
+
+      
+      <button type="button" class="navbar-toggler" data-toggle="collapse"
+              data-target="#navbar-content" aria-controls="navbar-content" aria-expanded="false" aria-label="切换导航">
+      <span><i class="fas fa-bars"></i></span>
+      </button>
+      
+
+      
+      <div class="navbar-brand-mobile-wrapper d-inline-flex d-lg-none">
+        <a class="navbar-brand" href="/zh/">AI4network 实验室</a>
+      </div>
+      
+
+      
+      
+      <div class="navbar-collapse main-menu-item collapse justify-content-end" id="navbar-content">
+
+        
+        <ul class="navbar-nav d-md-inline-flex">
+          
+
+          
+
+          
+          
+          
+
+          
+
+          
+          
+          
+          
+
+          
+            
+              
+              
+            
+            
+          
+
+          <li class="nav-item">
+            <a class="nav-link " href="/zh/tour"><span>首页</span></a>
+          </li>
+
+          
+          
+
+          
+
+          
+          
+          
+            
+          
+
+          
+
+          
+          
+          
+          
+
+          
+            
+              
+              
+            
+            
+          
+
+          <li class="nav-item">
+            <a class="nav-link " href="/zh/direction"><span>研究方向</span></a>
+          </li>
+
+          
+          
+
+          
+
+          
+          
+          
+
+          
+
+          
+          
+          
+          
+
+          
+            
+              
+              
+            
+            
+          
+
+          <li class="nav-item">
+            <a class="nav-link " href="/zh/post"><span>文献分享</span></a>
+          </li>
+
+          
+          
+
+          
+
+          
+          
+          
+            
+          
+
+          
+
+          
+          
+          
+          
+
+          
+            
+              
+              
+            
+            
+          
+
+          <li class="nav-item">
+            <a class="nav-link " href="/zh/people"><span>团队成员</span></a>
+          </li>
+
+          
+          
+
+          
+
+          
+          
+          
+            
+          
+
+          
+
+          
+          
+          
+          
+
+          
+            
+              
+              
+            
+            
+          
+
+          <li class="nav-item">
+            <a class="nav-link " href="/zh/event"><span>组内活动</span></a>
+          </li>
+
+          
+          
+
+          
+
+          
+          
+          
+            
+          
+
+          
+
+          
+          
+          
+          
+
+          
+            
+              
+              
+            
+            
+          
+
+          <li class="nav-item">
+            <a class="nav-link " href="/zh/publication"><span>论文成果</span></a>
+          </li>
+
+          
+          
+
+          
+
+          
+          
+          
+            
+          
+
+          
+
+          
+          
+          
+          
+
+          
+            
+              
+              
+            
+            
+          
+
+          <li class="nav-item">
+            <a class="nav-link " href="/zh/contact"><span>联系我们</span></a>
+          </li>
+
+          
+          
+
+        
+
+          
+        </ul>
+      </div>
+
+      <ul class="nav-icons navbar-nav flex-row ml-auto d-flex pl-md-2">
+
+        
+        
+          
+        
+
+        
+        
+        
+        <li class="nav-item">
+          <a class="nav-link js-search" href="#" aria-label="搜索"><i class="fas fa-search" aria-hidden="true"></i></a>
+        </li>
+        
+
+        
+        
+        
+        <li class="nav-item dropdown theme-dropdown">
+          <a href="#" class="nav-link" data-toggle="dropdown" aria-haspopup="true" aria-label="Display preferences">
+            <i class="fas fa-moon" aria-hidden="true"></i>
+          </a>
+          <div class="dropdown-menu">
+            <a href="#" class="dropdown-item js-set-theme-light">
+              <span>浅色</span>
+            </a>
+            <a href="#" class="dropdown-item js-set-theme-dark">
+              <span>深色</span>
+            </a>
+            <a href="#" class="dropdown-item js-set-theme-auto">
+              <span>自动</span>
+            </a>
+          </div>
+        </li>
+        
+
+        
+        
+        <li class="nav-item dropdown i18n-dropdown">
+          <a href="#" class="nav-link " data-toggle="dropdown"
+             aria-haspopup="true" aria-label="语言">
+            <i class="fas fa-globe mr-1" aria-hidden="true"></i></a>
+          <div class="dropdown-menu">
+            <div class="dropdown-item dropdown-item-active">
+              <span>中文 (简体)</span>
+            </div>
+            
+            <a class="dropdown-item" href="https://ai4network.github.io/post/paper-sharing-9/">
+              <span>English</span>
+            </a>
+            
+          </div>
+        </li>
+        
+
+      </ul>
+
+    </div>
+  </nav>
+</header>
+
+
+  </div>
+
+  <div class="page-body">
+    
+    
+    
+
+    <article class="article">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+
+
+<div class="article-container pt-3">
+  <h1>SIGCOMM22 论文分享 | Cebinae: Scalable ln-network Fairness Augmentation</h1>
+
+  
+
+  
+
+
+<div class="article-metadata">
+
+  
+  
+  
+  
+  <div>
+    
+
+  <span >
+      <a href="/zh/author/%E6%A2%81%E8%A7%82%E5%B9%B3/">梁观平</a></span>
+  </div>
+  
+  
+
+  
+  <span class="article-date">
+    
+    
+      
+    
+    1月 10, 2023
+  </span>
+  
+
+  
+
+  
+  <span class="middot-divider"></span>
+  <span class="article-reading-time">
+    1 分钟阅读时长
+  </span>
+  
+
+  
+  
+  
+  
+
+  
+  
+  <span class="middot-divider"></span>
+  <span class="article-categories">
+    <i class="fas fa-folder mr-1"></i><a href="/zh/category/paper-share/">Paper Share</a></span>
+  
+
+</div>
+
+  
+
+
+
+
+
+</div>
+
+
+<div class="article-header article-container featured-image-wrapper mt-4 mb-4" style="max-width: 720px; max-height: 720px;">
+  <div style="position: relative">
+    <img src="/zh/post/paper-sharing-9/featured_hube50e8ed47b59d08a39085c3327c3faf_105200_720x2500_fit_q75_h2_lanczos_3.webp" width="720" height="720" alt="" class="featured-image">
+    
+  </div>
+</div>
+
+
+
+  <div class="article-container">
+
+    <div class="article-style">
+      <p>  今天给大家介绍的论文发表在SIGCOMM22会议上，作者团队来自宾夕法尼亚大学。本文提出了Cebinae，这是一种用惩罚超过其最大最小公平份额的流量来增强现有主机网络的公平性。Cebinae将拥塞控制算法作为黑盒，对其进行兼容，可部署在商用可编程交换机上。通过实验发现，在网络带宽分配角度，Cebinae的表现优于其他实现公平性的算法。</p>
+<h2 id="研究动机">研究动机</h2>
+<p>  对于像互联网和云公共网络，终端主机应用程序可以使用他们希望的任何拥塞控制协议。然而不同的网络状态（RTT）和拥塞控制协议使用的不同都会导致不公平的带宽分配。因此随着时间的推移，网络的异构性也会急剧增加，从而造成更多不公平分配。</p>
+<p>  从概念上讲，公平的排队通过将每个流分配给一个独立的队列，并以每位循环顺序为每个流提供服务。为了模拟公平的排队调度，现有方法准确性仍然需要独占使用许多优先级和对每个流的可用缓冲区数量的限制，这两个限制随着流计数、RTT和突发性的增加而变得更加严格。因此现有的解决方案仍然难以在有限的硬件资源下拓展到公共网络，作者指出困难的来源是由于现有的方法试图跟踪并调度每一个流。</p>
+<p>  Cebinae机制没有在每个时间点进行字节级或包级调度，因为这对于公平的全局收敛是过度的。网络将带宽从满足/超过其公平份额的流重新分配给不满足的流就足够了。这种简化能够以最小的资源（瓶颈和非瓶颈流二分类问题，仅需一个额外的队列优先级）对高级调度逻辑进行非常有效的近似，并大大提高了可扩展性。</p>
+<h2 id="关键技术">关键技术</h2>
+<p>  首先本文从最大-最小公平性的角度出发，对瓶颈链路和瓶颈流的进行了判定。具体而言，如下图所示：</p>
+<p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<figure  >
+  <div class="d-flex justify-content-center">
+    <div class="w-100" ><img alt="picture1" srcset="
+               /zh/post/paper-sharing-9/picture/picture1_hu0853d5c31d298ac0f052bb82f59ff373_249869_6f7489857f7a188b923004ea8370b2e1.webp 400w,
+               /zh/post/paper-sharing-9/picture/picture1_hu0853d5c31d298ac0f052bb82f59ff373_249869_be1699b5b3056dd3e498203fd288f1b0.webp 760w,
+               /zh/post/paper-sharing-9/picture/picture1_hu0853d5c31d298ac0f052bb82f59ff373_249869_1200x1200_fit_q75_h2_lanczos_3.webp 1200w"
+               src="/zh/post/paper-sharing-9/picture/picture1_hu0853d5c31d298ac0f052bb82f59ff373_249869_6f7489857f7a188b923004ea8370b2e1.webp"
+               width="760"
+               height="344"
+               loading="lazy" data-zoomable /></div>
+  </div></figure>
+</p>
+<p>  每条链路都可以确定一组瓶颈流集合。首先，如果该链路不是饱和的，那么该链路上的所有流都可以继续增加其发送速率，因此它们不是瓶颈流；其次如果链路是饱和的，那么只要在该链路上发送速率最大的流便被认为是瓶颈流，这是因为发送速率最大的流占用了绝大部分带宽，通过对其进行相关处理，便可以改善不公平分配的情况；否则便不是瓶颈流。</p>
+<p>  现有方法对于瓶颈流的处理大多采用的是限速操作，只有当链路总需求量低于自身承载能力时，限速才会被解除。然后这种原始的处理方式有一个缺点就是无法使不公平的分配变得公平，如下图所示：</p>
+<p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<figure  >
+  <div class="d-flex justify-content-center">
+    <div class="w-100" ><img alt="picture2" srcset="
+               /zh/post/paper-sharing-9/picture/picture2_hue4ffc47fa5ac1f0dfa0e31123f26b9ac_16185_4852ea6ac2aa4be5b7f08a86934d230f.webp 400w,
+               /zh/post/paper-sharing-9/picture/picture2_hue4ffc47fa5ac1f0dfa0e31123f26b9ac_16185_398f0aff69329800d6d8ad84b5460779.webp 760w,
+               /zh/post/paper-sharing-9/picture/picture2_hue4ffc47fa5ac1f0dfa0e31123f26b9ac_16185_1200x1200_fit_q75_h2_lanczos_3.webp 1200w"
+               src="/zh/post/paper-sharing-9/picture/picture2_hue4ffc47fa5ac1f0dfa0e31123f26b9ac_16185_4852ea6ac2aa4be5b7f08a86934d230f.webp"
+               width="384"
+               height="183"
+               loading="lazy" data-zoomable /></div>
+  </div></figure>
+</p>
+<p>  当C流在10容量的链路中获得6容量带宽时，由于只对瓶颈流C进行限速操作，ABDE便会平均分配剩余4容量的带宽，然而这样的分配并不是公平的，然后限速操作并不能让这样不公平的分配变得公平。</p>
+<p>  不同于之前的限速操作，Cebinae直接对瓶颈流C进行征税操作，然后将征得的带宽税分配到ABDE，经过数次的征税操作之后，不公平的分配可以变得公平。下图说明了对超过公平份额的流进行征税和再分配的过程：</p>
+<p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<figure  >
+  <div class="d-flex justify-content-center">
+    <div class="w-100" ><img alt="picture3" srcset="
+               /zh/post/paper-sharing-9/picture/picture3_hu53f94155aa5ffa453a80cb5b78756db0_249998_6d05692bc99c15fd5769a6796654f6d9.webp 400w,
+               /zh/post/paper-sharing-9/picture/picture3_hu53f94155aa5ffa453a80cb5b78756db0_249998_752bafcc98e2e10db7329d8786231cb9.webp 760w,
+               /zh/post/paper-sharing-9/picture/picture3_hu53f94155aa5ffa453a80cb5b78756db0_249998_1200x1200_fit_q75_h2_lanczos_3.webp 1200w"
+               src="/zh/post/paper-sharing-9/picture/picture3_hu53f94155aa5ffa453a80cb5b78756db0_249998_6d05692bc99c15fd5769a6796654f6d9.webp"
+               width="760"
+               height="316"
+               loading="lazy" data-zoomable /></div>
+  </div></figure>
+</p>
+<p>  Cebinae每个路由器的架构如图所示：（a）正常运行期间（b）控制平面重构期间</p>
+<p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<figure  >
+  <div class="d-flex justify-content-center">
+    <div class="w-100" ><img alt="picture4" srcset="
+               /zh/post/paper-sharing-9/picture/picture4_hu08022e26d1cf13050d11b290dd09335b_40772_fb228dbdfa4374de9819d968091b16e1.webp 400w,
+               /zh/post/paper-sharing-9/picture/picture4_hu08022e26d1cf13050d11b290dd09335b_40772_67ef15ed6e31913e696735aeb3ed9753.webp 760w,
+               /zh/post/paper-sharing-9/picture/picture4_hu08022e26d1cf13050d11b290dd09335b_40772_1200x1200_fit_q75_h2_lanczos_3.webp 1200w"
+               src="/zh/post/paper-sharing-9/picture/picture4_hu08022e26d1cf13050d11b290dd09335b_40772_fb228dbdfa4374de9819d968091b16e1.webp"
+               width="760"
+               height="183"
+               loading="lazy" data-zoomable /></div>
+  </div></figure>
+</p>
+<p>  每个路由器包含三个组件：</p>
+<p>  出口管道流速率缓存，它以细粒度跟踪端口饱和度和瓶颈流状态。</p>
+<p>  入口管道流调度器，它向瓶颈流输入延迟/损失，以限制和重新分配它们的带宽。</p>
+<p>  低延迟控制平面代理，它记录流量并动态调整瓶颈流成员度和发送速率限制。</p>
+<p>  从图中可以看到出口处有两个探测器：端口饱和度探测器和瓶颈流探测器。</p>
+<p>  为了准确地确定端口饱和度，Cebinae在出口管道上跟踪利用率，为每个端口维护一个简单的传输字节计数器，作为元素存储在一个寄存器数组中。Cebinae控制平面代理定期对寄存器数组进行采样，并在不重置计数器的情况下，计算与前一次迭代观察到的差异，以找到最后一个间隔期间的利用率。如果利用率高于设定值，则认为该链路已饱和。</p>
+<p>  如果端口饱和度是正的，那么Cebinae就可以确定哪些流是当前链路的瓶颈。Cebinae通过出口管道来检测这些瓶颈流。其目标是准确地跟踪（a）最大流的大小和（b）任何相似大小的流的id。Cebinae使用了散列映射流表的多个阶段。到达一个阶段的数据包被散列到一个条目，要么增加其字节计数器（如果该条目未使用或是用于数据包的流），要么继续到下一个阶段（如果该条目已经被另一个流使用）。Cebinae查找任何流的最大字节计数器，并声明如果它们的字节计数满足约束条件，则该流为“瓶颈流”。</p>
+<h2 id="实验验证">实验验证</h2>
+<p>  作者分别在交换机和ns3仿真中进行了实验，通过实验发现cebinae可以减轻各种网络中的不公平性。</p>
+<p>  下图显示了对于16个TCP Vegas流(0-15)和一个NewReno流(16)，在分别使用FIFO和Cebinae在100 Mbps瓶颈链路上竞争的情况。Cebinae在几乎不影响效率的情况下，将不公平分配转向公平。</p>
+<p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<figure  >
+  <div class="d-flex justify-content-center">
+    <div class="w-100" ><img alt="picture5" srcset="
+               /zh/post/paper-sharing-9/picture/picture5_hu5acaf8e09ac28a05ab4c687048cb6309_40596_9c04523cc46e802ddd42e7289419c45c.webp 400w,
+               /zh/post/paper-sharing-9/picture/picture5_hu5acaf8e09ac28a05ab4c687048cb6309_40596_aa9bb34f6f5d777e251a65b0619812a8.webp 760w,
+               /zh/post/paper-sharing-9/picture/picture5_hu5acaf8e09ac28a05ab4c687048cb6309_40596_1200x1200_fit_q75_h2_lanczos_3.webp 1200w"
+               src="/zh/post/paper-sharing-9/picture/picture5_hu5acaf8e09ac28a05ab4c687048cb6309_40596_9c04523cc46e802ddd42e7289419c45c.webp"
+               width="657"
+               height="288"
+               loading="lazy" data-zoomable /></div>
+  </div></figure>
+</p>
+<p>  当16个Vegas流(基于延迟)与1个NewReno流(基于损耗)在100 Mbps链路上竞争时，每个流具有相等的RTT和需求。对于FIFO，单个NewReno流占用了大约80%的带宽。Cebinae通过重新分配NewReno流的带宽并允许其余流增加其份额来提高公平性。</p>
+<p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<figure  >
+  <div class="d-flex justify-content-center">
+    <div class="w-100" ><img alt="picture6" srcset="
+               /zh/post/paper-sharing-9/picture/picture6_huef5c08e6d7b6cd834ce8ffa4586afcd5_56860_84ddd90ca44ee5f737ff0a3d78f443f9.webp 400w,
+               /zh/post/paper-sharing-9/picture/picture6_huef5c08e6d7b6cd834ce8ffa4586afcd5_56860_b2706202fd2a6b9e82f140e893098d23.webp 760w,
+               /zh/post/paper-sharing-9/picture/picture6_huef5c08e6d7b6cd834ce8ffa4586afcd5_56860_1200x1200_fit_q75_h2_lanczos_3.webp 1200w"
+               src="/zh/post/paper-sharing-9/picture/picture6_huef5c08e6d7b6cd834ce8ffa4586afcd5_56860_84ddd90ca44ee5f737ff0a3d78f443f9.webp"
+               width="760"
+               height="311"
+               loading="lazy" data-zoomable /></div>
+  </div></figure>
+</p>
+<p>  图a说明了一个类似的情况，即128个NewReno流在1 Gbps链路上与2个BBR流竞争，RTT和需求相等。Cebine对BBR流要求的过度带宽征税，并将JFI从0.774提高到0.936。</p>
+<p>  另一种情况是，128个NewReno流在1Gbps链路上与4个Vegas流竞争，其性能需求和RTT分别为100ms和64ms。虽然最初的JFI提供了看似较高的值（0.956），但这是由于大多数NewReno流量（及其主要流量）得到了相对公平的分配。这掩盖了对4个拉斯维加斯流量的不公平分配，如图b中详细的goodput分布所示。Cebinae减轻了4个Vegas流的饥饿现象。</p>
+<h2 id="个人总结">个人总结</h2>
+<p>  Cebinae将拥塞算法视为黑盒，通过征税的的手段近似地实现了最大最小公平，解决了原始最大最小公平无法使不公平分配公平化的弊端，虽然没有从理论上证明Cebinae收敛到最大最小公平，但是它能够利用更少的资源减轻不公平现象。</p>
+<p>  解决某类问题，可以将其映射到实际生活中，通过实际生活已有的模型或者方法对问题进行抽象。</p>
+    </div>
+
+    
+
+
+
+
+
+<div class="article-tags">
+  
+  <a class="badge badge-light" href="/zh/tag/paper-sharing/">paper sharing</a>
+  
+  <a class="badge badge-light" href="/zh/tag/sigcomm22/">SIGCOMM22</a>
+  
+  <a class="badge badge-light" href="/zh/tag/%E6%A2%81%E8%A7%82%E5%B9%B3/">梁观平</a>
+  
+</div>
+
+
+
+<div class="share-box">
+  <ul class="share">
+    
+      
+      
+      
+        
+      
+      
+      
+      
+      
+      
+      
+      <li>
+        <a href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fai4network.github.io%2Fzh%2Fpost%2Fpaper-sharing-9%2F&amp;text=SIGCOMM22&#43;%E8%AE%BA%E6%96%87%E5%88%86%E4%BA%AB&#43;%7C&#43;Cebinae%3A&#43;Scalable&#43;ln-network&#43;Fairness&#43;Augmentation" target="_blank" rel="noopener" class="share-btn-twitter" aria-label="twitter">
+          <i class="fab fa-twitter"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      
+      
+      
+      
+      <li>
+        <a href="https://www.facebook.com/sharer.php?u=https%3A%2F%2Fai4network.github.io%2Fzh%2Fpost%2Fpaper-sharing-9%2F&amp;t=SIGCOMM22&#43;%E8%AE%BA%E6%96%87%E5%88%86%E4%BA%AB&#43;%7C&#43;Cebinae%3A&#43;Scalable&#43;ln-network&#43;Fairness&#43;Augmentation" target="_blank" rel="noopener" class="share-btn-facebook" aria-label="facebook">
+          <i class="fab fa-facebook"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      
+      
+      
+      
+        
+      
+      <li>
+        <a href="mailto:?subject=SIGCOMM22%20%E8%AE%BA%E6%96%87%E5%88%86%E4%BA%AB%20%7C%20Cebinae%3A%20Scalable%20ln-network%20Fairness%20Augmentation&amp;body=https%3A%2F%2Fai4network.github.io%2Fzh%2Fpost%2Fpaper-sharing-9%2F" target="_blank" rel="noopener" class="share-btn-email" aria-label="envelope">
+          <i class="fas fa-envelope"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      
+      
+      
+      
+      <li>
+        <a href="https://www.linkedin.com/shareArticle?url=https%3A%2F%2Fai4network.github.io%2Fzh%2Fpost%2Fpaper-sharing-9%2F&amp;title=SIGCOMM22&#43;%E8%AE%BA%E6%96%87%E5%88%86%E4%BA%AB&#43;%7C&#43;Cebinae%3A&#43;Scalable&#43;ln-network&#43;Fairness&#43;Augmentation" target="_blank" rel="noopener" class="share-btn-linkedin" aria-label="linkedin-in">
+          <i class="fab fa-linkedin-in"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      
+      
+      
+      
+      <li>
+        <a href="whatsapp://send?text=SIGCOMM22&#43;%E8%AE%BA%E6%96%87%E5%88%86%E4%BA%AB&#43;%7C&#43;Cebinae%3A&#43;Scalable&#43;ln-network&#43;Fairness&#43;Augmentation%20https%3A%2F%2Fai4network.github.io%2Fzh%2Fpost%2Fpaper-sharing-9%2F" target="_blank" rel="noopener" class="share-btn-whatsapp" aria-label="whatsapp">
+          <i class="fab fa-whatsapp"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      
+      
+      
+      
+      <li>
+        <a href="https://service.weibo.com/share/share.php?url=https%3A%2F%2Fai4network.github.io%2Fzh%2Fpost%2Fpaper-sharing-9%2F&amp;title=SIGCOMM22&#43;%E8%AE%BA%E6%96%87%E5%88%86%E4%BA%AB&#43;%7C&#43;Cebinae%3A&#43;Scalable&#43;ln-network&#43;Fairness&#43;Augmentation" target="_blank" rel="noopener" class="share-btn-weibo" aria-label="weibo">
+          <i class="fab fa-weibo"></i>
+        </a>
+      </li>
+    
+  </ul>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+
+
+
+  
+  
+  
+  
+  
+  <div class="media author-card content-widget-hr">
+    
+      
+      <a href="/zh/author/%E6%A2%81%E8%A7%82%E5%B9%B3/"><img class="avatar mr-3 avatar-circle" src="/zh/author/%E6%A2%81%E8%A7%82%E5%B9%B3/avatar_hu74344c6e6a3f989d4c4c7f921e66bd7f_127175_270x270_fill_lanczos_center_3.png" alt="梁观平"></a>
+    
+
+    <div class="media-body">
+      <h5 class="card-title"><a href="/zh/author/%E6%A2%81%E8%A7%82%E5%B9%B3/">梁观平</a></h5>
+      <h6 class="card-subtitle">2022级</h6>
+      
+      <ul class="network-icon" aria-hidden="true">
+  
+    
+    
+    
+      
+    
+    
+    
+    
+    
+      
+    
+    <li>
+      <a href="/zh/1851438730@qq.com" >
+        <i class="fas fa-envelope"></i>
+      </a>
+    </li>
+  
+    
+    
+    
+      
+    
+    
+    
+    
+    
+      
+    
+    <li>
+      <a href="https://github.com/whisperLiang" target="_blank" rel="noopener">
+        <i class="fab fa-github"></i>
+      </a>
+    </li>
+  
+</ul>
+
+    </div>
+  </div>
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+</article>
+  </div>
+
+  <div class="page-footer">
+    
+    
+    <div class="container">
+      <footer class="site-footer">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  
+
+  
+  
+    
+  
+  
+    
+  
+
+  
+
+  
+  <p class="powered-by copyright-license-text">
+    © 2023 Me. This work is licensed under <a href="https://creativecommons.org/licenses/by-nc-nd/4.0" rel="noopener noreferrer" target="_blank">CC BY NC ND 4.0</a>
+  </p>
+  
+
+  <p class="powered-by footer-license-icons">
+    <a href="https://creativecommons.org/licenses/by-nc-nd/4.0" rel="noopener noreferrer" target="_blank" aria-label="Creative Commons">
+      <i class="fab fa-creative-commons fa-2x" aria-hidden="true"></i>
+      <i class="fab fa-creative-commons-by fa-2x" aria-hidden="true"></i>
+      
+        <i class="fab fa-creative-commons-nc fa-2x" aria-hidden="true"></i>
+      
+      
+        <i class="fab fa-creative-commons-nd fa-2x" aria-hidden="true"></i>
+      
+    </a>
+  </p>
+
+
+
+
+
+  <p class="powered-by">
+    
+    
+    
+      
+      
+      
+      
+      
+      
+      由<a href="https://wowchemy.com/?utm_campaign=poweredby" target="_blank" rel="noopener">Wowchemy</a>支持发布——免费<a href="https://github.com/wowchemy/wowchemy-hugo-themes" target="_blank" rel="noopener">开源</a>网站，为创作者赋能。
+    
+  </p>
+</footer>
+
+    </div>
+    
+  </div>
+
+  
+
+
+<script src="/js/vendor-bundle.min.b4708d4364577c16ab7001b265a063a4.js"></script>
+
+
+
+
+  
+
+  
+  
+
+  
+
+
+
+
+
+
+  <script src="https://cdn.jsdelivr.net/npm/leaflet@1.7.1/dist/leaflet.min.js" integrity="" crossorigin="anonymous"></script>
+
+
+
+
+
+
+
+
+  
+  <script id="search-hit-fuse-template" type="text/x-template">
+    <div class="search-hit" id="summary-{{key}}">
+      <div class="search-hit-content">
+        <div class="search-hit-name">
+          <a href="{{relpermalink}}">{{title}}</a>
+          <div class="article-metadata search-hit-type">{{type}}</div>
+          <p class="search-hit-description">{{snippet}}</p>
+        </div>
+      </div>
+    </div>
+  </script>
+  
+    <script src="https://cdn.jsdelivr.net/gh/krisk/Fuse@v3.2.1/dist/fuse.min.js" integrity="sha512-o38bmzBGX+hD3JHWUFCDA09btWaqrNmoJ3RXLlrysA7PP01Kgs4UlE4MhelE1v5dJR3+cxlR4qQlotsW7jKsnw==" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/gh/julmot/mark.js@8.11.1/dist/jquery.mark.min.js" integrity="sha512-mhbv5DqBMgrWL+32MmsDOt/OAvqr/cHimk6B8y/bx/xS88MVkYGPiVv2ixKVrkywF2qHplNRUvFsAHUdxZ3Krg==" crossorigin="anonymous"></script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+<script id="page-data" type="application/json">{"use_headroom":true}</script>
+
+
+
+  <script src="/js/wowchemy-headroom.db4755770454eb63685f8de785c0a172.js" type="module"></script>
+
+
+
+
+
+
+
+
+
+  
+  
+
+
+<script src="/zh/js/wowchemy.min.d06bc4b307d61ec1811f19928b741e02.js"></script>
+
+
+
+  <script src="/js/wowchemy-map.a26e9d2f7238ba5b868384f1c5bc6477.js" type="module"></script>
+
+
+
+
+  
+<div id="modal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">引用</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        
+        <pre><code></code></pre>
+      </div>
+      <div class="modal-footer">
+        <a class="btn btn-outline-primary my-1 js-copy-cite" href="#" target="_blank">
+          <i class="fas fa-copy"></i> 复制
+        </a>
+        <a class="btn btn-outline-primary my-1 js-download-cite" href="#" target="_blank">
+          <i class="fas fa-download"></i> 下载
+        </a>
+        <div id="modal-error"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+  <script src="/js/wowchemy-publication.68f8d7090562ca65fc6d3cb3f8f2d2cb.js" type="module"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>
