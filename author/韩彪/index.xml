@@ -1,0 +1,847 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>韩彪 | AI4network Group</title>
+    <link>https://ai4network.github.io/author/%E9%9F%A9%E5%BD%AA/</link>
+      <atom:link href="https://ai4network.github.io/author/%E9%9F%A9%E5%BD%AA/index.xml" rel="self" type="application/rss+xml" />
+    <description>韩彪</description>
+    <generator>Wowchemy (https://wowchemy.com)</generator><language>en-us</language><lastBuildDate>Sun, 01 Sep 2024 00:00:00 +0000</lastBuildDate>
+    <image>
+      <url>https://ai4network.github.io/author/%E9%9F%A9%E5%BD%AA/avatar_hua502555403540e1c74e9112866fad01e_240361_270x270_fill_lanczos_center_3.png</url>
+      <title>韩彪</title>
+      <link>https://ai4network.github.io/author/%E9%9F%A9%E5%BD%AA/</link>
+    </image>
+    
+    <item>
+      <title>多路径传输技术研究综述</title>
+      <link>https://ai4network.github.io/publication/journal-article1/</link>
+      <pubDate>Sun, 01 Sep 2024 00:00:00 +0000</pubDate>
+      <guid>https://ai4network.github.io/publication/journal-article1/</guid>
+      <description>&lt;div class=&#34;alert alert-note&#34;&gt;
+  &lt;div&gt;
+    Click the &lt;em&gt;Cite&lt;/em&gt; button above to demo the feature to enable visitors to import publication metadata into their reference management software.
+  &lt;/div&gt;
+&lt;/div&gt;
+&lt;p&gt;Supplementary notes can be added here, including &lt;a href=&#34;https://wowchemy.com/docs/content/writing-markdown-latex/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;code and math&lt;/a&gt;.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>面向领域定制网络的智能传输架构研究与探索</title>
+      <link>https://ai4network.github.io/post/paper-sharing-11/</link>
+      <pubDate>Fri, 27 Oct 2023 16:42:35 +0800</pubDate>
+      <guid>https://ai4network.github.io/post/paper-sharing-11/</guid>
+      <description>&lt;p&gt;10月26日下午，CNCC2023技术论坛“智能网络与网算融合体系结构新范式-领域定制网络DSN”在沈阳新世界博览馆205会议室举行。AI4Network团队老师、国防科技大学计算机学院韩彪副研究员在论坛上分享了“面向领域定制网络的智能传输架构研究与探索”的报告。介绍了领域定制网络（DSN）提出的背景与意义，探讨了面向领域定制网络的领域定制传输网络架构XTrans，主要包括XTrans的体系结构、可定制协议栈、传输算法库和领域定制加速引擎等研究案例，并讨论了如何实现传输协议、算法、机制等功能部件从灵活定义到定制实现的流程，以及如何构建智能传输算法库和协议栈，实现领域定制传输系统的设计创新、定制开发和高效部署。以下是韩彪老师的报告全文和部分演讲实录。&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;&#34; srcset=&#34;
+               /post/paper-sharing-11/assets/wps1-20231103081841-y44z2rt_huc8c19b59d30e2c1cc69759e5d1871074_1278648_0f5e737c0be561f1a7b77705191b4fb8.webp 400w,
+               /post/paper-sharing-11/assets/wps1-20231103081841-y44z2rt_huc8c19b59d30e2c1cc69759e5d1871074_1278648_81665580e06440f9eb9870cb5fea36c1.webp 760w,
+               /post/paper-sharing-11/assets/wps1-20231103081841-y44z2rt_huc8c19b59d30e2c1cc69759e5d1871074_1278648_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://ai4network.github.io/post/paper-sharing-11/assets/wps1-20231103081841-y44z2rt_huc8c19b59d30e2c1cc69759e5d1871074_1278648_0f5e737c0be561f1a7b77705191b4fb8.webp&#34;
+               width=&#34;692&#34;
+               height=&#34;461&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+​&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;&#34; srcset=&#34;
+               /post/paper-sharing-11/assets/wps2-20231103081841-ruu5vwz_hu0c4ae27937dbb5584f642750cb145610_182803_2b778c3c383845e3ac921b34bcfa6d4b.webp 400w,
+               /post/paper-sharing-11/assets/wps2-20231103081841-ruu5vwz_hu0c4ae27937dbb5584f642750cb145610_182803_432fa44c4946a86f4f26c6cf691c7c4f.webp 760w,
+               /post/paper-sharing-11/assets/wps2-20231103081841-ruu5vwz_hu0c4ae27937dbb5584f642750cb145610_182803_1200x1200_fit_q75_h2_lanczos.webp 1200w&#34;
+               src=&#34;https://ai4network.github.io/post/paper-sharing-11/assets/wps2-20231103081841-ruu5vwz_hu0c4ae27937dbb5584f642750cb145610_182803_2b778c3c383845e3ac921b34bcfa6d4b.webp&#34;
+               width=&#34;693&#34;
+               height=&#34;390&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+​&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;&#34; srcset=&#34;
+               /post/paper-sharing-11/assets/wps3-20231103081841-lxt5q30_huc0492da729f464db1d5031e0f5c5851a_106915_7e9736faf942d7c631a7018f34fec96f.webp 400w,
+               /post/paper-sharing-11/assets/wps3-20231103081841-lxt5q30_huc0492da729f464db1d5031e0f5c5851a_106915_b64ce8dacfb185783d4e2e2c6c27896f.webp 760w,
+               /post/paper-sharing-11/assets/wps3-20231103081841-lxt5q30_huc0492da729f464db1d5031e0f5c5851a_106915_1200x1200_fit_q75_h2_lanczos.webp 1200w&#34;
+               src=&#34;https://ai4network.github.io/post/paper-sharing-11/assets/wps3-20231103081841-lxt5q30_huc0492da729f464db1d5031e0f5c5851a_106915_7e9736faf942d7c631a7018f34fec96f.webp&#34;
+               width=&#34;693&#34;
+               height=&#34;389&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+​&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;一、DSN提出的背景与意义&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;&#34; srcset=&#34;
+               /post/paper-sharing-11/assets/wps4-20231103081841-7h971jt_hud28c5b7c30969b929bf82d2616dd18b9_204622_e104e5e576b8ac8a384a9483b043a051.webp 400w,
+               /post/paper-sharing-11/assets/wps4-20231103081841-7h971jt_hud28c5b7c30969b929bf82d2616dd18b9_204622_07e21718ce972b91197c7d3c5af70711.webp 760w,
+               /post/paper-sharing-11/assets/wps4-20231103081841-7h971jt_hud28c5b7c30969b929bf82d2616dd18b9_204622_1200x1200_fit_q75_h2_lanczos.webp 1200w&#34;
+               src=&#34;https://ai4network.github.io/post/paper-sharing-11/assets/wps4-20231103081841-7h971jt_hud28c5b7c30969b929bf82d2616dd18b9_204622_e104e5e576b8ac8a384a9483b043a051.webp&#34;
+               width=&#34;693&#34;
+               height=&#34;390&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+​&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;&#34; srcset=&#34;
+               /post/paper-sharing-11/assets/wps5-20231103081841-3zs7cl4_hu0a51d5b43ef8d7c6d0978f144f188371_153943_44367e325d6e1806f3a713d659e7600c.webp 400w,
+               /post/paper-sharing-11/assets/wps5-20231103081841-3zs7cl4_hu0a51d5b43ef8d7c6d0978f144f188371_153943_9b8051469e21f167b8a4f7c385993e4b.webp 760w,
+               /post/paper-sharing-11/assets/wps5-20231103081841-3zs7cl4_hu0a51d5b43ef8d7c6d0978f144f188371_153943_1200x1200_fit_q75_h2_lanczos.webp 1200w&#34;
+               src=&#34;https://ai4network.github.io/post/paper-sharing-11/assets/wps5-20231103081841-3zs7cl4_hu0a51d5b43ef8d7c6d0978f144f188371_153943_44367e325d6e1806f3a713d659e7600c.webp&#34;
+               width=&#34;693&#34;
+               height=&#34;389&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+​&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;&#34; srcset=&#34;
+               /post/paper-sharing-11/assets/wps6-20231103081841-snc3lzk_hu3e7bd5d216adc9267a86f28bfe91c6c7_216332_59dcd025ee025a6c6ff942368b72a3b3.webp 400w,
+               /post/paper-sharing-11/assets/wps6-20231103081841-snc3lzk_hu3e7bd5d216adc9267a86f28bfe91c6c7_216332_b53a61e49a5cdf36e1401f996681f244.webp 760w,
+               /post/paper-sharing-11/assets/wps6-20231103081841-snc3lzk_hu3e7bd5d216adc9267a86f28bfe91c6c7_216332_1200x1200_fit_q75_h2_lanczos.webp 1200w&#34;
+               src=&#34;https://ai4network.github.io/post/paper-sharing-11/assets/wps6-20231103081841-snc3lzk_hu3e7bd5d216adc9267a86f28bfe91c6c7_216332_59dcd025ee025a6c6ff942368b72a3b3.webp&#34;
+               width=&#34;692&#34;
+               height=&#34;389&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+​&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;&#34; srcset=&#34;
+               /post/paper-sharing-11/assets/wps7-20231103081841-io04xce_hua8fdd8f0375862388c641b140944ba2f_203899_cfac1708971c24d07fc81f1578ed9ed4.webp 400w,
+               /post/paper-sharing-11/assets/wps7-20231103081841-io04xce_hua8fdd8f0375862388c641b140944ba2f_203899_e4840557079ccfb56acb3ec4904edba2.webp 760w,
+               /post/paper-sharing-11/assets/wps7-20231103081841-io04xce_hua8fdd8f0375862388c641b140944ba2f_203899_1200x1200_fit_q75_h2_lanczos.webp 1200w&#34;
+               src=&#34;https://ai4network.github.io/post/paper-sharing-11/assets/wps7-20231103081841-io04xce_hua8fdd8f0375862388c641b140944ba2f_203899_cfac1708971c24d07fc81f1578ed9ed4.webp&#34;
+               width=&#34;693&#34;
+               height=&#34;390&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+​&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;&#34; srcset=&#34;
+               /post/paper-sharing-11/assets/wps8-20231103081841-evn7dmw_hu3f6b3c2f975173775ac15f25b52518d3_195494_1efa8a4a45c0f3603ac0fef69228eb20.webp 400w,
+               /post/paper-sharing-11/assets/wps8-20231103081841-evn7dmw_hu3f6b3c2f975173775ac15f25b52518d3_195494_1d21362124b378d26e30cd067cd20ffd.webp 760w,
+               /post/paper-sharing-11/assets/wps8-20231103081841-evn7dmw_hu3f6b3c2f975173775ac15f25b52518d3_195494_1200x1200_fit_q75_h2_lanczos.webp 1200w&#34;
+               src=&#34;https://ai4network.github.io/post/paper-sharing-11/assets/wps8-20231103081841-evn7dmw_hu3f6b3c2f975173775ac15f25b52518d3_195494_1efa8a4a45c0f3603ac0fef69228eb20.webp&#34;
+               width=&#34;692&#34;
+               height=&#34;389&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+​&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;&#34; srcset=&#34;
+               /post/paper-sharing-11/assets/wps9-20231103081841-dsqg9fz_hu6da4755d62ea84f02c149ecf8ed5a04c_182138_29e683a440be8effcccf2f778f9ff267.webp 400w,
+               /post/paper-sharing-11/assets/wps9-20231103081841-dsqg9fz_hu6da4755d62ea84f02c149ecf8ed5a04c_182138_ac57f07f016aaffa0b9b6589035841bd.webp 760w,
+               /post/paper-sharing-11/assets/wps9-20231103081841-dsqg9fz_hu6da4755d62ea84f02c149ecf8ed5a04c_182138_1200x1200_fit_q75_h2_lanczos.webp 1200w&#34;
+               src=&#34;https://ai4network.github.io/post/paper-sharing-11/assets/wps9-20231103081841-dsqg9fz_hu6da4755d62ea84f02c149ecf8ed5a04c_182138_29e683a440be8effcccf2f778f9ff267.webp&#34;
+               width=&#34;693&#34;
+               height=&#34;388&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+​&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;&#34; srcset=&#34;
+               /post/paper-sharing-11/assets/wps10-20231103081841-db5m7kx_hu14b6e2743a3957b900826015288cfc86_179108_a1c48b09d07acbae09a530cebe22340f.webp 400w,
+               /post/paper-sharing-11/assets/wps10-20231103081841-db5m7kx_hu14b6e2743a3957b900826015288cfc86_179108_603970af001ff1a73db1fdc4fd2238d2.webp 760w,
+               /post/paper-sharing-11/assets/wps10-20231103081841-db5m7kx_hu14b6e2743a3957b900826015288cfc86_179108_1200x1200_fit_q75_h2_lanczos.webp 1200w&#34;
+               src=&#34;https://ai4network.github.io/post/paper-sharing-11/assets/wps10-20231103081841-db5m7kx_hu14b6e2743a3957b900826015288cfc86_179108_a1c48b09d07acbae09a530cebe22340f.webp&#34;
+               width=&#34;693&#34;
+               height=&#34;389&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;&#34; srcset=&#34;
+               /post/paper-sharing-11/assets/wps11-20231103081841-a3lry3j_hu0af9bcca7de4881e017092ad533bd069_170090_0759f619b19d524ba5d40b17119556ca.webp 400w,
+               /post/paper-sharing-11/assets/wps11-20231103081841-a3lry3j_hu0af9bcca7de4881e017092ad533bd069_170090_f4cdb48a6601eda877314a9d94b031ea.webp 760w,
+               /post/paper-sharing-11/assets/wps11-20231103081841-a3lry3j_hu0af9bcca7de4881e017092ad533bd069_170090_1200x1200_fit_q75_h2_lanczos.webp 1200w&#34;
+               src=&#34;https://ai4network.github.io/post/paper-sharing-11/assets/wps11-20231103081841-a3lry3j_hu0af9bcca7de4881e017092ad533bd069_170090_0759f619b19d524ba5d40b17119556ca.webp&#34;
+               width=&#34;693&#34;
+               height=&#34;389&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;&#34; srcset=&#34;
+               /post/paper-sharing-11/assets/wps12-20231103081841-rd2rxfc_hu5ed3f57ba46f609ae64edaa5091c405c_161176_5b4081c1629b29ad7729ba9efd588b57.webp 400w,
+               /post/paper-sharing-11/assets/wps12-20231103081841-rd2rxfc_hu5ed3f57ba46f609ae64edaa5091c405c_161176_73b048f32baccea72ca3c750274186ef.webp 760w,
+               /post/paper-sharing-11/assets/wps12-20231103081841-rd2rxfc_hu5ed3f57ba46f609ae64edaa5091c405c_161176_1200x1200_fit_q75_h2_lanczos.webp 1200w&#34;
+               src=&#34;https://ai4network.github.io/post/paper-sharing-11/assets/wps12-20231103081841-rd2rxfc_hu5ed3f57ba46f609ae64edaa5091c405c_161176_5b4081c1629b29ad7729ba9efd588b57.webp&#34;
+               width=&#34;693&#34;
+               height=&#34;388&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+​&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;&#34; srcset=&#34;
+               /post/paper-sharing-11/assets/wps13-20231103081841-isixncm_hu552a41bff89cfd86d8d04c82f2ab43a7_141604_732c07807ed9c84d8109d2330a94e250.webp 400w,
+               /post/paper-sharing-11/assets/wps13-20231103081841-isixncm_hu552a41bff89cfd86d8d04c82f2ab43a7_141604_4db6eb028cf2deecddd940db685e1084.webp 760w,
+               /post/paper-sharing-11/assets/wps13-20231103081841-isixncm_hu552a41bff89cfd86d8d04c82f2ab43a7_141604_1200x1200_fit_q75_h2_lanczos.webp 1200w&#34;
+               src=&#34;https://ai4network.github.io/post/paper-sharing-11/assets/wps13-20231103081841-isixncm_hu552a41bff89cfd86d8d04c82f2ab43a7_141604_732c07807ed9c84d8109d2330a94e250.webp&#34;
+               width=&#34;693&#34;
+               height=&#34;389&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+​&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;二、XTrans：面向领域定制网络的智能传输架构&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;DSN的实现在体系架构、功能与协议、机制与算法等层次面临诸多技术挑战。为此，我们深入研究并提出了面向领域定制网络的智能传输架构XTrans。XTrans针对特定领域用的网络传输需求，通过灵活定制网络传输协议栈，构建传输与控制所需的智能算法库，弹性卸载传输协议进行部件加速，从而实现领域定制网络传输协议的设计创新、定制开发和高效部署。&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;&#34; srcset=&#34;
+               /post/paper-sharing-11/assets/wps14-20231103081841-xxfkqkh_hu7f69b274ec7ba0b7f9217e082ea0a7a4_104750_e62378ce4390756ce8cdcc124f68d8bd.webp 400w,
+               /post/paper-sharing-11/assets/wps14-20231103081841-xxfkqkh_hu7f69b274ec7ba0b7f9217e082ea0a7a4_104750_20c209a0b1761058f2cf8af4fa86d778.webp 760w,
+               /post/paper-sharing-11/assets/wps14-20231103081841-xxfkqkh_hu7f69b274ec7ba0b7f9217e082ea0a7a4_104750_1200x1200_fit_q75_h2_lanczos.webp 1200w&#34;
+               src=&#34;https://ai4network.github.io/post/paper-sharing-11/assets/wps14-20231103081841-xxfkqkh_hu7f69b274ec7ba0b7f9217e082ea0a7a4_104750_e62378ce4390756ce8cdcc124f68d8bd.webp&#34;
+               width=&#34;693&#34;
+               height=&#34;392&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+​&lt;/p&gt;
+&lt;p&gt;（1）XTrans体系结构&lt;/p&gt;
+&lt;p&gt;XTrans为分层体系结构：在硬件端，我们通过智能网卡、领域定制计算加速引擎（DPU）等构建面向DSN的可编程底座；在用户空间，通过构建领域定制网络协议栈（XTrans Stack）和智能传输算法库（XTrans Lib），为开发领域定制网络应用（XTrans APP）提供稳固的支撑。我们希望通过这样的一个体系结构，实现功能流水化、机制实例化和算法场景化。&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;&#34; srcset=&#34;
+               /post/paper-sharing-11/assets/wps15-20231103081841-72ly89a_hubef1bd06b6edc2be0395b29bdebc53c4_188398_e9919785c292ccc4af432b5e86b3b0e9.webp 400w,
+               /post/paper-sharing-11/assets/wps15-20231103081841-72ly89a_hubef1bd06b6edc2be0395b29bdebc53c4_188398_f681600fa2d263448648541599c49d9b.webp 760w,
+               /post/paper-sharing-11/assets/wps15-20231103081841-72ly89a_hubef1bd06b6edc2be0395b29bdebc53c4_188398_1200x1200_fit_q75_h2_lanczos.webp 1200w&#34;
+               src=&#34;https://ai4network.github.io/post/paper-sharing-11/assets/wps15-20231103081841-72ly89a_hubef1bd06b6edc2be0395b29bdebc53c4_188398_e9919785c292ccc4af432b5e86b3b0e9.webp&#34;
+               width=&#34;693&#34;
+               height=&#34;389&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+​&lt;/p&gt;
+&lt;p&gt;（2）可定制用户空间传输协议栈&lt;/p&gt;
+&lt;p&gt;当前，除了传统的TCP和UDP协议，网络上还运行有TCP的多路径版本MPTCP和SCTP、以及下一代通用网络协议QUIC及其多路径版本MPQUIC。所以我们意图兼容传统的TCP/IP协议栈并支持生成新型的网络传输协议，设计一个统一抽象的高层网络定制传输语言/接口。基于用户空间协议栈实现技术，重构协议栈架构。我们的目标是根据场景应用需求裁剪与定制网络传输协议栈，对于每个特定需求选取相应的功能构件，基于最优的控制算法，进行特定的网络传输。这充分体现了“抽象→重构→复用”的构件化协议定制理念。在这一部分，AI4Network团队目前致力于实现一个多路径传输范式MPP，其目标是通过类似代理的方式，实现应用无感知的数据单/多路传输转换、传输协议无感知的多路径复用/混用，最终实现面向场景化需求的多路径传输定制。&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;&#34; srcset=&#34;
+               /post/paper-sharing-11/assets/wps16-20231103081841-ft1rtp7_hu9a1a1d01eb85d7176deb9932d118e53c_200951_e72067fedcea97ef2e548e5e37b1a124.webp 400w,
+               /post/paper-sharing-11/assets/wps16-20231103081841-ft1rtp7_hu9a1a1d01eb85d7176deb9932d118e53c_200951_49bcf4cee5da25499567032b45165d55.webp 760w,
+               /post/paper-sharing-11/assets/wps16-20231103081841-ft1rtp7_hu9a1a1d01eb85d7176deb9932d118e53c_200951_1200x1200_fit_q75_h2_lanczos.webp 1200w&#34;
+               src=&#34;https://ai4network.github.io/post/paper-sharing-11/assets/wps16-20231103081841-ft1rtp7_hu9a1a1d01eb85d7176deb9932d118e53c_200951_e72067fedcea97ef2e548e5e37b1a124.webp&#34;
+               width=&#34;693&#34;
+               height=&#34;389&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+​&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;&#34; srcset=&#34;
+               /post/paper-sharing-11/assets/wps17-20231103081841-9zkhcqb_hu477249b189d69588a97a1b7936c062b8_172247_6a3509321ba84335dd11a51bbfdd230b.webp 400w,
+               /post/paper-sharing-11/assets/wps17-20231103081841-9zkhcqb_hu477249b189d69588a97a1b7936c062b8_172247_e767b889dc7fb5de8e7e6b99327bbe7b.webp 760w,
+               /post/paper-sharing-11/assets/wps17-20231103081841-9zkhcqb_hu477249b189d69588a97a1b7936c062b8_172247_1200x1200_fit_q75_h2_lanczos.webp 1200w&#34;
+               src=&#34;https://ai4network.github.io/post/paper-sharing-11/assets/wps17-20231103081841-9zkhcqb_hu477249b189d69588a97a1b7936c062b8_172247_6a3509321ba84335dd11a51bbfdd230b.webp&#34;
+               width=&#34;693&#34;
+               height=&#34;389&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+​&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;&#34; srcset=&#34;
+               /post/paper-sharing-11/assets/wps18-20231103081841-q91a6fl_hu9235e6a262662dfbe38fa586bf29e8bd_186511_3b1b219da7dd559f7b0754155f880260.webp 400w,
+               /post/paper-sharing-11/assets/wps18-20231103081841-q91a6fl_hu9235e6a262662dfbe38fa586bf29e8bd_186511_0b716f43d2c0e600d7dc1b2dbb780333.webp 760w,
+               /post/paper-sharing-11/assets/wps18-20231103081841-q91a6fl_hu9235e6a262662dfbe38fa586bf29e8bd_186511_1200x1200_fit_q75_h2_lanczos.webp 1200w&#34;
+               src=&#34;https://ai4network.github.io/post/paper-sharing-11/assets/wps18-20231103081841-q91a6fl_hu9235e6a262662dfbe38fa586bf29e8bd_186511_3b1b219da7dd559f7b0754155f880260.webp&#34;
+               width=&#34;693&#34;
+               height=&#34;389&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+​&lt;/p&gt;
+&lt;p&gt;（3）领域定制智能传输算法库&lt;/p&gt;
+&lt;p&gt;在网络传输中，不论是拥塞控制，还是报文调度、路径管理等诸方面都有不少算法。然而，没有一种算法的表现能够始终优于其他算法。所以，我们希望能够集百家之所长，根据网络条件选择最优算法以得到最好的传输表现。基于传输协议接口基类重构技术、传输算法知识库与传输策略智能适配技术，我们希望实现集成多种主流传输算法的算法库并能根据场景进行算法的智能适配。目前，AI4Network团队分别在传输控制算法库和拥塞控制算法库进行了有关工作。&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;&#34; srcset=&#34;
+               /post/paper-sharing-11/assets/wps19-20231103081841-932jpkm_hu4a5856d2aac05d867ed2852d50eead9e_172898_cf2ae510d9f532a949b892f1c1053ae4.webp 400w,
+               /post/paper-sharing-11/assets/wps19-20231103081841-932jpkm_hu4a5856d2aac05d867ed2852d50eead9e_172898_3c437aa774787de464d423f16479a503.webp 760w,
+               /post/paper-sharing-11/assets/wps19-20231103081841-932jpkm_hu4a5856d2aac05d867ed2852d50eead9e_172898_1200x1200_fit_q75_h2_lanczos.webp 1200w&#34;
+               src=&#34;https://ai4network.github.io/post/paper-sharing-11/assets/wps19-20231103081841-932jpkm_hu4a5856d2aac05d867ed2852d50eead9e_172898_cf2ae510d9f532a949b892f1c1053ae4.webp&#34;
+               width=&#34;693&#34;
+               height=&#34;389&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+​&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;&#34; srcset=&#34;
+               /post/paper-sharing-11/assets/wps20-20231103081841-c0jf4jf_hu82ee14ddbbf94f7aec9cba0878657062_138441_bcbf9775961445e134fed5bccdd96893.webp 400w,
+               /post/paper-sharing-11/assets/wps20-20231103081841-c0jf4jf_hu82ee14ddbbf94f7aec9cba0878657062_138441_fb70490047206e5e94ba08f10c91036d.webp 760w,
+               /post/paper-sharing-11/assets/wps20-20231103081841-c0jf4jf_hu82ee14ddbbf94f7aec9cba0878657062_138441_1200x1200_fit_q75_h2_lanczos.webp 1200w&#34;
+               src=&#34;https://ai4network.github.io/post/paper-sharing-11/assets/wps20-20231103081841-c0jf4jf_hu82ee14ddbbf94f7aec9cba0878657062_138441_bcbf9775961445e134fed5bccdd96893.webp&#34;
+               width=&#34;693&#34;
+               height=&#34;388&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+​&lt;/p&gt;
+&lt;p&gt;（4）领域定制传输加速引擎&lt;/p&gt;
+&lt;p&gt;根据定制场景的服务与应用需求，转换为网络功能/算子/报文处理等不同层次的抽象，根据网络资源情况动态编排、卸载加速，满足定制传输需求。例如在无人机集群中，我们可以根据将计算任务卸载到地面控制系统或其它无人机，从而实现计算任务加速。&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;&#34; srcset=&#34;
+               /post/paper-sharing-11/assets/wps21-20231103081841-ei73yt2_huc070a56ddcc6278a6224e112f1a90084_245932_6c950a088b511825fb458909717e4613.webp 400w,
+               /post/paper-sharing-11/assets/wps21-20231103081841-ei73yt2_huc070a56ddcc6278a6224e112f1a90084_245932_5785c2510e577b8c3f3d45fe862b82ea.webp 760w,
+               /post/paper-sharing-11/assets/wps21-20231103081841-ei73yt2_huc070a56ddcc6278a6224e112f1a90084_245932_1200x1200_fit_q75_h2_lanczos.webp 1200w&#34;
+               src=&#34;https://ai4network.github.io/post/paper-sharing-11/assets/wps21-20231103081841-ei73yt2_huc070a56ddcc6278a6224e112f1a90084_245932_6c950a088b511825fb458909717e4613.webp&#34;
+               width=&#34;693&#34;
+               height=&#34;389&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;&#34; srcset=&#34;
+               /post/paper-sharing-11/assets/wps22-20231103081841-01wh28v_huaa004f6f9a1725501801c3249f10a9d8_174265_414616fc5cf4df765d59c518fbdf0120.webp 400w,
+               /post/paper-sharing-11/assets/wps22-20231103081841-01wh28v_huaa004f6f9a1725501801c3249f10a9d8_174265_62d9b362a253e6f99442d1fa9bca4f1e.webp 760w,
+               /post/paper-sharing-11/assets/wps22-20231103081841-01wh28v_huaa004f6f9a1725501801c3249f10a9d8_174265_1200x1200_fit_q75_h2_lanczos.webp 1200w&#34;
+               src=&#34;https://ai4network.github.io/post/paper-sharing-11/assets/wps22-20231103081841-01wh28v_huaa004f6f9a1725501801c3249f10a9d8_174265_414616fc5cf4df765d59c518fbdf0120.webp&#34;
+               width=&#34;693&#34;
+               height=&#34;388&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+​&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;三、系统实现&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;&#34; srcset=&#34;
+               /post/paper-sharing-11/assets/wps23-20231103081841-mkaflde_hu737e6d1b03640dd024af308aa74699d6_92542_3f6b7b8d07d3c8c5702e8c6876b23db2.webp 400w,
+               /post/paper-sharing-11/assets/wps23-20231103081841-mkaflde_hu737e6d1b03640dd024af308aa74699d6_92542_60fbe8deff137fc4f9dd364236aa84fa.webp 760w,
+               /post/paper-sharing-11/assets/wps23-20231103081841-mkaflde_hu737e6d1b03640dd024af308aa74699d6_92542_1200x1200_fit_q75_h2_lanczos.webp 1200w&#34;
+               src=&#34;https://ai4network.github.io/post/paper-sharing-11/assets/wps23-20231103081841-mkaflde_hu737e6d1b03640dd024af308aa74699d6_92542_3f6b7b8d07d3c8c5702e8c6876b23db2.webp&#34;
+               width=&#34;693&#34;
+               height=&#34;390&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+​&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;&#34; srcset=&#34;
+               /post/paper-sharing-11/assets/wps24-20231103081841-iwmqc6p_hu9b07ffc8612832149bc294c3b17e4862_167774_ce8329d0d0465b180fc478431527cfa1.webp 400w,
+               /post/paper-sharing-11/assets/wps24-20231103081841-iwmqc6p_hu9b07ffc8612832149bc294c3b17e4862_167774_c17ccf0bf68818398baeedd56772c454.webp 760w,
+               /post/paper-sharing-11/assets/wps24-20231103081841-iwmqc6p_hu9b07ffc8612832149bc294c3b17e4862_167774_1200x1200_fit_q75_h2_lanczos.webp 1200w&#34;
+               src=&#34;https://ai4network.github.io/post/paper-sharing-11/assets/wps24-20231103081841-iwmqc6p_hu9b07ffc8612832149bc294c3b17e4862_167774_ce8329d0d0465b180fc478431527cfa1.webp&#34;
+               width=&#34;693&#34;
+               height=&#34;389&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+​&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;&#34; srcset=&#34;
+               /post/paper-sharing-11/assets/wps25-20231103081841-7n45et1_hue51f37f031907444b2d234b6e57757bd_233482_3c65d9a31801e9dbac224aa5ed914332.webp 400w,
+               /post/paper-sharing-11/assets/wps25-20231103081841-7n45et1_hue51f37f031907444b2d234b6e57757bd_233482_a1977eb181b7c50412fa4525131582a8.webp 760w,
+               /post/paper-sharing-11/assets/wps25-20231103081841-7n45et1_hue51f37f031907444b2d234b6e57757bd_233482_1200x1200_fit_q75_h2_lanczos.webp 1200w&#34;
+               src=&#34;https://ai4network.github.io/post/paper-sharing-11/assets/wps25-20231103081841-7n45et1_hue51f37f031907444b2d234b6e57757bd_233482_3c65d9a31801e9dbac224aa5ed914332.webp&#34;
+               width=&#34;693&#34;
+               height=&#34;388&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+​&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;&#34; srcset=&#34;
+               /post/paper-sharing-11/assets/wps26-20231103081841-7p6kelp_hub33cd6ce6b06c01eafd6a98d5960176e_199677_29d2cbce15ceda7886529107c5a95fbf.webp 400w,
+               /post/paper-sharing-11/assets/wps26-20231103081841-7p6kelp_hub33cd6ce6b06c01eafd6a98d5960176e_199677_1ffe86b9468a21824143144d05956c57.webp 760w,
+               /post/paper-sharing-11/assets/wps26-20231103081841-7p6kelp_hub33cd6ce6b06c01eafd6a98d5960176e_199677_1200x1200_fit_q75_h2_lanczos.webp 1200w&#34;
+               src=&#34;https://ai4network.github.io/post/paper-sharing-11/assets/wps26-20231103081841-7p6kelp_hub33cd6ce6b06c01eafd6a98d5960176e_199677_29d2cbce15ceda7886529107c5a95fbf.webp&#34;
+               width=&#34;693&#34;
+               height=&#34;388&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+​&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;&#34; srcset=&#34;
+               /post/paper-sharing-11/assets/wps27-20231103081841-gmzsli2_hu7b3995ced9dfe4197045ff1b89cb8efb_200422_3282270260e80d2a847c1a4598ee6352.webp 400w,
+               /post/paper-sharing-11/assets/wps27-20231103081841-gmzsli2_hu7b3995ced9dfe4197045ff1b89cb8efb_200422_74780fc78ca564e3389293022a982ff0.webp 760w,
+               /post/paper-sharing-11/assets/wps27-20231103081841-gmzsli2_hu7b3995ced9dfe4197045ff1b89cb8efb_200422_1200x1200_fit_q75_h2_lanczos.webp 1200w&#34;
+               src=&#34;https://ai4network.github.io/post/paper-sharing-11/assets/wps27-20231103081841-gmzsli2_hu7b3995ced9dfe4197045ff1b89cb8efb_200422_3282270260e80d2a847c1a4598ee6352.webp&#34;
+               width=&#34;693&#34;
+               height=&#34;389&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+​&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;四、总结与展望&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;领域定制网络在降低网络设计成本、提升网络协议部署的灵活性、提高面向特定领域的网络性能、智能模型加速训练和推理、解决特定领域需求以及提供个性化网络定制等方面具有广阔的发展前景，将来有望应用于大规模分布式训练和推理、在网计算、算力网络等应用场景。我们希望与更多学术界、工业界的科研人员协力推动DSN不断发展，在网络智能化（AI for Network）和智能网络化（Network for AI）的相关技术研究中作出更多贡献。同时也感谢中科院网络中心谢高岗老师团队和课题组苏金树老师，计晓岚、徐草、宋丛溪、李金融、梁观平等同学的支持与帮助。&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;&#34; srcset=&#34;
+               /post/paper-sharing-11/assets/wps28-20231103081841-i2h6g0w_hu1ee238c407f4c6b272a0808beb129de0_183862_d3c2e29577b56a15fefd79f4a20850bc.webp 400w,
+               /post/paper-sharing-11/assets/wps28-20231103081841-i2h6g0w_hu1ee238c407f4c6b272a0808beb129de0_183862_7caf585507f0d49fb3b3f1296f97dd40.webp 760w,
+               /post/paper-sharing-11/assets/wps28-20231103081841-i2h6g0w_hu1ee238c407f4c6b272a0808beb129de0_183862_1200x1200_fit_q75_h2_lanczos.webp 1200w&#34;
+               src=&#34;https://ai4network.github.io/post/paper-sharing-11/assets/wps28-20231103081841-i2h6g0w_hu1ee238c407f4c6b272a0808beb129de0_183862_d3c2e29577b56a15fefd79f4a20850bc.webp&#34;
+               width=&#34;693&#34;
+               height=&#34;389&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+​&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>无线数据中心网络:进展、挑战和展望</title>
+      <link>https://ai4network.github.io/publication/journal-article9/</link>
+      <pubDate>Wed, 01 Sep 2021 00:00:00 +0000</pubDate>
+      <guid>https://ai4network.github.io/publication/journal-article9/</guid>
+      <description>&lt;div class=&#34;alert alert-note&#34;&gt;
+  &lt;div&gt;
+    Click the &lt;em&gt;Cite&lt;/em&gt; button above to demo the feature to enable visitors to import publication metadata into their reference management software.
+  &lt;/div&gt;
+&lt;/div&gt;
+&lt;p&gt;Supplementary notes can be added here, including &lt;a href=&#34;https://wowchemy.com/docs/content/writing-markdown-latex/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;code and math&lt;/a&gt;.&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

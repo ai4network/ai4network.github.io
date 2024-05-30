@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>王韬 | AI4network 实验室</title>
+    <link>https://ai4network.github.io/zh/author/%E7%8E%8B%E9%9F%AC/</link>
+      <atom:link href="https://ai4network.github.io/zh/author/%E7%8E%8B%E9%9F%AC/index.xml" rel="self" type="application/rss+xml" />
+    <description>王韬</description>
+    <generator>Wowchemy (https://wowchemy.com)</generator><language>zh-Hans</language>
+    <image>
+      <url>https://ai4network.github.io/zh/author/%E7%8E%8B%E9%9F%AC/avatar_hu0497f0cc06023ace7c5cd4d66687a478_92858_270x270_fill_q75_lanczos_center.jpeg</url>
+      <title>王韬</title>
+      <link>https://ai4network.github.io/zh/author/%E7%8E%8B%E9%9F%AC/</link>
+    </image>
+    
+  </channel>
+</rss>

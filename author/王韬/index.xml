@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>王韬 | AI4network Group</title>
+    <link>https://ai4network.github.io/author/%E7%8E%8B%E9%9F%AC/</link>
+      <atom:link href="https://ai4network.github.io/author/%E7%8E%8B%E9%9F%AC/index.xml" rel="self" type="application/rss+xml" />
+    <description>王韬</description>
+    <generator>Wowchemy (https://wowchemy.com)</generator><language>en-us</language><lastBuildDate>Wed, 01 Sep 2021 00:00:00 +0000</lastBuildDate>
+    <image>
+      <url>https://ai4network.github.io/author/%E7%8E%8B%E9%9F%AC/avatar_hu0497f0cc06023ace7c5cd4d66687a478_92858_270x270_fill_q75_lanczos_center.jpeg</url>
+      <title>王韬</title>
+      <link>https://ai4network.github.io/author/%E7%8E%8B%E9%9F%AC/</link>
+    </image>
+    
+    <item>
+      <title>无线数据中心网络:进展、挑战和展望</title>
+      <link>https://ai4network.github.io/publication/journal-article9/</link>
+      <pubDate>Wed, 01 Sep 2021 00:00:00 +0000</pubDate>
+      <guid>https://ai4network.github.io/publication/journal-article9/</guid>
+      <description>&lt;div class=&#34;alert alert-note&#34;&gt;
+  &lt;div&gt;
+    Click the &lt;em&gt;Cite&lt;/em&gt; button above to demo the feature to enable visitors to import publication metadata into their reference management software.
+  &lt;/div&gt;
+&lt;/div&gt;
+&lt;p&gt;Supplementary notes can be added here, including &lt;a href=&#34;https://wowchemy.com/docs/content/writing-markdown-latex/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;code and math&lt;/a&gt;.&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>
