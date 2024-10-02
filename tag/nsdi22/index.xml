@@ -1,0 +1,444 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>NSDI22 | AI4network Group</title>
+    <link>https://ai4network.github.io/tag/nsdi22/</link>
+      <atom:link href="https://ai4network.github.io/tag/nsdi22/index.xml" rel="self" type="application/rss+xml" />
+    <description>NSDI22</description>
+    <generator>Wowchemy (https://wowchemy.com)</generator><language>en-us</language><lastBuildDate>Mon, 21 Nov 2022 08:22:45 +0800</lastBuildDate>
+    <image>
+      <url>https://ai4network.github.io/media/icon_hua2ec155b4296a9c9791d015323e16eb5_11927_512x512_fill_lanczos_center_3.png</url>
+      <title>NSDI22</title>
+      <link>https://ai4network.github.io/tag/nsdi22/</link>
+    </image>
+    
+    <item>
+      <title>NSDI22 论文分享 | Swift: Adaptive Video Streaming with Layered Neural Codecs</title>
+      <link>https://ai4network.github.io/post/paper-sharing-1/</link>
+      <pubDate>Mon, 21 Nov 2022 08:22:45 +0800</pubDate>
+      <guid>https://ai4network.github.io/post/paper-sharing-1/</guid>
+      <description>&lt;p&gt;  今天给大家介绍一篇NSDI22年的论文，这篇论文从层次编码的问题出发，利用自编码器对每一层的残差进行编码，并设计了single-shot和multi-exit机制用来降低解码延迟和根据用户计算资源动态调节解码，同时优化了自适应码率选择算法。&lt;/p&gt;
+&lt;h2 id=&#34;一问题提出&#34;&gt;一、问题提出&lt;/h2&gt;
+&lt;p&gt;问题一：
+  当前的自适应码率选择算法难以预测实时的带宽变化，造成码率调节不准，从而影响视频播放质量。如图所示，蓝色的线为实时带宽，在60秒前，码率选择算法过高估计了带宽，选择了4K清晰度的码率，从而造成了播放卡顿的问题。在60-200秒，又过低估计了码率，造成长时间的收看清晰度低下。&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;picture1&#34; srcset=&#34;
+               /post/paper-sharing-1/picture/picture1_hu81e5a3ccd78a206b120ae961e9f735be_32016_78ce81184413c99f8c4c069275862af0.webp 400w,
+               /post/paper-sharing-1/picture/picture1_hu81e5a3ccd78a206b120ae961e9f735be_32016_2366e7c3247a72e4a962b82f11de748b.webp 760w,
+               /post/paper-sharing-1/picture/picture1_hu81e5a3ccd78a206b120ae961e9f735be_32016_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://ai4network.github.io/post/paper-sharing-1/picture/picture1_hu81e5a3ccd78a206b120ae961e9f735be_32016_78ce81184413c99f8c4c069275862af0.webp&#34;
+               width=&#34;432&#34;
+               height=&#34;153&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;  那么现在的码率选择算法还会产生什么问题呢？拿BOLA和BOLA-FS举例，BOLA对于带宽的变化响应很慢，带宽上升75秒后才进行了码率上调的响应，它的改进工作BOLA-FS虽然可以在感知到当前带宽利用不足的情况下进行高码率片段的下载，但是这样带来了带宽资源的浪费。&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;picture2&#34; srcset=&#34;
+               /post/paper-sharing-1/picture/picture2_hu60ca15d6f946d7af9a16208fb0f7e804_28017_dc486fa4ced2c96d3d4c22aee7b29e72.webp 400w,
+               /post/paper-sharing-1/picture/picture2_hu60ca15d6f946d7af9a16208fb0f7e804_28017_714bfb91999b6b66fdcb339bc2775acd.webp 760w,
+               /post/paper-sharing-1/picture/picture2_hu60ca15d6f946d7af9a16208fb0f7e804_28017_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://ai4network.github.io/post/paper-sharing-1/picture/picture2_hu60ca15d6f946d7af9a16208fb0f7e804_28017_dc486fa4ced2c96d3d4c22aee7b29e72.webp&#34;
+               width=&#34;432&#34;
+               height=&#34;212&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;  层次编码可以很好地解决这个问题，因为层次编码不是将同一个视频端编码成多个码率的视频，而是一种层层增强的关系，如果发现当前码率不能较好利用带宽，可以通过请求增强层来增强视频质量，不会带来带宽的浪费。但是层次编码也会产生新的问题。&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;picture3&#34; srcset=&#34;
+               /post/paper-sharing-1/picture/picture3_hu559ae49b04f277e75296dc5dc3cabd6c_15705_0e5a6b94985c3b6f71a8b946dc28caac.webp 400w,
+               /post/paper-sharing-1/picture/picture3_hu559ae49b04f277e75296dc5dc3cabd6c_15705_b9789c3162adf9142c487e0d7d18c9e2.webp 760w,
+               /post/paper-sharing-1/picture/picture3_hu559ae49b04f277e75296dc5dc3cabd6c_15705_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://ai4network.github.io/post/paper-sharing-1/picture/picture3_hu559ae49b04f277e75296dc5dc3cabd6c_15705_0e5a6b94985c3b6f71a8b946dc28caac.webp&#34;
+               width=&#34;432&#34;
+               height=&#34;94&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;问题二：
+  层次编码的第一个问题就是压缩比不如传统编码方式高，带来空间上的开销，原因是由于层次编码为了防止帧间漂移问题所以没有引入帧间预测。
+第二个问题就是层次编码的解码时间开销较大，且随层次上升。也正是因为这两个问题，层次编码难以被大规模地应用。&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;picture4&#34; srcset=&#34;
+               /post/paper-sharing-1/picture/picture4_hu9388ae57238b4793d1969007c7e3d734_27014_e42218adc421206532565aed9256e57e.webp 400w,
+               /post/paper-sharing-1/picture/picture4_hu9388ae57238b4793d1969007c7e3d734_27014_6ec47ac68f0fb05dfb1cb5dc87311608.webp 760w,
+               /post/paper-sharing-1/picture/picture4_hu9388ae57238b4793d1969007c7e3d734_27014_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://ai4network.github.io/post/paper-sharing-1/picture/picture4_hu9388ae57238b4793d1969007c7e3d734_27014_e42218adc421206532565aed9256e57e.webp&#34;
+               width=&#34;432&#34;
+               height=&#34;179&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;  传统的层次压缩编码的压缩比和时间复杂度已经基本达到瓶颈了，所以基于学习的压缩越来越普遍。比如下图的基于利用自编码器（AutoEncoder(AE)）的编码，利用AE将视频或图像降维为成中间的”code”,从而达到压缩的目的。本文提出的Swift也是在此基础上进行的优化改进。&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;picture5&#34; srcset=&#34;
+               /post/paper-sharing-1/picture/picture5_hu69673571220ecf6672c137c504cf0f98_43031_c46d4512cb567d579693217222f66312.webp 400w,
+               /post/paper-sharing-1/picture/picture5_hu69673571220ecf6672c137c504cf0f98_43031_bf612d68affc5506c98bc19a9bcdc481.webp 760w,
+               /post/paper-sharing-1/picture/picture5_hu69673571220ecf6672c137c504cf0f98_43031_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://ai4network.github.io/post/paper-sharing-1/picture/picture5_hu69673571220ecf6672c137c504cf0f98_43031_c46d4512cb567d579693217222f66312.webp&#34;
+               width=&#34;432&#34;
+               height=&#34;161&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;h2 id=&#34;二方法设计&#34;&gt;二、方法设计&lt;/h2&gt;
+&lt;p&gt;Swift的方法设计主要可以被分成三块：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Encoder：编码器优化&lt;/li&gt;
+&lt;li&gt;Decoder：解码器优化&lt;/li&gt;
+&lt;li&gt;Streamer：码率选择算法优化&lt;/li&gt;
+&lt;/ul&gt;
+&lt;ol&gt;
+&lt;li&gt;Encoder&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;首先来介绍Encoder方面的优化，编码器的设计如图所示：&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;picture6&#34; srcset=&#34;
+               /post/paper-sharing-1/picture/picture6_hu997cf8e4293fd0afd7fe9f5cf76f4f2d_48369_28b438d68babd0f0cb8d368394a7fac9.webp 400w,
+               /post/paper-sharing-1/picture/picture6_hu997cf8e4293fd0afd7fe9f5cf76f4f2d_48369_f7932c081c10fffdc1f98ab5539c65bb.webp 760w,
+               /post/paper-sharing-1/picture/picture6_hu997cf8e4293fd0afd7fe9f5cf76f4f2d_48369_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://ai4network.github.io/post/paper-sharing-1/picture/picture6_hu997cf8e4293fd0afd7fe9f5cf76f4f2d_48369_28b438d68babd0f0cb8d368394a7fac9.webp&#34;
+               width=&#34;432&#34;
+               height=&#34;236&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;  编码器（E）将每个在时间t的帧作为输入，生成一个代码向量(c)，即ct = E(It)。解码器（D）重建给定ct的帧 Iˆt ，即，Iˆt =D(ct)。这里的优化问题是要训练E和D，以使Iˆt 和D(ct)之间的差异最小它的差值最小，训练用损失函数如下式。为了使每层可以尽可能减少对于上一层的冗余信息，将Iˆt 和D(ct)之间的残差ri作为下一层的编码输入，即 ci = E(ri)。&lt;/p&gt;
+
+
+
+$$
+\mathcal{L}_{rec}=\frac{1}{L}{\sum\limits_{i=0}^{L-1}}{\Vert\mathcal{D}(c_i)-r_i\Vert}_1
+$$
+
+&lt;ol start=&#34;2&#34;&gt;
+&lt;li&gt;Decoder&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;（1）Single-shot机制
+  为了解决上文提到的层次解码时间开销随层数线性增长的问题，本文设计了一种single-shot的解码机制，在一些层数的数据还无法解码时，直接用0填充，这样用较少的画面清晰度损失缓解解码开销对时延敏感型视频的影响，解码器的设计如下图所示。&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;picture7&#34; srcset=&#34;
+               /post/paper-sharing-1/picture/picture7_hu8dcbc418d9b1f808f9731ae81a22b051_13161_12545493645bc0db5d4f87163aa83257.webp 400w,
+               /post/paper-sharing-1/picture/picture7_hu8dcbc418d9b1f808f9731ae81a22b051_13161_72082c0994752b77d9fbe291dc8b1ab9.webp 760w,
+               /post/paper-sharing-1/picture/picture7_hu8dcbc418d9b1f808f9731ae81a22b051_13161_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://ai4network.github.io/post/paper-sharing-1/picture/picture7_hu8dcbc418d9b1f808f9731ae81a22b051_13161_12545493645bc0db5d4f87163aa83257.webp&#34;
+               width=&#34;173&#34;
+               height=&#34;158&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;在此基础上，损失函数添加了一项关于画面质量的损失项。&lt;/p&gt;
+
+
+
+$$
+\mathcal{L}_{rec}=\frac{1}{L}{\sum\limits_{i=0}^{L-1}}[\underbrace{{\Vert\mathcal{D}(c_i)-r_i \Vert}_1}_{residual\ quality\ loss}+ \underbrace{{\Vert\mathcal{D}^{ss}(\oplus_{k=0}^{i}c_k)-I\Vert}_1}_{image\ quality\ loss}]
+$$
+
+&lt;p&gt;如下图所示，因为single-shot机制的引入，视频的解码延迟不再随层数而增长。&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;picture8&#34; srcset=&#34;
+               /post/paper-sharing-1/picture/picture8_hu16f6a6a46ad0d585b75620d0a16dbd13_14409_cc4e5c9236225b89a1c843743aff9e00.webp 400w,
+               /post/paper-sharing-1/picture/picture8_hu16f6a6a46ad0d585b75620d0a16dbd13_14409_c522e8f1c7ea2a33ebf0ae01712cb61a.webp 760w,
+               /post/paper-sharing-1/picture/picture8_hu16f6a6a46ad0d585b75620d0a16dbd13_14409_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://ai4network.github.io/post/paper-sharing-1/picture/picture8_hu16f6a6a46ad0d585b75620d0a16dbd13_14409_cc4e5c9236225b89a1c843743aff9e00.webp&#34;
+               width=&#34;219&#34;
+               height=&#34;150&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;（2）Multi-exit机制
+  由于基于自编码器的视频编解码依赖于用户的GPU，所以我们也不得不靠考虑客户端主机的计算资源问题。为此，作者设计了一个multi-exit机制。机制的网络模型如下图所示&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;picture9&#34; srcset=&#34;
+               /post/paper-sharing-1/picture/picture9_hudcb302fc52e9cddd4cc79cfb71254af1_23351_57ae99160bc5fad45b87c2cc7d67b651.webp 400w,
+               /post/paper-sharing-1/picture/picture9_hudcb302fc52e9cddd4cc79cfb71254af1_23351_fdf3dc1c5cd699e0c8f78f64778c1af0.webp 760w,
+               /post/paper-sharing-1/picture/picture9_hudcb302fc52e9cddd4cc79cfb71254af1_23351_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://ai4network.github.io/post/paper-sharing-1/picture/picture9_hudcb302fc52e9cddd4cc79cfb71254af1_23351_57ae99160bc5fad45b87c2cc7d67b651.webp&#34;
+               width=&#34;275&#34;
+               height=&#34;227&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;  即在解码器处设置了多个出口。作者在这里认为，出口所在层数越多，输出视频质量更好，测量了层数、出口深度和视频质量的关系，如这个热力图所示。&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;picture10&#34; srcset=&#34;
+               /post/paper-sharing-1/picture/picture10_hue018bba52697c46675915bd6fdc4ff3f_14340_1540a31a9fbf54e8076d0079f65151b9.webp 400w,
+               /post/paper-sharing-1/picture/picture10_hue018bba52697c46675915bd6fdc4ff3f_14340_e1e9edf36441b96e79613cfdb939d7a1.webp 760w,
+               /post/paper-sharing-1/picture/picture10_hue018bba52697c46675915bd6fdc4ff3f_14340_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://ai4network.github.io/post/paper-sharing-1/picture/picture10_hue018bba52697c46675915bd6fdc4ff3f_14340_1540a31a9fbf54e8076d0079f65151b9.webp&#34;
+               width=&#34;261&#34;
+               height=&#34;157&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;ol start=&#34;3&#34;&gt;
+&lt;li&gt;Streamer&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;  最后是码率选择算法(ABR)上的优化，码率选择算法主要解决的问题就是最大化流媒体传输的QoE，即最大化视频质量、卡顿时间、和平滑度的加权和。这里的算法设计基于2017年Sigcomm的工作Pensieve，一个基于强化学习的码率选择算法。在此基础上，作者为码率选择算法添加了一些新的输入，如当前的GPU可使用量、GPU和视频质量的映射矩阵等，输出的动作为请求的视频段和层数。&lt;/p&gt;
+&lt;p&gt;下图为Swift的整体运行流程。&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;picture11&#34; srcset=&#34;
+               /post/paper-sharing-1/picture/picture11_huacd7e5f054a9028ffaaf463d93a1f4d3_35215_f223bea284cb254948660a2bc0b91492.webp 400w,
+               /post/paper-sharing-1/picture/picture11_huacd7e5f054a9028ffaaf463d93a1f4d3_35215_26741913fedd49237105caac02c04651.webp 760w,
+               /post/paper-sharing-1/picture/picture11_huacd7e5f054a9028ffaaf463d93a1f4d3_35215_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://ai4network.github.io/post/paper-sharing-1/picture/picture11_huacd7e5f054a9028ffaaf463d93a1f4d3_35215_f223bea284cb254948660a2bc0b91492.webp&#34;
+               width=&#34;432&#34;
+               height=&#34;179&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;h2 id=&#34;三实验效果&#34;&gt;三、实验效果&lt;/h2&gt;
+&lt;p&gt;  作者为衡量Swift的性能做了充分的实验。
+  实验一：各个码率选择算法对于当前网络带宽的响应速度。黑色的线为当前网络的带宽，我们可以看到绿色线代表的Swift可以在很短的时间内响应网络带宽的增加。&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;picture12&#34; srcset=&#34;
+               /post/paper-sharing-1/picture/picture12_huc72dd9a3323fdddec631e90853afcd11_28128_bb126b0a5c2999f6e644258fc1288343.webp 400w,
+               /post/paper-sharing-1/picture/picture12_huc72dd9a3323fdddec631e90853afcd11_28128_ed8e2d115100f4c675cbfd7f16af9621.webp 760w,
+               /post/paper-sharing-1/picture/picture12_huc72dd9a3323fdddec631e90853afcd11_28128_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://ai4network.github.io/post/paper-sharing-1/picture/picture12_huc72dd9a3323fdddec631e90853afcd11_28128_bb126b0a5c2999f6e644258fc1288343.webp&#34;
+               width=&#34;432&#34;
+               height=&#34;217&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;  实验二：各个码率选择算法带宽使用量的对比。可以看出，在同等的实验条件下，Swift占用的带宽是最低的，减少了网络资源的浪费。&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;picture13&#34; srcset=&#34;
+               /post/paper-sharing-1/picture/picture13_hu19cd5d58b68baf5e55b6640ce2404df1_70270_96419e2f51be93df2f1217a213620a42.webp 400w,
+               /post/paper-sharing-1/picture/picture13_hu19cd5d58b68baf5e55b6640ce2404df1_70270_0b50b46cdbfc5867dc2c57b43cc586fa.webp 760w,
+               /post/paper-sharing-1/picture/picture13_hu19cd5d58b68baf5e55b6640ce2404df1_70270_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://ai4network.github.io/post/paper-sharing-1/picture/picture13_hu19cd5d58b68baf5e55b6640ce2404df1_70270_96419e2f51be93df2f1217a213620a42.webp&#34;
+               width=&#34;432&#34;
+               height=&#34;229&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;h2 id=&#34;四启发&#34;&gt;四、启发&lt;/h2&gt;
+&lt;p&gt;  虽然都是面向流媒体传输的优化，本文与我们之前专注的传输层方向是垂直的，它从编码和码率选择的角度去解决流媒体传输的问题，像是一种将网络的压力卸载到端上的操作。&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

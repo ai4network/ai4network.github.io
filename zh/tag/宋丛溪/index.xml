@@ -1,0 +1,998 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>宋丛溪 | AI4network 实验室</title>
+    <link>https://ai4network.github.io/zh/tag/%E5%AE%8B%E4%B8%9B%E6%BA%AA/</link>
+      <atom:link href="https://ai4network.github.io/zh/tag/%E5%AE%8B%E4%B8%9B%E6%BA%AA/index.xml" rel="self" type="application/rss+xml" />
+    <description>宋丛溪</description>
+    <generator>Wowchemy (https://wowchemy.com)</generator><language>zh-Hans</language><lastBuildDate>Sat, 07 Oct 2023 10:52:45 +0800</lastBuildDate>
+    <image>
+      <url>https://ai4network.github.io/media/icon_hua2ec155b4296a9c9791d015323e16eb5_11927_512x512_fill_lanczos_center_3.png</url>
+      <title>宋丛溪</title>
+      <link>https://ai4network.github.io/zh/tag/%E5%AE%8B%E4%B8%9B%E6%BA%AA/</link>
+    </image>
+    
+    <item>
+      <title>Smart-Flycast：基于无人机平台的多路径实时视频传输系统</title>
+      <link>https://ai4network.github.io/zh/event/work-sharing-3/</link>
+      <pubDate>Sat, 07 Oct 2023 10:52:45 +0800</pubDate>
+      <guid>https://ai4network.github.io/zh/event/work-sharing-3/</guid>
+      <description>&lt;p&gt;  近年来，无人机凭借其灵活操控、视角广阔、移动性强等优势，被广泛应用于大型赛事直播、应急救援、目标识别等领域。然而，由于无人机飞行高速移动过程中带来网络质量频繁波动，尤其是采用基站入网方式的无人机在飞行过程中需要频繁切换入网点，往往无法满足高清视频传输所需的高带宽、低时延、小抖动等传输需求，更无法针对特殊应用提供定制化的服务质量（QoS）和用户体验（QoE）。&lt;/p&gt;
+&lt;p&gt;  为此，AI4Network研究团队将多路径技术引入无人机实时视频传输过程，开发研制了智能多路径无人机实时视频传输系统Smart-Flycast，旨在通过增加无人机平台的网络链路数量，提供视频传输的带宽聚合与并行传输能力，提升传输稳定性和可靠性。该系统的核心特性是智能跨层传输协议，集成典型流媒体传输协议集，底层可灵活适配多种传输协议，并支持自研的传输算法库，可实现应用协议、传输协议、控制决策算法三个层次的传输方案集成创新，增强了无人机流媒体传输在动态网络环境中的自适应能力，以及面向多种视频应用需求的可扩展性。&lt;/p&gt;
+&lt;p&gt;  目前，基于Smart-Flycast的研究工作已被网络领域国际顶级杂志IEEE Network Magazine（影响因子9.3）录用[1]。该工作结合“AI for Network”思路，通过智能算法的自适应能力辅助多路径报文调度和传输控制，为研究使能网络的人工智能技术提供了新的思路和应用场景。IEEE Network是网络领域知名刊物，专注于网络通信领域的重要问题和发展趋势。该工作作者为2020级博士研究生宋丛溪（第一作者）、2023级博士研究生计晓岚、2020级硕士研究生李亚辉、指导老师为韩彪副研究员、苏金树研究员。&lt;/p&gt;
+&lt;h2 id=&#34;一smart-flycast演示视频&#34;&gt;一、Smart-Flycast演示视频&lt;/h2&gt;
+&lt;p&gt;&lt;a href=&#34;http://mpvideo.qpic.cn/0bc3v4aa4aaaqeajnrqsobsvbl6db2xqadqa.f10002.mp4?dis_k=f0b26e84321d30465ae920fbbe7859bb&amp;amp;dis_t=1696644840&amp;amp;play_scene=10120&amp;amp;auth_info=fvbxvikUf235xI22V107a2pJNjhlTzpmGX8ZUmpvS0pHdnZ5YkkQDzBVcWB2SgFh&amp;amp;auth_key=82e9f292231a4783724468c243e2cf6c&amp;amp;vid=wxv_3122661875554713606&amp;amp;format_id=10002&amp;amp;support_redirect=0&amp;amp;mmversion=false&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;视频地址&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id=&#34;二smart-flycast系统架构&#34;&gt;二、Smart-Flycast系统架构&lt;/h2&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  id=&#34;figure-图-1-smart-flycast系统架构&#34;&gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;picture1&#34; srcset=&#34;
+               /zh/event/work-sharing-3/picture/picture1_huc14adf2d2e0489bdd49c13a2226cf2fd_296203_e65d4b831d407195bc7cebfd2286e8a1.webp 400w,
+               /zh/event/work-sharing-3/picture/picture1_huc14adf2d2e0489bdd49c13a2226cf2fd_296203_df65ea153c9ea53470f31d1d0f80977c.webp 760w,
+               /zh/event/work-sharing-3/picture/picture1_huc14adf2d2e0489bdd49c13a2226cf2fd_296203_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://ai4network.github.io/zh/event/work-sharing-3/picture/picture1_huc14adf2d2e0489bdd49c13a2226cf2fd_296203_e65d4b831d407195bc7cebfd2286e8a1.webp&#34;
+               width=&#34;760&#34;
+               height=&#34;331&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;figcaption&gt;
+      图 1 Smart-Flycast系统架构
+    &lt;/figcaption&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;  Smart-Flycast系统架构如图1所示，包括载有摄像头和机载计算机的无人机、接收和转发实时流的云服务器以及客户端视频播放器。其中机载计算机部署了智能跨层传输协议栈。端到端的实时流媒体传输过程包括以下步骤:&lt;/p&gt;
+&lt;p&gt;  首先，传输模块从机载摄像头获取视频流并通过多个网卡（如WiFi、4G和5G）将其分发到云服务器。而后，云服务器汇聚并转发实时流。在客户端，订阅者通过视频播放器从云服务器拉取实时视频进行观看。Smart-Flycast系统的核心设计为智能跨层传输协议。&lt;/p&gt;
+&lt;h2 id=&#34;三智能跨层传输协议&#34;&gt;三、智能跨层传输协议&lt;/h2&gt;
+&lt;p&gt;  智能跨层传输协议分为三个层次，集成了流媒体传输协议集、底层可灵活适配多种传输协议，并支持自研的传输算法库，可实现应用层协议、传输层协议、传输决策算法三种层次的传输方案组合，增强了无人机流媒体传输在动态网络环境中的自适应能力，以及面向多种视频应用需求的可扩展性。如图2所示，应用层的流媒体传输协议集支持多种流媒体传输协议，包括RTMP、RTSP和RTP；传输层支持TCP、QUIC以及多路径扩展MPTCP、MPQUIC，可根据视频传输需求跨层适配协议；传输层内置了传输算法库，支持报文调度算法RR、minRTT、ECF、BLEST、RDDT、DRAMA等，拥塞控制算法CUBIC、Olia、BBR等，可根据网络状态切换传输策略。在此基础上，开发并部署了智能算法驱动的三种传输策略，分别是基于决策树的自适应多路径报文调度DRAMA、面向QoS的自适应多路径拥塞控制ACCeSS[2]、视频内容感知的部分可靠传输算法VICTOR[3]。&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  id=&#34;figure-图-2-智能跨层传输协议&#34;&gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;picture2&#34; srcset=&#34;
+               /zh/event/work-sharing-3/picture/picture2_hu3f91bcd9f58fd2f9e18258ea1c05e26d_458143_6c6850f5a98a8c93e32819af0be14ca7.webp 400w,
+               /zh/event/work-sharing-3/picture/picture2_hu3f91bcd9f58fd2f9e18258ea1c05e26d_458143_47297b26449e01040250e96be236d09d.webp 760w,
+               /zh/event/work-sharing-3/picture/picture2_hu3f91bcd9f58fd2f9e18258ea1c05e26d_458143_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://ai4network.github.io/zh/event/work-sharing-3/picture/picture2_hu3f91bcd9f58fd2f9e18258ea1c05e26d_458143_6c6850f5a98a8c93e32819af0be14ca7.webp&#34;
+               width=&#34;662&#34;
+               height=&#34;760&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;figcaption&gt;
+      图 2 智能跨层传输协议
+    &lt;/figcaption&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;（1）基于决策树的自适应多路径报文调度&lt;/p&gt;
+&lt;p&gt;  异构链路以及无人机飞行期间的网络波动会导致路径状态的差异性增大，MPTCP和MPQUIC的默认报文调度器会产生不合理的决策，导致报文乱序到达从而降低应用的QoS和QoE。为了解决这个问题，使用决策树模型根据网络条件选择适合当前状态的策略。三个子策略包括，“分发”，“复制”和“丢弃”。“分发”策略根据网络状态计算每条路径的报文分配量，使报文尽可能按序到达接收端；“复制”策略将高优先级的报文复制发送到所有路径以保持传输可靠性。“丢弃”策略会主动丢弃低优先级数据的报文，以提供给高优先级报文充足带宽。&lt;/p&gt;
+&lt;p&gt;（2）面向QoS的自适应多路径拥塞控制&lt;/p&gt;
+&lt;p&gt;  为了满足在无人机动态网络环境的多种QoS，ACCeSS面向吞吐量、丢包以及延迟三种QoS设计效用函数，针对每种类型的QoS要求，ACCeSS求解一个特定QoS的最优问题。ACCeSS包含在线速率控制和离线训练两部分。在线速率控制部分获取网络状态作为效用函数的输入，采用基于梯度的在线学习方法从效用值决定发送速率。同时，网络状态和QoS需求被输入到离线训练部分，从而根据特定QoS类型解决特定的最优问题。ACCeSS采用轻量化的随机森林回归拟合吞吐量、丢包率、延迟和发送速率之间的回归关系，预测性能指标，实现在网络波动的情况下的高效预测。&lt;/p&gt;
+&lt;p&gt;（3）视频内容感知的部分可靠传输机制&lt;/p&gt;
+&lt;p&gt;  实时流媒体传输是一时延敏感型应用，在某些情况下，完全可靠传输带来的大量重传可能会恶化传输时延从而造成视频的卡顿。因此，我们实现了视频内容感知的部分可靠传输机制VICTOR，减少低优先级数据的重传，从而提高实时流媒体的QoE。VICTOR中实现了不可靠的流类型。在不可靠流上丢失的数据包将被丢弃，并在数据被提交到应用时，用零值填充相应的数据。根据感知到的优先级信息，流媒体内容将被区分发送到可靠和不可靠流传输。&lt;/p&gt;
+&lt;h2 id=&#34;四平台实现&#34;&gt;四、平台实现&lt;/h2&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  id=&#34;figure-图-3-smart-flycast硬件平台&#34;&gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;picture3&#34; srcset=&#34;
+               /zh/event/work-sharing-3/picture/picture3_hud0d202719ce924f1b00bf235d3e9c315_560594_bb56d6a8daf0621d2a92562c7e22f83c.webp 400w,
+               /zh/event/work-sharing-3/picture/picture3_hud0d202719ce924f1b00bf235d3e9c315_560594_cc60d0b419afe5350286fda3d6c768d6.webp 760w,
+               /zh/event/work-sharing-3/picture/picture3_hud0d202719ce924f1b00bf235d3e9c315_560594_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://ai4network.github.io/zh/event/work-sharing-3/picture/picture3_hud0d202719ce924f1b00bf235d3e9c315_560594_bb56d6a8daf0621d2a92562c7e22f83c.webp&#34;
+               width=&#34;760&#34;
+               height=&#34;327&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;figcaption&gt;
+      图 3 Smart-Flycast硬件平台
+    &lt;/figcaption&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;  Smart-Flycast的硬件平台实现如图3所示，平台载体是一架定制Dji四旋翼无人机，该平台配备了Manifold 2机载计算机，其CPU为Intel Corei7-8550U，内存为8GB RAM。实时流媒体画面通过机载高清摄像头收集。无人机通过多个网卡将流媒体传输到云服务器，网卡分别为华为8372 4G模组，以及华为MH5000 5G模组。&lt;/p&gt;
+&lt;h2 id=&#34;五总结与展望&#34;&gt;五、总结与展望&lt;/h2&gt;
+&lt;p&gt;  Smart-Flycast无人机实时视频传输平台基于多路径传输技术，集成了跨应用层、传输层的协议以及传输算法，提升了无人机流媒体传输的实时性、可靠性与自适应能力。如今，智能技术使能网络是一个发展趋势，在诸多机器学习与智能算法中，强化学习被广泛应用于传输控制，已有研究工作将强化学习应用于拥塞控制、调度、路由优化等决策，以增强传输在多种网络状态中的自适应能力[4]。然而，基于智能的无人机传输决策仍面临亟待解决的挑战：一是智能算法的推理开销会加大无人机能耗，从而影响无人机的续航能力；二是无人机飞行导致网络状态的快速波动，智能算法在面临未知网络状态时，可能会产生输出的不可解释从而作出错误决策，进而影响无人机的任务执行。Smart-Flycast系统集成的三种智能传输算法以轻量的智能算法解决了无人机传输在高动态网络环境的挑战，并可支持多种QoS、QoE需求的挑战。作为一种智能技术使能的原型系统, Smart-Flycast通过引入多路径技术提升了传输的可靠性和稳定性，同时弥补了多路径协议缺乏自适应传输能力的短板，将为无人机实时视频传输提供更多的可能性。&lt;/p&gt;
+&lt;h2 id=&#34;参考文献&#34;&gt;参考文献&lt;/h2&gt;
+&lt;p&gt;[1] Song C, Han B, Ji X et al. AI-driven Multipath Transmission: Empowering UAV-based Live Streaming.IEEE Network, 2023.
+[2] Ji X, Han B, Li R, et al. ACCeSS: Adaptive QoS-aware Congestion Control for Multipath TCP[A]. 2022 IEEE/ACM 30th International Symposium on Quality of Service, IWQoS 2022[C]. 2022.
+[3] Li Y, Han B, Han X, et al. VICTOR: Video Content-aware Partially Reliable Transmission over Multipath QUIC. IEEE International Conference on Metaverse Computing, Networking and Applications (IEEE MetaCom 2023) 2023[c].
+[4]Song C, Han B and Su J. 4D-MAP: Multipath Adaptive Packet Scheduling for Live Streaming over QUIC . Comput. Sci. Technol.&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>CoNEXT22 论文分享 | Coal Not Diamonds: How Memory Pressure Falters Mobile Video QoE</title>
+      <link>https://ai4network.github.io/zh/post/paper-sharing-7/</link>
+      <pubDate>Mon, 26 Dec 2022 09:14:17 +0800</pubDate>
+      <guid>https://ai4network.github.io/zh/post/paper-sharing-7/</guid>
+      <description>&lt;p&gt;  “在远古时候，煤和钻石属于同一种物质，但经过上亿年的时光，它们却成为了两种不同的物品。那么，是什么造成的呢？是压力的作用。受压力小的变成了煤，而受压力大的，变成了钻石。”但是，当手机的内存压力变大时，视频的QoE反而变得更糟糕，此时，压力并没有促成更有价值的钻石的产生，而是生成了煤炭。&lt;/p&gt;
+&lt;p&gt;  今天介绍的文章是发表在CoNEXT22会议上的，作者是来自LUMS的团队。本文做了大量的实验探究视频播放设备的内存压力与视频用户体验之间的关系，并给出了几点解决方案。&lt;/p&gt;
+&lt;h2 id=&#34;背景&#34;&gt;背景&lt;/h2&gt;
+&lt;p&gt;  随着智能手机的广泛应用，人们愈发热衷使用手机收看视频，根据资料显示，在2021年，全球有63%的智能手机用户收看Youtube。平均美国成年人，每天收看至少50分钟的视频。并且，人们愈发追求更高清的视频内容和更流畅的观看体验，这就对视频内容的分辨率和帧率有了更高的要求。&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;picture1&#34; srcset=&#34;
+               /zh/post/paper-sharing-7/picture/picture1_hu5f29d62d04a7f6a44c15c1ae83e50634_223111_e8d58f106198b49365749339f7b1ae11.webp 400w,
+               /zh/post/paper-sharing-7/picture/picture1_hu5f29d62d04a7f6a44c15c1ae83e50634_223111_645e08cdd6ac70b72c745b0588db9518.webp 760w,
+               /zh/post/paper-sharing-7/picture/picture1_hu5f29d62d04a7f6a44c15c1ae83e50634_223111_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://ai4network.github.io/zh/post/paper-sharing-7/picture/picture1_hu5f29d62d04a7f6a44c15c1ae83e50634_223111_e8d58f106198b49365749339f7b1ae11.webp&#34;
+               width=&#34;362&#34;
+               height=&#34;706&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;picture2&#34; srcset=&#34;
+               /zh/post/paper-sharing-7/picture/picture2_hu5f486f5f06db4a83c801573ad2ceca87_177585_956c9f68a8bead9294728686d4438940.webp 400w,
+               /zh/post/paper-sharing-7/picture/picture2_hu5f486f5f06db4a83c801573ad2ceca87_177585_32d0369825f6aa330ab5517560b09a0b.webp 760w,
+               /zh/post/paper-sharing-7/picture/picture2_hu5f486f5f06db4a83c801573ad2ceca87_177585_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://ai4network.github.io/zh/post/paper-sharing-7/picture/picture2_hu5f486f5f06db4a83c801573ad2ceca87_177585_956c9f68a8bead9294728686d4438940.webp&#34;
+               width=&#34;656&#34;
+               height=&#34;358&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;  先前研究视频传输的工作较多关注于网络对传输的瓶颈，即如何在网络带宽不足的情况下调整视频传输的码率。但是，较少人关注到，视频播放设备本身（内存、CPU等性能）也会对视频用户体验造成影响。于是，本文从内存的分析出发，探究对视频QoE的影响。&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;picture3&#34; srcset=&#34;
+               /zh/post/paper-sharing-7/picture/picture3_hueecae70caf4925ed6f70581fa59c6abc_176581_e8295f168f731c600e526a900197db04.webp 400w,
+               /zh/post/paper-sharing-7/picture/picture3_hueecae70caf4925ed6f70581fa59c6abc_176581_cbcd59d24bafc856b66f3e2ad0add1e4.webp 760w,
+               /zh/post/paper-sharing-7/picture/picture3_hueecae70caf4925ed6f70581fa59c6abc_176581_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://ai4network.github.io/zh/post/paper-sharing-7/picture/picture3_hueecae70caf4925ed6f70581fa59c6abc_176581_e8295f168f731c600e526a900197db04.webp&#34;
+               width=&#34;760&#34;
+               height=&#34;289&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;picture4&#34; srcset=&#34;
+               /zh/post/paper-sharing-7/picture/picture4_huc9d2c4d7fd170c20ef4aaefbbd768b95_249554_7351dbda6bd7ff912dc7a39169f8037c.webp 400w,
+               /zh/post/paper-sharing-7/picture/picture4_huc9d2c4d7fd170c20ef4aaefbbd768b95_249554_d0ec94288bf2f748237eec1c9c1458b7.webp 760w,
+               /zh/post/paper-sharing-7/picture/picture4_huc9d2c4d7fd170c20ef4aaefbbd768b95_249554_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://ai4network.github.io/zh/post/paper-sharing-7/picture/picture4_huc9d2c4d7fd170c20ef4aaefbbd768b95_249554_7351dbda6bd7ff912dc7a39169f8037c.webp&#34;
+               width=&#34;760&#34;
+               height=&#34;395&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;  首先，我们来介绍一些手机内存相关的背景知识：&lt;/p&gt;
+&lt;p&gt;  1.手机内存中也是采用页表管理，页可以可分为三类，一是被进程使用中的内存（Used），二是没有被使用的(Free)，三是缓存在硬盘上的页(Cached)，需要的时候可以被回收。&lt;/p&gt;
+&lt;p&gt;  2.两个可以被用来回收内存的守护进程，The kernel swap daemon (kswapd)负责回收背景中的内存，Low-memory killer daemon (lmkd) 用来在低内存状态时杀掉其他进程回收内存资源。&lt;/p&gt;
+&lt;p&gt;  针对运行中的应用，内存压力可以被分为四个等级：Normal：没有内存压力; Moderate: kswapd启动，开始回收内存; Low：回收不足，已经影响前景应用的性能; Critical：不能再维持任何的背景进程，甚至要杀掉前景进程。&lt;/p&gt;
+&lt;h2 id=&#34;实验一手机内存压力分析实验&#34;&gt;实验一、手机内存压力分析实验&lt;/h2&gt;
+&lt;p&gt;  在了解了上述背景之后，作者进行了大量的实验分析，从手机内存压力分析实验到内存压力与视频QoE关系的实验层层递进。首先是进行了内存压力分析实验。
+在这一实验当中，采用了自己设计的signalcapter应用，在背景中收集内存压力信号进行分析，受试者80人，手机内存从1GB-8GB不等，共收集了9950小时的实验数据。&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;picture5&#34; srcset=&#34;
+               /zh/post/paper-sharing-7/picture/picture5_hubd05b4bcd40283ec338e79b5c8ea710c_313001_c8faff9f47cc37af5f31c4b22af11ba3.webp 400w,
+               /zh/post/paper-sharing-7/picture/picture5_hubd05b4bcd40283ec338e79b5c8ea710c_313001_77343c5e5b21a95e52ab139d7bba688e.webp 760w,
+               /zh/post/paper-sharing-7/picture/picture5_hubd05b4bcd40283ec338e79b5c8ea710c_313001_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://ai4network.github.io/zh/post/paper-sharing-7/picture/picture5_hubd05b4bcd40283ec338e79b5c8ea710c_313001_c8faff9f47cc37af5f31c4b22af11ba3.webp&#34;
+               width=&#34;760&#34;
+               height=&#34;293&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;  作者统计了一小时内手机出现不同内存压力信号的频率，从图中可以看出63%的手机经历每小时大于一次的内存压力，19%大于10次Critical内存压力，6.3%大于70次内存压力。所以，内存压力现象频繁出现在手机中。&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;picture6&#34; srcset=&#34;
+               /zh/post/paper-sharing-7/picture/picture6_hu4d9ff9ecdadb64a6e1006d52c8a4667b_108241_b2065cf69e5b7cb3f518d4c64fee1376.webp 400w,
+               /zh/post/paper-sharing-7/picture/picture6_hu4d9ff9ecdadb64a6e1006d52c8a4667b_108241_c2c8dd085e434435238ecdebb72e6869.webp 760w,
+               /zh/post/paper-sharing-7/picture/picture6_hu4d9ff9ecdadb64a6e1006d52c8a4667b_108241_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://ai4network.github.io/zh/post/paper-sharing-7/picture/picture6_hu4d9ff9ecdadb64a6e1006d52c8a4667b_108241_b2065cf69e5b7cb3f518d4c64fee1376.webp&#34;
+               width=&#34;452&#34;
+               height=&#34;401&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;picture7&#34; srcset=&#34;
+               /zh/post/paper-sharing-7/picture/picture7_hua57c5762586532c4b33761d05682106b_86532_68f56cd0143d29acc80cc2041fd19072.webp 400w,
+               /zh/post/paper-sharing-7/picture/picture7_hua57c5762586532c4b33761d05682106b_86532_9343b2e31f73e84195d5247bf086de07.webp 760w,
+               /zh/post/paper-sharing-7/picture/picture7_hua57c5762586532c4b33761d05682106b_86532_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://ai4network.github.io/zh/post/paper-sharing-7/picture/picture7_hua57c5762586532c4b33761d05682106b_86532_68f56cd0143d29acc80cc2041fd19072.webp&#34;
+               width=&#34;430&#34;
+               height=&#34;334&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;  之后，作者又统计了在经历过Critical内存压力后，转移到其他压力状态的概率，以及在Critical转移到其他状态之前的持续时间。从图中可以看出，转移到Low状态大于占67.2%,并且会持续12.8秒左右的时间，这说明内存压力很难被立即缓解。
+通过以上实验作者总结，手机端经常处于高内存利用状态，终端频繁观测出长时间的内存压力，内核不能快速缓解内存压力。&lt;/p&gt;
+&lt;h2 id=&#34;实验二手机内存压力对视频qoe影响实验&#34;&gt;实验二、手机内存压力对视频QoE影响实验&lt;/h2&gt;
+&lt;p&gt;  在得出实验一的结论后，作者进而开始分析内存压力对视频QoE的影响。在接下来的实验中，实验受试者使用了1GB-3GB内存的手机如下图所示，并通过从浏览器收看视频的方法进行实验。&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;picture8&#34; srcset=&#34;
+               /zh/post/paper-sharing-7/picture/picture8_hu9036dca131baa88ba4baf092a3a2bb1a_391117_ddef5697597de72e595cfdbd464be74b.webp 400w,
+               /zh/post/paper-sharing-7/picture/picture8_hu9036dca131baa88ba4baf092a3a2bb1a_391117_86eebb960b4cd99fe081e1e62af54862.webp 760w,
+               /zh/post/paper-sharing-7/picture/picture8_hu9036dca131baa88ba4baf092a3a2bb1a_391117_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://ai4network.github.io/zh/post/paper-sharing-7/picture/picture8_hu9036dca131baa88ba4baf092a3a2bb1a_391117_ddef5697597de72e595cfdbd464be74b.webp&#34;
+               width=&#34;760&#34;
+               height=&#34;317&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;picture9&#34; srcset=&#34;
+               /zh/post/paper-sharing-7/picture/picture9_hu77e35fc09917d597c0266c62774a6e6e_319275_bbb80ebd22046a04dece8f5f4ffb080b.webp 400w,
+               /zh/post/paper-sharing-7/picture/picture9_hu77e35fc09917d597c0266c62774a6e6e_319275_5cd49f642ea4e714a4397ede4f9a6e51.webp 760w,
+               /zh/post/paper-sharing-7/picture/picture9_hu77e35fc09917d597c0266c62774a6e6e_319275_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://ai4network.github.io/zh/post/paper-sharing-7/picture/picture9_hu77e35fc09917d597c0266c62774a6e6e_319275_bbb80ebd22046a04dece8f5f4ffb080b.webp&#34;
+               width=&#34;760&#34;
+               height=&#34;369&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;  作者首先分析了视频丢帧率这一指标，从图中可以看出，对于1GB内存的手机，在收看720P以上的视频会产生75%的丢帧率，对于2GB和3GB的设备，在收看1080P的视频会出现25%和9%的丢帧率。&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;picture10&#34; srcset=&#34;
+               /zh/post/paper-sharing-7/picture/picture10_hu00969070b0e5c5a1c52de5dea227c437_512205_5f247ef89eaf85cfdc15aae340a1afb4.webp 400w,
+               /zh/post/paper-sharing-7/picture/picture10_hu00969070b0e5c5a1c52de5dea227c437_512205_1c17f7c5fb8b5600a6efdc8e370843b3.webp 760w,
+               /zh/post/paper-sharing-7/picture/picture10_hu00969070b0e5c5a1c52de5dea227c437_512205_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://ai4network.github.io/zh/post/paper-sharing-7/picture/picture10_hu00969070b0e5c5a1c52de5dea227c437_512205_5f247ef89eaf85cfdc15aae340a1afb4.webp&#34;
+               width=&#34;741&#34;
+               height=&#34;760&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;  之后，作者还分析了手机视频播放发生崩溃的情况。1GB的设备，崩溃在大于480P的视频时就发生了，在有内存压力的情况下大于720p的视频会经常发生崩溃。对于2GB的设备，大于1080P总发生崩溃，而3GB的设备没有检测到崩溃。&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;picture11&#34; srcset=&#34;
+               /zh/post/paper-sharing-7/picture/picture11_hu759cf75ea2a8da4c645e2d9da9dfd733_320353_2d5745143043d3d79097c843b5f5ade5.webp 400w,
+               /zh/post/paper-sharing-7/picture/picture11_hu759cf75ea2a8da4c645e2d9da9dfd733_320353_1dc6a19422635cfe1ac36b99672301ab.webp 760w,
+               /zh/post/paper-sharing-7/picture/picture11_hu759cf75ea2a8da4c645e2d9da9dfd733_320353_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://ai4network.github.io/zh/post/paper-sharing-7/picture/picture11_hu759cf75ea2a8da4c645e2d9da9dfd733_320353_2d5745143043d3d79097c843b5f5ade5.webp&#34;
+               width=&#34;760&#34;
+               height=&#34;274&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;  作者又对比了不同的视频类型对丢帧率的影响，对于所有类别，帧率为30fps的视频只在720P以上才发生丢帧，但是对于60fps帧率的视频，随着内存压力和分辨率的上升，丢帧变得严重。另外对比不同的视频类型，新闻类画面相对静止，所以丢帧率较低。因此视频内容和视频应用的性能指标也有一定的关系。&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;picture12&#34; srcset=&#34;
+               /zh/post/paper-sharing-7/picture/picture12_hu54cf6656eb7de8bcbeeb709bfc1618cf_236968_ebca5819378db7e7cc1ffddae9c2debd.webp 400w,
+               /zh/post/paper-sharing-7/picture/picture12_hu54cf6656eb7de8bcbeeb709bfc1618cf_236968_75f88d20da8f96c11c13051b1563cc9f.webp 760w,
+               /zh/post/paper-sharing-7/picture/picture12_hu54cf6656eb7de8bcbeeb709bfc1618cf_236968_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://ai4network.github.io/zh/post/paper-sharing-7/picture/picture12_hu54cf6656eb7de8bcbeeb709bfc1618cf_236968_ebca5819378db7e7cc1ffddae9c2debd.webp&#34;
+               width=&#34;760&#34;
+               height=&#34;439&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;  作者还让受试者观看Normal内存压力状态下和Moderate压力状态下的视频，并收集他们的观感。在99个受试者中，绝大多数都能感知到视频间的差距。&lt;/p&gt;
+&lt;h2 id=&#34;原因分析&#34;&gt;原因分析&lt;/h2&gt;
+&lt;p&gt;  在进行了以上的实验观察后，作者开始分析内存对视频性能产生影响的真实原因。定位到了以下的三个进程，一个是负责硬盘I/O的mmcqd，它经常使用CPU并且具有较高的调度优先级；第二个是kswapd，具有较高的CPU利用率，经常在内存较低时启动回收CPU内存;第三个是lmkd，会在内存不足时杀掉视频客户端，导致崩溃。&lt;/p&gt;
+&lt;p&gt;  于是，作者通过profile工具观察了各个进程的运行情况。进程的运行状态可分成三类：(1) Running：进程占用CPU内核运行中;(2) Runnable,CPU不可用，进程等待中; (3) Runnable (Preempted), 进程等待CPU时被其他进程抢占。经过观察，mmcqd进程在Normal内存压力下运行时间处于进程中的第50名，运行0.4秒，而当内存压力转为Moderate时就变成了第6名，运行4.6秒。Kswapd也是从第14名的2.3秒跃升到了第1名的22秒。与它相比，视频客户端只有7.9秒。因此，可以看出，这些内存管理进程大量抢占了视频进程的运行时间，进而导致卡顿和崩溃的发生。&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;picture13&#34; srcset=&#34;
+               /zh/post/paper-sharing-7/picture/picture13_hub590cbd0b83614807dbdade6f82f2dfa_90099_79615e0614fc90e4cc5f0d7c40d65487.webp 400w,
+               /zh/post/paper-sharing-7/picture/picture13_hub590cbd0b83614807dbdade6f82f2dfa_90099_b03d668ff1dd2d385bdc9de1c82ec4a8.webp 760w,
+               /zh/post/paper-sharing-7/picture/picture13_hub590cbd0b83614807dbdade6f82f2dfa_90099_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://ai4network.github.io/zh/post/paper-sharing-7/picture/picture13_hub590cbd0b83614807dbdade6f82f2dfa_90099_79615e0614fc90e4cc5f0d7c40d65487.webp&#34;
+               width=&#34;760&#34;
+               height=&#34;374&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;h2 id=&#34;解决方案&#34;&gt;解决方案&lt;/h2&gt;
+&lt;p&gt;  在进行了上述的实验观察和原因分析后，作者对视频流自适应算法设计者、平台内容提供者、系统设计者以及手机生产者提出了以下几点建议：&lt;/p&gt;
+&lt;p&gt;  1.对视频流自适应算法设计者：传统的自适应码率调整算法通常以估算网络带宽为输入调整视频的码率，算法可以将设备内存压力信号作为输入，调整码率或帧率，从而达到更好的播放效果。如图所示，如果合理降低帧率，将降低视频的丢帧率。&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;picture14&#34; srcset=&#34;
+               /zh/post/paper-sharing-7/picture/picture14_hu3f856961f854a05809a10b946c72eb88_321196_1d4f94113e6c648a0dba82b30db284f4.webp 400w,
+               /zh/post/paper-sharing-7/picture/picture14_hu3f856961f854a05809a10b946c72eb88_321196_84eec5fef885f4500eda36b61e6ccf4d.webp 760w,
+               /zh/post/paper-sharing-7/picture/picture14_hu3f856961f854a05809a10b946c72eb88_321196_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://ai4network.github.io/zh/post/paper-sharing-7/picture/picture14_hu3f856961f854a05809a10b946c72eb88_321196_1d4f94113e6c648a0dba82b30db284f4.webp&#34;
+               width=&#34;760&#34;
+               height=&#34;265&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;  2.对平台内容提供者：增强客户端的遥测，提供大量的视频编解码和帧率方案。&lt;/p&gt;
+&lt;p&gt;  3.对操作系统设计者：合理设计内存管理进程，不要过多抢占视频应用的资源。&lt;/p&gt;
+&lt;p&gt;  4.对于收集生产者：分配给小内存的设备更多的CPU资源，可以提升视频播放的性能。&lt;/p&gt;
+&lt;h2 id=&#34;总结与展望&#34;&gt;总结与展望&lt;/h2&gt;
+&lt;p&gt;  另辟蹊径：转换思路，脱离从网络与视频QoE的传统角度，分析设备本身的性能和QoE的关系。&lt;/p&gt;
+&lt;p&gt;  写作思路：大部分论文的写作思路一种是从实验观察到问题发现再到提出方法解决和实验验证，另一种是通过理论建模到提出优化方案再到实验分析或理论证明。而本文是通过大量的实验一步步观察挖掘出设备本身的指标与应用性能之间的联系，并建设性地提出解决方案。从中可以看出，学术研究的重点不一定要放在解决问题上，发掘一个好问题也是十分关键的，这样一来问题可以牵引出新的研究点，启发人们从新的角度去提出更多的解决方案。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>NSDI22 论文分享 | Swift: Adaptive Video Streaming with Layered Neural Codecs</title>
+      <link>https://ai4network.github.io/zh/post/paper-sharing-1/</link>
+      <pubDate>Mon, 21 Nov 2022 08:22:45 +0800</pubDate>
+      <guid>https://ai4network.github.io/zh/post/paper-sharing-1/</guid>
+      <description>&lt;p&gt;  今天给大家介绍一篇NSDI22年的论文，这篇论文从层次编码的问题出发，利用自编码器对每一层的残差进行编码，并设计了single-shot和multi-exit机制用来降低解码延迟和根据用户计算资源动态调节解码，同时优化了自适应码率选择算法。&lt;/p&gt;
+&lt;h2 id=&#34;一问题提出&#34;&gt;一、问题提出&lt;/h2&gt;
+&lt;p&gt;问题一：
+  当前的自适应码率选择算法难以预测实时的带宽变化，造成码率调节不准，从而影响视频播放质量。如图所示，蓝色的线为实时带宽，在60秒前，码率选择算法过高估计了带宽，选择了4K清晰度的码率，从而造成了播放卡顿的问题。在60-200秒，又过低估计了码率，造成长时间的收看清晰度低下。&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;picture1&#34; srcset=&#34;
+               /zh/post/paper-sharing-1/picture/picture1_hu81e5a3ccd78a206b120ae961e9f735be_32016_78ce81184413c99f8c4c069275862af0.webp 400w,
+               /zh/post/paper-sharing-1/picture/picture1_hu81e5a3ccd78a206b120ae961e9f735be_32016_2366e7c3247a72e4a962b82f11de748b.webp 760w,
+               /zh/post/paper-sharing-1/picture/picture1_hu81e5a3ccd78a206b120ae961e9f735be_32016_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://ai4network.github.io/zh/post/paper-sharing-1/picture/picture1_hu81e5a3ccd78a206b120ae961e9f735be_32016_78ce81184413c99f8c4c069275862af0.webp&#34;
+               width=&#34;432&#34;
+               height=&#34;153&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;  那么现在的码率选择算法还会产生什么问题呢？拿BOLA和BOLA-FS举例，BOLA对于带宽的变化响应很慢，带宽上升75秒后才进行了码率上调的响应，它的改进工作BOLA-FS虽然可以在感知到当前带宽利用不足的情况下进行高码率片段的下载，但是这样带来了带宽资源的浪费。&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;picture2&#34; srcset=&#34;
+               /zh/post/paper-sharing-1/picture/picture2_hu60ca15d6f946d7af9a16208fb0f7e804_28017_dc486fa4ced2c96d3d4c22aee7b29e72.webp 400w,
+               /zh/post/paper-sharing-1/picture/picture2_hu60ca15d6f946d7af9a16208fb0f7e804_28017_714bfb91999b6b66fdcb339bc2775acd.webp 760w,
+               /zh/post/paper-sharing-1/picture/picture2_hu60ca15d6f946d7af9a16208fb0f7e804_28017_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://ai4network.github.io/zh/post/paper-sharing-1/picture/picture2_hu60ca15d6f946d7af9a16208fb0f7e804_28017_dc486fa4ced2c96d3d4c22aee7b29e72.webp&#34;
+               width=&#34;432&#34;
+               height=&#34;212&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;  层次编码可以很好地解决这个问题，因为层次编码不是将同一个视频端编码成多个码率的视频，而是一种层层增强的关系，如果发现当前码率不能较好利用带宽，可以通过请求增强层来增强视频质量，不会带来带宽的浪费。但是层次编码也会产生新的问题。&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;picture3&#34; srcset=&#34;
+               /zh/post/paper-sharing-1/picture/picture3_hu559ae49b04f277e75296dc5dc3cabd6c_15705_0e5a6b94985c3b6f71a8b946dc28caac.webp 400w,
+               /zh/post/paper-sharing-1/picture/picture3_hu559ae49b04f277e75296dc5dc3cabd6c_15705_b9789c3162adf9142c487e0d7d18c9e2.webp 760w,
+               /zh/post/paper-sharing-1/picture/picture3_hu559ae49b04f277e75296dc5dc3cabd6c_15705_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://ai4network.github.io/zh/post/paper-sharing-1/picture/picture3_hu559ae49b04f277e75296dc5dc3cabd6c_15705_0e5a6b94985c3b6f71a8b946dc28caac.webp&#34;
+               width=&#34;432&#34;
+               height=&#34;94&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;问题二：
+  层次编码的第一个问题就是压缩比不如传统编码方式高，带来空间上的开销，原因是由于层次编码为了防止帧间漂移问题所以没有引入帧间预测。
+第二个问题就是层次编码的解码时间开销较大，且随层次上升。也正是因为这两个问题，层次编码难以被大规模地应用。&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;picture4&#34; srcset=&#34;
+               /zh/post/paper-sharing-1/picture/picture4_hu9388ae57238b4793d1969007c7e3d734_27014_e42218adc421206532565aed9256e57e.webp 400w,
+               /zh/post/paper-sharing-1/picture/picture4_hu9388ae57238b4793d1969007c7e3d734_27014_6ec47ac68f0fb05dfb1cb5dc87311608.webp 760w,
+               /zh/post/paper-sharing-1/picture/picture4_hu9388ae57238b4793d1969007c7e3d734_27014_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://ai4network.github.io/zh/post/paper-sharing-1/picture/picture4_hu9388ae57238b4793d1969007c7e3d734_27014_e42218adc421206532565aed9256e57e.webp&#34;
+               width=&#34;432&#34;
+               height=&#34;179&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;  传统的层次压缩编码的压缩比和时间复杂度已经基本达到瓶颈了，所以基于学习的压缩越来越普遍。比如下图的基于利用自编码器（AutoEncoder(AE)）的编码，利用AE将视频或图像降维为成中间的”code”,从而达到压缩的目的。本文提出的Swift也是在此基础上进行的优化改进。&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;picture5&#34; srcset=&#34;
+               /zh/post/paper-sharing-1/picture/picture5_hu69673571220ecf6672c137c504cf0f98_43031_c46d4512cb567d579693217222f66312.webp 400w,
+               /zh/post/paper-sharing-1/picture/picture5_hu69673571220ecf6672c137c504cf0f98_43031_bf612d68affc5506c98bc19a9bcdc481.webp 760w,
+               /zh/post/paper-sharing-1/picture/picture5_hu69673571220ecf6672c137c504cf0f98_43031_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://ai4network.github.io/zh/post/paper-sharing-1/picture/picture5_hu69673571220ecf6672c137c504cf0f98_43031_c46d4512cb567d579693217222f66312.webp&#34;
+               width=&#34;432&#34;
+               height=&#34;161&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;h2 id=&#34;二方法设计&#34;&gt;二、方法设计&lt;/h2&gt;
+&lt;p&gt;Swift的方法设计主要可以被分成三块：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Encoder：编码器优化&lt;/li&gt;
+&lt;li&gt;Decoder：解码器优化&lt;/li&gt;
+&lt;li&gt;Streamer：码率选择算法优化&lt;/li&gt;
+&lt;/ul&gt;
+&lt;ol&gt;
+&lt;li&gt;Encoder&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;首先来介绍Encoder方面的优化，编码器的设计如图所示：&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;picture6&#34; srcset=&#34;
+               /zh/post/paper-sharing-1/picture/picture6_hu997cf8e4293fd0afd7fe9f5cf76f4f2d_48369_28b438d68babd0f0cb8d368394a7fac9.webp 400w,
+               /zh/post/paper-sharing-1/picture/picture6_hu997cf8e4293fd0afd7fe9f5cf76f4f2d_48369_f7932c081c10fffdc1f98ab5539c65bb.webp 760w,
+               /zh/post/paper-sharing-1/picture/picture6_hu997cf8e4293fd0afd7fe9f5cf76f4f2d_48369_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://ai4network.github.io/zh/post/paper-sharing-1/picture/picture6_hu997cf8e4293fd0afd7fe9f5cf76f4f2d_48369_28b438d68babd0f0cb8d368394a7fac9.webp&#34;
+               width=&#34;432&#34;
+               height=&#34;236&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;  编码器（E）将每个在时间t的帧作为输入，生成一个代码向量(c)，即ct = E(It)。解码器（D）重建给定ct的帧 Iˆt ，即，Iˆt =D(ct)。这里的优化问题是要训练E和D，以使Iˆt 和D(ct)之间的差异最小它的差值最小，训练用损失函数如下式。为了使每层可以尽可能减少对于上一层的冗余信息，将Iˆt 和D(ct)之间的残差ri作为下一层的编码输入，即 ci = E(ri)。&lt;/p&gt;
+
+
+
+$$
+\mathcal{L}_{rec}=\frac{1}{L}{\sum\limits_{i=0}^{L-1}}{\Vert\mathcal{D}(c_i)-r_i\Vert}_1
+$$
+
+&lt;ol start=&#34;2&#34;&gt;
+&lt;li&gt;Decoder&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;（1）Single-shot机制
+  为了解决上文提到的层次解码时间开销随层数线性增长的问题，本文设计了一种single-shot的解码机制，在一些层数的数据还无法解码时，直接用0填充，这样用较少的画面清晰度损失缓解解码开销对时延敏感型视频的影响，解码器的设计如下图所示。&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;picture7&#34; srcset=&#34;
+               /zh/post/paper-sharing-1/picture/picture7_hu8dcbc418d9b1f808f9731ae81a22b051_13161_12545493645bc0db5d4f87163aa83257.webp 400w,
+               /zh/post/paper-sharing-1/picture/picture7_hu8dcbc418d9b1f808f9731ae81a22b051_13161_72082c0994752b77d9fbe291dc8b1ab9.webp 760w,
+               /zh/post/paper-sharing-1/picture/picture7_hu8dcbc418d9b1f808f9731ae81a22b051_13161_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://ai4network.github.io/zh/post/paper-sharing-1/picture/picture7_hu8dcbc418d9b1f808f9731ae81a22b051_13161_12545493645bc0db5d4f87163aa83257.webp&#34;
+               width=&#34;173&#34;
+               height=&#34;158&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;在此基础上，损失函数添加了一项关于画面质量的损失项。&lt;/p&gt;
+
+
+
+$$
+\mathcal{L}_{rec}=\frac{1}{L}{\sum\limits_{i=0}^{L-1}}[\underbrace{{\Vert\mathcal{D}(c_i)-r_i \Vert}_1}_{residual\ quality\ loss}+ \underbrace{{\Vert\mathcal{D}^{ss}(\oplus_{k=0}^{i}c_k)-I\Vert}_1}_{image\ quality\ loss}]
+$$
+
+&lt;p&gt;如下图所示，因为single-shot机制的引入，视频的解码延迟不再随层数而增长。&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;picture8&#34; srcset=&#34;
+               /zh/post/paper-sharing-1/picture/picture8_hu16f6a6a46ad0d585b75620d0a16dbd13_14409_cc4e5c9236225b89a1c843743aff9e00.webp 400w,
+               /zh/post/paper-sharing-1/picture/picture8_hu16f6a6a46ad0d585b75620d0a16dbd13_14409_c522e8f1c7ea2a33ebf0ae01712cb61a.webp 760w,
+               /zh/post/paper-sharing-1/picture/picture8_hu16f6a6a46ad0d585b75620d0a16dbd13_14409_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://ai4network.github.io/zh/post/paper-sharing-1/picture/picture8_hu16f6a6a46ad0d585b75620d0a16dbd13_14409_cc4e5c9236225b89a1c843743aff9e00.webp&#34;
+               width=&#34;219&#34;
+               height=&#34;150&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;（2）Multi-exit机制
+  由于基于自编码器的视频编解码依赖于用户的GPU，所以我们也不得不靠考虑客户端主机的计算资源问题。为此，作者设计了一个multi-exit机制。机制的网络模型如下图所示&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;picture9&#34; srcset=&#34;
+               /zh/post/paper-sharing-1/picture/picture9_hudcb302fc52e9cddd4cc79cfb71254af1_23351_57ae99160bc5fad45b87c2cc7d67b651.webp 400w,
+               /zh/post/paper-sharing-1/picture/picture9_hudcb302fc52e9cddd4cc79cfb71254af1_23351_fdf3dc1c5cd699e0c8f78f64778c1af0.webp 760w,
+               /zh/post/paper-sharing-1/picture/picture9_hudcb302fc52e9cddd4cc79cfb71254af1_23351_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://ai4network.github.io/zh/post/paper-sharing-1/picture/picture9_hudcb302fc52e9cddd4cc79cfb71254af1_23351_57ae99160bc5fad45b87c2cc7d67b651.webp&#34;
+               width=&#34;275&#34;
+               height=&#34;227&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;  即在解码器处设置了多个出口。作者在这里认为，出口所在层数越多，输出视频质量更好，测量了层数、出口深度和视频质量的关系，如这个热力图所示。&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;picture10&#34; srcset=&#34;
+               /zh/post/paper-sharing-1/picture/picture10_hue018bba52697c46675915bd6fdc4ff3f_14340_1540a31a9fbf54e8076d0079f65151b9.webp 400w,
+               /zh/post/paper-sharing-1/picture/picture10_hue018bba52697c46675915bd6fdc4ff3f_14340_e1e9edf36441b96e79613cfdb939d7a1.webp 760w,
+               /zh/post/paper-sharing-1/picture/picture10_hue018bba52697c46675915bd6fdc4ff3f_14340_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://ai4network.github.io/zh/post/paper-sharing-1/picture/picture10_hue018bba52697c46675915bd6fdc4ff3f_14340_1540a31a9fbf54e8076d0079f65151b9.webp&#34;
+               width=&#34;261&#34;
+               height=&#34;157&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;ol start=&#34;3&#34;&gt;
+&lt;li&gt;Streamer&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;  最后是码率选择算法(ABR)上的优化，码率选择算法主要解决的问题就是最大化流媒体传输的QoE，即最大化视频质量、卡顿时间、和平滑度的加权和。这里的算法设计基于2017年Sigcomm的工作Pensieve，一个基于强化学习的码率选择算法。在此基础上，作者为码率选择算法添加了一些新的输入，如当前的GPU可使用量、GPU和视频质量的映射矩阵等，输出的动作为请求的视频段和层数。&lt;/p&gt;
+&lt;p&gt;下图为Swift的整体运行流程。&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;picture11&#34; srcset=&#34;
+               /zh/post/paper-sharing-1/picture/picture11_huacd7e5f054a9028ffaaf463d93a1f4d3_35215_f223bea284cb254948660a2bc0b91492.webp 400w,
+               /zh/post/paper-sharing-1/picture/picture11_huacd7e5f054a9028ffaaf463d93a1f4d3_35215_26741913fedd49237105caac02c04651.webp 760w,
+               /zh/post/paper-sharing-1/picture/picture11_huacd7e5f054a9028ffaaf463d93a1f4d3_35215_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://ai4network.github.io/zh/post/paper-sharing-1/picture/picture11_huacd7e5f054a9028ffaaf463d93a1f4d3_35215_f223bea284cb254948660a2bc0b91492.webp&#34;
+               width=&#34;432&#34;
+               height=&#34;179&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;h2 id=&#34;三实验效果&#34;&gt;三、实验效果&lt;/h2&gt;
+&lt;p&gt;  作者为衡量Swift的性能做了充分的实验。
+  实验一：各个码率选择算法对于当前网络带宽的响应速度。黑色的线为当前网络的带宽，我们可以看到绿色线代表的Swift可以在很短的时间内响应网络带宽的增加。&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;picture12&#34; srcset=&#34;
+               /zh/post/paper-sharing-1/picture/picture12_huc72dd9a3323fdddec631e90853afcd11_28128_bb126b0a5c2999f6e644258fc1288343.webp 400w,
+               /zh/post/paper-sharing-1/picture/picture12_huc72dd9a3323fdddec631e90853afcd11_28128_ed8e2d115100f4c675cbfd7f16af9621.webp 760w,
+               /zh/post/paper-sharing-1/picture/picture12_huc72dd9a3323fdddec631e90853afcd11_28128_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://ai4network.github.io/zh/post/paper-sharing-1/picture/picture12_huc72dd9a3323fdddec631e90853afcd11_28128_bb126b0a5c2999f6e644258fc1288343.webp&#34;
+               width=&#34;432&#34;
+               height=&#34;217&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;  实验二：各个码率选择算法带宽使用量的对比。可以看出，在同等的实验条件下，Swift占用的带宽是最低的，减少了网络资源的浪费。&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;picture13&#34; srcset=&#34;
+               /zh/post/paper-sharing-1/picture/picture13_hu19cd5d58b68baf5e55b6640ce2404df1_70270_96419e2f51be93df2f1217a213620a42.webp 400w,
+               /zh/post/paper-sharing-1/picture/picture13_hu19cd5d58b68baf5e55b6640ce2404df1_70270_0b50b46cdbfc5867dc2c57b43cc586fa.webp 760w,
+               /zh/post/paper-sharing-1/picture/picture13_hu19cd5d58b68baf5e55b6640ce2404df1_70270_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://ai4network.github.io/zh/post/paper-sharing-1/picture/picture13_hu19cd5d58b68baf5e55b6640ce2404df1_70270_96419e2f51be93df2f1217a213620a42.webp&#34;
+               width=&#34;432&#34;
+               height=&#34;229&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;h2 id=&#34;四启发&#34;&gt;四、启发&lt;/h2&gt;
+&lt;p&gt;  虽然都是面向流媒体传输的优化，本文与我们之前专注的传输层方向是垂直的，它从编码和码率选择的角度去解决流媒体传输的问题，像是一种将网络的压力卸载到端上的操作。&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

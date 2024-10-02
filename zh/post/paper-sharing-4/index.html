@@ -1,0 +1,2025 @@
+<!DOCTYPE html>
+<!-- This site was created with Wowchemy. https://www.wowchemy.com -->
+<!-- Last Published: 2024年10月2日 --><html lang="zh-Hans" >
+
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  
+  
+  
+    <meta name="generator" content="Wowchemy 5.7.0 for Hugo" />
+  
+
+  
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+  
+  
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  
+
+  
+  
+  
+    
+      
+      <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=B612+Mono&family=B612:wght@400;700&family=Jura:wght@400;700&display=swap">
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=B612+Mono&family=B612:wght@400;700&family=Jura:wght@400;700&display=swap" media="print" onload="this.media='all'">
+    
+  
+
+  
+  
+
+  
+  
+    
+    <script src="/js/mathjax-config.js"></script>
+  
+
+  
+
+  <link rel="stylesheet" href="/css/vendor-bundle.min.16f785cdb553c8c4431db6775122af35.css" media="print" onload="this.media='all'">
+
+  
+  
+  
+    
+    
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/academicons@1.9.2/css/academicons.min.css" integrity="sha512-KlJCpRsLf+KKu2VQa5vmRuClRFjxc5lXO03ixZt82HZUk41+1I0bD8KBSA0fY290ayMfWYI9udIqeOWSu1/uZg==" crossorigin="anonymous" media="print" onload="this.media='all'">
+    
+
+    
+    
+    
+    
+      
+      
+    
+    
+    
+
+    
+    
+    
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.7.1/dist/leaflet.min.css" integrity="" crossorigin="anonymous" media="print" onload="this.media='all'">
+    
+
+    
+
+    
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" integrity="" crossorigin="anonymous" async></script>
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+  
+
+  
+  
+  
+  
+  
+  
+  <link rel="stylesheet" href="/css/wowchemy.e688a8e1beceb969adc2714aa50ada4c.css" />
+
+  
+  
+  
+  
+  
+  
+  
+    
+    
+    <link rel="stylesheet" href="/css/libs/chroma/github-light.min.css" title="hl-light" media="print" onload="this.media='all'" >
+    <link rel="stylesheet" href="/css/libs/chroma/dracula.min.css" title="hl-dark" media="print" onload="this.media='all'" disabled>
+  
+
+  
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  
+
+
+
+
+
+
+  <meta name="author" content="韩彪" />
+
+
+
+
+
+  
+
+<meta name="description" content="  本期分享SIGCOMM22拥塞控制专题下的论文： Achieving Consistent Low Latency for Wireless Real-Time Communications with the Shortest Control Loop。该文作者来自清华大学、阿里巴巴与卡耐基梅隆大学。" />
+
+
+
+  <link rel="alternate" hreflang="en" href="https://ai4network.github.io/post/paper-sharing-4/" />
+
+<link rel="alternate" hreflang="zh-Hans" href="https://ai4network.github.io/zh/post/paper-sharing-4/" />
+<link rel="canonical" href="https://ai4network.github.io/zh/post/paper-sharing-4/" />
+
+
+
+  <link rel="manifest" href="/zh/manifest.webmanifest" />
+
+
+
+<link rel="icon" type="image/png" href="/media/icon_hua2ec155b4296a9c9791d015323e16eb5_11927_32x32_fill_lanczos_center_3.png" />
+<link rel="apple-touch-icon" type="image/png" href="/media/icon_hua2ec155b4296a9c9791d015323e16eb5_11927_180x180_fill_lanczos_center_3.png" />
+
+<meta name="theme-color" content="#3f51b5" />
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+<meta property="twitter:card" content="summary_large_image" />
+
+  <meta property="twitter:site" content="@wowchemy" />
+  <meta property="twitter:creator" content="@wowchemy" />
+<meta property="twitter:image" content="https://ai4network.github.io/zh/post/paper-sharing-4/featured.png" />
+<meta property="og:site_name" content="AI4network 实验室" />
+<meta property="og:url" content="https://ai4network.github.io/zh/post/paper-sharing-4/" />
+<meta property="og:title" content="SIGCOMM22 论文分享 | Achieving Consistent Low Latency for Wireless Real-Time Communications with the Shortest Control Loop | AI4network 实验室" />
+<meta property="og:description" content="  本期分享SIGCOMM22拥塞控制专题下的论文： Achieving Consistent Low Latency for Wireless Real-Time Communications with the Shortest Control Loop。该文作者来自清华大学、阿里巴巴与卡耐基梅隆大学。" /><meta property="og:image" content="https://ai4network.github.io/zh/post/paper-sharing-4/featured.png" /><meta property="og:locale" content="zh-Hans" />
+
+  
+    <meta
+      property="article:published_time"
+      content="2022-11-27T20:58:16&#43;08:00"
+    />
+  
+  
+    <meta property="article:modified_time" content="2022-11-27T20:58:16&#43;08:00">
+  
+
+
+
+
+
+
+    
+
+
+
+
+
+
+  
+
+
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://ai4network.github.io/zh/post/paper-sharing-4/"
+  },
+  "headline": "SIGCOMM22 论文分享 | Achieving Consistent Low Latency for Wireless Real-Time Communications with the Shortest Control Loop",
+  
+  "image": [
+    "https://ai4network.github.io/zh/post/paper-sharing-4/featured.png"
+  ],
+  
+  "datePublished": "2022-11-27T20:58:16+08:00",
+  "dateModified": "2022-11-27T20:58:16+08:00",
+  
+  "author": {
+    "@type": "Person",
+    "name": "徐草"
+  },
+  
+  "publisher": {
+    "@type": "Organization",
+    "name": "AI4network 实验室",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://ai4network.github.io/media/icon_hua2ec155b4296a9c9791d015323e16eb5_11927_192x192_fill_lanczos_center_3.png"
+    }
+  },
+  "description": "\u003cp\u003e  本期分享SIGCOMM22拥塞控制专题下的论文： Achieving Consistent Low Latency for Wireless Real-Time Communications with the Shortest Control Loop。该文作者来自清华大学、阿里巴巴与卡耐基梅隆大学。\u003c/p\u003e"
+}
+</script>
+
+  
+
+  
+
+
+
+
+  
+  
+  
+
+  
+  
+
+  
+
+
+  
+  <title>SIGCOMM22 论文分享 | Achieving Consistent Low Latency for Wireless Real-Time Communications with the Shortest Control Loop | AI4network 实验室</title>
+
+  
+  
+  
+  
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+
+<body id="top" data-spy="scroll" data-offset="70" data-target="#TableOfContents" class="page-wrapper   " data-wc-page-id="f412b564c7c6167809c520a4516d93de" >
+
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <script src="/js/wowchemy-init.min.3b7d95b5664992609338a09c18bfa7f6.js"></script>
+
+  
+
+
+<aside class="search-modal" id="search">
+  <div class="container">
+    <section class="search-header">
+
+      <div class="row no-gutters justify-content-between mb-3">
+        <div class="col-6">
+          <h1>搜索</h1>
+        </div>
+        <div class="col-6 col-search-close">
+          <a class="js-search" href="#" aria-label="Close"><i class="fas fa-times-circle text-muted" aria-hidden="true"></i></a>
+        </div>
+      </div>
+
+      <div id="search-box">
+        
+        <input name="q" id="search-query" placeholder="搜索..." autocapitalize="off"
+        autocomplete="off" autocorrect="off" spellcheck="false" type="search" class="form-control"
+        aria-label="搜索...">
+        
+      </div>
+
+      
+      
+
+      
+
+    </section>
+    <section class="section-search-results">
+
+      <div id="search-hits">
+        
+      </div>
+
+    </section>
+  </div>
+</aside>
+
+
+
+  <div class="page-header header--fixed">
+    
+
+
+
+
+
+
+
+
+
+
+
+
+<header>
+  <nav class="navbar navbar-expand-lg navbar-light compensate-for-scrollbar" id="navbar-main">
+    <div class="container-xl">
+
+      
+      <div class="d-none d-lg-inline-flex">
+        <a class="navbar-brand" href="/zh/">AI4network 实验室</a>
+      </div>
+      
+
+      
+      <button type="button" class="navbar-toggler" data-toggle="collapse"
+              data-target="#navbar-content" aria-controls="navbar-content" aria-expanded="false" aria-label="切换导航">
+      <span><i class="fas fa-bars"></i></span>
+      </button>
+      
+
+      
+      <div class="navbar-brand-mobile-wrapper d-inline-flex d-lg-none">
+        <a class="navbar-brand" href="/zh/">AI4network 实验室</a>
+      </div>
+      
+
+      
+      
+      <div class="navbar-collapse main-menu-item collapse justify-content-end" id="navbar-content">
+
+        
+        <ul class="navbar-nav d-md-inline-flex">
+          
+
+          
+
+          
+          
+          
+
+          
+
+          
+          
+          
+          
+
+          
+            
+              
+              
+            
+            
+          
+
+          <li class="nav-item">
+            <a class="nav-link " href="/zh/tour"><span>首页</span></a>
+          </li>
+
+          
+          
+
+          
+
+          
+          
+          
+            
+          
+
+          
+
+          
+          
+          
+          
+
+          
+            
+              
+              
+            
+            
+          
+
+          <li class="nav-item">
+            <a class="nav-link " href="/zh/direction"><span>研究方向</span></a>
+          </li>
+
+          
+          
+
+          
+
+          
+          
+          
+
+          
+
+          
+          
+          
+          
+
+          
+            
+              
+              
+            
+            
+          
+
+          <li class="nav-item">
+            <a class="nav-link " href="/zh/post"><span>文献分享</span></a>
+          </li>
+
+          
+          
+
+          
+
+          
+          
+          
+            
+          
+
+          
+
+          
+          
+          
+          
+
+          
+            
+              
+              
+            
+            
+          
+
+          <li class="nav-item">
+            <a class="nav-link " href="/zh/people"><span>团队成员</span></a>
+          </li>
+
+          
+          
+
+          
+
+          
+          
+          
+            
+          
+
+          
+
+          
+          
+          
+          
+
+          
+            
+              
+              
+            
+            
+          
+
+          <li class="nav-item">
+            <a class="nav-link " href="/zh/event"><span>组内活动</span></a>
+          </li>
+
+          
+          
+
+          
+
+          
+          
+          
+            
+          
+
+          
+
+          
+          
+          
+          
+
+          
+            
+              
+              
+            
+            
+          
+
+          <li class="nav-item">
+            <a class="nav-link " href="/zh/publication"><span>论文成果</span></a>
+          </li>
+
+          
+          
+
+          
+
+          
+          
+          
+            
+          
+
+          
+
+          
+          
+          
+          
+
+          
+            
+              
+              
+            
+            
+          
+
+          <li class="nav-item">
+            <a class="nav-link " href="/zh/contact"><span>联系我们</span></a>
+          </li>
+
+          
+          
+
+        
+
+          
+        </ul>
+      </div>
+
+      <ul class="nav-icons navbar-nav flex-row ml-auto d-flex pl-md-2">
+
+        
+        
+          
+        
+
+        
+        
+        
+        <li class="nav-item">
+          <a class="nav-link js-search" href="#" aria-label="搜索"><i class="fas fa-search" aria-hidden="true"></i></a>
+        </li>
+        
+
+        
+        
+        
+        <li class="nav-item dropdown theme-dropdown">
+          <a href="#" class="nav-link" data-toggle="dropdown" aria-haspopup="true" aria-label="Display preferences">
+            <i class="fas fa-moon" aria-hidden="true"></i>
+          </a>
+          <div class="dropdown-menu">
+            <a href="#" class="dropdown-item js-set-theme-light">
+              <span>浅色</span>
+            </a>
+            <a href="#" class="dropdown-item js-set-theme-dark">
+              <span>深色</span>
+            </a>
+            <a href="#" class="dropdown-item js-set-theme-auto">
+              <span>自动</span>
+            </a>
+          </div>
+        </li>
+        
+
+        
+        
+        <li class="nav-item dropdown i18n-dropdown">
+          <a href="#" class="nav-link " data-toggle="dropdown"
+             aria-haspopup="true" aria-label="语言">
+            <i class="fas fa-globe mr-1" aria-hidden="true"></i></a>
+          <div class="dropdown-menu">
+            <div class="dropdown-item dropdown-item-active">
+              <span>中文 (简体)</span>
+            </div>
+            
+            <a class="dropdown-item" href="https://ai4network.github.io/post/paper-sharing-4/">
+              <span>English</span>
+            </a>
+            
+          </div>
+        </li>
+        
+
+      </ul>
+
+    </div>
+  </nav>
+</header>
+
+
+  </div>
+
+  <div class="page-body">
+    
+    
+    
+
+    <article class="article">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+
+
+<div class="article-container pt-3">
+  <h1>SIGCOMM22 论文分享 | Achieving Consistent Low Latency for Wireless Real-Time Communications with the Shortest Control Loop</h1>
+
+  
+
+  
+
+
+<div class="article-metadata">
+
+  
+  
+  
+  
+  <div>
+    
+
+  <span >
+      <a href="/zh/author/%E5%BE%90%E8%8D%89/">徐草</a></span>
+  </div>
+  
+  
+
+  
+  <span class="article-date">
+    
+    
+      
+    
+    11月 27, 2022
+  </span>
+  
+
+  
+
+  
+  <span class="middot-divider"></span>
+  <span class="article-reading-time">
+    2 分钟阅读时长
+  </span>
+  
+
+  
+  
+  
+  
+
+  
+  
+  <span class="middot-divider"></span>
+  <span class="article-categories">
+    <i class="fas fa-folder mr-1"></i><a href="/zh/category/paper-share/">Paper Share</a></span>
+  
+
+</div>
+
+  
+
+
+
+
+
+</div>
+
+
+<div class="article-header article-container featured-image-wrapper mt-4 mb-4" style="max-width: 720px; max-height: 720px;">
+  <div style="position: relative">
+    <img src="/zh/post/paper-sharing-4/featured_hube50e8ed47b59d08a39085c3327c3faf_105200_720x2500_fit_q75_h2_lanczos_3.webp" width="720" height="720" alt="" class="featured-image">
+    
+  </div>
+</div>
+
+
+
+  <div class="article-container">
+
+    <div class="article-style">
+      <p>  本期分享SIGCOMM22拥塞控制专题下的论文： Achieving Consistent Low Latency for Wireless Real-Time Communications with the Shortest Control Loop。该文作者来自清华大学、阿里巴巴与卡耐基梅隆大学。</p>
+<h1 id="sigcomm22--诸葛-跳过last-mile的拥塞控制回路">SIGCOMM22 | 诸葛: 跳过last-mile的拥塞控制回路</h1>
+<p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<figure  >
+  <div class="d-flex justify-content-center">
+    <div class="w-100" ><img src="picture/picture%20%281%29.png" alt="截屏2022-11-28 17.34.28.png" loading="lazy" data-zoomable /></div>
+  </div></figure>
+</p>
+<p><strong>实时会议与云游戏这类RTC应用需要持续稳定的低延迟来提供良好的交互体验。然而无线网络只能提供较好的延迟中值，当带宽波动时其尾部延迟可能很大。文章发现当无线AP处发生拥塞时，RTC的控制回路会膨胀，导致发送方无法自适应地及时调整发送速率。因此以缩小控制回路的思路设计了“诸葛”：使数据包在到达无线AP时就预测其延迟，并立即将预测值传回发送方，避免拥塞控制信号经历last-mile的拥塞过程，从而达到加快发送方反应速度的效果。实验结果表明诸葛能将尾部高延迟的比例以及RTC性能降级的情况减少17%到95%。</strong></p>
+<h1 id="1简介">1.简介</h1>
+<p>RTC（Real-time Communication）应用需要<strong>持续低延时</strong>，这在无线场景中并不能被满足，问题主要出现在<strong>尾部</strong>：</p>
+<blockquote>
+<p>无线用户的RTT中位数低于100ms，与以太网用户相当；但99分位数的尾部延迟约400ms，意味着播放20帧的视频时每5s就会出现一次高延时。观察还发现无线用户经历的重缓冲是以太网用户的两倍。</p>
+</blockquote>
+<p>对于无线场景（论文关注last-mile）来说，可用带宽的骤变（可能由多用户接入或人为干扰引起）会导致暂时拥塞，让数据包在无线AP内排队，导致端到端延迟变大。对此，理想情况是发送方立刻减小发送速率以防止排队、高延迟、丢包的出现。<strong>但实际情况是发送方的反应速度恰恰被排队给限制了。</strong></p>
+<p>如何解释？拿TCP中时延敏感的拥塞控制算法来说，其拥塞信号是RTT变大。虽然数据包到达AP时就遭遇拥塞 ，但发送方仍需等待一段时间才能得知拥塞。这段时间包括：该数据包从AP中出队，AP转发给接收方，接收方再发送ACK经AP返回至发送方，发送方收到ACK计算RTT得知拥塞。这个过程中拥塞信号经过的路径与数据包及其ACK经过的一致。图1中五步表示拥塞信号的传递路径（控制回路），红色的是在发生拥塞时膨胀（时间变长）的部分，表明<strong>拥塞越严重，发送方就需要越久才获取拥塞信号</strong>。</p>
+<p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<figure  >
+  <div class="d-flex justify-content-center">
+    <div class="w-100" ><img src="picture/picture%20%282%29.png" alt="截屏2022-11-19 13.01.12.png" loading="lazy" data-zoomable /></div>
+  </div></figure>
+</p>
+<p>因此论文的关注点在：<strong>让拥塞控制回路从完整的数据包传输路径中解耦，从而防止其经历排队与无线网络的延迟</strong>。如上图所示：在数据包进入（i）之前，发现出现拥塞时，预测其后续可能经历的延迟，随即让AP将预测值通过（iv）把拥塞信号传给发送方，从而跳过膨胀的（i）（ii）（iii），也就是绕过拥塞瓶颈。</p>
+<p>要实现文章的想法（减少控制循环），主要会有两个问题：</p>
+<ol>
+<li>数据包还没真正经历延迟，如何预测？</li>
+<li>AP怎么把拥塞信号（预测的延迟）传给发送方？</li>
+</ol>
+<p>对此论文提出了<strong>诸葛</strong>，目的是最小化拥塞控制回路，从而达到无线网络环境中的持续低时延。诸葛包括两个模块：“算命先生”（Fortune Teller，后文简称FT）和“反馈更新器”（Feedback Updater，后文简称FU），前者基于两部分预测时延，后者根据不同协议特点，更新并上传预测的延迟。</p>
+<h1 id="2背景和动机">2.背景和动机</h1>
+<h2 id="21-理解无线网络的尾部延迟">2.1 理解无线网络的尾部延迟</h2>
+<ol>
+<li><strong>为什么尾部延迟对于无线网络中的RTC应用那么重要？</strong></li>
+<li><strong>为什么无线网络的尾部延迟更明显？</strong></li>
+</ol>
+<p><strong>对于第一个问题</strong>，一言以蔽之：RTC应用需要的低延迟不只是中值（median）小，尾部（tail）值也要低，但目前的无线接入网的情况无法满足后者。文章给出了统计：</p>
+<p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<figure  >
+  <div class="d-flex justify-content-center">
+    <div class="w-100" ><img src="picture/picture%20%283%29.png" alt="截屏2022-11-19 14.22.54.png" loading="lazy" data-zoomable /></div>
+  </div></figure>
+</p>
+<p>文章认为不管是4G、5G还是WiFi的尾部延迟都不够好。假设在大部分时候无线网络用户拥有良好的RTT(&lt;100ms)，但其99分位数的RTT&gt;400ms，这就会导致每百帧就有一帧高延迟。</p>
+<p>文章还测试了他们自己的RTC应用（日活跃量百万用户），对比了以太网、WiFi、4G接入网络的网络状况和应用表现，如下图2。</p>
+<p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<figure  >
+  <div class="d-flex justify-content-center">
+    <div class="w-100" ><img src="picture/picture%20%284%29.png" alt="截屏2022-11-19 14.42.44.png" loading="lazy" data-zoomable /></div>
+  </div></figure>
+</p>
+<p>并观察得出：</p>
+<ul>
+<li>WiFi和4G的表现相近;</li>
+<li>
+<blockquote>
+<p>400ms RTT时前两者为1%，以太网则在千分位与万分位之间；</p>
+</blockquote>
+</li>
+<li>应用层的帧延迟&gt;400ms的前两者的比例是以太网的2倍；</li>
+<li>应用层帧率&lt;8时前两者是以太网的10倍。</li>
+</ul>
+<p><strong>对于第二个问题</strong>，明显的尾部延迟源于：发送速率与瓶颈队列可用带宽 (Available Bandwitdh, ABW) 的不匹配。<strong>从AP的视角来看</strong>，如下图：</p>
+<p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<figure  >
+  <div class="d-flex justify-content-center">
+    <div class="w-100" ><img src="picture/picture%20%285%29.png" alt="截屏2022-11-21 12.08.42.png" loading="lazy" data-zoomable /></div>
+  </div></figure>
+</p>
+<p>蓝线表示RTC流的ABW在瓶颈处（连接client的AP）骤降<em>k</em>倍，此后CCA需要一个控制回路 𝜏 才降低发送速率（绿虚线）。而在此 𝜏 期间，瓶颈队列仍以发送方的原发送速率接收数据包，这些过多的包会开始排队（红色块），需要 k𝜏才能被排空 。排空期间所有的包都会经历更高的延迟。所以影响延迟的骤变程度的因素为：（i）ABW波动程度→k（ii）发送方反应速度→𝜏。</p>
+<p>无线信道的多变性导致了其比有线信道波动更大 。文章根据开放数据集、实测数据，以200ms为周期（认为这是CCA反应时间）计算带宽。结果如下图，横轴代表下降的倍数，纵轴代表小于相应倍数的占比，实线是开放数据集，虚线是文章所测，可以看到以太网的下降更少：</p>
+<p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<figure  >
+  <div class="d-flex justify-content-center">
+    <div class="w-100" ><img src="picture/picture%20%286%29.png" alt="截屏2022-11-21 12.38.26.png" loading="lazy" data-zoomable /></div>
+  </div></figure>
+</p>
+<p><strong>无线网络的波动程度让其尾部延迟更明显，要想缓解就需要让发送方反应速度更快。</strong></p>
+<h2 id="22-现有解决方案">2.2 现有解决方案</h2>
+<p>有很多创新工作提升了连接中的稳定状态下的中值（<em>steady state median</em>）延迟。比如BBR（CCA）通过维持空队列来保证延时；CoDel（AQM）会丢队列前端的包加快拥塞反馈；还有根据不同反馈信号来维持良好工作状态。不过文章认为这些工作还不足以减少尾部延迟，并进行了分析：</p>
+<p>******************************************基于端用户的解决方案。******************************************主要问题还是前面说的拥塞控制的控制回路中的无线部分会在拥塞发生时膨胀，延迟拥塞信号的反馈。</p>
+<p>下图4a展示模拟实验中，带宽降低不同倍数时，时延敏感CCAs（BBR、Copa和GCC）与AQMs的表现。</p>
+<p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<figure  >
+  <div class="d-flex justify-content-center">
+    <div class="w-100" ><img src="picture/picture%20%287%29.png" alt="截屏2022-11-21 13.10.01.png" loading="lazy" data-zoomable /></div>
+  </div></figure>
+</p>
+<p>当ABW降低十倍以上时，所有这些算法，无论是否使用延迟感知AQM，都会有数秒的RTT降级时间。</p>
+<p>**********************基于网络内部的解决方案。**********************CoDel通过丢弃队列前部的包试图加快拥塞信号的生成，但信号仍会经历（ii）和（iii）的无线延迟（可能超过100ms）。此外，AQM主要设计用于丢弃一些数据包，而许多CCAs对丢包并不敏感。图4a可以验证：CoDel几乎无法改善如Copa这种基于时延的CCA。也有一些方案是协调端和网络路由器来达到更好的网络反馈，比如XCP、RCP、Kickass和ABC。但文章认为它们的目标是从路由器获取更好的网络状态估计，收集到的信息却还是要经历完整的控制回路。</p>
+<h2 id="23-论文方案减小控制回路">2.3 论文方案：减小控制回路</h2>
+<p>论文的想法很直接，就是通过尽快感知拥塞，并及早反馈来缩小控制回路。另外还想方便部署。</p>
+<p>**最早的信号。**相对于丢包率、实际延迟这些拥塞信号来说，是否会有更早的信号？文章认为有：大部分情况下，数据包到达瓶颈队列时就可以预测自己的延迟。比如包的排队延迟可以通过队列大小除以出队速率来大致估算。因此预测的排队延迟是ABW下降的最早信号。论文作者受此启发，想利用这个最早信号来加快发送方的反应速度。</p>
+<p>****************************************快速反馈最早信号给发送方。****************************************发现了最早信号没用，还要赶紧发给发送方。理想方案是直接告诉发送方当前的队列状态，让信号绕过控制回路中膨胀的部分。</p>
+<p>**只改last-mile路由器方便部署。**回顾传输层设计历史，有很多优秀的工作未被实际应用。像XCP、RCP、Kickass、ABC和<em>active network</em>等都需要同时更改服务器端和路由器。但是服务器通常由谷歌、Facebook这些内容提供商控制，而路由器则由Netgear、华为、思科这些厂商提供，协调他们一起推进一项传输创新工作比较麻烦。所以论文提出：只改“最后一英里”的路由器，方便其大规模部署。</p>
+<h1 id="3诸葛的设计">3.诸葛的设计</h1>
+<p>本文把自己的工作取名Zhuge，希望像诸葛亮一样神机妙算、未卜先知。</p>
+<h2 id="31-设计的挑战">3.1 设计的挑战</h2>
+<p>诸葛的设计主要两点，网络状态的<strong>准确估计</strong>和<strong>快速反馈</strong>：</p>
+<p><strong>第一点</strong>的难点在于流量的突发性：<strong>一是RTC流的数据包的突发式到达</strong>。RTC应用以视频帧为单位生成内容，为了减少端到端延迟，发送方倾向于突发性地发送同一帧的数据包。导致即使在稳定状态下，也可能快速出现排队现象。**二是无线信道上的数据包的突发式离开。**无线网络的共享性导致了无线信道资源的竞争和频繁的带宽波动。无线协议倾向于聚合多个数据包同时出队。</p>
+<p>简单的估计方法是将队列长度除以出队速率。然而，这种方法面临着<strong>瞬态-稳态矛盾</strong>（<em><strong>transience-equilibrium nexus.</strong> 参考文献见文末</em>）：比如在计算出队速率时时间窗口长度的设定，窗口短则易波动，导致稳态期间也可能有明显波动，而窗口长则无法捕捉瞬态的延迟波动。许多拥塞算法都存在无法兼顾瞬态与稳态性能的问题。</p>
+<p><strong>第二点</strong>。如何将估计的无线网络状态尽快告知发送方？直接的方法是可以构建一种新的反馈包给发送方，但对于现实中部署的大多CCAs来说，网络状态不是显式传递的（有可能根据ACK进行计算），直接把网络状态告诉发送方，后者不能直接理解，而需要同时修改发送方，这与论文之前提的“只改AP，方便部署”的理念背道而驰。</p>
+<p>另外，实际采用的传输层协议和CCAs高度多样化：不同传输协议头可以是不加密（TCP）或加密（QUIC）的；RTC应用也可能会定制化CCAs，使用不同信号来调整发送速率，有的还会在内核中修改TCP CCA。基于RTC的应用会将网络状况定期汇总到一个特殊的反馈包中显示反馈。面对不同的CCAs，该如何把网络状态有效传递给发送方呢？</p>
+<h2 id="32-框架概览">3.2 框架概览</h2>
+<p>诸葛针对上述两个问题各自设计了一个模块：算命先生 <em>Fortune Teller, FT</em> 和反馈更新器 <em>Feedback Updater, FU</em>。</p>
+<p>FT为了克服瞬态-稳态矛盾，将排队延迟分割成长期和短期延迟。</p>
+<p>FU将RTC应用中的现有协议分为带外（out-of-band）反馈和（in-band）带内反馈两类。对于带外反馈协议，反馈包的到达就是给发送方的信号（比如TCP中的ACK包）。带内反馈协议在反馈包的有效载荷中携带网络状态，比如WebRTC中的transport-wide congestion control Feedback（TWCC-FB）包。FU用不同逻辑更新修改两类反馈。</p>
+<p>下图5是诸葛的完整工作流程：</p>
+<p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<figure  >
+  <div class="d-flex justify-content-center">
+    <div class="w-100" ><img src="picture/picture%20%288%29.png" alt="截屏2022-11-21 22.38.22.png" loading="lazy" data-zoomable /></div>
+  </div></figure>
+</p>
+<p>当一个包通过以太网端口到达无线接入点时，FT会预测其延迟，同时照常转发给下行队列。FU则把预测信息更新到去往发送者方向的反馈包里。这个过程中，会将最早的信号绕过控制回路的排队延迟和无线传输延迟，直接从AP发给发送方。</p>
+<h1 id="4算命先生-fortune-teller">4.“算命先生” Fortune Teller</h1>
+<p>“算命”就是预测一个包何时会到达客户端，也就是它随后会经历的延迟。无线网络中的这个延迟可分为两段：在AP队列中的<strong><strong><strong><strong>排队延迟</strong></strong></strong></strong>和在链路中的<strong>传输延迟</strong>。</p>
+<h2 id="41-排队延迟的预测">4.1 排队延迟的预测</h2>
+<p>如3.1讨论，简单地用队列长除以出队速率预测延迟会有瞬态-稳态矛盾。文章因此将排队延迟分为两部分：长期排队延迟（qLong）和短期排队延迟（qShort），如下图6：</p>
+<p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<figure  >
+  <div class="d-flex justify-content-center">
+    <div class="w-100" ><img src="picture/picture%20%289%29.png" alt="截屏2022-11-22 20.43.11.png" loading="lazy" data-zoomable /></div>
+  </div></figure>
+</p>
+<p>qLong是一个包从刚到达队列直至来到队列前端的时间。它能覆盖由无线竞争和突发RTC流量引起的延迟波动。可以用当前队列大小除以平均出队速率来估计qLong。</p>
+<p>qShort是一个位于队列前端的包等待完全出队的时间，其与链路层的发送模式更相关（比如MAC数据单元的聚合会导致其波动）。</p>
+<p>排队延迟就是把两者相加。以图7说明，这样分开估算的好处是：</p>
+<p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<figure  >
+  <div class="d-flex justify-content-center">
+    <div class="w-100" ><img src="picture/picture%20%2810%29.png" alt="截屏2022-11-22 20.56.41.png" loading="lazy" data-zoomable /></div>
+  </div></figure>
+</p>
+<p><strong>qShort能快速检测ABW的下降。<strong>当ABW下降时，队列需要时间建立，txRate（出队速率）需要时间窗口更新，qLong增长较慢。但队列前端的数据包会等更长时间才能发送，这个现象会被立刻观察到。从上图来看，当5ms ABW下降时，5-15ms中总排队延迟的增加里qShort占主要，代表反应迅速；而在15ms后ABW继续下降时，qLong占主要，提供了</strong>稳定而准确</strong>的估计。</p>
+<p>关于<strong>qSize的确定</strong>，文中提出链路层将几个包聚合同时发送的行为会影响估计的精准度，这种波动应该由qShort来反映，所以用下式来计算qSize，<em>maxBurstSize</em>是1ms内同时离开的包的最大数量。</p>
+<p>$$</p>
+<pre><code>					qSize=max(sizeOfPacketsInQueue−maxBurstSize,0) 
+</code></pre>
+<p>$$</p>
+<h2 id="42-传输延迟预测">4.2 传输延迟预测</h2>
+<p>论文根据参考文献提出：1. 无线信道的传输中只能有一个数据单元；2. 目前Linux中下层协议栈也已使用队列规则（下层不排队会影响方案效果）。于是就如图6所示，用数据包离开网络层队列的间隔时间当做传输时延 tx。</p>
+<h1 id="5反馈更新器-feedback-updater">5.“反馈更新器” Feedback Updater</h1>
+<p>FT对带外反馈协议的反馈包进行直接的延迟干预，对带内协议则重构（伪造）反馈包。</p>
+<h2 id="51-反馈机制分类">5.1 反馈机制分类</h2>
+<p>可以分为带内（In-band）和带外（Out-of-band）两类，如下表2.</p>
+<p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<figure  >
+  <div class="d-flex justify-content-center">
+    <div class="w-100" ><img src="picture/picture%20%2811%29.png" alt="截屏2022-11-22 21.53.27.png" loading="lazy" data-zoomable /></div>
+  </div></figure>
+</p>
+<p>如下图8，两种差别上文已述，主要是拥塞信号是隐式还是显式。</p>
+<p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<figure  >
+  <div class="d-flex justify-content-center">
+    <div class="w-100" ><img src="picture/picture%20%2812%29.png" alt="截屏2022-11-22 21.54.39.png" loading="lazy" data-zoomable /></div>
+  </div></figure>
+</p>
+<p>针对两种反馈机制论文用了不同做法。</p>
+<h2 id="52-带外反馈延迟acks">5.2 带外反馈：延迟ACKs</h2>
+<p>带外反馈依赖ACK包，不过不同CCAs对此的利用方式不一样，比如BBR计算接收速率并查询ACK包的最小RTT以进行速率适配；Copa对每包延迟都敏感。所以论文用FU直接操控每一个ACK包的延迟（即FU会扣留ACK包，延迟一定时间再发送）。CCAs收到ACK后的操作与原本没差别。</p>
+<p>用图9从AP的视角说明诸葛如何携带预测信息给发送方：</p>
+<p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<figure  >
+  <div class="d-flex justify-content-center">
+    <div class="w-100" ><img src="picture/picture%20%2813%29.png" alt="截屏2022-11-22 22.07.13.png" loading="lazy" data-zoomable /></div>
+  </div></figure>
+</p>
+<p>先看不用诸葛的情况（蓝色）。首先Server发送k和k+1两个包到AP，此时ABW下降。k+1因此会有增加的排队延迟而更晚出队（蓝色1），于是Client会收到更大间隔的k和k+1，并以该间隔确认两个包。Client发出的ACK到达并以该间隔离开AP（蓝色2）。结果如下图10所示，发送方只能在deltaDelay时确认RTT的增加。</p>
+<p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<figure  >
+  <div class="d-flex justify-content-center">
+    <div class="w-100" ><img src="picture/picture%20%2814%29.png" alt="截屏2022-11-22 22.24.25.png" loading="lazy" data-zoomable /></div>
+  </div></figure>
+</p>
+<p>如果使用诸葛，k和k+1的延迟在它们到达AP时就被预测（图9红1）。假如FT发现延迟增加，就可以立即把之前的包（j+1和j+2）的ACKs延迟。可以通过故意扩大其他ACK包之间的间隔（j+1和j+2）来及时提醒发送方（图9红2）。如此，发送方可以在红3时就探测到带宽的下降。从图10来看，Server将更早检测到变长的RTT。因此CCAs的控制回路减少了（k+1)-(j-1)。这里的序号只是方便说明，实际诸葛只需要用五元组来区分流即可，用这种方法的诸葛甚至适用于加密的协议比如QUIC。</p>
+<p>不过上行与下行的数据包都是异步到达的，不可能总是一一对应。FT会随时在包到达时更新并保存信息，最终计算公式即图6中的：</p>
+<pre><code>					$totalDelay=qLong+qShort+tx$ 
+				
+			
+		
+	.
+</code></pre>
+<h3 id="实现细节">实现细节</h3>
+<ul>
+<li>
+<p><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong>ACK要延迟多久才会被发送？</strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></p>
+<p>诸葛会记录<strong>延迟相对值</strong>。记录连续下行链路包之间的延迟差——当预估延迟增加时，记录下行链路上的一系列正延迟增量，并逐渐增加上行链路方向的延迟。当队列趋于稳定，延迟增量趋于0，上行链路的反馈包不再被延迟。</p>
+</li>
+<li>
+<p>模拟<strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong>延迟分布。</strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></p>
+<p>举例来说，AP若收到3个数据包延迟增量都为+1ms，此时若直接给下一个ACk延迟+3ms则会导致比实际更大的延迟。</p>
+<p>为了解决这个问题，论文希望保持下行链路延迟增量和上行链路ACK延迟之间的<strong>分布等效</strong>。也就是：记录下行数据包到达时被FT预测的延迟增量，当上行包到达时则对记录的近期下行增量进行采样，并据此给上行包增加延迟。如此，即便有突发流，也可以对反馈包<strong>模拟延迟分布</strong>。</p>
+</li>
+<li>
+<p><strong>反馈包保序。</strong></p>
+<p>假如有两个同时到达的ACK j+1、j+2，j+2 采样延迟小于 j+1，AP可能会先发送 j+2，导致乱序。但如果硬卡时间保序，会让发送方对RTT估计过大。</p>
+<p>论文用一个延时令牌来保序并避免高估RTT。当想让后面的反馈包等待之前的包的发送时，将等待时间存为一个延迟令牌。下次采样到一个正向延迟增益时，首先尝试消耗令牌。如此，实际延迟的<strong>平均值</strong>会维持与预测值相当。</p>
+<p>如下代码展示诸葛的工作流程：</p>
+<p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<figure  >
+  <div class="d-flex justify-content-center">
+    <div class="w-100" ><img src="picture/picture%20%2815%29.png" alt="截屏2022-11-23 10.28.08.png" loading="lazy" data-zoomable /></div>
+  </div></figure>
+</p>
+<p>算法1：当一个包到达并经FT预测其延迟，随后计算延迟增益 <em>deltaDelay</em>。若增益非负则存入一个滑动窗口，否则存入令牌。</p>
+<p>当ACK包到达时，算法2用于异步地执行合理延迟ACKs的操作。<em><strong><strong><strong><strong><strong>curArrvTime</strong></strong></strong></strong></strong></em>是当前ACK的到达时间，<strong><strong>lastSentTime</strong></strong>是上一个ACK包离开AP前往Server的时间。为了保序，诸葛首先计算当前包的最小延迟，延迟必须大于0，确保不会早于前一个ACK包发送（line1）。随后从滑动窗口中从最近的延迟增益中随机采样（line2）。接着检查是否需要消耗延迟令牌（line3-10）。</p>
+<p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<figure  >
+  <div class="d-flex justify-content-center">
+    <div class="w-100" ><img src="picture/picture%20%2816%29.png" alt="截屏2022-11-23 10.31.02.png" loading="lazy" data-zoomable /></div>
+  </div></figure>
+</p>
+</li>
+</ul>
+<h2 id="53-带内反馈上传负载">5.3 带内反馈：上传负载</h2>
+<p>对于如RTCP这样的带内反馈机制，反馈信息（比如每包接收时间都是）写在反馈包的负载中的，因此需要更新它们的负载来携带最新估计的延迟给发送方。下面用RTP（data）/RTCP（feedback）协议对来介绍诸葛如何更新信息，分两步：</p>
+<ul>
+<li><em><strong><strong>Step 1：记录</strong></strong></em>。预测每一个到达RTP包的延迟并记录，同时记录其头部的TWCC序号。</li>
+<li><em><strong><strong><strong>Step 2：重构</strong></strong></strong></em>。当要给发送方反馈网络状态时（比如每RTT或每帧），诸葛会像一个RTP接收方一样：基于记录的延迟和序号构建一个TWCC反馈包。为了保证时间戳的一致性，诸葛只发送自己构建的TWCC包，而丢弃所有来自Client的TWCC。对于其他种类的反馈包（如NACK），诸葛不作改变。</li>
+</ul>
+<p>诸葛需要知道不同带内反馈协议的格式类型，才能真正实现其作用。</p>
+<h1 id="6一些考虑">6.一些考虑</h1>
+<p>论文在本节讨论部署诸葛的实际考虑和一些限制。</p>
+<p><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong>Last-miel v.s. first-mile.</strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong> 论文基于的场景是RTC应用如远程桌面、云游戏，它们都是从servers到clients，其中无线网络作为<em>last-mile</em>，只需考虑发送方如何调整发送率。其他P2P的RTC应用（视频会议）中，无线网络也可能作为<em>first-mile</em>而同样产生尾部延迟。</p>
+<p>****公平性。****论文认为诸葛流和其他流之间是公平的。当发送速率增加时，无线AP队列接近空，诸葛流和其他流的控制回路相似，诸葛不会更激进；当发送速率下降时，诸葛只是减小了控制循环来加快拥塞窗口收敛，但收敛的公平性还是由不同的CCAs决定的。</p>
+<p>******************************************对新协议的扩展性。******************************************论文给TCP、QUIC或RTP/RTCP都提供了方案，并称对于新的带外反馈协议，只要能从数据包中识别出流信息，诸葛仍然可以在网络层起作用。比如QUIC，不需要知道数据包的具体序列号，即使QUIC对所有数据包进行端到端的加密，诸葛也有用。但对于新的带内反馈协议，则需要操作者给出协议的格式来让诸葛能相应修改FU。</p>
+<h1 id="7测试">7.测试</h1>
+<p>测试要回答的几个问题：</p>
+<ul>
+<li>
+<p><strong>诸葛能在实际无线网络的轨迹（traces）下提高尾部性能吗？</strong></p>
+<p>答：在5个实际traces中测试基于RTCP/RTP和TCP的诸葛的性能：能减少最高75%的长尾延迟，提高应用性能最高95%。</p>
+</li>
+<li>
+<p><strong>诸葛在不同的无线竞争中表现如何？</strong></p>
+<p>答：在带宽再分配、流量竞争和无线干扰的无线场景中诸葛都能提升性能。</p>
+</li>
+<li>
+<p><strong>诸葛能给实际应用带来多少提升？</strong></p>
+<p>答：在办公环境下提升网络和应用指标从17%到94.7%。</p>
+</li>
+<li>
+<p><strong>诸葛在静态性能、公平性和CPU资源方面的开销是多少？</strong></p>
+<p>答：诸葛并不影响RTC流的稳态比特率，也不影响与其他流的公平性，并且具有可接受的开销。</p>
+</li>
+</ul>
+<h2 id="71-实现">7.1 实现</h2>
+<p>用NS-3和测试床（基于无线AP产品）来实现诸葛并进行相应实验。使用的是1080p 24fps 2Mbps比特率的视频。其他详见论文。</p>
+<h2 id="72-基于trace下的模拟实验">7.2 基于trace下的模拟实验</h2>
+<p>模拟实验使用5个真实采集的traces。两个来自WiFi网络，三个来自蜂窝网络，traces记录了带宽和延迟的变化。</p>
+<p>图11所示基于RTP/RTCP的实验结果，与基线相比诸葛能把延时降低到45%-75%，因此延迟帧率也能降到38%-92%。</p>
+<p>图12所示基于TCP的实验结果。</p>
+<p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<figure  >
+  <div class="d-flex justify-content-center">
+    <div class="w-100" ><img src="picture/picture%20%2817%29.png" alt="截屏2022-11-23 15.01.24.png" loading="lazy" data-zoomable /></div>
+  </div></figure>
+</p>
+<h3 id="带宽降低">带宽降低</h3>
+<p>图14评估诸葛快速适应带宽缩减的能力。首先模拟具有50ms RTT和30Mbps带宽的链路并开始传输。当CCA达到稳定状态时，将带宽减少k倍（𝑘从2到50），并在收敛之前测量RTT&gt;200ms、帧延迟&gt;400ms和帧速率&lt;10fps的持续时间。对于RTP/RTCP，Gcc+诸葛在广泛的设置范围内将网络降级的持续时间和应用程序性能降低了至少50%。</p>
+<p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<figure  >
+  <div class="d-flex justify-content-center">
+    <div class="w-100" ><img src="picture/picture%20%2818%29.png" alt="截屏2022-11-23 15.43.03.png" loading="lazy" data-zoomable /></div>
+  </div></figure>
+</p>
+<p>TCP上的结果显示了类似的结果，如下图15所示。对于𝑘 ⩾ 30，论文认为由于严重的数据包丢失，降级持续时间主要受TCP重传超时（RTO）的限制，所以诸葛的性能改善并不显著。可以看其实到Copa的性能已经很好了，诸葛对于TCP的改善效果不如RTP。</p>
+<p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<figure  >
+  <div class="d-flex justify-content-center">
+    <div class="w-100" ><img src="picture/picture%20%2819%29.png" alt="截屏2022-11-23 15.46.53.png" loading="lazy" data-zoomable /></div>
+  </div></figure>
+</p>
+<h3 id="估计的准确度">估计的准确度</h3>
+<p>实验设置RTT=50ms。图19（a）展示不同traces中预测误差的分布。</p>
+<p>图19（b）展示估计与真实值的分布频率热图。当估计的延迟较低（1-64ms）时，估计比较准；当估计的延迟比较高（&gt;64ms）时可能不准确（出现高估）。</p>
+<p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<figure  >
+  <div class="d-flex justify-content-center">
+    <div class="w-100" ><img src="picture/picture%20%2820%29.png" alt="截屏2022-11-23 16.22.13.png" loading="lazy" data-zoomable /></div>
+  </div></figure>
+</p>
+<h2 id="73-真实环境下的实验">7.3 真实环境下的实验</h2>
+<p>实验使用基于OpenWrt的WiFi AP测试床进一步评估诸葛的性能。在两台笔记本电脑上使用Microsoft Edge浏览器中的WebRTC API设置了RTC服务器和客户端。服务器通过基于RTP/RTCP+GCC的对等连接（peerconnection）API将带时间戳的视频流式传输到客户端。服务器有线连接到AP，而客户端通过WiFi连接到AP。评估诸葛在以下场景中的表现，每个场景持续6小时。</p>
+<ul>
+<li>scp. 该实验用于评估基于RTC的诸葛流在与其他流竞争时的性能。实验每隔30秒定期启动和停止从服务器到客户端的scp文件传输。</li>
+<li>mcs. 该实验旨在模拟波动的无线信道。802.11接入点将在链路层动态地改变调制编码方案（MCS）以适应信道条件。因此，与类似使用Linux iw命令每30秒随机更改MCS，并评估诸葛对波动的反应。</li>
+<li>raw. 办公室中运行RTC应用程序的结果，无需额外配置。</li>
+</ul>
+<p>文章通过分析数据包捕获来测量网络RTT，通过计算发送的视频和接收的视频之间的时间戳差来测量帧延迟，并比较平均比特率</p>
+<p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<figure  >
+  <div class="d-flex justify-content-center">
+    <div class="w-100" ><img src="picture/picture%20%2821%29.png" alt="截屏2022-11-23 16.15.35.png" loading="lazy" data-zoomable /></div>
+  </div></figure>
+</p>
+<h3 id="公平性">公平性</h3>
+<p>如下图20记录了当RTC流竞争同一AP时，根据链路容量进行归一化处理后的RTC流的吞吐。</p>
+<p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<figure  >
+  <div class="d-flex justify-content-center">
+    <div class="w-100" ><img src="picture/picture%20%2822%29.png" alt="截屏2022-11-23 16.26.08.png" loading="lazy" data-zoomable /></div>
+  </div></figure>
+</p>
+<h3 id="cpu开销">CPU开销</h3>
+<p>实验在基于OpenWrt的Netgear WiFi AP以及TP Link TL-WDR4900 AP上的实现诸葛，并测量诸葛的CPU利用率。</p>
+<p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<figure  >
+  <div class="d-flex justify-content-center">
+    <div class="w-100" ><img src="picture/picture%20%2823%29.png" alt="截屏2022-11-23 16.35.13.png" loading="lazy" data-zoomable /></div>
+  </div></figure>
+</p>
+<p>论文提出有几个方向可以优化诸葛的资源开销。首先，当CPU利用率较高时，诸葛可以有选择地更新网络状况，而不是估计所有下行链路数据包，只要估计之间的时间间隔是可忽略的（几毫秒），控制回路仍然被减少。此外，诸葛的实现是基于用户空间的套接字，可以通过将诸葛作为内核模块插入来进一步优化。最后，很多商业AP中部署了每包状态维护的功能可以供利用。</p>
+<h1 id="8总结与思考">8.总结与思考</h1>
+<p>诸葛是一个纯基于AP的方案，用于缩减控制回路来减小RTC应用在无线网络场景（最后一英里）中的尾部延迟现象。诸葛会用“算命先生”预测每个到达包之后的延迟，再把这个预测信息通过“反馈更新器”立即上传给发送方，而不再经过最后一英里。实验主要通过尾部延迟、帧延迟、帧率三个指标进行性能评估。另外：</p>
+<ol>
+<li>实验的评估指标如尾部延迟与RTC应用的真实用户主观体验之间有怎样的对应关系？</li>
+<li>实验其他评估指标或可用更多实验论证。</li>
+<li>瞬态稳态矛盾是很经典的问题。
+Shiyu Liu, Ahmad Ghalayini, Mohammad Alizadeh, Balaji Prabhakar, Mendel Rosenblum, and Anirudh Sivaraman. 2021. Breaking the Transience-Equilibrium Nexus: A New Approach to Datacenter Packet Transport. In Proc. USENIX NSDI.</li>
+</ol>
+    </div>
+
+    
+
+
+
+
+
+<div class="article-tags">
+  
+  <a class="badge badge-light" href="/zh/tag/paper-sharing/">paper sharing</a>
+  
+  <a class="badge badge-light" href="/zh/tag/sigcomm22/">SIGCOMM22</a>
+  
+  <a class="badge badge-light" href="/zh/tag/%E5%BE%90%E8%8D%89/">徐草</a>
+  
+</div>
+
+
+
+<div class="share-box">
+  <ul class="share">
+    
+      
+      
+      
+        
+      
+      
+      
+      
+      
+      
+      
+      <li>
+        <a href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fai4network.github.io%2Fzh%2Fpost%2Fpaper-sharing-4%2F&amp;text=SIGCOMM22&#43;%E8%AE%BA%E6%96%87%E5%88%86%E4%BA%AB&#43;%7C&#43;Achieving&#43;Consistent&#43;Low&#43;Latency&#43;for&#43;Wireless&#43;Real-Time&#43;Communications&#43;with&#43;the&#43;Shortest&#43;Control&#43;Loop" target="_blank" rel="noopener" class="share-btn-twitter" aria-label="twitter">
+          <i class="fab fa-twitter"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      
+      
+      
+      
+      <li>
+        <a href="https://www.facebook.com/sharer.php?u=https%3A%2F%2Fai4network.github.io%2Fzh%2Fpost%2Fpaper-sharing-4%2F&amp;t=SIGCOMM22&#43;%E8%AE%BA%E6%96%87%E5%88%86%E4%BA%AB&#43;%7C&#43;Achieving&#43;Consistent&#43;Low&#43;Latency&#43;for&#43;Wireless&#43;Real-Time&#43;Communications&#43;with&#43;the&#43;Shortest&#43;Control&#43;Loop" target="_blank" rel="noopener" class="share-btn-facebook" aria-label="facebook">
+          <i class="fab fa-facebook"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      
+      
+      
+      
+        
+      
+      <li>
+        <a href="mailto:?subject=SIGCOMM22%20%E8%AE%BA%E6%96%87%E5%88%86%E4%BA%AB%20%7C%20Achieving%20Consistent%20Low%20Latency%20for%20Wireless%20Real-Time%20Communications%20with%20the%20Shortest%20Control%20Loop&amp;body=https%3A%2F%2Fai4network.github.io%2Fzh%2Fpost%2Fpaper-sharing-4%2F" target="_blank" rel="noopener" class="share-btn-email" aria-label="envelope">
+          <i class="fas fa-envelope"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      
+      
+      
+      
+      <li>
+        <a href="https://www.linkedin.com/shareArticle?url=https%3A%2F%2Fai4network.github.io%2Fzh%2Fpost%2Fpaper-sharing-4%2F&amp;title=SIGCOMM22&#43;%E8%AE%BA%E6%96%87%E5%88%86%E4%BA%AB&#43;%7C&#43;Achieving&#43;Consistent&#43;Low&#43;Latency&#43;for&#43;Wireless&#43;Real-Time&#43;Communications&#43;with&#43;the&#43;Shortest&#43;Control&#43;Loop" target="_blank" rel="noopener" class="share-btn-linkedin" aria-label="linkedin-in">
+          <i class="fab fa-linkedin-in"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      
+      
+      
+      
+      <li>
+        <a href="whatsapp://send?text=SIGCOMM22&#43;%E8%AE%BA%E6%96%87%E5%88%86%E4%BA%AB&#43;%7C&#43;Achieving&#43;Consistent&#43;Low&#43;Latency&#43;for&#43;Wireless&#43;Real-Time&#43;Communications&#43;with&#43;the&#43;Shortest&#43;Control&#43;Loop%20https%3A%2F%2Fai4network.github.io%2Fzh%2Fpost%2Fpaper-sharing-4%2F" target="_blank" rel="noopener" class="share-btn-whatsapp" aria-label="whatsapp">
+          <i class="fab fa-whatsapp"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      
+      
+      
+      
+      <li>
+        <a href="https://service.weibo.com/share/share.php?url=https%3A%2F%2Fai4network.github.io%2Fzh%2Fpost%2Fpaper-sharing-4%2F&amp;title=SIGCOMM22&#43;%E8%AE%BA%E6%96%87%E5%88%86%E4%BA%AB&#43;%7C&#43;Achieving&#43;Consistent&#43;Low&#43;Latency&#43;for&#43;Wireless&#43;Real-Time&#43;Communications&#43;with&#43;the&#43;Shortest&#43;Control&#43;Loop" target="_blank" rel="noopener" class="share-btn-weibo" aria-label="weibo">
+          <i class="fab fa-weibo"></i>
+        </a>
+      </li>
+    
+  </ul>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+
+
+
+  
+  
+  
+  
+  
+  <div class="media author-card content-widget-hr">
+    
+      
+      <a href="/zh/author/%E5%BE%90%E8%8D%89/"><img class="avatar mr-3 avatar-circle" src="/zh/author/%E5%BE%90%E8%8D%89/avatar_hu1151adf2f49fa2c9e9162196a4e79dfb_81611_270x270_fill_q75_lanczos_center.jpeg" alt="徐草"></a>
+    
+
+    <div class="media-body">
+      <h5 class="card-title"><a href="/zh/author/%E5%BE%90%E8%8D%89/">徐草</a></h5>
+      <h6 class="card-subtitle">2021级</h6>
+      
+      <ul class="network-icon" aria-hidden="true">
+  
+    
+    
+    
+      
+    
+    
+    
+    
+    
+      
+    
+    <li>
+      <a href="/zh/xucao604@nudt.edu.cn" >
+        <i class="fas fa-envelope"></i>
+      </a>
+    </li>
+  
+</ul>
+
+    </div>
+  </div>
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+</article>
+  </div>
+
+  <div class="page-footer">
+    
+    
+    <div class="container">
+      <footer class="site-footer">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  
+
+  
+  
+    
+  
+  
+    
+  
+
+  
+
+  
+  <p class="powered-by copyright-license-text">
+    © 2024 Me. This work is licensed under <a href="https://creativecommons.org/licenses/by-nc-nd/4.0" rel="noopener noreferrer" target="_blank">CC BY NC ND 4.0</a>
+  </p>
+  
+
+  <p class="powered-by footer-license-icons">
+    <a href="https://creativecommons.org/licenses/by-nc-nd/4.0" rel="noopener noreferrer" target="_blank" aria-label="Creative Commons">
+      <i class="fab fa-creative-commons fa-2x" aria-hidden="true"></i>
+      <i class="fab fa-creative-commons-by fa-2x" aria-hidden="true"></i>
+      
+        <i class="fab fa-creative-commons-nc fa-2x" aria-hidden="true"></i>
+      
+      
+        <i class="fab fa-creative-commons-nd fa-2x" aria-hidden="true"></i>
+      
+    </a>
+  </p>
+
+
+
+
+
+  <p class="powered-by">
+    
+    
+    
+      
+      
+      
+      
+      
+      
+      由<a href="https://wowchemy.com/?utm_campaign=poweredby" target="_blank" rel="noopener">Wowchemy</a>支持发布——免费<a href="https://github.com/wowchemy/wowchemy-hugo-themes" target="_blank" rel="noopener">开源</a>网站，为创作者赋能。
+    
+  </p>
+</footer>
+
+    </div>
+    
+  </div>
+
+  
+
+
+<script src="/js/vendor-bundle.min.b4708d4364577c16ab7001b265a063a4.js"></script>
+
+
+
+
+  
+
+  
+  
+
+  
+
+
+
+
+
+
+  <script src="https://cdn.jsdelivr.net/npm/leaflet@1.7.1/dist/leaflet.min.js" integrity="" crossorigin="anonymous"></script>
+
+
+
+
+
+
+
+
+  
+  <script id="search-hit-fuse-template" type="text/x-template">
+    <div class="search-hit" id="summary-{{key}}">
+      <div class="search-hit-content">
+        <div class="search-hit-name">
+          <a href="{{relpermalink}}">{{title}}</a>
+          <div class="article-metadata search-hit-type">{{type}}</div>
+          <p class="search-hit-description">{{snippet}}</p>
+        </div>
+      </div>
+    </div>
+  </script>
+  
+    <script src="https://cdn.jsdelivr.net/gh/krisk/Fuse@v3.2.1/dist/fuse.min.js" integrity="sha512-o38bmzBGX+hD3JHWUFCDA09btWaqrNmoJ3RXLlrysA7PP01Kgs4UlE4MhelE1v5dJR3+cxlR4qQlotsW7jKsnw==" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/gh/julmot/mark.js@8.11.1/dist/jquery.mark.min.js" integrity="sha512-mhbv5DqBMgrWL+32MmsDOt/OAvqr/cHimk6B8y/bx/xS88MVkYGPiVv2ixKVrkywF2qHplNRUvFsAHUdxZ3Krg==" crossorigin="anonymous"></script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+<script id="page-data" type="application/json">{"use_headroom":true}</script>
+
+
+
+  <script src="/js/wowchemy-headroom.db4755770454eb63685f8de785c0a172.js" type="module"></script>
+
+
+
+
+
+
+
+
+
+  
+  
+
+
+<script src="/zh/js/wowchemy.min.d06bc4b307d61ec1811f19928b741e02.js"></script>
+
+
+
+  <script src="/js/wowchemy-map.a26e9d2f7238ba5b868384f1c5bc6477.js" type="module"></script>
+
+
+
+
+  
+<div id="modal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">引用</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        
+        <pre><code></code></pre>
+      </div>
+      <div class="modal-footer">
+        <a class="btn btn-outline-primary my-1 js-copy-cite" href="#" target="_blank">
+          <i class="fas fa-copy"></i> 复制
+        </a>
+        <a class="btn btn-outline-primary my-1 js-download-cite" href="#" target="_blank">
+          <i class="fas fa-download"></i> 下载
+        </a>
+        <div id="modal-error"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+  <script src="/js/wowchemy-publication.68f8d7090562ca65fc6d3cb3f8f2d2cb.js" type="module"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

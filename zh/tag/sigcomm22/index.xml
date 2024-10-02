@@ -1,0 +1,2812 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>SIGCOMM22 | AI4network 实验室</title>
+    <link>https://ai4network.github.io/zh/tag/sigcomm22/</link>
+      <atom:link href="https://ai4network.github.io/zh/tag/sigcomm22/index.xml" rel="self" type="application/rss+xml" />
+    <description>SIGCOMM22</description>
+    <generator>Wowchemy (https://wowchemy.com)</generator><language>zh-Hans</language><lastBuildDate>Wed, 18 Jan 2023 16:42:35 +0800</lastBuildDate>
+    <image>
+      <url>https://ai4network.github.io/media/icon_hua2ec155b4296a9c9791d015323e16eb5_11927_512x512_fill_lanczos_center_3.png</url>
+      <title>SIGCOMM22</title>
+      <link>https://ai4network.github.io/zh/tag/sigcomm22/</link>
+    </image>
+    
+    <item>
+      <title>SIGCOMM22 论文分享 | Predictable vFabric on Informative Data Plane</title>
+      <link>https://ai4network.github.io/zh/post/paper-sharing-11/</link>
+      <pubDate>Wed, 18 Jan 2023 16:42:35 +0800</pubDate>
+      <guid>https://ai4network.github.io/zh/post/paper-sharing-11/</guid>
+      <description>&lt;p&gt;  本次分享的是来自SIGCOMM22可编程数据平面的一篇论文：Predictable vFabric on Informative Data Plane，该文作者来自清华大学，阿里巴巴和剑桥大学。&lt;/p&gt;
+&lt;h2 id=&#34;背景&#34;&gt;背景&lt;/h2&gt;
+&lt;p&gt;  在多租户数据中心中，租户的虚拟机（VM）希望通过虚拟网络结构（VF）进行逻辑互连，就像在一个专门的集群中一样，尽管所有租户共享同一个物理网络。虽然已经提出了许多解决方案来提高多租户数据中心网络（DCN）的性能，它们不能胜任提供强烈的可预测的VF服务&amp;ndash;带宽保证、带宽利用和确定性尾部延迟，其主要因为以下两个原因。&lt;/p&gt;
+&lt;p&gt;  首先，先前可预测的VF工作的收敛速度（几十毫秒）未能赶上当今应用的日益严格的性能要求。例如，作为弹性块存储中最高性能级别的磁盘，增强型固态硬盘要求I/O操作延迟平均为100μs，尾部延迟为1ms。另一方面，随着专业计算加速器的出现，分布式计算应用（如分布式机器学习）的性能瓶颈正在从计算转向通信；因此，每次参数/激活传输开始时，它们都需要即时可用的带宽，尤其是分布式机器学习推理，通常涉及多次传输，需要在10ms内响应在线查询。因此，快速处理流量动态，即在亚毫秒级的时间尺度上，对于满足当今应用的性能需求至关重要。&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;picture0&#34; srcset=&#34;
+               /zh/post/paper-sharing-11/picture/picture0_hu206dd45c18025a84f93a2c6b0ae79a8c_713921_604061ad28b3d24ffe645b9a9a621271.webp 400w,
+               /zh/post/paper-sharing-11/picture/picture0_hu206dd45c18025a84f93a2c6b0ae79a8c_713921_66f241c6c7085b4a4278b24a8d3cc76c.webp 760w,
+               /zh/post/paper-sharing-11/picture/picture0_hu206dd45c18025a84f93a2c6b0ae79a8c_713921_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://ai4network.github.io/zh/post/paper-sharing-11/picture/picture0_hu206dd45c18025a84f93a2c6b0ae79a8c_713921_604061ad28b3d24ffe645b9a9a621271.webp&#34;
+               width=&#34;760&#34;
+               height=&#34;248&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;  其次，端到端的带宽保证很容易被与保证无关的路径管理方案破坏。现有的解决方案在提供带宽保证的同时，还考虑到带宽利用，大多将网络结构视为源和目的地之间的聚合管道，假设具体的路径选择是由互补的负载平衡方案做出的，例如，选择随机路径或利用率最低的路径。然而，由于带宽利用，链路利用率（实际流量）和链路订阅（有带宽保证的流量）并不等同。当一个具有高流量需求的新流量进入网络时，将其分配到利用率最低的路径可能会违反其他路径的带宽保证。因此，这个路径上的所有流量都会收敛到低于其带宽保证的新速率，并面临显著的性能下降。&lt;/p&gt;
+&lt;p&gt;  针对以上问题，阿里巴巴提出μFAB，一个为数据中心租户提供高度可预测的VF服务的框架，μFAB揭示了端网协同的融合设计，利用可编程网络提供的精细网络信息，在端上智能网卡用于速率控制和路径选择。这些设计的部署，极大地提升了网络传输的服务质量，也给云上客户以及未来算力融合带来了持续价值。&lt;/p&gt;
+&lt;h2 id=&#34;设计方案&#34;&gt;设计方案&lt;/h2&gt;
+&lt;p&gt;  （1）层次化的带宽分配。首先，边缘为每个流量选择一个路径，以保持总的有效带宽订阅，即通过链路的租户的最小带宽保证之和，不超过链路容量。因此，如果链路容量被流量按比例分享给它们的最小带宽，那么所有租户的最小带宽都能得到保证。然后，边缘迅速而准确地调整发送速率，使带宽利用率收敛到目标值。因此，即使一些租户的需求不足，未使用的带宽也可以被共享同一链路的其他租户迅速利用；反之，如果一个租户有即时的流量需求，它可以迅速抢回其保证的带宽。我们的理论分析表明，μFAB可以同时实现严格保证的最小带宽和高网络利用率。&lt;/p&gt;
+&lt;p&gt;  （2）两阶段和基于窗口的流量接纳。为了避免排队，每个边缘使用一个由带宽利用率更新的窗口，即基于利用率的窗口，来限制租户在路径上的飞行流量。在整个主机中，μFAB控制每个租户的总突发量，直到他们的最小带宽保证，并加法增加他们的发送窗口，直到基于利用率的窗口斜率下降，并开始使用后者。因此，μFAB可以将瓶颈链路上的队列大小约束为BDP（带宽-延迟乘积）的三倍。&lt;/p&gt;
+&lt;p&gt;  （3）精准和稳定的路径迁移。μFAB通过一个探针对可用带宽和路径上的延迟峰值风险作出及时和准确的判断，而不是真的把流量放在路径上。因此，边缘可以迅速选择一个适当的路径来迁移，以保持端到端的性能，而不需要漫长的收敛过程或影响其他无辜的租户；μFAB的路径迁移还可以避免振荡和数据包重新排序。&lt;/p&gt;
+&lt;h2 id=&#34;μfab服务模型&#34;&gt;μFAB服务模型&lt;/h2&gt;
+&lt;p&gt;  µFAB的目标，是在云数据中心为租户提供带宽保障、低延迟保障，以及最大化利用网络带宽资源。但在目前的网络架构中，要同时实现这三点是非常困难，主要原因是：之前的工作通常把网络当作一个黑盒，利用时延、探测等一系列的启发式算法来做速率控制和路径选择，这样便造成了需要毫秒级别的收敛时间，难以满足应用日渐增加的对于性能的需求。&lt;/p&gt;
+&lt;p&gt;  µFAB的设计理念则恰好相反，其核心思想是网络的透明化和信息化，即利用可编程网络数据平面提供的链路状态和租户信息，并将这些信息反馈到主机侧用于智能的速率控制和路径选择。&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;picture1&#34; srcset=&#34;
+               /zh/post/paper-sharing-11/picture/picture1_hu73baefe36491a11b5b591af275fceccc_77288_15478c3f5fb9c9e6f707f8eb761274f2.webp 400w,
+               /zh/post/paper-sharing-11/picture/picture1_hu73baefe36491a11b5b591af275fceccc_77288_bb99028cccd560c5cab32de91b30b4e2.webp 760w,
+               /zh/post/paper-sharing-11/picture/picture1_hu73baefe36491a11b5b591af275fceccc_77288_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://ai4network.github.io/zh/post/paper-sharing-11/picture/picture1_hu73baefe36491a11b5b591af275fceccc_77288_15478c3f5fb9c9e6f707f8eb761274f2.webp&#34;
+               width=&#34;672&#34;
+               height=&#34;358&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;  上图所示µFAB的服务模型，每个租户会被分配一个虚拟的网络（Virtual Fabric），该虚拟网络为租户提供最小带宽保障、最大化利用资源、低长尾延迟等三个SLA保障。而租户的最小带宽分配遵循云的弹性部署规范，租户总带宽之和不会超过网络物理总带宽。µFAB利用可编程网络提供的精确信息，再通过端网协同的机制达到上述目标。&lt;/p&gt;
+&lt;p&gt;  端网协同的具体工作方式为：一方面，主机侧的µFAB-E模块发送探测包，用以获取网络的信息，从而指导其做“速率控制”和“路径选择”。另一方面，网络交换机上的µFAB-C模块收集链路状态和租户的信息，并将这些信息做聚合，插入到发过来的探测包中，反馈给µFAB-E。&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;picture2&#34; srcset=&#34;
+               /zh/post/paper-sharing-11/picture/picture2_hub1d162d27fceb3760707dccb476ffb0b_60929_9ced07f408d82ce5db0154403afa2c2f.webp 400w,
+               /zh/post/paper-sharing-11/picture/picture2_hub1d162d27fceb3760707dccb476ffb0b_60929_e6ee7cc1a9c9f21523f13fc43e1cf591.webp 760w,
+               /zh/post/paper-sharing-11/picture/picture2_hub1d162d27fceb3760707dccb476ffb0b_60929_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://ai4network.github.io/zh/post/paper-sharing-11/picture/picture2_hub1d162d27fceb3760707dccb476ffb0b_60929_9ced07f408d82ce5db0154403afa2c2f.webp&#34;
+               width=&#34;689&#34;
+               height=&#34;424&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;  上图为μFAB的工作流程：每个&amp;quot;μFAB-E&amp;quot;沿每个活动的底层路径发送探针（步骤1）。探针到达一个μFAB-C后，μFAB-C首先读取捎带的VF信息，并将其与内部VF信息汇总（步骤2），然后将更新的结果插入探针（步骤3）。接下来，探针沿着路径转发，直到到达目的地（步骤4）。当目的地μFAB-E发送的响应回来时（步骤5），源μFAB-E将决定是否继续使用该路径，并根据响应中提供的信息进行速率调整，或者在当前路径不再合格时开始迁移到其他路径（步骤6）。&lt;/p&gt;
+&lt;h2 id=&#34;带宽延迟保障算法&#34;&gt;带宽延迟保障算法&lt;/h2&gt;
+&lt;p&gt;  有了网络透明化和端网协同，如何才能做到带宽和时延的保障呢？&lt;/p&gt;
+&lt;p&gt;  µFAB使用的是按权重分配的做法，这样做的好处是可以很快判断出带宽是否得到了满足。发送窗口的计算方法为：&lt;/p&gt;
+
+
+
+$$
+w = \frac{\phi}{\sum\phi} \times \sum w \times \frac{C \times RTT}{tx \times RTT + q_{lean}}
+$$
+
+&lt;p&gt;  其中，φ/∑φ是按租户的权重进行的按权分配，而 ∑w是交换机维护的所有租户的发送窗口之和，(C*RTT)/(tx*RTT+qlean)则是根据链路的负载进行的调整，用于最大化链路利用，同时做拥塞避免。φ、w由探测包携带到网络交换机中，∑φ、∑w由交换机维护的租户信息的聚合，而tx、qlen是交换机维护的网络链路信息。&lt;/p&gt;
+&lt;p&gt;  当多个租户同时有流量请求的时候，μFAB允许租户无论何时都可以按照最小带宽保障发送，只有在网络有剩余带宽的情况下，才会逐渐增大发送速率。这么做的原理是，最小带宽是租户的SLA保障必须满足，而尽可能地提高发送速率则是额外的奖励，时效性要求相对较低。这样既满足了租户对于随时获取最小带宽的承诺，又使得在有多租户突发流量的冲突的时候，依然能够保障网络的长尾时延。&lt;/p&gt;
+&lt;p&gt;  另一个重要的点是，µFAB能够充分利用整个网络的带宽资源，当一个路径上的带宽资源已经被分配完时，能够快速地进行路径切换，从而使用多个路径的网络带宽资源。在路径切换时，需要考虑两种场景：一是当前路径的带宽已经不满足租户SLA，这种情况需要立刻进行路径切换，但也要注意不要过于频繁地连续切换。二是发现有路径的更多带宽资源的时候，这种情况的路径切换是一种最大化利用网络资源的行为，但相对来说没有紧迫的时间需求，因此不用做得过于频繁。&lt;/p&gt;
+&lt;h2 id=&#34;硬件实验&#34;&gt;硬件实验&lt;/h2&gt;
+&lt;p&gt;  实验团队分别在基于FPGA和SOC的硬件网卡和Tofino交换机上做了相应的算法实现，并在三层fat-tree的网络拓扑上做了网络层验证和应用层验证。&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;picture3&#34; srcset=&#34;
+               /zh/post/paper-sharing-11/picture/picture3_huaa6aad6b085f644183e90cf03217afe3_118346_7723844de4d7d44ec7eaa7eca7d47cca.webp 400w,
+               /zh/post/paper-sharing-11/picture/picture3_huaa6aad6b085f644183e90cf03217afe3_118346_75a46fe6a58126e61dad87dd9b95b042.webp 760w,
+               /zh/post/paper-sharing-11/picture/picture3_huaa6aad6b085f644183e90cf03217afe3_118346_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://ai4network.github.io/zh/post/paper-sharing-11/picture/picture3_huaa6aad6b085f644183e90cf03217afe3_118346_7723844de4d7d44ec7eaa7eca7d47cca.webp&#34;
+               width=&#34;681&#34;
+               height=&#34;275&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;  实验表明，µFAB能提供给租户最小带宽保障和长尾低延迟，同时提供最大化地网络带宽利用，即使面对网络故障的场景下，依然能够快速收敛。&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;picture4&#34; srcset=&#34;
+               /zh/post/paper-sharing-11/picture/picture4_hu7727fe768da948609159d69f2bbeddb1_59203_b021a3c4aa50db1952bb6bab27403fd3.webp 400w,
+               /zh/post/paper-sharing-11/picture/picture4_hu7727fe768da948609159d69f2bbeddb1_59203_ca184b3a04b657826e854a303d6ef596.webp 760w,
+               /zh/post/paper-sharing-11/picture/picture4_hu7727fe768da948609159d69f2bbeddb1_59203_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://ai4network.github.io/zh/post/paper-sharing-11/picture/picture4_hu7727fe768da948609159d69f2bbeddb1_59203_b021a3c4aa50db1952bb6bab27403fd3.webp&#34;
+               width=&#34;696&#34;
+               height=&#34;381&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;  为了验证µFAB对于应用的实际增益，实验团队将一个租户运行时延敏感型的Memcached，另一个租户运行大带宽的MongoDB应用进行对比实验。实验表明，µFAB能实现接近于理想状态下的QPS（Query Per Second）和QCT（Query Completion Time）。这是因为µFAB总是能正确的选择流量路径，从而实现性能的隔离，以及快速的响应网络拥塞。下图可以看出µFAB能为应用等提供2.5倍的QPS提升、21倍的长尾延迟下降。&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;picture5&#34; srcset=&#34;
+               /zh/post/paper-sharing-11/picture/picture5_hu5ea07b165e3248cd8ab6aa0247f2659b_40241_48e3aacdbfcb7f77879f1fae836396aa.webp 400w,
+               /zh/post/paper-sharing-11/picture/picture5_hu5ea07b165e3248cd8ab6aa0247f2659b_40241_6f57253a2812c0fa6c8c7af0c5f5e3e9.webp 760w,
+               /zh/post/paper-sharing-11/picture/picture5_hu5ea07b165e3248cd8ab6aa0247f2659b_40241_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://ai4network.github.io/zh/post/paper-sharing-11/picture/picture5_hu5ea07b165e3248cd8ab6aa0247f2659b_40241_48e3aacdbfcb7f77879f1fae836396aa.webp&#34;
+               width=&#34;701&#34;
+               height=&#34;350&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;h2 id=&#34;总结&#34;&gt;总结&lt;/h2&gt;
+&lt;p&gt;  新兴的可编程数据平面是解决在多租户 DCN 中提供可预测的虚拟结构的特殊挑战的关键——μFAB就是一个例子。该文章提出了μFAB，这是一种可预测的虚拟结构解决方案，μFAB通过活动边缘和信息核心的融合构建了可预测的VF服务，其创新在于通过简单有效的机制，可以为所有流显式选择正确的路径，并且使整个网络在亚毫秒级时间尺度上收敛到可预测的租户级性能（例如，保证带宽和有限延迟）和高利用率。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>SIGCOMM22 论文分享 | Predictable vFabric on Informative Data Plane</title>
+      <link>https://ai4network.github.io/zh/post/paper-sharing-12/</link>
+      <pubDate>Wed, 18 Jan 2023 16:42:35 +0800</pubDate>
+      <guid>https://ai4network.github.io/zh/post/paper-sharing-12/</guid>
+      <description>&lt;p&gt;  本次分享的是来自SIGCOMM22可编程数据平面的一篇论文：Predictable vFabric on Informative Data Plane，该文作者来自清华大学，阿里巴巴和剑桥大学。&lt;/p&gt;
+&lt;h2 id=&#34;背景&#34;&gt;背景&lt;/h2&gt;
+&lt;p&gt;  在多租户数据中心中，租户的虚拟机（VM）希望通过虚拟网络结构（VF）进行逻辑互连，就像在一个专门的集群中一样，尽管所有租户共享同一个物理网络。虽然已经提出了许多解决方案来提高多租户数据中心网络（DCN）的性能，它们不能胜任提供强烈的可预测的VF服务&amp;ndash;带宽保证、带宽利用和确定性尾部延迟，其主要因为以下两个原因。&lt;/p&gt;
+&lt;p&gt;  首先，先前可预测的VF工作的收敛速度（几十毫秒）未能赶上当今应用的日益严格的性能要求。例如，作为弹性块存储中最高性能级别的磁盘，增强型固态硬盘要求I/O操作延迟平均为100μs，尾部延迟为1ms。另一方面，随着专业计算加速器的出现，分布式计算应用（如分布式机器学习）的性能瓶颈正在从计算转向通信；因此，每次参数/激活传输开始时，它们都需要即时可用的带宽，尤其是分布式机器学习推理，通常涉及多次传输，需要在10ms内响应在线查询。因此，快速处理流量动态，即在亚毫秒级的时间尺度上，对于满足当今应用的性能需求至关重要。&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;picture0&#34; srcset=&#34;
+               /zh/post/paper-sharing-12/picture/picture0_hu206dd45c18025a84f93a2c6b0ae79a8c_713921_604061ad28b3d24ffe645b9a9a621271.webp 400w,
+               /zh/post/paper-sharing-12/picture/picture0_hu206dd45c18025a84f93a2c6b0ae79a8c_713921_66f241c6c7085b4a4278b24a8d3cc76c.webp 760w,
+               /zh/post/paper-sharing-12/picture/picture0_hu206dd45c18025a84f93a2c6b0ae79a8c_713921_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://ai4network.github.io/zh/post/paper-sharing-12/picture/picture0_hu206dd45c18025a84f93a2c6b0ae79a8c_713921_604061ad28b3d24ffe645b9a9a621271.webp&#34;
+               width=&#34;760&#34;
+               height=&#34;248&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;  其次，端到端的带宽保证很容易被与保证无关的路径管理方案破坏。现有的解决方案在提供带宽保证的同时，还考虑到带宽利用，大多将网络结构视为源和目的地之间的聚合管道，假设具体的路径选择是由互补的负载平衡方案做出的，例如，选择随机路径或利用率最低的路径。然而，由于带宽利用，链路利用率（实际流量）和链路订阅（有带宽保证的流量）并不等同。当一个具有高流量需求的新流量进入网络时，将其分配到利用率最低的路径可能会违反其他路径的带宽保证。因此，这个路径上的所有流量都会收敛到低于其带宽保证的新速率，并面临显著的性能下降。&lt;/p&gt;
+&lt;p&gt;  针对以上问题，阿里巴巴提出μFAB，一个为数据中心租户提供高度可预测的VF服务的框架，μFAB揭示了端网协同的融合设计，利用可编程网络提供的精细网络信息，在端上智能网卡用于速率控制和路径选择。这些设计的部署，极大地提升了网络传输的服务质量，也给云上客户以及未来算力融合带来了持续价值。&lt;/p&gt;
+&lt;h2 id=&#34;设计方案&#34;&gt;设计方案&lt;/h2&gt;
+&lt;p&gt;  （1）层次化的带宽分配。首先，边缘为每个流量选择一个路径，以保持总的有效带宽订阅，即通过链路的租户的最小带宽保证之和，不超过链路容量。因此，如果链路容量被流量按比例分享给它们的最小带宽，那么所有租户的最小带宽都能得到保证。然后，边缘迅速而准确地调整发送速率，使带宽利用率收敛到目标值。因此，即使一些租户的需求不足，未使用的带宽也可以被共享同一链路的其他租户迅速利用；反之，如果一个租户有即时的流量需求，它可以迅速抢回其保证的带宽。我们的理论分析表明，μFAB可以同时实现严格保证的最小带宽和高网络利用率。&lt;/p&gt;
+&lt;p&gt;  （2）两阶段和基于窗口的流量接纳。为了避免排队，每个边缘使用一个由带宽利用率更新的窗口，即基于利用率的窗口，来限制租户在路径上的飞行流量。在整个主机中，μFAB控制每个租户的总突发量，直到他们的最小带宽保证，并加法增加他们的发送窗口，直到基于利用率的窗口斜率下降，并开始使用后者。因此，μFAB可以将瓶颈链路上的队列大小约束为BDP（带宽-延迟乘积）的三倍。&lt;/p&gt;
+&lt;p&gt;  （3）精准和稳定的路径迁移。μFAB通过一个探针对可用带宽和路径上的延迟峰值风险作出及时和准确的判断，而不是真的把流量放在路径上。因此，边缘可以迅速选择一个适当的路径来迁移，以保持端到端的性能，而不需要漫长的收敛过程或影响其他无辜的租户；μFAB的路径迁移还可以避免振荡和数据包重新排序。&lt;/p&gt;
+&lt;h2 id=&#34;μfab服务模型&#34;&gt;μFAB服务模型&lt;/h2&gt;
+&lt;p&gt;  µFAB的目标，是在云数据中心为租户提供带宽保障、低延迟保障，以及最大化利用网络带宽资源。但在目前的网络架构中，要同时实现这三点是非常困难，主要原因是：之前的工作通常把网络当作一个黑盒，利用时延、探测等一系列的启发式算法来做速率控制和路径选择，这样便造成了需要毫秒级别的收敛时间，难以满足应用日渐增加的对于性能的需求。&lt;/p&gt;
+&lt;p&gt;  µFAB的设计理念则恰好相反，其核心思想是网络的透明化和信息化，即利用可编程网络数据平面提供的链路状态和租户信息，并将这些信息反馈到主机侧用于智能的速率控制和路径选择。&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;picture1&#34; srcset=&#34;
+               /zh/post/paper-sharing-12/picture/picture1_hu73baefe36491a11b5b591af275fceccc_77288_15478c3f5fb9c9e6f707f8eb761274f2.webp 400w,
+               /zh/post/paper-sharing-12/picture/picture1_hu73baefe36491a11b5b591af275fceccc_77288_bb99028cccd560c5cab32de91b30b4e2.webp 760w,
+               /zh/post/paper-sharing-12/picture/picture1_hu73baefe36491a11b5b591af275fceccc_77288_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://ai4network.github.io/zh/post/paper-sharing-12/picture/picture1_hu73baefe36491a11b5b591af275fceccc_77288_15478c3f5fb9c9e6f707f8eb761274f2.webp&#34;
+               width=&#34;672&#34;
+               height=&#34;358&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;  上图所示µFAB的服务模型，每个租户会被分配一个虚拟的网络（Virtual Fabric），该虚拟网络为租户提供最小带宽保障、最大化利用资源、低长尾延迟等三个SLA保障。而租户的最小带宽分配遵循云的弹性部署规范，租户总带宽之和不会超过网络物理总带宽。µFAB利用可编程网络提供的精确信息，再通过端网协同的机制达到上述目标。&lt;/p&gt;
+&lt;p&gt;  端网协同的具体工作方式为：一方面，主机侧的µFAB-E模块发送探测包，用以获取网络的信息，从而指导其做“速率控制”和“路径选择”。另一方面，网络交换机上的µFAB-C模块收集链路状态和租户的信息，并将这些信息做聚合，插入到发过来的探测包中，反馈给µFAB-E。&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;picture2&#34; srcset=&#34;
+               /zh/post/paper-sharing-12/picture/picture2_hub1d162d27fceb3760707dccb476ffb0b_60929_9ced07f408d82ce5db0154403afa2c2f.webp 400w,
+               /zh/post/paper-sharing-12/picture/picture2_hub1d162d27fceb3760707dccb476ffb0b_60929_e6ee7cc1a9c9f21523f13fc43e1cf591.webp 760w,
+               /zh/post/paper-sharing-12/picture/picture2_hub1d162d27fceb3760707dccb476ffb0b_60929_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://ai4network.github.io/zh/post/paper-sharing-12/picture/picture2_hub1d162d27fceb3760707dccb476ffb0b_60929_9ced07f408d82ce5db0154403afa2c2f.webp&#34;
+               width=&#34;689&#34;
+               height=&#34;424&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;  上图为μFAB的工作流程：每个&amp;quot;μFAB-E&amp;quot;沿每个活动的底层路径发送探针（步骤1）。探针到达一个μFAB-C后，μFAB-C首先读取捎带的VF信息，并将其与内部VF信息汇总（步骤2），然后将更新的结果插入探针（步骤3）。接下来，探针沿着路径转发，直到到达目的地（步骤4）。当目的地μFAB-E发送的响应回来时（步骤5），源μFAB-E将决定是否继续使用该路径，并根据响应中提供的信息进行速率调整，或者在当前路径不再合格时开始迁移到其他路径（步骤6）。&lt;/p&gt;
+&lt;h2 id=&#34;带宽延迟保障算法&#34;&gt;带宽延迟保障算法&lt;/h2&gt;
+&lt;p&gt;  有了网络透明化和端网协同，如何才能做到带宽和时延的保障呢？&lt;/p&gt;
+&lt;p&gt;  µFAB使用的是按权重分配的做法，这样做的好处是可以很快判断出带宽是否得到了满足。发送窗口的计算方法为：&lt;/p&gt;
+
+
+
+$$
+w = \frac{\phi}{\sum\phi} \times \sum w \times \frac{C \times RTT}{tx \times RTT + q_{lean}}
+$$
+
+&lt;p&gt;  其中，φ/∑φ是按租户的权重进行的按权分配，而 ∑w是交换机维护的所有租户的发送窗口之和，(C*RTT)/(tx*RTT+qlean)则是根据链路的负载进行的调整，用于最大化链路利用，同时做拥塞避免。φ、w由探测包携带到网络交换机中，∑φ、∑w由交换机维护的租户信息的聚合，而tx、qlen是交换机维护的网络链路信息。&lt;/p&gt;
+&lt;p&gt;  当多个租户同时有流量请求的时候，μFAB允许租户无论何时都可以按照最小带宽保障发送，只有在网络有剩余带宽的情况下，才会逐渐增大发送速率。这么做的原理是，最小带宽是租户的SLA保障必须满足，而尽可能地提高发送速率则是额外的奖励，时效性要求相对较低。这样既满足了租户对于随时获取最小带宽的承诺，又使得在有多租户突发流量的冲突的时候，依然能够保障网络的长尾时延。&lt;/p&gt;
+&lt;p&gt;  另一个重要的点是，µFAB能够充分利用整个网络的带宽资源，当一个路径上的带宽资源已经被分配完时，能够快速地进行路径切换，从而使用多个路径的网络带宽资源。在路径切换时，需要考虑两种场景：一是当前路径的带宽已经不满足租户SLA，这种情况需要立刻进行路径切换，但也要注意不要过于频繁地连续切换。二是发现有路径的更多带宽资源的时候，这种情况的路径切换是一种最大化利用网络资源的行为，但相对来说没有紧迫的时间需求，因此不用做得过于频繁。&lt;/p&gt;
+&lt;h2 id=&#34;硬件实验&#34;&gt;硬件实验&lt;/h2&gt;
+&lt;p&gt;  实验团队分别在基于FPGA和SOC的硬件网卡和Tofino交换机上做了相应的算法实现，并在三层fat-tree的网络拓扑上做了网络层验证和应用层验证。&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;picture3&#34; srcset=&#34;
+               /zh/post/paper-sharing-12/picture/picture3_huaa6aad6b085f644183e90cf03217afe3_118346_7723844de4d7d44ec7eaa7eca7d47cca.webp 400w,
+               /zh/post/paper-sharing-12/picture/picture3_huaa6aad6b085f644183e90cf03217afe3_118346_75a46fe6a58126e61dad87dd9b95b042.webp 760w,
+               /zh/post/paper-sharing-12/picture/picture3_huaa6aad6b085f644183e90cf03217afe3_118346_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://ai4network.github.io/zh/post/paper-sharing-12/picture/picture3_huaa6aad6b085f644183e90cf03217afe3_118346_7723844de4d7d44ec7eaa7eca7d47cca.webp&#34;
+               width=&#34;681&#34;
+               height=&#34;275&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;  实验表明，µFAB能提供给租户最小带宽保障和长尾低延迟，同时提供最大化地网络带宽利用，即使面对网络故障的场景下，依然能够快速收敛。&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;picture4&#34; srcset=&#34;
+               /zh/post/paper-sharing-12/picture/picture4_hu7727fe768da948609159d69f2bbeddb1_59203_b021a3c4aa50db1952bb6bab27403fd3.webp 400w,
+               /zh/post/paper-sharing-12/picture/picture4_hu7727fe768da948609159d69f2bbeddb1_59203_ca184b3a04b657826e854a303d6ef596.webp 760w,
+               /zh/post/paper-sharing-12/picture/picture4_hu7727fe768da948609159d69f2bbeddb1_59203_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://ai4network.github.io/zh/post/paper-sharing-12/picture/picture4_hu7727fe768da948609159d69f2bbeddb1_59203_b021a3c4aa50db1952bb6bab27403fd3.webp&#34;
+               width=&#34;696&#34;
+               height=&#34;381&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;  为了验证µFAB对于应用的实际增益，实验团队将一个租户运行时延敏感型的Memcached，另一个租户运行大带宽的MongoDB应用进行对比实验。实验表明，µFAB能实现接近于理想状态下的QPS（Query Per Second）和QCT（Query Completion Time）。这是因为µFAB总是能正确的选择流量路径，从而实现性能的隔离，以及快速的响应网络拥塞。下图可以看出µFAB能为应用等提供2.5倍的QPS提升、21倍的长尾延迟下降。&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;picture5&#34; srcset=&#34;
+               /zh/post/paper-sharing-12/picture/picture5_hu5ea07b165e3248cd8ab6aa0247f2659b_40241_48e3aacdbfcb7f77879f1fae836396aa.webp 400w,
+               /zh/post/paper-sharing-12/picture/picture5_hu5ea07b165e3248cd8ab6aa0247f2659b_40241_6f57253a2812c0fa6c8c7af0c5f5e3e9.webp 760w,
+               /zh/post/paper-sharing-12/picture/picture5_hu5ea07b165e3248cd8ab6aa0247f2659b_40241_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://ai4network.github.io/zh/post/paper-sharing-12/picture/picture5_hu5ea07b165e3248cd8ab6aa0247f2659b_40241_48e3aacdbfcb7f77879f1fae836396aa.webp&#34;
+               width=&#34;701&#34;
+               height=&#34;350&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;h2 id=&#34;总结&#34;&gt;总结&lt;/h2&gt;
+&lt;p&gt;  新兴的可编程数据平面是解决在多租户 DCN 中提供可预测的虚拟结构的特殊挑战的关键——μFAB就是一个例子。该文章提出了μFAB，这是一种可预测的虚拟结构解决方案，μFAB通过活动边缘和信息核心的融合构建了可预测的VF服务，其创新在于通过简单有效的机制，可以为所有流显式选择正确的路径，并且使整个网络在亚毫秒级时间尺度上收敛到可预测的租户级性能（例如，保证带宽和有限延迟）和高利用率。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>SIGCOMM22 论文分享 | Cebinae: Scalable ln-network Fairness Augmentation</title>
+      <link>https://ai4network.github.io/zh/post/paper-sharing-9/</link>
+      <pubDate>Tue, 10 Jan 2023 15:40:06 +0800</pubDate>
+      <guid>https://ai4network.github.io/zh/post/paper-sharing-9/</guid>
+      <description>&lt;p&gt;  今天给大家介绍的论文发表在SIGCOMM22会议上，作者团队来自宾夕法尼亚大学。本文提出了Cebinae，这是一种用惩罚超过其最大最小公平份额的流量来增强现有主机网络的公平性。Cebinae将拥塞控制算法作为黑盒，对其进行兼容，可部署在商用可编程交换机上。通过实验发现，在网络带宽分配角度，Cebinae的表现优于其他实现公平性的算法。&lt;/p&gt;
+&lt;h2 id=&#34;研究动机&#34;&gt;研究动机&lt;/h2&gt;
+&lt;p&gt;  对于像互联网和云公共网络，终端主机应用程序可以使用他们希望的任何拥塞控制协议。然而不同的网络状态（RTT）和拥塞控制协议使用的不同都会导致不公平的带宽分配。因此随着时间的推移，网络的异构性也会急剧增加，从而造成更多不公平分配。&lt;/p&gt;
+&lt;p&gt;  从概念上讲，公平的排队通过将每个流分配给一个独立的队列，并以每位循环顺序为每个流提供服务。为了模拟公平的排队调度，现有方法准确性仍然需要独占使用许多优先级和对每个流的可用缓冲区数量的限制，这两个限制随着流计数、RTT和突发性的增加而变得更加严格。因此现有的解决方案仍然难以在有限的硬件资源下拓展到公共网络，作者指出困难的来源是由于现有的方法试图跟踪并调度每一个流。&lt;/p&gt;
+&lt;p&gt;  Cebinae机制没有在每个时间点进行字节级或包级调度，因为这对于公平的全局收敛是过度的。网络将带宽从满足/超过其公平份额的流重新分配给不满足的流就足够了。这种简化能够以最小的资源（瓶颈和非瓶颈流二分类问题，仅需一个额外的队列优先级）对高级调度逻辑进行非常有效的近似，并大大提高了可扩展性。&lt;/p&gt;
+&lt;h2 id=&#34;关键技术&#34;&gt;关键技术&lt;/h2&gt;
+&lt;p&gt;  首先本文从最大-最小公平性的角度出发，对瓶颈链路和瓶颈流的进行了判定。具体而言，如下图所示：&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;picture1&#34; srcset=&#34;
+               /zh/post/paper-sharing-9/picture/picture1_hu0853d5c31d298ac0f052bb82f59ff373_249869_6f7489857f7a188b923004ea8370b2e1.webp 400w,
+               /zh/post/paper-sharing-9/picture/picture1_hu0853d5c31d298ac0f052bb82f59ff373_249869_be1699b5b3056dd3e498203fd288f1b0.webp 760w,
+               /zh/post/paper-sharing-9/picture/picture1_hu0853d5c31d298ac0f052bb82f59ff373_249869_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://ai4network.github.io/zh/post/paper-sharing-9/picture/picture1_hu0853d5c31d298ac0f052bb82f59ff373_249869_6f7489857f7a188b923004ea8370b2e1.webp&#34;
+               width=&#34;760&#34;
+               height=&#34;344&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;  每条链路都可以确定一组瓶颈流集合。首先，如果该链路不是饱和的，那么该链路上的所有流都可以继续增加其发送速率，因此它们不是瓶颈流；其次如果链路是饱和的，那么只要在该链路上发送速率最大的流便被认为是瓶颈流，这是因为发送速率最大的流占用了绝大部分带宽，通过对其进行相关处理，便可以改善不公平分配的情况；否则便不是瓶颈流。&lt;/p&gt;
+&lt;p&gt;  现有方法对于瓶颈流的处理大多采用的是限速操作，只有当链路总需求量低于自身承载能力时，限速才会被解除。然后这种原始的处理方式有一个缺点就是无法使不公平的分配变得公平，如下图所示：&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;picture2&#34; srcset=&#34;
+               /zh/post/paper-sharing-9/picture/picture2_hue4ffc47fa5ac1f0dfa0e31123f26b9ac_16185_4852ea6ac2aa4be5b7f08a86934d230f.webp 400w,
+               /zh/post/paper-sharing-9/picture/picture2_hue4ffc47fa5ac1f0dfa0e31123f26b9ac_16185_398f0aff69329800d6d8ad84b5460779.webp 760w,
+               /zh/post/paper-sharing-9/picture/picture2_hue4ffc47fa5ac1f0dfa0e31123f26b9ac_16185_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://ai4network.github.io/zh/post/paper-sharing-9/picture/picture2_hue4ffc47fa5ac1f0dfa0e31123f26b9ac_16185_4852ea6ac2aa4be5b7f08a86934d230f.webp&#34;
+               width=&#34;384&#34;
+               height=&#34;183&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;  当C流在10容量的链路中获得6容量带宽时，由于只对瓶颈流C进行限速操作，ABDE便会平均分配剩余4容量的带宽，然而这样的分配并不是公平的，然后限速操作并不能让这样不公平的分配变得公平。&lt;/p&gt;
+&lt;p&gt;  不同于之前的限速操作，Cebinae直接对瓶颈流C进行征税操作，然后将征得的带宽税分配到ABDE，经过数次的征税操作之后，不公平的分配可以变得公平。下图说明了对超过公平份额的流进行征税和再分配的过程：&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;picture3&#34; srcset=&#34;
+               /zh/post/paper-sharing-9/picture/picture3_hu53f94155aa5ffa453a80cb5b78756db0_249998_6d05692bc99c15fd5769a6796654f6d9.webp 400w,
+               /zh/post/paper-sharing-9/picture/picture3_hu53f94155aa5ffa453a80cb5b78756db0_249998_752bafcc98e2e10db7329d8786231cb9.webp 760w,
+               /zh/post/paper-sharing-9/picture/picture3_hu53f94155aa5ffa453a80cb5b78756db0_249998_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://ai4network.github.io/zh/post/paper-sharing-9/picture/picture3_hu53f94155aa5ffa453a80cb5b78756db0_249998_6d05692bc99c15fd5769a6796654f6d9.webp&#34;
+               width=&#34;760&#34;
+               height=&#34;316&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;  Cebinae每个路由器的架构如图所示：（a）正常运行期间（b）控制平面重构期间&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;picture4&#34; srcset=&#34;
+               /zh/post/paper-sharing-9/picture/picture4_hu08022e26d1cf13050d11b290dd09335b_40772_fb228dbdfa4374de9819d968091b16e1.webp 400w,
+               /zh/post/paper-sharing-9/picture/picture4_hu08022e26d1cf13050d11b290dd09335b_40772_67ef15ed6e31913e696735aeb3ed9753.webp 760w,
+               /zh/post/paper-sharing-9/picture/picture4_hu08022e26d1cf13050d11b290dd09335b_40772_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://ai4network.github.io/zh/post/paper-sharing-9/picture/picture4_hu08022e26d1cf13050d11b290dd09335b_40772_fb228dbdfa4374de9819d968091b16e1.webp&#34;
+               width=&#34;760&#34;
+               height=&#34;183&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;  每个路由器包含三个组件：&lt;/p&gt;
+&lt;p&gt;  出口管道流速率缓存，它以细粒度跟踪端口饱和度和瓶颈流状态。&lt;/p&gt;
+&lt;p&gt;  入口管道流调度器，它向瓶颈流输入延迟/损失，以限制和重新分配它们的带宽。&lt;/p&gt;
+&lt;p&gt;  低延迟控制平面代理，它记录流量并动态调整瓶颈流成员度和发送速率限制。&lt;/p&gt;
+&lt;p&gt;  从图中可以看到出口处有两个探测器：端口饱和度探测器和瓶颈流探测器。&lt;/p&gt;
+&lt;p&gt;  为了准确地确定端口饱和度，Cebinae在出口管道上跟踪利用率，为每个端口维护一个简单的传输字节计数器，作为元素存储在一个寄存器数组中。Cebinae控制平面代理定期对寄存器数组进行采样，并在不重置计数器的情况下，计算与前一次迭代观察到的差异，以找到最后一个间隔期间的利用率。如果利用率高于设定值，则认为该链路已饱和。&lt;/p&gt;
+&lt;p&gt;  如果端口饱和度是正的，那么Cebinae就可以确定哪些流是当前链路的瓶颈。Cebinae通过出口管道来检测这些瓶颈流。其目标是准确地跟踪（a）最大流的大小和（b）任何相似大小的流的id。Cebinae使用了散列映射流表的多个阶段。到达一个阶段的数据包被散列到一个条目，要么增加其字节计数器（如果该条目未使用或是用于数据包的流），要么继续到下一个阶段（如果该条目已经被另一个流使用）。Cebinae查找任何流的最大字节计数器，并声明如果它们的字节计数满足约束条件，则该流为“瓶颈流”。&lt;/p&gt;
+&lt;h2 id=&#34;实验验证&#34;&gt;实验验证&lt;/h2&gt;
+&lt;p&gt;  作者分别在交换机和ns3仿真中进行了实验，通过实验发现cebinae可以减轻各种网络中的不公平性。&lt;/p&gt;
+&lt;p&gt;  下图显示了对于16个TCP Vegas流(0-15)和一个NewReno流(16)，在分别使用FIFO和Cebinae在100 Mbps瓶颈链路上竞争的情况。Cebinae在几乎不影响效率的情况下，将不公平分配转向公平。&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;picture5&#34; srcset=&#34;
+               /zh/post/paper-sharing-9/picture/picture5_hu5acaf8e09ac28a05ab4c687048cb6309_40596_9c04523cc46e802ddd42e7289419c45c.webp 400w,
+               /zh/post/paper-sharing-9/picture/picture5_hu5acaf8e09ac28a05ab4c687048cb6309_40596_aa9bb34f6f5d777e251a65b0619812a8.webp 760w,
+               /zh/post/paper-sharing-9/picture/picture5_hu5acaf8e09ac28a05ab4c687048cb6309_40596_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://ai4network.github.io/zh/post/paper-sharing-9/picture/picture5_hu5acaf8e09ac28a05ab4c687048cb6309_40596_9c04523cc46e802ddd42e7289419c45c.webp&#34;
+               width=&#34;657&#34;
+               height=&#34;288&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;  当16个Vegas流(基于延迟)与1个NewReno流(基于损耗)在100 Mbps链路上竞争时，每个流具有相等的RTT和需求。对于FIFO，单个NewReno流占用了大约80%的带宽。Cebinae通过重新分配NewReno流的带宽并允许其余流增加其份额来提高公平性。&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;picture6&#34; srcset=&#34;
+               /zh/post/paper-sharing-9/picture/picture6_huef5c08e6d7b6cd834ce8ffa4586afcd5_56860_84ddd90ca44ee5f737ff0a3d78f443f9.webp 400w,
+               /zh/post/paper-sharing-9/picture/picture6_huef5c08e6d7b6cd834ce8ffa4586afcd5_56860_b2706202fd2a6b9e82f140e893098d23.webp 760w,
+               /zh/post/paper-sharing-9/picture/picture6_huef5c08e6d7b6cd834ce8ffa4586afcd5_56860_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://ai4network.github.io/zh/post/paper-sharing-9/picture/picture6_huef5c08e6d7b6cd834ce8ffa4586afcd5_56860_84ddd90ca44ee5f737ff0a3d78f443f9.webp&#34;
+               width=&#34;760&#34;
+               height=&#34;311&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;  图a说明了一个类似的情况，即128个NewReno流在1 Gbps链路上与2个BBR流竞争，RTT和需求相等。Cebine对BBR流要求的过度带宽征税，并将JFI从0.774提高到0.936。&lt;/p&gt;
+&lt;p&gt;  另一种情况是，128个NewReno流在1Gbps链路上与4个Vegas流竞争，其性能需求和RTT分别为100ms和64ms。虽然最初的JFI提供了看似较高的值（0.956），但这是由于大多数NewReno流量（及其主要流量）得到了相对公平的分配。这掩盖了对4个拉斯维加斯流量的不公平分配，如图b中详细的goodput分布所示。Cebinae减轻了4个Vegas流的饥饿现象。&lt;/p&gt;
+&lt;h2 id=&#34;个人总结&#34;&gt;个人总结&lt;/h2&gt;
+&lt;p&gt;  Cebinae将拥塞算法视为黑盒，通过征税的的手段近似地实现了最大最小公平，解决了原始最大最小公平无法使不公平分配公平化的弊端，虽然没有从理论上证明Cebinae收敛到最大最小公平，但是它能够利用更少的资源减轻不公平现象。&lt;/p&gt;
+&lt;p&gt;  解决某类问题，可以将其映射到实际生活中，通过实际生活已有的模型或者方法对问题进行抽象。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>SIGCOMM22 论文分享 | PLB: Congestion Signals are Simple and Effective for Network Load Balancing</title>
+      <link>https://ai4network.github.io/zh/post/paper-sharing-8/</link>
+      <pubDate>Wed, 04 Jan 2023 15:32:47 +0800</pubDate>
+      <guid>https://ai4network.github.io/zh/post/paper-sharing-8/</guid>
+      <description>&lt;p&gt;  今天给大家介绍的论文是由Google的研究团队提出的PLB——一种建立在传输协议和ECMP/WCMP之上，用于数据中心网络以减少网络热点的链路负载平衡设计。&lt;/p&gt;
+&lt;h2 id=&#34;一背景介绍&#34;&gt;一、背景介绍&lt;/h2&gt;
+&lt;p&gt;  当Google数据中心有未使用的容量时，拥塞热点会降低性能。热点是具有显著排队或丢包的拥塞交换机输出端口。而负载均衡问题一直都是一个值得广泛研究的问题，负载不均衡对数据中心网络的性能和效率都提出了挑战。&lt;/p&gt;
+&lt;p&gt;  作者试图缓解Google数据中心上的拥塞问题时，发现无法应用已有的负载均衡的设计方案。这些方案是昂贵且耗时的，难以进行大规模部署。作者希望有一种负载均衡策略能够增量部署，以控制成本和可靠性风险。同时适应Google机群的异构性。因此作者提出了PLB这种简单有效的机制来满足以上需求，PLB利用了ipv6协议的支持，它只需要少量的传输配置更改，并可以与我们现有的交换机一起使用。它在整个谷歌数据中心都得到了部署和应用，它实现了更好的负载均衡、更低的丢包率以及更小的应用延迟。作者也将代码进行了开源。&lt;/p&gt;
+&lt;p&gt;  目前最广泛使用的数据中心网络中跨多条路径传播流量的标准负载平衡机制是ECMP（Equal Cost Multi-Path）和WCMP（Weighted Cost Multi-Path）。当开启ECMP功能时，便可同时利用多条路径，实现基于流的负载均衡；WCMP基于路径权重，根据路径的权重分配流量，权重大的路径分配的流量更多。&lt;/p&gt;
+&lt;p&gt;  但是这样简单的机制用于数据中心也是有一些缺点的。由于数据中心流量通常是重尾的，其中少量长流贡献了所有流量的重要部分。因此，一些长流可能会在某些路径上发生冲突，从而造成长期的拥塞，而其他路径则未得到充分利用。但ECMP不会产生平衡的负载，并会加剧拥塞热点。因此作者希望利用现有的传输来识别正在经历拥塞且需要重新路由的流，以此降低网络中的热点，并降低RPC的延迟。&lt;/p&gt;
+&lt;p&gt;  这是第一篇报告数据中心链路利用率不平衡的论文。作者定义了LI（Load Imbalance）的概念。LI是交换机上行链路的最大利用率和最小利用率的差值，代表了链路不平衡指标。作者希望拥塞链路上的一些流可以转移到具有空闲带宽的链路上。&lt;/p&gt;
+&lt;h2 id=&#34;二plb设计&#34;&gt;二、PLB设计&lt;/h2&gt;
+&lt;p&gt;  PLB需要两个机制：（1）检测主机处的拥塞或链路故障的机制，以及（2）端主机重新路由特定流的方法。PLB在TCP协议和Google的传输协议Pony Express上都进行了实现，均接近50行代码，拥塞检测算法和调度算法伪代码如下图。&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;picture1&#34; srcset=&#34;
+               /zh/post/paper-sharing-8/picture/picture1_hu7c46995dc41af4f8827c7dcbb4da2511_185053_62cbfb14f9b49c91a213cff663050133.webp 400w,
+               /zh/post/paper-sharing-8/picture/picture1_hu7c46995dc41af4f8827c7dcbb4da2511_185053_da31defb1814d49101d21c36ee9fc02e.webp 760w,
+               /zh/post/paper-sharing-8/picture/picture1_hu7c46995dc41af4f8827c7dcbb4da2511_185053_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://ai4network.github.io/zh/post/paper-sharing-8/picture/picture1_hu7c46995dc41af4f8827c7dcbb4da2511_185053_62cbfb14f9b49c91a213cff663050133.webp&#34;
+               width=&#34;649&#34;
+               height=&#34;725&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;picture2&#34; srcset=&#34;
+               /zh/post/paper-sharing-8/picture/picture2_hu2f99b6f4b44061f343b75b93a66d52c0_132676_980ebd253fe260abe77ccec52a96aa75.webp 400w,
+               /zh/post/paper-sharing-8/picture/picture2_hu2f99b6f4b44061f343b75b93a66d52c0_132676_d528418408f0b0cfc8afd279330e4f69.webp 760w,
+               /zh/post/paper-sharing-8/picture/picture2_hu2f99b6f4b44061f343b75b93a66d52c0_132676_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://ai4network.github.io/zh/post/paper-sharing-8/picture/picture2_hu2f99b6f4b44061f343b75b93a66d52c0_132676_980ebd253fe260abe77ccec52a96aa75.webp&#34;
+               width=&#34;755&#34;
+               height=&#34;409&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;  首先，发送方主机通过传输检测到连接正处于拥塞状态。PLB-TCP发送方使用一个简单的类似DCTCP的启发式算法来检测连接是否拥塞。发送方计算每次往返过程中带有CE拥塞标记的数据包的分数。当这个分数大于一个常数，那么这个轮是拥塞的。在经历N个连续拥塞轮后，将这个流标记为拥塞。然后PLB通过为后续传出数据包分配一个新的随机生成的流标签，来重新建立连接，当发生重传超时（RTO）时，PLB也会重新建立路径。当流重新开始传输时，没有数据包传输，因此路径更改也不会导致重新排序。&lt;/p&gt;
+&lt;p&gt;  PLB以FlowBender的早期工作为基础，提出了两个改进:①当FlowBender需要过载VLAN标记，这意味着VLAN不再可以自由使用，并且限制了可能受到影响的网络路径的长度。PLB则改为使用IPv6流标签。它允许主机在可用路径集中随机更改流的路径，而无需应用程序参与。②FlowBender只是在出现拥塞时移动连接，PLB则是等到流变为空闲后再重新指定路径，以最小化由于数据包重新排序而导致的传输交互。&lt;/p&gt;
+&lt;p&gt;  PLB的特点是对于减少小型RPC的尾部延迟是有益的。由于发送小RPC的连接经常空闲，PLB倾向于将它们从由重流或大RPC的队列的路径上移开。其次PLB和拥塞控制具有时间尺度分离的特点，这意味着PLB等待拥塞控制动作并降低发送速率，当拥塞控制不能调整时，PLB触发重路由。作者把PLB与热扩散过程联系起来。其中拥塞驱动了流的移动。拥堵越严重，流的流动就越频繁。&lt;/p&gt;
+&lt;h2 id=&#34;三实验部分&#34;&gt;三、实验部分&lt;/h2&gt;
+&lt;p&gt;  PLB在交换机和应用程序之间均能产生增益。先来看交换机层面数据：作者使用全局遥测监控来获取每个交换机端口的数据，计数器每30s统计一次，同时记录由于输出缓冲区溢出而转发的字节数和丢弃的数据包数。下图左侧代表ToR交换机，蓝线黄线代表PLB部署前后LI指标。在PLB启用之后，负载更加均匀地分布，第50和99百分位数LI降低了70%，明显向较低LI转变。ToR的平均LI从13%下降到4.5%，显著的利用率下降被转换为在该交换机处的分组丢弃降低约50%。&lt;/p&gt;
+&lt;p&gt;  下图右侧展示了数据中心网络中所有聚集层交换机的上行链路之间的最大利用率的前后分布。最大利用率捕获了最繁忙端口交换机可用的空间，随着交换机的最大利用率下降，分布图向左移动，并且图在尾部周围变得更加平坦，这增加了瞬态突发的空间。从而将最大利用率峰值从0.6移到0.5。这些示例表明PLB在最需要的地方（即网络热点）提供了显著帮助。转化为丢包率下降了33% 。&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;picture3&#34; srcset=&#34;
+               /zh/post/paper-sharing-8/picture/picture3_hu1f724abdfc366085c5ec2680a8eb718a_159935_bb872182f71a5961a2faa074821f5c18.webp 400w,
+               /zh/post/paper-sharing-8/picture/picture3_hu1f724abdfc366085c5ec2680a8eb718a_159935_3f6647ea75241266773e31ba4eb76fcd.webp 760w,
+               /zh/post/paper-sharing-8/picture/picture3_hu1f724abdfc366085c5ec2680a8eb718a_159935_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://ai4network.github.io/zh/post/paper-sharing-8/picture/picture3_hu1f724abdfc366085c5ec2680a8eb718a_159935_bb872182f71a5961a2faa074821f5c18.webp&#34;
+               width=&#34;760&#34;
+               height=&#34;300&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;  作者希望评估PLB对利用率和负载不平衡的不同组合的影响，接下来作者研究整个Google车队的ToR交换机上行链路。在如此大的运行规模下，整个车队的ToR交换机涵盖了一系列具有不同负载不平衡状态的利用率水平。对于车队中的每个ToR交换机，我们从PLB部署前后两天的测量中收集以下两个指标：LI和最小端口利用率。最小端口利用率与LI反映出ToR上行链路端口的利用率范围。&lt;/p&gt;
+&lt;p&gt;  作者分别计算了部署之前和之后的数据的质量分布变化图，并对样本进行一化处理，其中横纵坐标对应于最小利用率和LI。图颜色反映了启用PLB时所经历的百分比变化。红色表示计数增加，而蓝色表示计数减少。LI接近于0的红色区域表明，在部署PLB后，更多的质量移动到该区域，蓝色阴影显示的高LI区域的质量相应减少，因此PLB更好地实现了负载均衡。&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;picture4&#34; srcset=&#34;
+               /zh/post/paper-sharing-8/picture/picture4_hue359ff1e5d226fd75ec51e048b3609b6_2426092_0b0a4ca528a351b7f860a69656cb0ef6.webp 400w,
+               /zh/post/paper-sharing-8/picture/picture4_hue359ff1e5d226fd75ec51e048b3609b6_2426092_751b8c76097143672939088b014e2037.webp 760w,
+               /zh/post/paper-sharing-8/picture/picture4_hue359ff1e5d226fd75ec51e048b3609b6_2426092_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://ai4network.github.io/zh/post/paper-sharing-8/picture/picture4_hue359ff1e5d226fd75ec51e048b3609b6_2426092_0b0a4ca528a351b7f860a69656cb0ef6.webp&#34;
+               width=&#34;760&#34;
+               height=&#34;544&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;  PLB在应用程序上获得的增益体现在两个代表性工作：使用TCP的存储服务和使用Pony Express的分布式文件系统上。存储服务（TCP）：存储占Google数据中心流量的大部分。许多应用程序都使用它通过TCP上的RPC进行读写操作。托管这些存储服务器的ToR很容易由于快速的工作负载变化而成为热点。我们研究了小型和大型RPC的网络传输延迟。数据从车队遥测系统中采样，作者测量从第一个字节离开发送方到收到ACK的传输延迟。&lt;/p&gt;
+&lt;p&gt;  作者比较了一个数据中心的存储服务器在PLB部署前后7天的RPC传输延迟变化，在这段期间，整体工作量没有较大改变。下图显示了存储工作负载的小RPC对传输延迟的影响。它们的延迟由物理传播延迟限定下限。可以看到第99百分位数下降了大约20%，而第25百分位数略有上升。说明PLB将更多的流量推向利用率较低的链路，这意味着在较低的百分位数处传输延迟略有增加。&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;picture5&#34; srcset=&#34;
+               /zh/post/paper-sharing-8/picture/picture5_hu256c680c1e6b8e475053443a7e3eb4c2_49291_09a90bf811c6633ee7d9dfabeea06e7a.webp 400w,
+               /zh/post/paper-sharing-8/picture/picture5_hu256c680c1e6b8e475053443a7e3eb4c2_49291_601a5e882ef8f2f9d3c540ba068c1f0b.webp 760w,
+               /zh/post/paper-sharing-8/picture/picture5_hu256c680c1e6b8e475053443a7e3eb4c2_49291_1200x1200_fit_q75_h2_lanczos.webp 1200w&#34;
+               src=&#34;https://ai4network.github.io/zh/post/paper-sharing-8/picture/picture5_hu256c680c1e6b8e475053443a7e3eb4c2_49291_09a90bf811c6633ee7d9dfabeea06e7a.webp&#34;
+               width=&#34;760&#34;
+               height=&#34;427&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;  分布式文件系统（Pony Express）：下图看到的是低延迟文件系统的截止日期超过率分布。应用对尾部延迟敏感：未能在截止日期之前完成的事务将被取消，并且促使更昂贵的恢复。PLB将该应用程序的中值错误率降低了约66%。&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;picture6&#34; srcset=&#34;
+               /zh/post/paper-sharing-8/picture/picture6_hu38f8e66ffa1a67673cc0cbed13046fa9_83701_3d3bf3008538d2bf5af6b5b1d5ba4df0.webp 400w,
+               /zh/post/paper-sharing-8/picture/picture6_hu38f8e66ffa1a67673cc0cbed13046fa9_83701_3cf0116e67ed3cdd1e6099a4a431134d.webp 760w,
+               /zh/post/paper-sharing-8/picture/picture6_hu38f8e66ffa1a67673cc0cbed13046fa9_83701_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://ai4network.github.io/zh/post/paper-sharing-8/picture/picture6_hu38f8e66ffa1a67673cc0cbed13046fa9_83701_3d3bf3008538d2bf5af6b5b1d5ba4df0.webp&#34;
+               width=&#34;760&#34;
+               height=&#34;517&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;h2 id=&#34;四总结&#34;&gt;四、总结&lt;/h2&gt;
+&lt;p&gt;  PLB是实现数据中心链路级负载平衡的一种简单而有效的方案，它通过google 数据中心网络完全部署，并产生了显著的收益。PLB是一种简单的机制，并很好地结合了交换机端口之间的异构性，传输协议和拓扑结构。论文中第5节，还有很多PLB与其他机制的更有趣的交互。一些未来的工作包括PLB的理论建模，以及与流量工程的紧密结合，以降低其最终的复杂性。&lt;/p&gt;
+&lt;h2 id=&#34;五思考&#34;&gt;五、思考&lt;/h2&gt;
+&lt;p&gt;  首先像PLB这种简单而通用的解决方案总是具有强大的价值增益，因为它结合了低成本和广泛的适用性。其次PLB将传输拥塞作为一个整体进行考虑，不仅仅是基于端到端的检测，而将中间的交换机等都包含在内，是更全面而合理的。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>CoNEXT22 论文分享 | Coal Not Diamonds: How Memory Pressure Falters Mobile Video QoE</title>
+      <link>https://ai4network.github.io/zh/post/paper-sharing-7/</link>
+      <pubDate>Mon, 26 Dec 2022 09:14:17 +0800</pubDate>
+      <guid>https://ai4network.github.io/zh/post/paper-sharing-7/</guid>
+      <description>&lt;p&gt;  “在远古时候，煤和钻石属于同一种物质，但经过上亿年的时光，它们却成为了两种不同的物品。那么，是什么造成的呢？是压力的作用。受压力小的变成了煤，而受压力大的，变成了钻石。”但是，当手机的内存压力变大时，视频的QoE反而变得更糟糕，此时，压力并没有促成更有价值的钻石的产生，而是生成了煤炭。&lt;/p&gt;
+&lt;p&gt;  今天介绍的文章是发表在CoNEXT22会议上的，作者是来自LUMS的团队。本文做了大量的实验探究视频播放设备的内存压力与视频用户体验之间的关系，并给出了几点解决方案。&lt;/p&gt;
+&lt;h2 id=&#34;背景&#34;&gt;背景&lt;/h2&gt;
+&lt;p&gt;  随着智能手机的广泛应用，人们愈发热衷使用手机收看视频，根据资料显示，在2021年，全球有63%的智能手机用户收看Youtube。平均美国成年人，每天收看至少50分钟的视频。并且，人们愈发追求更高清的视频内容和更流畅的观看体验，这就对视频内容的分辨率和帧率有了更高的要求。&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;picture1&#34; srcset=&#34;
+               /zh/post/paper-sharing-7/picture/picture1_hu5f29d62d04a7f6a44c15c1ae83e50634_223111_e8d58f106198b49365749339f7b1ae11.webp 400w,
+               /zh/post/paper-sharing-7/picture/picture1_hu5f29d62d04a7f6a44c15c1ae83e50634_223111_645e08cdd6ac70b72c745b0588db9518.webp 760w,
+               /zh/post/paper-sharing-7/picture/picture1_hu5f29d62d04a7f6a44c15c1ae83e50634_223111_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://ai4network.github.io/zh/post/paper-sharing-7/picture/picture1_hu5f29d62d04a7f6a44c15c1ae83e50634_223111_e8d58f106198b49365749339f7b1ae11.webp&#34;
+               width=&#34;362&#34;
+               height=&#34;706&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;picture2&#34; srcset=&#34;
+               /zh/post/paper-sharing-7/picture/picture2_hu5f486f5f06db4a83c801573ad2ceca87_177585_956c9f68a8bead9294728686d4438940.webp 400w,
+               /zh/post/paper-sharing-7/picture/picture2_hu5f486f5f06db4a83c801573ad2ceca87_177585_32d0369825f6aa330ab5517560b09a0b.webp 760w,
+               /zh/post/paper-sharing-7/picture/picture2_hu5f486f5f06db4a83c801573ad2ceca87_177585_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://ai4network.github.io/zh/post/paper-sharing-7/picture/picture2_hu5f486f5f06db4a83c801573ad2ceca87_177585_956c9f68a8bead9294728686d4438940.webp&#34;
+               width=&#34;656&#34;
+               height=&#34;358&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;  先前研究视频传输的工作较多关注于网络对传输的瓶颈，即如何在网络带宽不足的情况下调整视频传输的码率。但是，较少人关注到，视频播放设备本身（内存、CPU等性能）也会对视频用户体验造成影响。于是，本文从内存的分析出发，探究对视频QoE的影响。&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;picture3&#34; srcset=&#34;
+               /zh/post/paper-sharing-7/picture/picture3_hueecae70caf4925ed6f70581fa59c6abc_176581_e8295f168f731c600e526a900197db04.webp 400w,
+               /zh/post/paper-sharing-7/picture/picture3_hueecae70caf4925ed6f70581fa59c6abc_176581_cbcd59d24bafc856b66f3e2ad0add1e4.webp 760w,
+               /zh/post/paper-sharing-7/picture/picture3_hueecae70caf4925ed6f70581fa59c6abc_176581_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://ai4network.github.io/zh/post/paper-sharing-7/picture/picture3_hueecae70caf4925ed6f70581fa59c6abc_176581_e8295f168f731c600e526a900197db04.webp&#34;
+               width=&#34;760&#34;
+               height=&#34;289&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;picture4&#34; srcset=&#34;
+               /zh/post/paper-sharing-7/picture/picture4_huc9d2c4d7fd170c20ef4aaefbbd768b95_249554_7351dbda6bd7ff912dc7a39169f8037c.webp 400w,
+               /zh/post/paper-sharing-7/picture/picture4_huc9d2c4d7fd170c20ef4aaefbbd768b95_249554_d0ec94288bf2f748237eec1c9c1458b7.webp 760w,
+               /zh/post/paper-sharing-7/picture/picture4_huc9d2c4d7fd170c20ef4aaefbbd768b95_249554_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://ai4network.github.io/zh/post/paper-sharing-7/picture/picture4_huc9d2c4d7fd170c20ef4aaefbbd768b95_249554_7351dbda6bd7ff912dc7a39169f8037c.webp&#34;
+               width=&#34;760&#34;
+               height=&#34;395&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;  首先，我们来介绍一些手机内存相关的背景知识：&lt;/p&gt;
+&lt;p&gt;  1.手机内存中也是采用页表管理，页可以可分为三类，一是被进程使用中的内存（Used），二是没有被使用的(Free)，三是缓存在硬盘上的页(Cached)，需要的时候可以被回收。&lt;/p&gt;
+&lt;p&gt;  2.两个可以被用来回收内存的守护进程，The kernel swap daemon (kswapd)负责回收背景中的内存，Low-memory killer daemon (lmkd) 用来在低内存状态时杀掉其他进程回收内存资源。&lt;/p&gt;
+&lt;p&gt;  针对运行中的应用，内存压力可以被分为四个等级：Normal：没有内存压力; Moderate: kswapd启动，开始回收内存; Low：回收不足，已经影响前景应用的性能; Critical：不能再维持任何的背景进程，甚至要杀掉前景进程。&lt;/p&gt;
+&lt;h2 id=&#34;实验一手机内存压力分析实验&#34;&gt;实验一、手机内存压力分析实验&lt;/h2&gt;
+&lt;p&gt;  在了解了上述背景之后，作者进行了大量的实验分析，从手机内存压力分析实验到内存压力与视频QoE关系的实验层层递进。首先是进行了内存压力分析实验。
+在这一实验当中，采用了自己设计的signalcapter应用，在背景中收集内存压力信号进行分析，受试者80人，手机内存从1GB-8GB不等，共收集了9950小时的实验数据。&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;picture5&#34; srcset=&#34;
+               /zh/post/paper-sharing-7/picture/picture5_hubd05b4bcd40283ec338e79b5c8ea710c_313001_c8faff9f47cc37af5f31c4b22af11ba3.webp 400w,
+               /zh/post/paper-sharing-7/picture/picture5_hubd05b4bcd40283ec338e79b5c8ea710c_313001_77343c5e5b21a95e52ab139d7bba688e.webp 760w,
+               /zh/post/paper-sharing-7/picture/picture5_hubd05b4bcd40283ec338e79b5c8ea710c_313001_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://ai4network.github.io/zh/post/paper-sharing-7/picture/picture5_hubd05b4bcd40283ec338e79b5c8ea710c_313001_c8faff9f47cc37af5f31c4b22af11ba3.webp&#34;
+               width=&#34;760&#34;
+               height=&#34;293&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;  作者统计了一小时内手机出现不同内存压力信号的频率，从图中可以看出63%的手机经历每小时大于一次的内存压力，19%大于10次Critical内存压力，6.3%大于70次内存压力。所以，内存压力现象频繁出现在手机中。&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;picture6&#34; srcset=&#34;
+               /zh/post/paper-sharing-7/picture/picture6_hu4d9ff9ecdadb64a6e1006d52c8a4667b_108241_b2065cf69e5b7cb3f518d4c64fee1376.webp 400w,
+               /zh/post/paper-sharing-7/picture/picture6_hu4d9ff9ecdadb64a6e1006d52c8a4667b_108241_c2c8dd085e434435238ecdebb72e6869.webp 760w,
+               /zh/post/paper-sharing-7/picture/picture6_hu4d9ff9ecdadb64a6e1006d52c8a4667b_108241_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://ai4network.github.io/zh/post/paper-sharing-7/picture/picture6_hu4d9ff9ecdadb64a6e1006d52c8a4667b_108241_b2065cf69e5b7cb3f518d4c64fee1376.webp&#34;
+               width=&#34;452&#34;
+               height=&#34;401&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;picture7&#34; srcset=&#34;
+               /zh/post/paper-sharing-7/picture/picture7_hua57c5762586532c4b33761d05682106b_86532_68f56cd0143d29acc80cc2041fd19072.webp 400w,
+               /zh/post/paper-sharing-7/picture/picture7_hua57c5762586532c4b33761d05682106b_86532_9343b2e31f73e84195d5247bf086de07.webp 760w,
+               /zh/post/paper-sharing-7/picture/picture7_hua57c5762586532c4b33761d05682106b_86532_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://ai4network.github.io/zh/post/paper-sharing-7/picture/picture7_hua57c5762586532c4b33761d05682106b_86532_68f56cd0143d29acc80cc2041fd19072.webp&#34;
+               width=&#34;430&#34;
+               height=&#34;334&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;  之后，作者又统计了在经历过Critical内存压力后，转移到其他压力状态的概率，以及在Critical转移到其他状态之前的持续时间。从图中可以看出，转移到Low状态大于占67.2%,并且会持续12.8秒左右的时间，这说明内存压力很难被立即缓解。
+通过以上实验作者总结，手机端经常处于高内存利用状态，终端频繁观测出长时间的内存压力，内核不能快速缓解内存压力。&lt;/p&gt;
+&lt;h2 id=&#34;实验二手机内存压力对视频qoe影响实验&#34;&gt;实验二、手机内存压力对视频QoE影响实验&lt;/h2&gt;
+&lt;p&gt;  在得出实验一的结论后，作者进而开始分析内存压力对视频QoE的影响。在接下来的实验中，实验受试者使用了1GB-3GB内存的手机如下图所示，并通过从浏览器收看视频的方法进行实验。&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;picture8&#34; srcset=&#34;
+               /zh/post/paper-sharing-7/picture/picture8_hu9036dca131baa88ba4baf092a3a2bb1a_391117_ddef5697597de72e595cfdbd464be74b.webp 400w,
+               /zh/post/paper-sharing-7/picture/picture8_hu9036dca131baa88ba4baf092a3a2bb1a_391117_86eebb960b4cd99fe081e1e62af54862.webp 760w,
+               /zh/post/paper-sharing-7/picture/picture8_hu9036dca131baa88ba4baf092a3a2bb1a_391117_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://ai4network.github.io/zh/post/paper-sharing-7/picture/picture8_hu9036dca131baa88ba4baf092a3a2bb1a_391117_ddef5697597de72e595cfdbd464be74b.webp&#34;
+               width=&#34;760&#34;
+               height=&#34;317&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;picture9&#34; srcset=&#34;
+               /zh/post/paper-sharing-7/picture/picture9_hu77e35fc09917d597c0266c62774a6e6e_319275_bbb80ebd22046a04dece8f5f4ffb080b.webp 400w,
+               /zh/post/paper-sharing-7/picture/picture9_hu77e35fc09917d597c0266c62774a6e6e_319275_5cd49f642ea4e714a4397ede4f9a6e51.webp 760w,
+               /zh/post/paper-sharing-7/picture/picture9_hu77e35fc09917d597c0266c62774a6e6e_319275_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://ai4network.github.io/zh/post/paper-sharing-7/picture/picture9_hu77e35fc09917d597c0266c62774a6e6e_319275_bbb80ebd22046a04dece8f5f4ffb080b.webp&#34;
+               width=&#34;760&#34;
+               height=&#34;369&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;  作者首先分析了视频丢帧率这一指标，从图中可以看出，对于1GB内存的手机，在收看720P以上的视频会产生75%的丢帧率，对于2GB和3GB的设备，在收看1080P的视频会出现25%和9%的丢帧率。&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;picture10&#34; srcset=&#34;
+               /zh/post/paper-sharing-7/picture/picture10_hu00969070b0e5c5a1c52de5dea227c437_512205_5f247ef89eaf85cfdc15aae340a1afb4.webp 400w,
+               /zh/post/paper-sharing-7/picture/picture10_hu00969070b0e5c5a1c52de5dea227c437_512205_1c17f7c5fb8b5600a6efdc8e370843b3.webp 760w,
+               /zh/post/paper-sharing-7/picture/picture10_hu00969070b0e5c5a1c52de5dea227c437_512205_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://ai4network.github.io/zh/post/paper-sharing-7/picture/picture10_hu00969070b0e5c5a1c52de5dea227c437_512205_5f247ef89eaf85cfdc15aae340a1afb4.webp&#34;
+               width=&#34;741&#34;
+               height=&#34;760&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;  之后，作者还分析了手机视频播放发生崩溃的情况。1GB的设备，崩溃在大于480P的视频时就发生了，在有内存压力的情况下大于720p的视频会经常发生崩溃。对于2GB的设备，大于1080P总发生崩溃，而3GB的设备没有检测到崩溃。&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;picture11&#34; srcset=&#34;
+               /zh/post/paper-sharing-7/picture/picture11_hu759cf75ea2a8da4c645e2d9da9dfd733_320353_2d5745143043d3d79097c843b5f5ade5.webp 400w,
+               /zh/post/paper-sharing-7/picture/picture11_hu759cf75ea2a8da4c645e2d9da9dfd733_320353_1dc6a19422635cfe1ac36b99672301ab.webp 760w,
+               /zh/post/paper-sharing-7/picture/picture11_hu759cf75ea2a8da4c645e2d9da9dfd733_320353_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://ai4network.github.io/zh/post/paper-sharing-7/picture/picture11_hu759cf75ea2a8da4c645e2d9da9dfd733_320353_2d5745143043d3d79097c843b5f5ade5.webp&#34;
+               width=&#34;760&#34;
+               height=&#34;274&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;  作者又对比了不同的视频类型对丢帧率的影响，对于所有类别，帧率为30fps的视频只在720P以上才发生丢帧，但是对于60fps帧率的视频，随着内存压力和分辨率的上升，丢帧变得严重。另外对比不同的视频类型，新闻类画面相对静止，所以丢帧率较低。因此视频内容和视频应用的性能指标也有一定的关系。&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;picture12&#34; srcset=&#34;
+               /zh/post/paper-sharing-7/picture/picture12_hu54cf6656eb7de8bcbeeb709bfc1618cf_236968_ebca5819378db7e7cc1ffddae9c2debd.webp 400w,
+               /zh/post/paper-sharing-7/picture/picture12_hu54cf6656eb7de8bcbeeb709bfc1618cf_236968_75f88d20da8f96c11c13051b1563cc9f.webp 760w,
+               /zh/post/paper-sharing-7/picture/picture12_hu54cf6656eb7de8bcbeeb709bfc1618cf_236968_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://ai4network.github.io/zh/post/paper-sharing-7/picture/picture12_hu54cf6656eb7de8bcbeeb709bfc1618cf_236968_ebca5819378db7e7cc1ffddae9c2debd.webp&#34;
+               width=&#34;760&#34;
+               height=&#34;439&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;  作者还让受试者观看Normal内存压力状态下和Moderate压力状态下的视频，并收集他们的观感。在99个受试者中，绝大多数都能感知到视频间的差距。&lt;/p&gt;
+&lt;h2 id=&#34;原因分析&#34;&gt;原因分析&lt;/h2&gt;
+&lt;p&gt;  在进行了以上的实验观察后，作者开始分析内存对视频性能产生影响的真实原因。定位到了以下的三个进程，一个是负责硬盘I/O的mmcqd，它经常使用CPU并且具有较高的调度优先级；第二个是kswapd，具有较高的CPU利用率，经常在内存较低时启动回收CPU内存;第三个是lmkd，会在内存不足时杀掉视频客户端，导致崩溃。&lt;/p&gt;
+&lt;p&gt;  于是，作者通过profile工具观察了各个进程的运行情况。进程的运行状态可分成三类：(1) Running：进程占用CPU内核运行中;(2) Runnable,CPU不可用，进程等待中; (3) Runnable (Preempted), 进程等待CPU时被其他进程抢占。经过观察，mmcqd进程在Normal内存压力下运行时间处于进程中的第50名，运行0.4秒，而当内存压力转为Moderate时就变成了第6名，运行4.6秒。Kswapd也是从第14名的2.3秒跃升到了第1名的22秒。与它相比，视频客户端只有7.9秒。因此，可以看出，这些内存管理进程大量抢占了视频进程的运行时间，进而导致卡顿和崩溃的发生。&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;picture13&#34; srcset=&#34;
+               /zh/post/paper-sharing-7/picture/picture13_hub590cbd0b83614807dbdade6f82f2dfa_90099_79615e0614fc90e4cc5f0d7c40d65487.webp 400w,
+               /zh/post/paper-sharing-7/picture/picture13_hub590cbd0b83614807dbdade6f82f2dfa_90099_b03d668ff1dd2d385bdc9de1c82ec4a8.webp 760w,
+               /zh/post/paper-sharing-7/picture/picture13_hub590cbd0b83614807dbdade6f82f2dfa_90099_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://ai4network.github.io/zh/post/paper-sharing-7/picture/picture13_hub590cbd0b83614807dbdade6f82f2dfa_90099_79615e0614fc90e4cc5f0d7c40d65487.webp&#34;
+               width=&#34;760&#34;
+               height=&#34;374&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;h2 id=&#34;解决方案&#34;&gt;解决方案&lt;/h2&gt;
+&lt;p&gt;  在进行了上述的实验观察和原因分析后，作者对视频流自适应算法设计者、平台内容提供者、系统设计者以及手机生产者提出了以下几点建议：&lt;/p&gt;
+&lt;p&gt;  1.对视频流自适应算法设计者：传统的自适应码率调整算法通常以估算网络带宽为输入调整视频的码率，算法可以将设备内存压力信号作为输入，调整码率或帧率，从而达到更好的播放效果。如图所示，如果合理降低帧率，将降低视频的丢帧率。&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;picture14&#34; srcset=&#34;
+               /zh/post/paper-sharing-7/picture/picture14_hu3f856961f854a05809a10b946c72eb88_321196_1d4f94113e6c648a0dba82b30db284f4.webp 400w,
+               /zh/post/paper-sharing-7/picture/picture14_hu3f856961f854a05809a10b946c72eb88_321196_84eec5fef885f4500eda36b61e6ccf4d.webp 760w,
+               /zh/post/paper-sharing-7/picture/picture14_hu3f856961f854a05809a10b946c72eb88_321196_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://ai4network.github.io/zh/post/paper-sharing-7/picture/picture14_hu3f856961f854a05809a10b946c72eb88_321196_1d4f94113e6c648a0dba82b30db284f4.webp&#34;
+               width=&#34;760&#34;
+               height=&#34;265&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;  2.对平台内容提供者：增强客户端的遥测，提供大量的视频编解码和帧率方案。&lt;/p&gt;
+&lt;p&gt;  3.对操作系统设计者：合理设计内存管理进程，不要过多抢占视频应用的资源。&lt;/p&gt;
+&lt;p&gt;  4.对于收集生产者：分配给小内存的设备更多的CPU资源，可以提升视频播放的性能。&lt;/p&gt;
+&lt;h2 id=&#34;总结与展望&#34;&gt;总结与展望&lt;/h2&gt;
+&lt;p&gt;  另辟蹊径：转换思路，脱离从网络与视频QoE的传统角度，分析设备本身的性能和QoE的关系。&lt;/p&gt;
+&lt;p&gt;  写作思路：大部分论文的写作思路一种是从实验观察到问题发现再到提出方法解决和实验验证，另一种是通过理论建模到提出优化方案再到实验分析或理论证明。而本文是通过大量的实验一步步观察挖掘出设备本身的指标与应用性能之间的联系，并建设性地提出解决方案。从中可以看出，学术研究的重点不一定要放在解决问题上，发掘一个好问题也是十分关键的，这样一来问题可以牵引出新的研究点，启发人们从新的角度去提出更多的解决方案。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>SIGCOMM22 论文分享 | Starvation in End-to-End Congestion Control</title>
+      <link>https://ai4network.github.io/zh/post/paper-sharing-6/</link>
+      <pubDate>Tue, 20 Dec 2022 14:51:07 +0800</pubDate>
+      <guid>https://ai4network.github.io/zh/post/paper-sharing-6/</guid>
+      <description>&lt;p&gt;  今天分享的是来自MIT的Venkat Arun,Mohammad Alizadeh和Hari Balakrishnan三位学者发表在SIGCOMM的一篇论文。论文讨论了基于延迟的拥塞控制算法存在着极度不公平现象，从算法的机理出发进行说明，具有较强的理论性。同时这篇论文也是SIGCOMM22的最佳论文。&lt;/p&gt;
+&lt;h2 id=&#34;动机与背景&#34;&gt;动机与背景&lt;/h2&gt;
+&lt;p&gt;  随着目前视频以及交互式应用的不断发展，用户对低时延的需求越来越迫切。为了保证传输层的服务质量，基于时延的拥塞控制应运而生，例如BBR、Copa以及PCC等算法。这些拥塞控制算法主要为了在防止引入排队时延的情况下，实现链路的高利用率。但是，该论文发现当共享瓶颈链路的多条流使用同一种基于时延的拥塞控制算法时，存在某些流饿死现象——一种带宽分配的极度不公平现象。&lt;/p&gt;
+&lt;h2 id=&#34;问题引入&#34;&gt;问题引入&lt;/h2&gt;
+&lt;h3 id=&#34;1-延迟收敛现象&#34;&gt;1. 延迟收敛现象&lt;/h3&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;picture1&#34; srcset=&#34;
+               /zh/post/paper-sharing-6/picture/picture1_hud21c180db59ae2462746b57d7e340a45_62103_7dc01f066fa081a99591b659c10aa4a7.webp 400w,
+               /zh/post/paper-sharing-6/picture/picture1_hud21c180db59ae2462746b57d7e340a45_62103_d4eeec2c943a9241f38cf68b9588f20b.webp 760w,
+               /zh/post/paper-sharing-6/picture/picture1_hud21c180db59ae2462746b57d7e340a45_62103_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://ai4network.github.io/zh/post/paper-sharing-6/picture/picture1_hud21c180db59ae2462746b57d7e340a45_62103_7dc01f066fa081a99591b659c10aa4a7.webp&#34;
+               width=&#34;614&#34;
+               height=&#34;315&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;  作者提出诸如BBR、Copa以及PCC等基于延迟的拥塞控制算法均存在一种延迟收敛现象。延迟收敛是指当算法稳定后，发送方与接收方之间的端到端延迟稳定在一个固定区间内，区间上边界记作dmax,下边界记作dmin，区间长度记作δ(C)。&lt;/p&gt;
+&lt;h3 id=&#34;2-非拥塞延迟&#34;&gt;2. 非拥塞延迟&lt;/h3&gt;
+&lt;p&gt;  作者指出当前端到端延迟一共包含三个主要部分:传播延迟(常数)、拥塞延迟(排队延迟)以及非拥塞延迟。wifi的延迟应答、内核对数据包的处理延迟以及发送方/接收方的突发传输/应答等机制均会带来非拥塞延迟。通过上述非拥塞延迟的举例可以看出非拥塞延迟是一个随机值，和稳定后的拥塞延迟一样处在一个固定区间内波动。由于拥塞延迟和非拥塞延迟行为相似因此很难加以区分。作者将非拥塞延迟的波动区间记作D。&lt;/p&gt;
+&lt;h3 id=&#34;3-饿死现象&#34;&gt;3. 饿死现象&lt;/h3&gt;
+&lt;p&gt;  Copa拥塞控制算法族的链路的发送速率与数据包排队延迟成反比关系，如下图所示。从图中可以看到当算法稳定时对排队时延的不同观测所导致的链路发送速率有着巨大差异。同时由于端对端延迟中非拥塞延迟的干扰，对排队时延的观测往往是不准确的，这种观测上的差异也就导致了数据流之间的发送速率出现较大差异，甚至发生饿死现象。&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;picture2&#34; srcset=&#34;
+               /zh/post/paper-sharing-6/picture/picture2_hu34eb991d4da8d461832038753fdf8fa2_46730_b1cca6a7d11aaf9b8584d9ac3146c374.webp 400w,
+               /zh/post/paper-sharing-6/picture/picture2_hu34eb991d4da8d461832038753fdf8fa2_46730_e760965e0a5f0980890998b358916b38.webp 760w,
+               /zh/post/paper-sharing-6/picture/picture2_hu34eb991d4da8d461832038753fdf8fa2_46730_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://ai4network.github.io/zh/post/paper-sharing-6/picture/picture2_hu34eb991d4da8d461832038753fdf8fa2_46730_b1cca6a7d11aaf9b8584d9ac3146c374.webp&#34;
+               width=&#34;545&#34;
+               height=&#34;289&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;  下图中有两条流共享同一个瓶颈链路，一条流记作流1使用CCA1拥塞控制算法同时该条数据链路使用的wifi接收方引入了一定的非拥塞控制延时，另一条流记作流2使用CCA2拥塞控制算法。流1因为存在非拥塞延迟的干扰过高估计了当前的排队时延，就导致流1会降低发送速率，造成不公平现象。&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;picture3&#34; srcset=&#34;
+               /zh/post/paper-sharing-6/picture/picture3_hu4fe3eb0180b89d2615eb4bc11f493cbe_50465_d85a4f565e25ffd41998cd13e23b8584.webp 400w,
+               /zh/post/paper-sharing-6/picture/picture3_hu4fe3eb0180b89d2615eb4bc11f493cbe_50465_7ac5a83d41ea013f88364f2901f84ab7.webp 760w,
+               /zh/post/paper-sharing-6/picture/picture3_hu4fe3eb0180b89d2615eb4bc11f493cbe_50465_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://ai4network.github.io/zh/post/paper-sharing-6/picture/picture3_hu4fe3eb0180b89d2615eb4bc11f493cbe_50465_d85a4f565e25ffd41998cd13e23b8584.webp&#34;
+               width=&#34;572&#34;
+               height=&#34;300&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;h2 id=&#34;问题证明&#34;&gt;问题证明&lt;/h2&gt;
+&lt;h3 id=&#34;1两个定义&#34;&gt;1.两个定义&lt;/h3&gt;
+&lt;ol&gt;
+&lt;li&gt;f-高效的CCA&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;  如果在具有瓶颈链路速率C和最小RTT RM的理想路径，拥塞控制算法(CCA)最终获得至少f C的吞吐量。&lt;/p&gt;
+&lt;ol start=&#34;2&#34;&gt;
+&lt;li&gt;CCA的s-公平性&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;  从任意初始条件开始的两个流 f1 和 f2（例如，其中一个流可能运行了很长时间，而另一个流刚刚开始）。如果始终存在一个有限的时间 t，使得对于超过 t 的所有时间，较快的流与较慢的流实现的吞吐量之比小于 s，则网络是 s 公平的。&lt;/p&gt;
+&lt;h3 id=&#34;2三步证明&#34;&gt;2.三步证明&lt;/h3&gt;
+&lt;p&gt;  作者通过Copa算法族引入了饿死现象，且认为所有基于时延的拥塞控制算法均存在这个现象，并通过以下三步进行证明。&lt;/p&gt;
+&lt;p&gt;  1）假定数据流的延迟上限为dmax，下限为Rm。我们在[Rm,dmax]之间可以构造有限个长度为δmax,且彼此之间的距离为ε的排队延时族。同时定义这些波动的排队延时对应的带宽分别为λ0=λ，λ1&amp;hellip;,且。根据鸽笼原理易得一定存在两个排队时延区间位于δmax+ε内。&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;picture4&#34; srcset=&#34;
+               /zh/post/paper-sharing-6/picture/picture4_hu31e67570f36d6ab6331cb84883ea3910_55397_51cbd3b9df58f9a4258e7176bb7050f3.webp 400w,
+               /zh/post/paper-sharing-6/picture/picture4_hu31e67570f36d6ab6331cb84883ea3910_55397_0605b6961506e10869542766bf35f1e5.webp 760w,
+               /zh/post/paper-sharing-6/picture/picture4_hu31e67570f36d6ab6331cb84883ea3910_55397_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://ai4network.github.io/zh/post/paper-sharing-6/picture/picture4_hu31e67570f36d6ab6331cb84883ea3910_55397_51cbd3b9df58f9a4258e7176bb7050f3.webp&#34;
+               width=&#34;668&#34;
+               height=&#34;361&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;  2）根据第一步的说明，可以构造两条独立的数据流，其分别具有带宽C1和C2(如图4)。可以构造两个CCA，其收敛后的排队时延记作d1(t)，d2(t)差距小于ε且分别获取x1和x2的速率(如图5)。可以说明x2比x1的s倍还大。&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;picture5&#34; srcset=&#34;
+               /zh/post/paper-sharing-6/picture/picture5_hu613da5d33a2426ccc650bc7aa6b0a26b_155969_488c1054c8c10082bc7aa2e8df507aac.webp 400w,
+               /zh/post/paper-sharing-6/picture/picture5_hu613da5d33a2426ccc650bc7aa6b0a26b_155969_146de398cb8383f29cc90574597032c9.webp 760w,
+               /zh/post/paper-sharing-6/picture/picture5_hu613da5d33a2426ccc650bc7aa6b0a26b_155969_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://ai4network.github.io/zh/post/paper-sharing-6/picture/picture5_hu613da5d33a2426ccc650bc7aa6b0a26b_155969_488c1054c8c10082bc7aa2e8df507aac.webp&#34;
+               width=&#34;760&#34;
+               height=&#34;397&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;  3）当两条流共享同一瓶颈链路时，假定将η&lt;em&gt;1(t),η&lt;/em&gt;2(t)∈[0,D]记作两条链路的非拥塞延迟，d&lt;em&gt;1(t),d&lt;/em&gt;2(t)记作两条链路的拥塞延迟。为了构造第二步的时延要求，我们需要控制η&lt;em&gt;1(t),η&lt;/em&gt;2(t)使得η&lt;em&gt;1(t)+d&lt;/em&gt;1(t)=d1(t)以及η&lt;em&gt;2(t)+d&lt;/em&gt;2(t)=d2(t)。根据证明(具体见论文附件A)，我们可以得到d*i(t)的表达式如下：&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;picture6&#34; srcset=&#34;
+               /zh/post/paper-sharing-6/picture/picture6_hu5ffb114120143cec5d5ec5f1008e4c78_22055_f4f260d3782707c0d2883f3a8e043a93.webp 400w,
+               /zh/post/paper-sharing-6/picture/picture6_hu5ffb114120143cec5d5ec5f1008e4c78_22055_0e8444aadc56164c391e5f3f56eb1ace.webp 760w,
+               /zh/post/paper-sharing-6/picture/picture6_hu5ffb114120143cec5d5ec5f1008e4c78_22055_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://ai4network.github.io/zh/post/paper-sharing-6/picture/picture6_hu5ffb114120143cec5d5ec5f1008e4c78_22055_f4f260d3782707c0d2883f3a8e043a93.webp&#34;
+               width=&#34;468&#34;
+               height=&#34;128&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;  易得，d*i(t)具有以下两种性质:&lt;/p&gt;
+&lt;p&gt;d*i(t)&amp;lt;min{d*1(t),d*2(t)}&lt;/p&gt;
+&lt;p&gt;max{d*1(t),d*2(t)}&amp;lt;d*i(t)+D&lt;/p&gt;
+&lt;p&gt;  根据以上两种性质我们知道可以获得 η*1(t),η*2(t)∈[0,D]，使得当两条流共享瓶颈链路时存在 η*1(t)+d*1(t)=d1(t) 以及 η*2(t)+d*2(t)=d2(t) 的可能性。一旦发生这种现象，就出现饿死。&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;picture7&#34; srcset=&#34;
+               /zh/post/paper-sharing-6/picture/picture7_hu7573736e5567b35c4dac441faf6275a8_77453_7e1efdd0ed79182587cec45282c33b12.webp 400w,
+               /zh/post/paper-sharing-6/picture/picture7_hu7573736e5567b35c4dac441faf6275a8_77453_3fb945f42f74051c9672bd83c648b713.webp 760w,
+               /zh/post/paper-sharing-6/picture/picture7_hu7573736e5567b35c4dac441faf6275a8_77453_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://ai4network.github.io/zh/post/paper-sharing-6/picture/picture7_hu7573736e5567b35c4dac441faf6275a8_77453_7e1efdd0ed79182587cec45282c33b12.webp&#34;
+               width=&#34;649&#34;
+               height=&#34;361&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;h2 id=&#34;实验验证&#34;&gt;实验验证&lt;/h2&gt;
+&lt;p&gt;  针对上述理论证明作者给出了两个在模拟环境下的进行的实验进行说明理论证明的结果是正确的。&lt;/p&gt;
+&lt;h3 id=&#34;1-bbr&#34;&gt;1. BBR&lt;/h3&gt;
+&lt;p&gt;  作者使用Mahimahi仿真平台上构造了两个共享同一瓶颈链路的BBR数据流，其传播时延分别是40ms和80ms，共享瓶颈链路的带宽是120Mbit/s。实验进行了60s的持续传输，最终出现一个流获得8.3Mbit/s，另一个获得107Mbit/s。&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;picture8&#34; srcset=&#34;
+               /zh/post/paper-sharing-6/picture/picture8_hud83c2eff785c5ed2fe173e37575a085d_54540_2dbaed6faa01f19347b37dda2e112d26.webp 400w,
+               /zh/post/paper-sharing-6/picture/picture8_hud83c2eff785c5ed2fe173e37575a085d_54540_1a4798f82a102d5f6ec7697246651239.webp 760w,
+               /zh/post/paper-sharing-6/picture/picture8_hud83c2eff785c5ed2fe173e37575a085d_54540_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://ai4network.github.io/zh/post/paper-sharing-6/picture/picture8_hud83c2eff785c5ed2fe173e37575a085d_54540_2dbaed6faa01f19347b37dda2e112d26.webp&#34;
+               width=&#34;760&#34;
+               height=&#34;191&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;h3 id=&#34;2-copa&#34;&gt;2. Copa&lt;/h3&gt;
+&lt;p&gt;  作者使用Mahimahi仿真平台上构造了两个共享同一瓶颈链路的Copa数据流，其传播时延均为60ms，共享瓶颈带宽为120Mbit/s。作者引入一个干扰使得其中一条流的时延估计为59ms，导致了其低估了传播时延也就意味着其之后均会高估排队时延，最终导致两条流的带宽分配为:8.8Mbit/s、95Mbit/s。&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;picture9&#34; srcset=&#34;
+               /zh/post/paper-sharing-6/picture/picture9_huba7547285dc6951fc8cd8ec20a6e08e9_67648_45131218f0ad084da7988df8a751bcd2.webp 400w,
+               /zh/post/paper-sharing-6/picture/picture9_huba7547285dc6951fc8cd8ec20a6e08e9_67648_51c8e9d005c1e2979cae9527bbc80bd4.webp 760w,
+               /zh/post/paper-sharing-6/picture/picture9_huba7547285dc6951fc8cd8ec20a6e08e9_67648_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://ai4network.github.io/zh/post/paper-sharing-6/picture/picture9_huba7547285dc6951fc8cd8ec20a6e08e9_67648_45131218f0ad084da7988df8a751bcd2.webp&#34;
+               width=&#34;760&#34;
+               height=&#34;262&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;h2 id=&#34;可行的解决方案&#34;&gt;可行的解决方案&lt;/h2&gt;
+&lt;h3 id=&#34;1-故意的延迟震荡&#34;&gt;1. 故意的延迟震荡&lt;/h3&gt;
+&lt;p&gt;  根据上面的分析我们得到基于延时的拥塞控制算法产生饿死的根本原因在于其追求低延时即延迟收敛。但是基于丢包的拥塞控制算法采用AIMD的方式填充队列，并不会产生饿死现象。因此作者认为可以允许基于时延的拥塞控制算法像AIMD式的拥塞控制一样容忍更大的延迟波动来对抗非拥塞时延的干扰。&lt;/p&gt;
+&lt;h3 id=&#34;2-显式拥塞信号包括ecn等&#34;&gt;2. 显式拥塞信号，包括ECN等。&lt;/h3&gt;
+&lt;h2 id=&#34;心得体会&#34;&gt;心得体会&lt;/h2&gt;
+&lt;p&gt;  本文以理论分析切入，从基于延时的拥塞控制算法的机理开始，发现这些算法最终导致自己违背了自己的初衷——公平性。文章的最后作者给出了几种针对饿死现象的解决方案，可以作为以后基于延时的拥塞控制的切入点。近年来，BBR以及Copa的大火，使得很多人认为基于丢包的算法已不具有竞争力。但从本论文的视角来看，基于延时的拥塞控制算法比如Copa，BBR等也存在着很大的不足，并不会导致基于丢包的拥塞控制算法退出历史舞台。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>SIGCOMM22 论文分享 | Achieving Consistent Low Latency for Wireless Real-Time Communications with the Shortest Control Loop</title>
+      <link>https://ai4network.github.io/zh/post/paper-sharing-4/</link>
+      <pubDate>Sun, 27 Nov 2022 20:58:16 +0800</pubDate>
+      <guid>https://ai4network.github.io/zh/post/paper-sharing-4/</guid>
+      <description>&lt;p&gt;  本期分享SIGCOMM22拥塞控制专题下的论文： Achieving Consistent Low Latency for Wireless Real-Time Communications with the Shortest Control Loop。该文作者来自清华大学、阿里巴巴与卡耐基梅隆大学。&lt;/p&gt;
+&lt;h1 id=&#34;sigcomm22--诸葛-跳过last-mile的拥塞控制回路&#34;&gt;SIGCOMM22 | 诸葛: 跳过last-mile的拥塞控制回路&lt;/h1&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img src=&#34;picture/picture%20%281%29.png&#34; alt=&#34;截屏2022-11-28 17.34.28.png&#34; loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;实时会议与云游戏这类RTC应用需要持续稳定的低延迟来提供良好的交互体验。然而无线网络只能提供较好的延迟中值，当带宽波动时其尾部延迟可能很大。文章发现当无线AP处发生拥塞时，RTC的控制回路会膨胀，导致发送方无法自适应地及时调整发送速率。因此以缩小控制回路的思路设计了“诸葛”：使数据包在到达无线AP时就预测其延迟，并立即将预测值传回发送方，避免拥塞控制信号经历last-mile的拥塞过程，从而达到加快发送方反应速度的效果。实验结果表明诸葛能将尾部高延迟的比例以及RTC性能降级的情况减少17%到95%。&lt;/strong&gt;&lt;/p&gt;
+&lt;h1 id=&#34;1简介&#34;&gt;1.简介&lt;/h1&gt;
+&lt;p&gt;RTC（Real-time Communication）应用需要&lt;strong&gt;持续低延时&lt;/strong&gt;，这在无线场景中并不能被满足，问题主要出现在&lt;strong&gt;尾部&lt;/strong&gt;：&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;无线用户的RTT中位数低于100ms，与以太网用户相当；但99分位数的尾部延迟约400ms，意味着播放20帧的视频时每5s就会出现一次高延时。观察还发现无线用户经历的重缓冲是以太网用户的两倍。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;对于无线场景（论文关注last-mile）来说，可用带宽的骤变（可能由多用户接入或人为干扰引起）会导致暂时拥塞，让数据包在无线AP内排队，导致端到端延迟变大。对此，理想情况是发送方立刻减小发送速率以防止排队、高延迟、丢包的出现。&lt;strong&gt;但实际情况是发送方的反应速度恰恰被排队给限制了。&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;如何解释？拿TCP中时延敏感的拥塞控制算法来说，其拥塞信号是RTT变大。虽然数据包到达AP时就遭遇拥塞 ，但发送方仍需等待一段时间才能得知拥塞。这段时间包括：该数据包从AP中出队，AP转发给接收方，接收方再发送ACK经AP返回至发送方，发送方收到ACK计算RTT得知拥塞。这个过程中拥塞信号经过的路径与数据包及其ACK经过的一致。图1中五步表示拥塞信号的传递路径（控制回路），红色的是在发生拥塞时膨胀（时间变长）的部分，表明&lt;strong&gt;拥塞越严重，发送方就需要越久才获取拥塞信号&lt;/strong&gt;。&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img src=&#34;picture/picture%20%282%29.png&#34; alt=&#34;截屏2022-11-19 13.01.12.png&#34; loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;因此论文的关注点在：&lt;strong&gt;让拥塞控制回路从完整的数据包传输路径中解耦，从而防止其经历排队与无线网络的延迟&lt;/strong&gt;。如上图所示：在数据包进入（i）之前，发现出现拥塞时，预测其后续可能经历的延迟，随即让AP将预测值通过（iv）把拥塞信号传给发送方，从而跳过膨胀的（i）（ii）（iii），也就是绕过拥塞瓶颈。&lt;/p&gt;
+&lt;p&gt;要实现文章的想法（减少控制循环），主要会有两个问题：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;数据包还没真正经历延迟，如何预测？&lt;/li&gt;
+&lt;li&gt;AP怎么把拥塞信号（预测的延迟）传给发送方？&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;对此论文提出了&lt;strong&gt;诸葛&lt;/strong&gt;，目的是最小化拥塞控制回路，从而达到无线网络环境中的持续低时延。诸葛包括两个模块：“算命先生”（Fortune Teller，后文简称FT）和“反馈更新器”（Feedback Updater，后文简称FU），前者基于两部分预测时延，后者根据不同协议特点，更新并上传预测的延迟。&lt;/p&gt;
+&lt;h1 id=&#34;2背景和动机&#34;&gt;2.背景和动机&lt;/h1&gt;
+&lt;h2 id=&#34;21-理解无线网络的尾部延迟&#34;&gt;2.1 理解无线网络的尾部延迟&lt;/h2&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;为什么尾部延迟对于无线网络中的RTC应用那么重要？&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;为什么无线网络的尾部延迟更明显？&lt;/strong&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;strong&gt;对于第一个问题&lt;/strong&gt;，一言以蔽之：RTC应用需要的低延迟不只是中值（median）小，尾部（tail）值也要低，但目前的无线接入网的情况无法满足后者。文章给出了统计：&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img src=&#34;picture/picture%20%283%29.png&#34; alt=&#34;截屏2022-11-19 14.22.54.png&#34; loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;文章认为不管是4G、5G还是WiFi的尾部延迟都不够好。假设在大部分时候无线网络用户拥有良好的RTT(&amp;lt;100ms)，但其99分位数的RTT&amp;gt;400ms，这就会导致每百帧就有一帧高延迟。&lt;/p&gt;
+&lt;p&gt;文章还测试了他们自己的RTC应用（日活跃量百万用户），对比了以太网、WiFi、4G接入网络的网络状况和应用表现，如下图2。&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img src=&#34;picture/picture%20%284%29.png&#34; alt=&#34;截屏2022-11-19 14.42.44.png&#34; loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;并观察得出：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;WiFi和4G的表现相近;&lt;/li&gt;
+&lt;li&gt;
+&lt;blockquote&gt;
+&lt;p&gt;400ms RTT时前两者为1%，以太网则在千分位与万分位之间；&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;/li&gt;
+&lt;li&gt;应用层的帧延迟&amp;gt;400ms的前两者的比例是以太网的2倍；&lt;/li&gt;
+&lt;li&gt;应用层帧率&amp;lt;8时前两者是以太网的10倍。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;对于第二个问题&lt;/strong&gt;，明显的尾部延迟源于：发送速率与瓶颈队列可用带宽 (Available Bandwitdh, ABW) 的不匹配。&lt;strong&gt;从AP的视角来看&lt;/strong&gt;，如下图：&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img src=&#34;picture/picture%20%285%29.png&#34; alt=&#34;截屏2022-11-21 12.08.42.png&#34; loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;蓝线表示RTC流的ABW在瓶颈处（连接client的AP）骤降&lt;em&gt;k&lt;/em&gt;倍，此后CCA需要一个控制回路 𝜏 才降低发送速率（绿虚线）。而在此 𝜏 期间，瓶颈队列仍以发送方的原发送速率接收数据包，这些过多的包会开始排队（红色块），需要 k𝜏才能被排空 。排空期间所有的包都会经历更高的延迟。所以影响延迟的骤变程度的因素为：（i）ABW波动程度→k（ii）发送方反应速度→𝜏。&lt;/p&gt;
+&lt;p&gt;无线信道的多变性导致了其比有线信道波动更大 。文章根据开放数据集、实测数据，以200ms为周期（认为这是CCA反应时间）计算带宽。结果如下图，横轴代表下降的倍数，纵轴代表小于相应倍数的占比，实线是开放数据集，虚线是文章所测，可以看到以太网的下降更少：&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img src=&#34;picture/picture%20%286%29.png&#34; alt=&#34;截屏2022-11-21 12.38.26.png&#34; loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;无线网络的波动程度让其尾部延迟更明显，要想缓解就需要让发送方反应速度更快。&lt;/strong&gt;&lt;/p&gt;
+&lt;h2 id=&#34;22-现有解决方案&#34;&gt;2.2 现有解决方案&lt;/h2&gt;
+&lt;p&gt;有很多创新工作提升了连接中的稳定状态下的中值（&lt;em&gt;steady state median&lt;/em&gt;）延迟。比如BBR（CCA）通过维持空队列来保证延时；CoDel（AQM）会丢队列前端的包加快拥塞反馈；还有根据不同反馈信号来维持良好工作状态。不过文章认为这些工作还不足以减少尾部延迟，并进行了分析：&lt;/p&gt;
+&lt;p&gt;******************************************基于端用户的解决方案。******************************************主要问题还是前面说的拥塞控制的控制回路中的无线部分会在拥塞发生时膨胀，延迟拥塞信号的反馈。&lt;/p&gt;
+&lt;p&gt;下图4a展示模拟实验中，带宽降低不同倍数时，时延敏感CCAs（BBR、Copa和GCC）与AQMs的表现。&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img src=&#34;picture/picture%20%287%29.png&#34; alt=&#34;截屏2022-11-21 13.10.01.png&#34; loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;当ABW降低十倍以上时，所有这些算法，无论是否使用延迟感知AQM，都会有数秒的RTT降级时间。&lt;/p&gt;
+&lt;p&gt;**********************基于网络内部的解决方案。**********************CoDel通过丢弃队列前部的包试图加快拥塞信号的生成，但信号仍会经历（ii）和（iii）的无线延迟（可能超过100ms）。此外，AQM主要设计用于丢弃一些数据包，而许多CCAs对丢包并不敏感。图4a可以验证：CoDel几乎无法改善如Copa这种基于时延的CCA。也有一些方案是协调端和网络路由器来达到更好的网络反馈，比如XCP、RCP、Kickass和ABC。但文章认为它们的目标是从路由器获取更好的网络状态估计，收集到的信息却还是要经历完整的控制回路。&lt;/p&gt;
+&lt;h2 id=&#34;23-论文方案减小控制回路&#34;&gt;2.3 论文方案：减小控制回路&lt;/h2&gt;
+&lt;p&gt;论文的想法很直接，就是通过尽快感知拥塞，并及早反馈来缩小控制回路。另外还想方便部署。&lt;/p&gt;
+&lt;p&gt;**最早的信号。**相对于丢包率、实际延迟这些拥塞信号来说，是否会有更早的信号？文章认为有：大部分情况下，数据包到达瓶颈队列时就可以预测自己的延迟。比如包的排队延迟可以通过队列大小除以出队速率来大致估算。因此预测的排队延迟是ABW下降的最早信号。论文作者受此启发，想利用这个最早信号来加快发送方的反应速度。&lt;/p&gt;
+&lt;p&gt;****************************************快速反馈最早信号给发送方。****************************************发现了最早信号没用，还要赶紧发给发送方。理想方案是直接告诉发送方当前的队列状态，让信号绕过控制回路中膨胀的部分。&lt;/p&gt;
+&lt;p&gt;**只改last-mile路由器方便部署。**回顾传输层设计历史，有很多优秀的工作未被实际应用。像XCP、RCP、Kickass、ABC和&lt;em&gt;active network&lt;/em&gt;等都需要同时更改服务器端和路由器。但是服务器通常由谷歌、Facebook这些内容提供商控制，而路由器则由Netgear、华为、思科这些厂商提供，协调他们一起推进一项传输创新工作比较麻烦。所以论文提出：只改“最后一英里”的路由器，方便其大规模部署。&lt;/p&gt;
+&lt;h1 id=&#34;3诸葛的设计&#34;&gt;3.诸葛的设计&lt;/h1&gt;
+&lt;p&gt;本文把自己的工作取名Zhuge，希望像诸葛亮一样神机妙算、未卜先知。&lt;/p&gt;
+&lt;h2 id=&#34;31-设计的挑战&#34;&gt;3.1 设计的挑战&lt;/h2&gt;
+&lt;p&gt;诸葛的设计主要两点，网络状态的&lt;strong&gt;准确估计&lt;/strong&gt;和&lt;strong&gt;快速反馈&lt;/strong&gt;：&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;第一点&lt;/strong&gt;的难点在于流量的突发性：&lt;strong&gt;一是RTC流的数据包的突发式到达&lt;/strong&gt;。RTC应用以视频帧为单位生成内容，为了减少端到端延迟，发送方倾向于突发性地发送同一帧的数据包。导致即使在稳定状态下，也可能快速出现排队现象。**二是无线信道上的数据包的突发式离开。**无线网络的共享性导致了无线信道资源的竞争和频繁的带宽波动。无线协议倾向于聚合多个数据包同时出队。&lt;/p&gt;
+&lt;p&gt;简单的估计方法是将队列长度除以出队速率。然而，这种方法面临着&lt;strong&gt;瞬态-稳态矛盾&lt;/strong&gt;（&lt;em&gt;&lt;strong&gt;transience-equilibrium nexus.&lt;/strong&gt; 参考文献见文末&lt;/em&gt;）：比如在计算出队速率时时间窗口长度的设定，窗口短则易波动，导致稳态期间也可能有明显波动，而窗口长则无法捕捉瞬态的延迟波动。许多拥塞算法都存在无法兼顾瞬态与稳态性能的问题。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;第二点&lt;/strong&gt;。如何将估计的无线网络状态尽快告知发送方？直接的方法是可以构建一种新的反馈包给发送方，但对于现实中部署的大多CCAs来说，网络状态不是显式传递的（有可能根据ACK进行计算），直接把网络状态告诉发送方，后者不能直接理解，而需要同时修改发送方，这与论文之前提的“只改AP，方便部署”的理念背道而驰。&lt;/p&gt;
+&lt;p&gt;另外，实际采用的传输层协议和CCAs高度多样化：不同传输协议头可以是不加密（TCP）或加密（QUIC）的；RTC应用也可能会定制化CCAs，使用不同信号来调整发送速率，有的还会在内核中修改TCP CCA。基于RTC的应用会将网络状况定期汇总到一个特殊的反馈包中显示反馈。面对不同的CCAs，该如何把网络状态有效传递给发送方呢？&lt;/p&gt;
+&lt;h2 id=&#34;32-框架概览&#34;&gt;3.2 框架概览&lt;/h2&gt;
+&lt;p&gt;诸葛针对上述两个问题各自设计了一个模块：算命先生 &lt;em&gt;Fortune Teller, FT&lt;/em&gt; 和反馈更新器 &lt;em&gt;Feedback Updater, FU&lt;/em&gt;。&lt;/p&gt;
+&lt;p&gt;FT为了克服瞬态-稳态矛盾，将排队延迟分割成长期和短期延迟。&lt;/p&gt;
+&lt;p&gt;FU将RTC应用中的现有协议分为带外（out-of-band）反馈和（in-band）带内反馈两类。对于带外反馈协议，反馈包的到达就是给发送方的信号（比如TCP中的ACK包）。带内反馈协议在反馈包的有效载荷中携带网络状态，比如WebRTC中的transport-wide congestion control Feedback（TWCC-FB）包。FU用不同逻辑更新修改两类反馈。&lt;/p&gt;
+&lt;p&gt;下图5是诸葛的完整工作流程：&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img src=&#34;picture/picture%20%288%29.png&#34; alt=&#34;截屏2022-11-21 22.38.22.png&#34; loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;当一个包通过以太网端口到达无线接入点时，FT会预测其延迟，同时照常转发给下行队列。FU则把预测信息更新到去往发送者方向的反馈包里。这个过程中，会将最早的信号绕过控制回路的排队延迟和无线传输延迟，直接从AP发给发送方。&lt;/p&gt;
+&lt;h1 id=&#34;4算命先生-fortune-teller&#34;&gt;4.“算命先生” Fortune Teller&lt;/h1&gt;
+&lt;p&gt;“算命”就是预测一个包何时会到达客户端，也就是它随后会经历的延迟。无线网络中的这个延迟可分为两段：在AP队列中的&lt;strong&gt;&lt;strong&gt;&lt;strong&gt;&lt;strong&gt;排队延迟&lt;/strong&gt;&lt;/strong&gt;&lt;/strong&gt;&lt;/strong&gt;和在链路中的&lt;strong&gt;传输延迟&lt;/strong&gt;。&lt;/p&gt;
+&lt;h2 id=&#34;41-排队延迟的预测&#34;&gt;4.1 排队延迟的预测&lt;/h2&gt;
+&lt;p&gt;如3.1讨论，简单地用队列长除以出队速率预测延迟会有瞬态-稳态矛盾。文章因此将排队延迟分为两部分：长期排队延迟（qLong）和短期排队延迟（qShort），如下图6：&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img src=&#34;picture/picture%20%289%29.png&#34; alt=&#34;截屏2022-11-22 20.43.11.png&#34; loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;qLong是一个包从刚到达队列直至来到队列前端的时间。它能覆盖由无线竞争和突发RTC流量引起的延迟波动。可以用当前队列大小除以平均出队速率来估计qLong。&lt;/p&gt;
+&lt;p&gt;qShort是一个位于队列前端的包等待完全出队的时间，其与链路层的发送模式更相关（比如MAC数据单元的聚合会导致其波动）。&lt;/p&gt;
+&lt;p&gt;排队延迟就是把两者相加。以图7说明，这样分开估算的好处是：&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img src=&#34;picture/picture%20%2810%29.png&#34; alt=&#34;截屏2022-11-22 20.56.41.png&#34; loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;qShort能快速检测ABW的下降。&lt;strong&gt;当ABW下降时，队列需要时间建立，txRate（出队速率）需要时间窗口更新，qLong增长较慢。但队列前端的数据包会等更长时间才能发送，这个现象会被立刻观察到。从上图来看，当5ms ABW下降时，5-15ms中总排队延迟的增加里qShort占主要，代表反应迅速；而在15ms后ABW继续下降时，qLong占主要，提供了&lt;/strong&gt;稳定而准确&lt;/strong&gt;的估计。&lt;/p&gt;
+&lt;p&gt;关于&lt;strong&gt;qSize的确定&lt;/strong&gt;，文中提出链路层将几个包聚合同时发送的行为会影响估计的精准度，这种波动应该由qShort来反映，所以用下式来计算qSize，&lt;em&gt;maxBurstSize&lt;/em&gt;是1ms内同时离开的包的最大数量。&lt;/p&gt;
+&lt;p&gt;$$&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;					qSize=max(sizeOfPacketsInQueue−maxBurstSize,0) 
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;$$&lt;/p&gt;
+&lt;h2 id=&#34;42-传输延迟预测&#34;&gt;4.2 传输延迟预测&lt;/h2&gt;
+&lt;p&gt;论文根据参考文献提出：1. 无线信道的传输中只能有一个数据单元；2. 目前Linux中下层协议栈也已使用队列规则（下层不排队会影响方案效果）。于是就如图6所示，用数据包离开网络层队列的间隔时间当做传输时延 tx。&lt;/p&gt;
+&lt;h1 id=&#34;5反馈更新器-feedback-updater&#34;&gt;5.“反馈更新器” Feedback Updater&lt;/h1&gt;
+&lt;p&gt;FT对带外反馈协议的反馈包进行直接的延迟干预，对带内协议则重构（伪造）反馈包。&lt;/p&gt;
+&lt;h2 id=&#34;51-反馈机制分类&#34;&gt;5.1 反馈机制分类&lt;/h2&gt;
+&lt;p&gt;可以分为带内（In-band）和带外（Out-of-band）两类，如下表2.&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img src=&#34;picture/picture%20%2811%29.png&#34; alt=&#34;截屏2022-11-22 21.53.27.png&#34; loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;如下图8，两种差别上文已述，主要是拥塞信号是隐式还是显式。&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img src=&#34;picture/picture%20%2812%29.png&#34; alt=&#34;截屏2022-11-22 21.54.39.png&#34; loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;针对两种反馈机制论文用了不同做法。&lt;/p&gt;
+&lt;h2 id=&#34;52-带外反馈延迟acks&#34;&gt;5.2 带外反馈：延迟ACKs&lt;/h2&gt;
+&lt;p&gt;带外反馈依赖ACK包，不过不同CCAs对此的利用方式不一样，比如BBR计算接收速率并查询ACK包的最小RTT以进行速率适配；Copa对每包延迟都敏感。所以论文用FU直接操控每一个ACK包的延迟（即FU会扣留ACK包，延迟一定时间再发送）。CCAs收到ACK后的操作与原本没差别。&lt;/p&gt;
+&lt;p&gt;用图9从AP的视角说明诸葛如何携带预测信息给发送方：&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img src=&#34;picture/picture%20%2813%29.png&#34; alt=&#34;截屏2022-11-22 22.07.13.png&#34; loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;先看不用诸葛的情况（蓝色）。首先Server发送k和k+1两个包到AP，此时ABW下降。k+1因此会有增加的排队延迟而更晚出队（蓝色1），于是Client会收到更大间隔的k和k+1，并以该间隔确认两个包。Client发出的ACK到达并以该间隔离开AP（蓝色2）。结果如下图10所示，发送方只能在deltaDelay时确认RTT的增加。&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img src=&#34;picture/picture%20%2814%29.png&#34; alt=&#34;截屏2022-11-22 22.24.25.png&#34; loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;如果使用诸葛，k和k+1的延迟在它们到达AP时就被预测（图9红1）。假如FT发现延迟增加，就可以立即把之前的包（j+1和j+2）的ACKs延迟。可以通过故意扩大其他ACK包之间的间隔（j+1和j+2）来及时提醒发送方（图9红2）。如此，发送方可以在红3时就探测到带宽的下降。从图10来看，Server将更早检测到变长的RTT。因此CCAs的控制回路减少了（k+1)-(j-1)。这里的序号只是方便说明，实际诸葛只需要用五元组来区分流即可，用这种方法的诸葛甚至适用于加密的协议比如QUIC。&lt;/p&gt;
+&lt;p&gt;不过上行与下行的数据包都是异步到达的，不可能总是一一对应。FT会随时在包到达时更新并保存信息，最终计算公式即图6中的：&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;					$totalDelay=qLong+qShort+tx$ 
+				
+			
+		
+	.
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;实现细节&#34;&gt;实现细节&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;&lt;strong&gt;&lt;strong&gt;&lt;strong&gt;&lt;strong&gt;&lt;strong&gt;&lt;strong&gt;&lt;strong&gt;&lt;strong&gt;&lt;strong&gt;&lt;strong&gt;&lt;strong&gt;&lt;strong&gt;&lt;strong&gt;&lt;strong&gt;&lt;strong&gt;&lt;strong&gt;&lt;strong&gt;&lt;strong&gt;&lt;strong&gt;&lt;strong&gt;&lt;strong&gt;&lt;strong&gt;&lt;strong&gt;&lt;strong&gt;&lt;strong&gt;&lt;strong&gt;&lt;strong&gt;&lt;strong&gt;&lt;strong&gt;&lt;strong&gt;&lt;strong&gt;&lt;strong&gt;&lt;strong&gt;&lt;strong&gt;&lt;strong&gt;&lt;strong&gt;ACK要延迟多久才会被发送？&lt;/strong&gt;&lt;/strong&gt;&lt;/strong&gt;&lt;/strong&gt;&lt;/strong&gt;&lt;/strong&gt;&lt;/strong&gt;&lt;/strong&gt;&lt;/strong&gt;&lt;/strong&gt;&lt;/strong&gt;&lt;/strong&gt;&lt;/strong&gt;&lt;/strong&gt;&lt;/strong&gt;&lt;/strong&gt;&lt;/strong&gt;&lt;/strong&gt;&lt;/strong&gt;&lt;/strong&gt;&lt;/strong&gt;&lt;/strong&gt;&lt;/strong&gt;&lt;/strong&gt;&lt;/strong&gt;&lt;/strong&gt;&lt;/strong&gt;&lt;/strong&gt;&lt;/strong&gt;&lt;/strong&gt;&lt;/strong&gt;&lt;/strong&gt;&lt;/strong&gt;&lt;/strong&gt;&lt;/strong&gt;&lt;/strong&gt;&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;诸葛会记录&lt;strong&gt;延迟相对值&lt;/strong&gt;。记录连续下行链路包之间的延迟差——当预估延迟增加时，记录下行链路上的一系列正延迟增量，并逐渐增加上行链路方向的延迟。当队列趋于稳定，延迟增量趋于0，上行链路的反馈包不再被延迟。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;模拟&lt;strong&gt;&lt;strong&gt;&lt;strong&gt;&lt;strong&gt;&lt;strong&gt;&lt;strong&gt;&lt;strong&gt;&lt;strong&gt;&lt;strong&gt;&lt;strong&gt;&lt;strong&gt;&lt;strong&gt;&lt;strong&gt;&lt;strong&gt;&lt;strong&gt;&lt;strong&gt;&lt;strong&gt;&lt;strong&gt;&lt;strong&gt;&lt;strong&gt;&lt;strong&gt;&lt;strong&gt;&lt;strong&gt;&lt;strong&gt;&lt;strong&gt;&lt;strong&gt;&lt;strong&gt;延迟分布。&lt;/strong&gt;&lt;/strong&gt;&lt;/strong&gt;&lt;/strong&gt;&lt;/strong&gt;&lt;/strong&gt;&lt;/strong&gt;&lt;/strong&gt;&lt;/strong&gt;&lt;/strong&gt;&lt;/strong&gt;&lt;/strong&gt;&lt;/strong&gt;&lt;/strong&gt;&lt;/strong&gt;&lt;/strong&gt;&lt;/strong&gt;&lt;/strong&gt;&lt;/strong&gt;&lt;/strong&gt;&lt;/strong&gt;&lt;/strong&gt;&lt;/strong&gt;&lt;/strong&gt;&lt;/strong&gt;&lt;/strong&gt;&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;举例来说，AP若收到3个数据包延迟增量都为+1ms，此时若直接给下一个ACk延迟+3ms则会导致比实际更大的延迟。&lt;/p&gt;
+&lt;p&gt;为了解决这个问题，论文希望保持下行链路延迟增量和上行链路ACK延迟之间的&lt;strong&gt;分布等效&lt;/strong&gt;。也就是：记录下行数据包到达时被FT预测的延迟增量，当上行包到达时则对记录的近期下行增量进行采样，并据此给上行包增加延迟。如此，即便有突发流，也可以对反馈包&lt;strong&gt;模拟延迟分布&lt;/strong&gt;。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;反馈包保序。&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;假如有两个同时到达的ACK j+1、j+2，j+2 采样延迟小于 j+1，AP可能会先发送 j+2，导致乱序。但如果硬卡时间保序，会让发送方对RTT估计过大。&lt;/p&gt;
+&lt;p&gt;论文用一个延时令牌来保序并避免高估RTT。当想让后面的反馈包等待之前的包的发送时，将等待时间存为一个延迟令牌。下次采样到一个正向延迟增益时，首先尝试消耗令牌。如此，实际延迟的&lt;strong&gt;平均值&lt;/strong&gt;会维持与预测值相当。&lt;/p&gt;
+&lt;p&gt;如下代码展示诸葛的工作流程：&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img src=&#34;picture/picture%20%2815%29.png&#34; alt=&#34;截屏2022-11-23 10.28.08.png&#34; loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;算法1：当一个包到达并经FT预测其延迟，随后计算延迟增益 &lt;em&gt;deltaDelay&lt;/em&gt;。若增益非负则存入一个滑动窗口，否则存入令牌。&lt;/p&gt;
+&lt;p&gt;当ACK包到达时，算法2用于异步地执行合理延迟ACKs的操作。&lt;em&gt;&lt;strong&gt;&lt;strong&gt;&lt;strong&gt;&lt;strong&gt;&lt;strong&gt;curArrvTime&lt;/strong&gt;&lt;/strong&gt;&lt;/strong&gt;&lt;/strong&gt;&lt;/strong&gt;&lt;/em&gt;是当前ACK的到达时间，&lt;strong&gt;&lt;strong&gt;lastSentTime&lt;/strong&gt;&lt;/strong&gt;是上一个ACK包离开AP前往Server的时间。为了保序，诸葛首先计算当前包的最小延迟，延迟必须大于0，确保不会早于前一个ACK包发送（line1）。随后从滑动窗口中从最近的延迟增益中随机采样（line2）。接着检查是否需要消耗延迟令牌（line3-10）。&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img src=&#34;picture/picture%20%2816%29.png&#34; alt=&#34;截屏2022-11-23 10.31.02.png&#34; loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;53-带内反馈上传负载&#34;&gt;5.3 带内反馈：上传负载&lt;/h2&gt;
+&lt;p&gt;对于如RTCP这样的带内反馈机制，反馈信息（比如每包接收时间都是）写在反馈包的负载中的，因此需要更新它们的负载来携带最新估计的延迟给发送方。下面用RTP（data）/RTCP（feedback）协议对来介绍诸葛如何更新信息，分两步：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;em&gt;&lt;strong&gt;&lt;strong&gt;Step 1：记录&lt;/strong&gt;&lt;/strong&gt;&lt;/em&gt;。预测每一个到达RTP包的延迟并记录，同时记录其头部的TWCC序号。&lt;/li&gt;
+&lt;li&gt;&lt;em&gt;&lt;strong&gt;&lt;strong&gt;&lt;strong&gt;Step 2：重构&lt;/strong&gt;&lt;/strong&gt;&lt;/strong&gt;&lt;/em&gt;。当要给发送方反馈网络状态时（比如每RTT或每帧），诸葛会像一个RTP接收方一样：基于记录的延迟和序号构建一个TWCC反馈包。为了保证时间戳的一致性，诸葛只发送自己构建的TWCC包，而丢弃所有来自Client的TWCC。对于其他种类的反馈包（如NACK），诸葛不作改变。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;诸葛需要知道不同带内反馈协议的格式类型，才能真正实现其作用。&lt;/p&gt;
+&lt;h1 id=&#34;6一些考虑&#34;&gt;6.一些考虑&lt;/h1&gt;
+&lt;p&gt;论文在本节讨论部署诸葛的实际考虑和一些限制。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;&lt;strong&gt;&lt;strong&gt;&lt;strong&gt;&lt;strong&gt;&lt;strong&gt;&lt;strong&gt;&lt;strong&gt;&lt;strong&gt;&lt;strong&gt;&lt;strong&gt;&lt;strong&gt;&lt;strong&gt;&lt;strong&gt;&lt;strong&gt;&lt;strong&gt;&lt;strong&gt;&lt;strong&gt;&lt;strong&gt;&lt;strong&gt;&lt;strong&gt;&lt;strong&gt;&lt;strong&gt;&lt;strong&gt;&lt;strong&gt;Last-miel v.s. first-mile.&lt;/strong&gt;&lt;/strong&gt;&lt;/strong&gt;&lt;/strong&gt;&lt;/strong&gt;&lt;/strong&gt;&lt;/strong&gt;&lt;/strong&gt;&lt;/strong&gt;&lt;/strong&gt;&lt;/strong&gt;&lt;/strong&gt;&lt;/strong&gt;&lt;/strong&gt;&lt;/strong&gt;&lt;/strong&gt;&lt;/strong&gt;&lt;/strong&gt;&lt;/strong&gt;&lt;/strong&gt;&lt;/strong&gt;&lt;/strong&gt;&lt;/strong&gt;&lt;/strong&gt;&lt;/strong&gt; 论文基于的场景是RTC应用如远程桌面、云游戏，它们都是从servers到clients，其中无线网络作为&lt;em&gt;last-mile&lt;/em&gt;，只需考虑发送方如何调整发送率。其他P2P的RTC应用（视频会议）中，无线网络也可能作为&lt;em&gt;first-mile&lt;/em&gt;而同样产生尾部延迟。&lt;/p&gt;
+&lt;p&gt;****公平性。****论文认为诸葛流和其他流之间是公平的。当发送速率增加时，无线AP队列接近空，诸葛流和其他流的控制回路相似，诸葛不会更激进；当发送速率下降时，诸葛只是减小了控制循环来加快拥塞窗口收敛，但收敛的公平性还是由不同的CCAs决定的。&lt;/p&gt;
+&lt;p&gt;******************************************对新协议的扩展性。******************************************论文给TCP、QUIC或RTP/RTCP都提供了方案，并称对于新的带外反馈协议，只要能从数据包中识别出流信息，诸葛仍然可以在网络层起作用。比如QUIC，不需要知道数据包的具体序列号，即使QUIC对所有数据包进行端到端的加密，诸葛也有用。但对于新的带内反馈协议，则需要操作者给出协议的格式来让诸葛能相应修改FU。&lt;/p&gt;
+&lt;h1 id=&#34;7测试&#34;&gt;7.测试&lt;/h1&gt;
+&lt;p&gt;测试要回答的几个问题：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;诸葛能在实际无线网络的轨迹（traces）下提高尾部性能吗？&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;答：在5个实际traces中测试基于RTCP/RTP和TCP的诸葛的性能：能减少最高75%的长尾延迟，提高应用性能最高95%。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;诸葛在不同的无线竞争中表现如何？&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;答：在带宽再分配、流量竞争和无线干扰的无线场景中诸葛都能提升性能。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;诸葛能给实际应用带来多少提升？&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;答：在办公环境下提升网络和应用指标从17%到94.7%。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;诸葛在静态性能、公平性和CPU资源方面的开销是多少？&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;答：诸葛并不影响RTC流的稳态比特率，也不影响与其他流的公平性，并且具有可接受的开销。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;71-实现&#34;&gt;7.1 实现&lt;/h2&gt;
+&lt;p&gt;用NS-3和测试床（基于无线AP产品）来实现诸葛并进行相应实验。使用的是1080p 24fps 2Mbps比特率的视频。其他详见论文。&lt;/p&gt;
+&lt;h2 id=&#34;72-基于trace下的模拟实验&#34;&gt;7.2 基于trace下的模拟实验&lt;/h2&gt;
+&lt;p&gt;模拟实验使用5个真实采集的traces。两个来自WiFi网络，三个来自蜂窝网络，traces记录了带宽和延迟的变化。&lt;/p&gt;
+&lt;p&gt;图11所示基于RTP/RTCP的实验结果，与基线相比诸葛能把延时降低到45%-75%，因此延迟帧率也能降到38%-92%。&lt;/p&gt;
+&lt;p&gt;图12所示基于TCP的实验结果。&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img src=&#34;picture/picture%20%2817%29.png&#34; alt=&#34;截屏2022-11-23 15.01.24.png&#34; loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;h3 id=&#34;带宽降低&#34;&gt;带宽降低&lt;/h3&gt;
+&lt;p&gt;图14评估诸葛快速适应带宽缩减的能力。首先模拟具有50ms RTT和30Mbps带宽的链路并开始传输。当CCA达到稳定状态时，将带宽减少k倍（𝑘从2到50），并在收敛之前测量RTT&amp;gt;200ms、帧延迟&amp;gt;400ms和帧速率&amp;lt;10fps的持续时间。对于RTP/RTCP，Gcc+诸葛在广泛的设置范围内将网络降级的持续时间和应用程序性能降低了至少50%。&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img src=&#34;picture/picture%20%2818%29.png&#34; alt=&#34;截屏2022-11-23 15.43.03.png&#34; loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;TCP上的结果显示了类似的结果，如下图15所示。对于𝑘 ⩾ 30，论文认为由于严重的数据包丢失，降级持续时间主要受TCP重传超时（RTO）的限制，所以诸葛的性能改善并不显著。可以看其实到Copa的性能已经很好了，诸葛对于TCP的改善效果不如RTP。&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img src=&#34;picture/picture%20%2819%29.png&#34; alt=&#34;截屏2022-11-23 15.46.53.png&#34; loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;h3 id=&#34;估计的准确度&#34;&gt;估计的准确度&lt;/h3&gt;
+&lt;p&gt;实验设置RTT=50ms。图19（a）展示不同traces中预测误差的分布。&lt;/p&gt;
+&lt;p&gt;图19（b）展示估计与真实值的分布频率热图。当估计的延迟较低（1-64ms）时，估计比较准；当估计的延迟比较高（&amp;gt;64ms）时可能不准确（出现高估）。&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img src=&#34;picture/picture%20%2820%29.png&#34; alt=&#34;截屏2022-11-23 16.22.13.png&#34; loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;h2 id=&#34;73-真实环境下的实验&#34;&gt;7.3 真实环境下的实验&lt;/h2&gt;
+&lt;p&gt;实验使用基于OpenWrt的WiFi AP测试床进一步评估诸葛的性能。在两台笔记本电脑上使用Microsoft Edge浏览器中的WebRTC API设置了RTC服务器和客户端。服务器通过基于RTP/RTCP+GCC的对等连接（peerconnection）API将带时间戳的视频流式传输到客户端。服务器有线连接到AP，而客户端通过WiFi连接到AP。评估诸葛在以下场景中的表现，每个场景持续6小时。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;scp. 该实验用于评估基于RTC的诸葛流在与其他流竞争时的性能。实验每隔30秒定期启动和停止从服务器到客户端的scp文件传输。&lt;/li&gt;
+&lt;li&gt;mcs. 该实验旨在模拟波动的无线信道。802.11接入点将在链路层动态地改变调制编码方案（MCS）以适应信道条件。因此，与类似使用Linux iw命令每30秒随机更改MCS，并评估诸葛对波动的反应。&lt;/li&gt;
+&lt;li&gt;raw. 办公室中运行RTC应用程序的结果，无需额外配置。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;文章通过分析数据包捕获来测量网络RTT，通过计算发送的视频和接收的视频之间的时间戳差来测量帧延迟，并比较平均比特率&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img src=&#34;picture/picture%20%2821%29.png&#34; alt=&#34;截屏2022-11-23 16.15.35.png&#34; loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;h3 id=&#34;公平性&#34;&gt;公平性&lt;/h3&gt;
+&lt;p&gt;如下图20记录了当RTC流竞争同一AP时，根据链路容量进行归一化处理后的RTC流的吞吐。&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img src=&#34;picture/picture%20%2822%29.png&#34; alt=&#34;截屏2022-11-23 16.26.08.png&#34; loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;h3 id=&#34;cpu开销&#34;&gt;CPU开销&lt;/h3&gt;
+&lt;p&gt;实验在基于OpenWrt的Netgear WiFi AP以及TP Link TL-WDR4900 AP上的实现诸葛，并测量诸葛的CPU利用率。&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img src=&#34;picture/picture%20%2823%29.png&#34; alt=&#34;截屏2022-11-23 16.35.13.png&#34; loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;论文提出有几个方向可以优化诸葛的资源开销。首先，当CPU利用率较高时，诸葛可以有选择地更新网络状况，而不是估计所有下行链路数据包，只要估计之间的时间间隔是可忽略的（几毫秒），控制回路仍然被减少。此外，诸葛的实现是基于用户空间的套接字，可以通过将诸葛作为内核模块插入来进一步优化。最后，很多商业AP中部署了每包状态维护的功能可以供利用。&lt;/p&gt;
+&lt;h1 id=&#34;8总结与思考&#34;&gt;8.总结与思考&lt;/h1&gt;
+&lt;p&gt;诸葛是一个纯基于AP的方案，用于缩减控制回路来减小RTC应用在无线网络场景（最后一英里）中的尾部延迟现象。诸葛会用“算命先生”预测每个到达包之后的延迟，再把这个预测信息通过“反馈更新器”立即上传给发送方，而不再经过最后一英里。实验主要通过尾部延迟、帧延迟、帧率三个指标进行性能评估。另外：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;实验的评估指标如尾部延迟与RTC应用的真实用户主观体验之间有怎样的对应关系？&lt;/li&gt;
+&lt;li&gt;实验其他评估指标或可用更多实验论证。&lt;/li&gt;
+&lt;li&gt;瞬态稳态矛盾是很经典的问题。
+Shiyu Liu, Ahmad Ghalayini, Mohammad Alizadeh, Balaji Prabhakar, Mendel Rosenblum, and Anirudh Sivaraman. 2021. Breaking the Transience-Equilibrium Nexus: A New Approach to Datacenter Packet Transport. In Proc. USENIX NSDI.&lt;/li&gt;
+&lt;/ol&gt;</description>
+    </item>
+    
+    <item>
+      <title>SIGCOMM22 论文分享 | LiveNet: a low-latency video transport network for large-scale live streaming</title>
+      <link>https://ai4network.github.io/zh/post/paper-sharing-3/</link>
+      <pubDate>Thu, 24 Nov 2022 20:58:16 +0800</pubDate>
+      <guid>https://ai4network.github.io/zh/post/paper-sharing-3/</guid>
+      <description>&lt;p&gt;  本期分享SIGCOMM22主机网络和视频传输专题下的论文：LiveNet: a low-latency video transport network for large-scale live streaming。该文作者来自中国科学院大学和阿里巴巴集团。&lt;/p&gt;
+&lt;h2 id=&#34;1-动机和背景&#34;&gt;1. 动机和背景&lt;/h2&gt;
+&lt;p&gt;  随着全球新冠疫情的肆虐，实时视频传输在我们日常生活中已必不可少。与此同时，在线视频购物、在线视频会议在这两年的受众不断增多，具有较低端到端延迟的直播方案因此备受重视。本文基于此需求，力求减少直播中的端到端延迟，即减少从直播者采集到一个视频帧到该视频帧在观众客户端上被渲染所经历的时间。&lt;/p&gt;
+&lt;p&gt;  对于在线购物而言，作者认为理想的端到端延迟应该小于1秒。如图一所示，端到端延迟又包括了四部分：第一公里延迟、CDN延迟、最后一公里延迟、缓存延迟。其对应的说明如下：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;第一公里延迟：直播者采集一个视频帧并将其编解码的延迟、推到CDN网络的接入点（称为CDN生产者）的传输延迟，这一部分通常为150ms。&lt;/li&gt;
+&lt;li&gt;最后一公里延迟：观看者从CDN网络的接入点（称为CDN消费者）拉取一个视频帧的传输延迟，加上解码渲染到屏幕的延迟。这一部分通常为150ms。&lt;/li&gt;
+&lt;li&gt;缓存延迟：为了避免网络环境抖动造成观众观看视频时的卡顿，通常在观众的客户端内缓存一定的视频帧，该视频帧的播放时长为300ms。&lt;/li&gt;
+&lt;li&gt;CDN延迟：该延迟是指CDN网络从CDN生产者接收到视频帧之后，经过转解码和CDN网络内部的传输处理之后转发到CDN消费者所经历的延迟。在端到端延迟为1s的约束下，减去上面三部分的总和，该部分延迟一般要求小于300ms。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;图一&#34; srcset=&#34;
+               /zh/post/paper-sharing-3/picture/picture1_hu82b7c76ab698a4a7a6c76509bdb75a16_1676266_32fd1cb7ec1dd542aa94a6278fc2203a.webp 400w,
+               /zh/post/paper-sharing-3/picture/picture1_hu82b7c76ab698a4a7a6c76509bdb75a16_1676266_6f3736fdce681e67763efdf220bde1ab.webp 760w,
+               /zh/post/paper-sharing-3/picture/picture1_hu82b7c76ab698a4a7a6c76509bdb75a16_1676266_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://ai4network.github.io/zh/post/paper-sharing-3/picture/picture1_hu82b7c76ab698a4a7a6c76509bdb75a16_1676266_32fd1cb7ec1dd542aa94a6278fc2203a.webp&#34;
+               width=&#34;760&#34;
+               height=&#34;289&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;  作者在阿里巴巴工作时，观察到目前阿里的CDN网络架构无法满足300ms的CDN延迟要求。如图二所示，蓝色线条为阿里巴巴的CDN架构的平均传输延迟。一周的观测结果表明：该部分延迟通常400ms左右，超过了直播对CDN延迟的300ms的最低要求。因此，本文的目标是改进阿里的CDN的架构，以降低直播时的端到端延迟。&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;图片二&#34; srcset=&#34;
+               /zh/post/paper-sharing-3/picture/picture2_hu3874566e18b94005168e7b165d0af27f_116373_d57d031ab1f01560357c62f987272326.webp 400w,
+               /zh/post/paper-sharing-3/picture/picture2_hu3874566e18b94005168e7b165d0af27f_116373_996186095c369ffa22ed0a84da30ffc0.webp 760w,
+               /zh/post/paper-sharing-3/picture/picture2_hu3874566e18b94005168e7b165d0af27f_116373_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://ai4network.github.io/zh/post/paper-sharing-3/picture/picture2_hu3874566e18b94005168e7b165d0af27f_116373_d57d031ab1f01560357c62f987272326.webp&#34;
+               width=&#34;760&#34;
+               height=&#34;288&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;h2 id=&#34;2-问题引入&#34;&gt;2 问题引入&lt;/h2&gt;
+&lt;p&gt;  作者为了降低直播时的端到端延迟，尝试在两方面优化以期达到理想效果。这两方面分别是：CDN架构和CDN节点的报文转发和处理逻辑。&lt;/p&gt;
+&lt;h3 id=&#34;21-传统cdn架构的问题&#34;&gt;2.1 传统CDN架构的问题&lt;/h3&gt;
+&lt;p&gt;  作者认为，阿里的基于分层的CDN架构（称为HIER）并不适合于传输对实时性有严格要求的视频流。如图三所示，HIER包含了一个统一的视频流处理中心，该部分负责处理所有视频流（比如视频编解码）以及管理其他CDN节点。CDN节点，在逻辑上分为了两层，它们负责转发视频流内容，但不处理视频流内容。因此，当一个节点收到直播者推送的视频流数据之后，需要先从L1层转发到L2层，直到根部的视频流处理中心。最后再以反方向的逻辑转发给视频流的观看者。这样一来一回将会经过五个节点。&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;图三&#34; srcset=&#34;
+               /zh/post/paper-sharing-3/picture/picture3_hu742bb15802927a8f1f86d42f34257d55_60164_5f96d6c21faba54aab217966238db337.webp 400w,
+               /zh/post/paper-sharing-3/picture/picture3_hu742bb15802927a8f1f86d42f34257d55_60164_946e490a57da6680daf278bcac77e85e.webp 760w,
+               /zh/post/paper-sharing-3/picture/picture3_hu742bb15802927a8f1f86d42f34257d55_60164_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://ai4network.github.io/zh/post/paper-sharing-3/picture/picture3_hu742bb15802927a8f1f86d42f34257d55_60164_5f96d6c21faba54aab217966238db337.webp&#34;
+               width=&#34;760&#34;
+               height=&#34;496&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;因此HIER存在的问题如下：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;经过的CDN节点太多，报文每转发一次都要消耗一定的时间，在时间上造成了大的开销。&lt;/li&gt;
+&lt;li&gt;上层节点是逐渐减少的，当底层的多个结点同时需要传输视频流，并且它们逻辑上和同一个高层节点相连接时，这会造成高层节点的过载，最终导致服务质量下降。&lt;/li&gt;
+&lt;li&gt;这样树形的CDN网络很难被扩展，灵活性比较低。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;  因此, 作者希望改进这种树形的CDN架构，将其扁平化。例如能否通过某种方式，将一个CDN生产者接收到的数据直接经过一个或者两个中转节点转发到CDN消费者节点，中间经过的路径尽可能的被减短。&lt;/p&gt;
+&lt;h3 id=&#34;22-报文转发处理逻辑的问题&#34;&gt;2.2 报文转发处理逻辑的问题&lt;/h3&gt;
+&lt;p&gt;  数据中心网络的节点与节点之间使用专网，这样的网络具有带宽高、丢包率低的特点。因此使用传统的TCP传输协议，报文不可避免的需要经过内核态的拥塞控制、流量控制等复杂逻辑，这也会带来一定的开销，对于实时性的数据传输并不友好。如图四所示，作者在阿里巴巴工作时，观察到网络丢包率最高也只有百分之0.175。基于此事实，作者认为CDN节点应该避免将报文经TCP协议栈传输，而应该直接转发，同时也应该设计一种补偿机制，在报文丢失的情况下再对其进行重传。&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;图四&#34; srcset=&#34;
+               /zh/post/paper-sharing-3/picture/picture4_hu19c28afd5f04fdac9079f076967b922a_78647_32f91a2a777ad2663decf45752aa888e.webp 400w,
+               /zh/post/paper-sharing-3/picture/picture4_hu19c28afd5f04fdac9079f076967b922a_78647_d109d86ff9bcaf453d752fd03e45d4c9.webp 760w,
+               /zh/post/paper-sharing-3/picture/picture4_hu19c28afd5f04fdac9079f076967b922a_78647_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://ai4network.github.io/zh/post/paper-sharing-3/picture/picture4_hu19c28afd5f04fdac9079f076967b922a_78647_32f91a2a777ad2663decf45752aa888e.webp&#34;
+               width=&#34;760&#34;
+               height=&#34;285&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;h2 id=&#34;3-关键技术&#34;&gt;3 关键技术&lt;/h2&gt;
+&lt;p&gt;  针对上面两个问题，下文就作者的解决方案进行介绍。&lt;/p&gt;
+&lt;h3 id=&#34;31-扁平化的cdn架构&#34;&gt;3.1 扁平化的CDN架构&lt;/h3&gt;
+&lt;p&gt;  如图五所示，作者将所有的CDN节点分为了四种，分别为：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;CDN生产者节点：在直播者发起直播请求之后，通过DNS重定向到CDN生产者节点。用以从直播者接受视频帧，必要时对视频帧进行转码。&lt;/li&gt;
+&lt;li&gt;CDN消费者节点：接收观众的观看请求，
+&lt;ul&gt;
+&lt;li&gt;如果该请求是一个该CDN节点不知道的视频流ID，该CDN节点首先向中心节点（即图中的Streaming Brain）查询通往CDN生产者的路径，然后建立路径之后传输视频流。&lt;/li&gt;
+&lt;li&gt;如果该请求是一个该CDN节点已知的视频流ID，则直接转发属于该视频流的视频帧到观众。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;中继节点：中继节点负责接收来着CDN生产者的视频帧，并缓存到本地。另外有了中继节点可以建立自CDN生产者到CDN消费者节点的多条路径。&lt;/li&gt;
+&lt;li&gt;控制平面节点：即图中的Streaming Brain，是一个整体的控制平面逻辑，又包括三个组件：
+&lt;ul&gt;
+&lt;li&gt;全局发现组件：收集所有CDN节点的状态信息，包括与之关联链路的负载、CDN节点本身的负载。&lt;/li&gt;
+&lt;li&gt;路径决定组件：负责接收来自客户端的路径查询请求，并返回路径。另外，当CDN生产者节点收到一个直播流，要向该组件注册，注册的数据为：&amp;lt;生产者节点ID，视频流ID&amp;gt;。&lt;/li&gt;
+&lt;li&gt;全局路由组件：根据收到的CDN节点的状态信息，计算每对节点之间的路径。更新路径到路径决定组件的路径表中。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;图五&#34; srcset=&#34;
+               /zh/post/paper-sharing-3/picture/picture5_hudf826948fe24474c641b98d6298718d3_109929_88dcf93b52f1d086dd5efcf37d62e8bc.webp 400w,
+               /zh/post/paper-sharing-3/picture/picture5_hudf826948fe24474c641b98d6298718d3_109929_7c15c43ef181a95989bb739b79541dc6.webp 760w,
+               /zh/post/paper-sharing-3/picture/picture5_hudf826948fe24474c641b98d6298718d3_109929_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://ai4network.github.io/zh/post/paper-sharing-3/picture/picture5_hudf826948fe24474c641b98d6298718d3_109929_88dcf93b52f1d086dd5efcf37d62e8bc.webp&#34;
+               width=&#34;760&#34;
+               height=&#34;604&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;h3 id=&#34;32-扁平化的cdn节点工作流&#34;&gt;3.2 扁平化的CDN节点工作流&lt;/h3&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;图六&#34; srcset=&#34;
+               /zh/post/paper-sharing-3/picture/picture6_hu000834b6f5bb664ffa2ccf3724f1093a_64662_1a5afede2e4ac6570e0e7b2c7c4f4832.webp 400w,
+               /zh/post/paper-sharing-3/picture/picture6_hu000834b6f5bb664ffa2ccf3724f1093a_64662_f2ed42bbc0c6ba0fc5e9c4aff7eb1751.webp 760w,
+               /zh/post/paper-sharing-3/picture/picture6_hu000834b6f5bb664ffa2ccf3724f1093a_64662_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://ai4network.github.io/zh/post/paper-sharing-3/picture/picture6_hu000834b6f5bb664ffa2ccf3724f1093a_64662_1a5afede2e4ac6570e0e7b2c7c4f4832.webp&#34;
+               width=&#34;760&#34;
+               height=&#34;193&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;  以下就上图介绍该扁平化的CDN节点的工作流和其实现方法：&lt;/p&gt;
+&lt;h4 id=&#34;321-路由表建立流程&#34;&gt;3.2.1 路由表建立流程&lt;/h4&gt;
+&lt;ol&gt;
+&lt;li&gt;每一个CDN节点定期更新该节点的负载信息到全局发现组件（一分钟一次）。另外，当任何一个节点负载达到一个阈值时，会立刻通知到全局发现组件。&lt;/li&gt;
+&lt;li&gt;全局路由组件收到来自全局发现组件的负载信息之后，形成一个类似网状的图，相连接的节点之间都有权重值，权重值的计算主要综合考虑一个CDN节点的负载情况、一个链路的丢包率、传输往返延迟、链路的负载情况，具体计算过程可参考论文，篇幅所限此处不再展开。然后通过KSP（最短路径算法）算法计算每一对节点之间的最短路径，随后将其更新到路径决定组件的路径表中，即PIB。另外该KSP算法会保证该路径中间的跳数少于两个节点，以避免报文转发时经过太长的路径导致CDN延迟增高。&lt;/li&gt;
+&lt;li&gt;路径表一旦收到一个过载信号，与该过载链路或过载节点相关的路径将会被作废。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h4 id=&#34;322-直播流工作流程&#34;&gt;3.2.2 直播流工作流程&lt;/h4&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;当生产者CDN节点收到一个直播流的请求，首先会向路径决定组件注册该流，如路径决定组件中的 SIB表所示，注册的信息为&amp;lt;视频流ID，CDN生产者节点ID&amp;gt;二元组。然后接收来自客户端的视频帧，并根据本地的转发表转发该视频流。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;客户端向CDN生产者节点发起一个视频流的请求并附上相应的视频流ID。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;CDN消费者节点接收到该视频流请求之后，如果该请求是一个该CDN节点未知的视频流ID，该CDN节点首先向中心节点（即图六的路径决策组件）查询通往CDN生产者的路径，在建立路径之后才能够传输该视频流。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;假设该CDN消费者节点第一次收到对该视频流ID的请求，向路径决定模块发起查询，提交视频流ID号和其节点号DstNdID。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;路径决策组件收到该视频流ID号和DstNdID后，用视频流ID号在SIB表中查询对应的SrcNDID。接着，使用SrcNDID和DstNDID从PIB表中查询相应的三个候选路径&amp;lt;path1，path2，path3&amp;gt;，最后交付给CDN消费者节点。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;CDN消费者节点收到三个候选路径&amp;lt;path1，path2，path3&amp;gt;后, 根据自己的偏好策略从中选择一条路径。假如选择的路径为path1，其包含的节点为&amp;lt;生产者节点，中转节点1，中转节点2，消费者节点&amp;gt;。消费者节点向中转节点2发送视频流ID和path1路径&amp;lt;生产者节点，中转节点1，中转节点2，消费者节点&amp;gt;。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;中转节点2将在本地注册转发表，表项为&amp;lt;StreamID, 消费者节点&amp;gt;，译为将与StreamID相关的视频流帧转发到下一跳节点，即消费者节点。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;中转节点2重复CDN消费者节点的动作，向它的前一个节点（即中转节点1）转发StreamID和path1。直到达到根部的生产者节点。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;path1上的所有节点的转发表项建立完成之后，每一个节点收到与StreamID相关的视频帧之后，将会根据转发表项，转发到下一个节点。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id=&#34;33--优化报文转发和处理逻辑&#34;&gt;3.3  优化报文转发和处理逻辑&lt;/h2&gt;
+&lt;p&gt;  传统的数据中心网络使用TCP传输数据，内核态的处理逻辑太复杂，导致报文转发的迟滞。因此作者改用RTP协议结合RTCP来做，并提出了快慢路的概念。其中RTP协议用来转发数据，一旦一个节点收到一个报文，立刻将其转发到下一个节点，个人理解这是借助了RTP协议的优势：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;基于UDP可以直接转发，不需要经过TCP相应的复杂逻辑。&lt;/li&gt;
+&lt;li&gt;尽管RTP协议并不是可靠的，但提供了有序的保障，会为每一个报文标序号，并在接收方重组（因为不可靠可能出现空缺）。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;  RTCP协议又提供了相应的控制逻辑，接收方会将最近的丢包情况以50ms的粒度反馈给发送方，发送方据此调整其发送速率，同时将丢失的报文重发到接收方。&lt;/p&gt;
+&lt;p&gt;  整体的逻辑如图七所示，此处就该图对快慢路的主要逻辑做介绍：&lt;/p&gt;
+&lt;p&gt;绿色部分：慢路&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;接收控制逻辑：CDN节点的快路收到一个报文之后，在将其通过快路再次立即转发出去的。同时，本地留一备份到慢路上，以在丢失的时候重传。&lt;/li&gt;
+&lt;li&gt;发送控制逻辑：该逻辑会接收下游节点在快路上的丢包信息，并调整速率并反馈到快路上，同时将丢失的报文（这就是上面备份的意义）通过快路快速转发出去，重传的报文优先放在快路的转发队列前。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;黄色部分：快路&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;每收到一个报文，将其放入本地的发送队列中。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;报文发送器（pacer）负责将报文按照速率的要求，以相应的频率从队列中取报文并发出。&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;图七&#34; srcset=&#34;
+               /zh/post/paper-sharing-3/picture/picture7_hu5dced0489d752043557e396df11fffc6_174151_bb7a167a432079e5b83d5bbf2c6b92a7.webp 400w,
+               /zh/post/paper-sharing-3/picture/picture7_hu5dced0489d752043557e396df11fffc6_174151_522e16f3d5273b2171e69ea8b28ad7ea.webp 760w,
+               /zh/post/paper-sharing-3/picture/picture7_hu5dced0489d752043557e396df11fffc6_174151_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://ai4network.github.io/zh/post/paper-sharing-3/picture/picture7_hu5dced0489d752043557e396df11fffc6_174151_bb7a167a432079e5b83d5bbf2c6b92a7.webp&#34;
+               width=&#34;760&#34;
+               height=&#34;590&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;  需要注意快慢路本质上是一种逻辑上的概念，作者将其抽象，控制逻辑为慢路，其负责可靠性。转发逻辑为快路，其负责快速的转发报文，并绕开TCP协议栈。&lt;/p&gt;
+&lt;h2 id=&#34;4-实验结果&#34;&gt;4 实验结果&lt;/h2&gt;
+&lt;p&gt;  作者在实验结果部分将所提出的工作（即LiveNet）和先前的HIER做了对比，主要关注了以下指标：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;CDN内部延迟：一个视频帧到CDN生产者，传输到CDN消费者所经历的延迟。&lt;/li&gt;
+&lt;li&gt;端到端延迟：直播者到观看者之间整体的视频流延迟。&lt;/li&gt;
+&lt;li&gt;卡顿率：用户在观看视频时，使用LiveNet和HIER在观看期间经历卡顿的概率。&lt;/li&gt;
+&lt;li&gt;快速启动率：从观看者点击一个直播视频开始计时，到接收到第一个视频帧的时间是否低于一秒，低于一秒，为快速启动。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;  接下来对作者的实验结果做一些介绍：&lt;/p&gt;
+&lt;p&gt;  首先看图二，为期一周的测量结果表明，LiveNet（蓝色部分）相比HIER（红色部分）大幅度降低了CDN内部延迟，从平均的400ms延迟降低到了200ms左右。另外根据图八的CDF图所示，百分之五十以上的视频流在经过LiveNet传输时，端到端延迟都能满足在一秒以下，而HIER只有不到百分之二十五的视频流满足此要求。&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;图八&#34; srcset=&#34;
+               /zh/post/paper-sharing-3/picture/picture8_hu613cae86c53f2d33f9b0e09176a063bc_74903_29928fd1c7691168d03d60e90a9250c9.webp 400w,
+               /zh/post/paper-sharing-3/picture/picture8_hu613cae86c53f2d33f9b0e09176a063bc_74903_c0753abd7c81d5d6741298605a51c216.webp 760w,
+               /zh/post/paper-sharing-3/picture/picture8_hu613cae86c53f2d33f9b0e09176a063bc_74903_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://ai4network.github.io/zh/post/paper-sharing-3/picture/picture8_hu613cae86c53f2d33f9b0e09176a063bc_74903_29928fd1c7691168d03d60e90a9250c9.webp&#34;
+               width=&#34;760&#34;
+               height=&#34;370&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;  接着看图九，作者分别对卡顿率和快速启动率做了测量。在卡顿率指标上，用户观看视频时经历的卡顿次数（1、2、3、4、&amp;gt;=5）的概率相比HIER都有了显著的降低。另外在快速启动率指标上，LiveNet能够保证百分之九十五左右的快速启动率。作为对比，HIER只有百分之九十二左右。&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;图九&#34; srcset=&#34;
+               /zh/post/paper-sharing-3/picture/picture9_hudb1561d4cf21c39b585ae8e963820716_111760_882bfcf8e1cb67503d2f9b35276491da.webp 400w,
+               /zh/post/paper-sharing-3/picture/picture9_hudb1561d4cf21c39b585ae8e963820716_111760_a498721500a634518087c5cd08126041.webp 760w,
+               /zh/post/paper-sharing-3/picture/picture9_hudb1561d4cf21c39b585ae8e963820716_111760_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://ai4network.github.io/zh/post/paper-sharing-3/picture/picture9_hudb1561d4cf21c39b585ae8e963820716_111760_882bfcf8e1cb67503d2f9b35276491da.webp&#34;
+               width=&#34;760&#34;
+               height=&#34;177&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;h2 id=&#34;5-个人总结&#34;&gt;5 个人总结&lt;/h2&gt;
+&lt;p&gt;  本文作者针对阿里传统的层次型CDN架构所存在的问题，将节点和节点之间的路径转化成扁平的形式，带来的最明显的好处就是能够有效的减小CDN内部报文转发延迟。另外快慢路本质上是一种逻辑上的抽象，快路本质上是转发逻辑,负责报文的快速转发，绕开了TCP的复杂处理逻辑;而慢路本质上是控制逻辑，负责调整发送速率和重传报文。因此作者采用了RTCP和RTP协议来替代以往的RTMP协议，这本质上是一种工程上的考量，目的是为了解决现在的直播系统存在的问题——为了端到端延迟而服务。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>SIGCOMM22 论文分享 | Elasticity Detection: A Building Block for Internet Congestion Control</title>
+      <link>https://ai4network.github.io/zh/post/paper-sharing-2/</link>
+      <pubDate>Mon, 21 Nov 2022 19:47:34 +0800</pubDate>
+      <guid>https://ai4network.github.io/zh/post/paper-sharing-2/</guid>
+      <description>&lt;p&gt;  本期分享的论文是由微软研究院和MIT发表在SIGCOMM2022拥塞控制会议上的一篇文章。该文主要引入了一个新的度量：“弹性”，用来表征竞争时的交叉流量的性质。弹性捕获了交叉流量是否对可用带宽的变化作出反应这一属性。文章提出的NimbusCC在没有路由器支持的情况下，能够在发送端健壮地检测交叉流量的弹性，而且可以根据弹性检测来启用延迟控制拥塞控制协议，以达到减少延迟而不会损害吞吐量的目标。下面，我将具体地介绍该文的主要内容以及读后感言。&lt;/p&gt;
+&lt;h2 id=&#34;研究动机&#34;&gt;研究动机&lt;/h2&gt;
+&lt;p&gt;  该文首先揭示了“延迟控制”的拥塞控制机制（例如Copa、Vegas等）与其他流量竞争时的性能问题：（1）当它和其他更具有带宽竞争力的“缓冲填充”的拥塞控制机制（例如Cubic、Reno等）竞争时，瓶颈链路的延迟增加后，“延迟控制”拥塞控制机制很快降低了发送速率，从而导致吞吐量低；（2）当它和固定比特率的流量（CBR）竞争时，不仅减少了延迟并且没有损失吞吐量；而对于“缓冲填充”的拥塞控制机制来说，和同类的机制以及CBR流竞争带宽时属公平竞争，但延迟都比较高。&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;picture1&#34; srcset=&#34;
+               /zh/post/paper-sharing-2/picture/picture1_hudeaf8b130eca033ef1a865d23e979785_150612_9ed51923ee17233b53fb59305a19b38f.webp 400w,
+               /zh/post/paper-sharing-2/picture/picture1_hudeaf8b130eca033ef1a865d23e979785_150612_e6f7724d450375e91c809ee062663913.webp 760w,
+               /zh/post/paper-sharing-2/picture/picture1_hudeaf8b130eca033ef1a865d23e979785_150612_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://ai4network.github.io/zh/post/paper-sharing-2/picture/picture1_hudeaf8b130eca033ef1a865d23e979785_150612_9ed51923ee17233b53fb59305a19b38f.webp&#34;
+               width=&#34;760&#34;
+               height=&#34;264&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;picture2&#34; srcset=&#34;
+               /zh/post/paper-sharing-2/picture/picture2_huf529575b65c633bf77999e308600dc51_148902_ec10f1d4b1e101bb77332fd804418a2c.webp 400w,
+               /zh/post/paper-sharing-2/picture/picture2_huf529575b65c633bf77999e308600dc51_148902_b826b50084661afa45f74c3f6e8ad711.webp 760w,
+               /zh/post/paper-sharing-2/picture/picture2_huf529575b65c633bf77999e308600dc51_148902_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://ai4network.github.io/zh/post/paper-sharing-2/picture/picture2_huf529575b65c633bf77999e308600dc51_148902_ec10f1d4b1e101bb77332fd804418a2c.webp&#34;
+               width=&#34;760&#34;
+               height=&#34;266&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;picture3&#34; srcset=&#34;
+               /zh/post/paper-sharing-2/picture/picture3_huf3fb8326073b585765fcf7f1d861b218_146071_fce7e24b7bef0a7633ee9f9835b49980.webp 400w,
+               /zh/post/paper-sharing-2/picture/picture3_huf3fb8326073b585765fcf7f1d861b218_146071_fa5d214117ee47d155220569732fe20a.webp 760w,
+               /zh/post/paper-sharing-2/picture/picture3_huf3fb8326073b585765fcf7f1d861b218_146071_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://ai4network.github.io/zh/post/paper-sharing-2/picture/picture3_huf3fb8326073b585765fcf7f1d861b218_146071_fce7e24b7bef0a7633ee9f9835b49980.webp&#34;
+               width=&#34;760&#34;
+               height=&#34;272&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;  结合上述发现，该文得到了一个关键发现也就是它的研究目标：当发送方拥塞控制机制认为交叉流量是非弹性时，发送方可以使用“延迟控制”协议来减少发送方和交叉流量的延迟，而不用担心降低吞吐量。反之，如果是弹性的，它可以切换到TCP竞争的“缓冲填充”拥塞控制机制。这样能够更好地利用“延迟控制”机制，在具有带宽竞争力的同时，“安全”地降低延迟。&lt;/p&gt;
+&lt;h2 id=&#34;关键技术&#34;&gt;关键技术&lt;/h2&gt;
+&lt;p&gt;  为了实现研究目标，该文首先总结并抽象了不同交叉流量进行带宽竞争时的一种属性：弹性。弹性表征了交叉流量在和其他流量竞争时，能够受其他流量带来的瓶颈可用带宽的影响，改变发送速率。比如一些应用限制的流量或者可用带宽超过比特率的视频流是不会对可用带宽变化而作出反应，因此为非弹性流。&lt;/p&gt;
+&lt;p&gt;  接下来，按照目标需要让发送方知道交叉流量的弹性属性，也就是需要进行弹性检测。这里提出的弹性检测是主动的，是鲁棒的。第一步，他们建立了如下图的交叉流量测速的模型，通过非空非满的瓶颈中，进出流量中发送方和交叉流所占比例守恒这一结论，能够在发送方进入瓶颈的速率S、接收速率R、以及瓶颈估计速率μ已知的情况下，得到交叉流量的速率Z。&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;picture4&#34; srcset=&#34;
+               /zh/post/paper-sharing-2/picture/picture4_huadcf8d13206d05b5a690fc3d17b13c09_143827_1ca91ce9d36c4e5e387606af4d96b0c5.webp 400w,
+               /zh/post/paper-sharing-2/picture/picture4_huadcf8d13206d05b5a690fc3d17b13c09_143827_d354d993c572dbb9fce7748863e96b24.webp 760w,
+               /zh/post/paper-sharing-2/picture/picture4_huadcf8d13206d05b5a690fc3d17b13c09_143827_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://ai4network.github.io/zh/post/paper-sharing-2/picture/picture4_huadcf8d13206d05b5a690fc3d17b13c09_143827_1ca91ce9d36c4e5e387606af4d96b0c5.webp&#34;
+               width=&#34;760&#34;
+               height=&#34;261&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;  接着，他们并没有直接通过交叉流量速率来衡量弹性，而是通过主动增加发送方速率脉冲，然后根据交叉流会以相同频率响应脉冲的原理，在频域上分析交叉流的FFT，如果FFT在发送脉冲相应频率上具有更高的幅值，就证明更具有弹性。
+最后，在发送方根据弹性阈值来切换NimbusCC的模式和应用机制，当交叉流是非弹性时，则应用“延迟控制”机制进行延迟控制模式，以此减少延迟并不损失吞吐量；而当交叉流是弹性时，切换TCP竞争模式，应用类似Cubic之类的机制公平竞争带宽，不考虑延迟问题。总结NimbusCC的整个流程如下图。
+【模式切换】
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;picture5&#34; srcset=&#34;
+               /zh/post/paper-sharing-2/picture/picture5_hu1d14368f60f102f3bf343193d275987f_43326_c21ef3a3ec04cf823fc6a3dbced70aed.webp 400w,
+               /zh/post/paper-sharing-2/picture/picture5_hu1d14368f60f102f3bf343193d275987f_43326_8f197073de3eb465e064674ab19f1120.webp 760w,
+               /zh/post/paper-sharing-2/picture/picture5_hu1d14368f60f102f3bf343193d275987f_43326_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://ai4network.github.io/zh/post/paper-sharing-2/picture/picture5_hu1d14368f60f102f3bf343193d275987f_43326_c21ef3a3ec04cf823fc6a3dbced70aed.webp&#34;
+               width=&#34;549&#34;
+               height=&#34;374&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;h2 id=&#34;实验验证&#34;&gt;实验验证&lt;/h2&gt;
+&lt;p&gt;  该文做了十分充分的实验验证，包括模拟和真实网络情况下，对于理想情况下的基于弹性检测和模式切换的拥塞控制的性能评估，也有一些不满足假设的情况下性能问题的评估等等。而下图就是对比不同的机制，评估NimbusCC在弹性/非弹性交叉流的背景下的吞吐量和延迟，发现NimbusCC在灰色区域的，竞争模式下比单纯的“延迟控制”机制更具有公平竞争带宽的能力；而在后60s，判断交叉流量是弹性的，切换为延迟控制模式，能够有效减少延迟，并且吞吐量和非弹交叉流公平竞争瓶颈带宽。&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;picture6&#34; srcset=&#34;
+               /zh/post/paper-sharing-2/picture/picture6_hu7466ebdd386623c30c006f912bfb60c5_377725_ab907fb67755ed81cb9e9f286d4ded25.webp 400w,
+               /zh/post/paper-sharing-2/picture/picture6_hu7466ebdd386623c30c006f912bfb60c5_377725_6af8bc3bf0f4d94921a2933fbb0dd93d.webp 760w,
+               /zh/post/paper-sharing-2/picture/picture6_hu7466ebdd386623c30c006f912bfb60c5_377725_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://ai4network.github.io/zh/post/paper-sharing-2/picture/picture6_hu7466ebdd386623c30c006f912bfb60c5_377725_ab907fb67755ed81cb9e9f286d4ded25.webp&#34;
+               width=&#34;524&#34;
+               height=&#34;670&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;h2 id=&#34;个人观点&#34;&gt;个人观点&lt;/h2&gt;
+&lt;p&gt;  作为计算机网络领域顶级会议的文章，我认为它同时具备了发现问题的重要性，解决思路的创新性，以及实现技术的实用性。在拥塞控制研究这么多年的背景下，它发现了“延迟控制”这类机制在应用时的问题和现象。而解决问题的思路又不同于大部分能做到的方法创新，而首先基于“概念”创新，能够抽象并提出新的概念，并且具有一定的数理分析。最后，实际的实现技术时利用现有的一些拥塞控制的实现机制进行切换，简单而实用。所以，希望我们都能够从方法论创新走向思想创新，做更有用的研究吧！&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

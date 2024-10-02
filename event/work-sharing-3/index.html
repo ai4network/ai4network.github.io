@@ -1,0 +1,1485 @@
+<!DOCTYPE html>
+<!-- This site was created with Wowchemy. https://www.wowchemy.com -->
+<!-- Last Published: October 2, 2024 --><html lang="en-us" >
+
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  
+  
+  
+    <meta name="generator" content="Wowchemy 5.7.0 for Hugo" />
+  
+
+  
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+  
+  
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  
+
+  
+  
+  
+    
+      
+      <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=B612+Mono&family=B612:wght@400;700&family=Jura:wght@400;700&display=swap">
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=B612+Mono&family=B612:wght@400;700&family=Jura:wght@400;700&display=swap" media="print" onload="this.media='all'">
+    
+  
+
+  
+  
+
+  
+  
+    
+    <script src="/js/mathjax-config.js"></script>
+  
+
+  
+
+  <link rel="stylesheet" href="/css/vendor-bundle.min.16f785cdb553c8c4431db6775122af35.css" media="print" onload="this.media='all'">
+
+  
+  
+  
+    
+    
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/academicons@1.9.2/css/academicons.min.css" integrity="sha512-KlJCpRsLf+KKu2VQa5vmRuClRFjxc5lXO03ixZt82HZUk41+1I0bD8KBSA0fY290ayMfWYI9udIqeOWSu1/uZg==" crossorigin="anonymous" media="print" onload="this.media='all'">
+    
+
+    
+    
+    
+    
+      
+      
+    
+    
+    
+
+    
+    
+    
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.7.1/dist/leaflet.min.css" integrity="" crossorigin="anonymous" media="print" onload="this.media='all'">
+    
+
+    
+
+    
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" integrity="" crossorigin="anonymous" async></script>
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+  
+
+  
+  
+  
+  
+  
+  
+  <link rel="stylesheet" href="/css/wowchemy.e688a8e1beceb969adc2714aa50ada4c.css" />
+
+  
+  
+  
+  
+  
+  
+  
+    
+    
+    <link rel="stylesheet" href="/css/libs/chroma/github-light.min.css" title="hl-light" media="print" onload="this.media='all'" >
+    <link rel="stylesheet" href="/css/libs/chroma/dracula.min.css" title="hl-dark" media="print" onload="this.media='all'" disabled>
+  
+
+  
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  
+
+
+
+
+
+
+  <meta name="author" content="韩彪" />
+
+
+
+
+
+  
+
+<meta name="description" content="  近年来，无人机凭借其灵活操控、视角广阔、移动性强等优势，被广泛应用于大型赛事直播、应急救援、目标识别等领域。然而，由于无人机飞行高速移动过程中带来网络质量频繁波动，尤其是采用基站入网方式的无人机在飞行过程中需要频繁切换入网点，往往无法满足高清视频传输所需的高带宽、低时延、小抖动等传输需求，更无法针对特殊应用提供定制化的服务质量（QoS）和用户体验（QoE）。" />
+
+
+
+  <link rel="alternate" hreflang="zh" href="https://ai4network.github.io/zh/event/work-sharing-3/" />
+
+<link rel="alternate" hreflang="en-us" href="https://ai4network.github.io/event/work-sharing-3/" />
+<link rel="canonical" href="https://ai4network.github.io/event/work-sharing-3/" />
+
+
+
+  <link rel="manifest" href="/manifest.webmanifest" />
+
+
+
+<link rel="icon" type="image/png" href="/media/icon_hua2ec155b4296a9c9791d015323e16eb5_11927_32x32_fill_lanczos_center_3.png" />
+<link rel="apple-touch-icon" type="image/png" href="/media/icon_hua2ec155b4296a9c9791d015323e16eb5_11927_180x180_fill_lanczos_center_3.png" />
+
+<meta name="theme-color" content="#3f51b5" />
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+<meta property="twitter:card" content="summary_large_image" />
+
+  <meta property="twitter:site" content="@wowchemy" />
+  <meta property="twitter:creator" content="@wowchemy" />
+<meta property="twitter:image" content="https://ai4network.github.io/event/work-sharing-3/featured.png" />
+<meta property="og:site_name" content="AI4network Group" />
+<meta property="og:url" content="https://ai4network.github.io/event/work-sharing-3/" />
+<meta property="og:title" content="Smart-Flycast：基于无人机平台的多路径实时视频传输系统 | AI4network Group" />
+<meta property="og:description" content="  近年来，无人机凭借其灵活操控、视角广阔、移动性强等优势，被广泛应用于大型赛事直播、应急救援、目标识别等领域。然而，由于无人机飞行高速移动过程中带来网络质量频繁波动，尤其是采用基站入网方式的无人机在飞行过程中需要频繁切换入网点，往往无法满足高清视频传输所需的高带宽、低时延、小抖动等传输需求，更无法针对特殊应用提供定制化的服务质量（QoS）和用户体验（QoE）。" /><meta property="og:image" content="https://ai4network.github.io/event/work-sharing-3/featured.png" /><meta property="og:locale" content="en-us" />
+
+  
+    <meta
+      property="article:published_time"
+      content="2023-10-07T10:52:45&#43;08:00"
+    />
+  
+  
+    <meta property="article:modified_time" content="2023-10-07T10:52:45&#43;08:00">
+  
+
+
+
+
+
+
+
+  
+    
+
+
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://ai4network.github.io/event/work-sharing-3/"
+  },
+  "name": "Smart-Flycast：基于无人机平台的多路径实时视频传输系统",
+  
+  
+  "image": [
+    "https://ai4network.github.io/event/work-sharing-3/featured.png"
+  ],
+  
+  "startDate": "2023-10-07T10:52:45+08:00",
+  
+  
+  "performer": {
+    "@type": "Person",
+    "name": "宋丛溪"
+  },
+  
+  "description": "\u003cp\u003e  近年来，无人机凭借其灵活操控、视角广阔、移动性强等优势，被广泛应用于大型赛事直播、应急救援、目标识别等领域。然而，由于无人机飞行高速移动过程中带来网络质量频繁波动，尤其是采用基站入网方式的无人机在飞行过程中需要频繁切换入网点，往往无法满足高清视频传输所需的高带宽、低时延、小抖动等传输需求，更无法针对特殊应用提供定制化的服务质量（QoS）和用户体验（QoE）。\u003c/p\u003e"
+}
+</script>
+
+  
+
+
+
+
+  
+  
+  
+
+  
+  
+
+  
+
+
+  
+  <title>Smart-Flycast：基于无人机平台的多路径实时视频传输系统 | AI4network Group</title>
+
+  
+  
+  
+  
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+
+<body id="top" data-spy="scroll" data-offset="70" data-target="#TableOfContents" class="page-wrapper   " data-wc-page-id="212a225ee6f09331a4d9420a830c7876" >
+
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <script src="/js/wowchemy-init.min.3b7d95b5664992609338a09c18bfa7f6.js"></script>
+
+  
+
+
+<aside class="search-modal" id="search">
+  <div class="container">
+    <section class="search-header">
+
+      <div class="row no-gutters justify-content-between mb-3">
+        <div class="col-6">
+          <h1>Search</h1>
+        </div>
+        <div class="col-6 col-search-close">
+          <a class="js-search" href="#" aria-label="Close"><i class="fas fa-times-circle text-muted" aria-hidden="true"></i></a>
+        </div>
+      </div>
+
+      <div id="search-box">
+        
+        <input name="q" id="search-query" placeholder="Search..." autocapitalize="off"
+        autocomplete="off" autocorrect="off" spellcheck="false" type="search" class="form-control"
+        aria-label="Search...">
+        
+      </div>
+
+      
+      
+
+      
+
+    </section>
+    <section class="section-search-results">
+
+      <div id="search-hits">
+        
+      </div>
+
+    </section>
+  </div>
+</aside>
+
+
+
+  <div class="page-header header--fixed">
+    
+
+
+
+
+
+
+
+
+
+
+
+
+<header>
+  <nav class="navbar navbar-expand-lg navbar-light compensate-for-scrollbar" id="navbar-main">
+    <div class="container-xl">
+
+      
+      <div class="d-none d-lg-inline-flex">
+        <a class="navbar-brand" href="/">AI4network Group</a>
+      </div>
+      
+
+      
+      <button type="button" class="navbar-toggler" data-toggle="collapse"
+              data-target="#navbar-content" aria-controls="navbar-content" aria-expanded="false" aria-label="Toggle navigation">
+      <span><i class="fas fa-bars"></i></span>
+      </button>
+      
+
+      
+      <div class="navbar-brand-mobile-wrapper d-inline-flex d-lg-none">
+        <a class="navbar-brand" href="/">AI4network Group</a>
+      </div>
+      
+
+      
+      
+      <div class="navbar-collapse main-menu-item collapse justify-content-end" id="navbar-content">
+
+        
+        <ul class="navbar-nav d-md-inline-flex">
+          
+
+          
+
+          
+          
+          
+
+          
+
+          
+          
+          
+          
+
+          
+            
+              
+              
+            
+            
+          
+
+          <li class="nav-item">
+            <a class="nav-link " href="/tour"><span>Tour</span></a>
+          </li>
+
+          
+          
+
+          
+
+          
+          
+          
+            
+          
+
+          
+
+          
+          
+          
+          
+
+          
+            
+              
+              
+            
+            
+          
+
+          <li class="nav-item">
+            <a class="nav-link " href="/direction"><span>Direction</span></a>
+          </li>
+
+          
+          
+
+          
+
+          
+          
+          
+
+          
+
+          
+          
+          
+          
+
+          
+            
+              
+              
+            
+            
+          
+
+          <li class="nav-item">
+            <a class="nav-link " href="/post"><span>Sharing</span></a>
+          </li>
+
+          
+          
+
+          
+
+          
+          
+          
+            
+          
+
+          
+
+          
+          
+          
+          
+
+          
+            
+              
+              
+            
+            
+          
+
+          <li class="nav-item">
+            <a class="nav-link " href="/people"><span>People</span></a>
+          </li>
+
+          
+          
+
+          
+
+          
+          
+          
+            
+          
+
+          
+
+          
+          
+          
+          
+
+          
+            
+              
+              
+            
+            
+          
+
+          <li class="nav-item">
+            <a class="nav-link " href="/event"><span>Events</span></a>
+          </li>
+
+          
+          
+
+          
+
+          
+          
+          
+            
+          
+
+          
+
+          
+          
+          
+          
+
+          
+            
+              
+              
+            
+            
+          
+
+          <li class="nav-item">
+            <a class="nav-link " href="/publication"><span>Publication</span></a>
+          </li>
+
+          
+          
+
+          
+
+          
+          
+          
+            
+          
+
+          
+
+          
+          
+          
+          
+
+          
+            
+              
+              
+            
+            
+          
+
+          <li class="nav-item">
+            <a class="nav-link " href="/contact"><span>Contact</span></a>
+          </li>
+
+          
+          
+
+        
+
+          
+        </ul>
+      </div>
+
+      <ul class="nav-icons navbar-nav flex-row ml-auto d-flex pl-md-2">
+
+        
+        
+          
+        
+
+        
+        
+        
+        <li class="nav-item">
+          <a class="nav-link js-search" href="#" aria-label="Search"><i class="fas fa-search" aria-hidden="true"></i></a>
+        </li>
+        
+
+        
+        
+        
+        <li class="nav-item dropdown theme-dropdown">
+          <a href="#" class="nav-link" data-toggle="dropdown" aria-haspopup="true" aria-label="Display preferences">
+            <i class="fas fa-moon" aria-hidden="true"></i>
+          </a>
+          <div class="dropdown-menu">
+            <a href="#" class="dropdown-item js-set-theme-light">
+              <span>Light</span>
+            </a>
+            <a href="#" class="dropdown-item js-set-theme-dark">
+              <span>Dark</span>
+            </a>
+            <a href="#" class="dropdown-item js-set-theme-auto">
+              <span>Automatic</span>
+            </a>
+          </div>
+        </li>
+        
+
+        
+        
+        <li class="nav-item dropdown i18n-dropdown">
+          <a href="#" class="nav-link " data-toggle="dropdown"
+             aria-haspopup="true" aria-label="Languages">
+            <i class="fas fa-globe mr-1" aria-hidden="true"></i></a>
+          <div class="dropdown-menu">
+            <div class="dropdown-item dropdown-item-active">
+              <span>English</span>
+            </div>
+            
+            <a class="dropdown-item" href="https://ai4network.github.io/zh/event/work-sharing-3/">
+              <span>中文 (简体)</span>
+            </a>
+            
+          </div>
+        </li>
+        
+
+      </ul>
+
+    </div>
+  </nav>
+</header>
+
+
+  </div>
+
+  <div class="page-body">
+    
+    
+    
+
+    <div class="pub">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+
+
+<div class="article-container pt-3">
+  <h1>Smart-Flycast：基于无人机平台的多路径实时视频传输系统</h1>
+
+  
+
+  
+
+
+<div class="article-metadata">
+
+  
+  
+  
+  
+  <div>
+    
+
+  <span >
+      <a href="/author/%E5%AE%8B%E4%B8%9B%E6%BA%AA/">宋丛溪</a></span>
+  </div>
+  
+  
+
+  
+
+  
+
+  
+
+  
+  
+  
+  
+
+  
+  
+  <span class="middot-divider"></span>
+  <span class="article-categories">
+    <i class="fas fa-folder mr-1"></i><a href="/category/work-share/">Work Share</a></span>
+  
+
+</div>
+
+  
+
+
+
+
+
+</div>
+
+
+<div class="article-header article-container featured-image-wrapper mt-4 mb-4" style="max-width: 720px; max-height: 314px;">
+  <div style="position: relative">
+    <img src="/event/work-sharing-3/featured_huc14adf2d2e0489bdd49c13a2226cf2fd_296203_720x2500_fit_q75_h2_lanczos_3.webp" width="720" height="314" alt="" class="featured-image">
+    
+  </div>
+</div>
+
+
+
+  <div class="article-container">
+
+    
+      <br>
+    
+
+    <div class="row">
+      <div class="col-md-1"></div>
+      <div class="col-md-10">
+        <div class="row">
+          <div class="col-12 col-md-3 pub-row-heading">Date</div>
+          <div class="col-12 col-md-9">
+            Oct 7, 2023 10:52 AM
+          </div>
+        </div>
+      </div>
+      <div class="col-md-1"></div>
+    </div>
+    <div class="d-md-none space-below"></div>
+
+    
+
+    
+
+    <div class="space-below"></div>
+
+    <div class="article-style">
+      <p>  近年来，无人机凭借其灵活操控、视角广阔、移动性强等优势，被广泛应用于大型赛事直播、应急救援、目标识别等领域。然而，由于无人机飞行高速移动过程中带来网络质量频繁波动，尤其是采用基站入网方式的无人机在飞行过程中需要频繁切换入网点，往往无法满足高清视频传输所需的高带宽、低时延、小抖动等传输需求，更无法针对特殊应用提供定制化的服务质量（QoS）和用户体验（QoE）。</p>
+<p>  为此，AI4Network研究团队将多路径技术引入无人机实时视频传输过程，开发研制了智能多路径无人机实时视频传输系统Smart-Flycast，旨在通过增加无人机平台的网络链路数量，提供视频传输的带宽聚合与并行传输能力，提升传输稳定性和可靠性。该系统的核心特性是智能跨层传输协议，集成典型流媒体传输协议集，底层可灵活适配多种传输协议，并支持自研的传输算法库，可实现应用协议、传输协议、控制决策算法三个层次的传输方案集成创新，增强了无人机流媒体传输在动态网络环境中的自适应能力，以及面向多种视频应用需求的可扩展性。</p>
+<p>  目前，基于Smart-Flycast的研究工作已被网络领域国际顶级杂志IEEE Network Magazine（影响因子9.3）录用[1]。该工作结合“AI for Network”思路，通过智能算法的自适应能力辅助多路径报文调度和传输控制，为研究使能网络的人工智能技术提供了新的思路和应用场景。IEEE Network是网络领域知名刊物，专注于网络通信领域的重要问题和发展趋势。该工作作者为2020级博士研究生宋丛溪（第一作者）、2023级博士研究生计晓岚、2020级硕士研究生李亚辉、指导老师为韩彪副研究员、苏金树研究员。</p>
+<h2 id="一smart-flycast演示视频">一、Smart-Flycast演示视频</h2>
+<p><a href="http://mpvideo.qpic.cn/0bc3v4aa4aaaqeajnrqsobsvbl6db2xqadqa.f10002.mp4?dis_k=f0b26e84321d30465ae920fbbe7859bb&amp;dis_t=1696644840&amp;play_scene=10120&amp;auth_info=fvbxvikUf235xI22V107a2pJNjhlTzpmGX8ZUmpvS0pHdnZ5YkkQDzBVcWB2SgFh&amp;auth_key=82e9f292231a4783724468c243e2cf6c&amp;vid=wxv_3122661875554713606&amp;format_id=10002&amp;support_redirect=0&amp;mmversion=false" target="_blank" rel="noopener">视频地址</a></p>
+<h2 id="二smart-flycast系统架构">二、Smart-Flycast系统架构</h2>
+<p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<figure  id="figure-图-1-smart-flycast系统架构">
+  <div class="d-flex justify-content-center">
+    <div class="w-100" ><img alt="picture1" srcset="
+               /event/work-sharing-3/picture/picture1_huc14adf2d2e0489bdd49c13a2226cf2fd_296203_e65d4b831d407195bc7cebfd2286e8a1.webp 400w,
+               /event/work-sharing-3/picture/picture1_huc14adf2d2e0489bdd49c13a2226cf2fd_296203_df65ea153c9ea53470f31d1d0f80977c.webp 760w,
+               /event/work-sharing-3/picture/picture1_huc14adf2d2e0489bdd49c13a2226cf2fd_296203_1200x1200_fit_q75_h2_lanczos_3.webp 1200w"
+               src="/event/work-sharing-3/picture/picture1_huc14adf2d2e0489bdd49c13a2226cf2fd_296203_e65d4b831d407195bc7cebfd2286e8a1.webp"
+               width="760"
+               height="331"
+               loading="lazy" data-zoomable /></div>
+  </div><figcaption>
+      图 1 Smart-Flycast系统架构
+    </figcaption></figure>
+</p>
+<p>  Smart-Flycast系统架构如图1所示，包括载有摄像头和机载计算机的无人机、接收和转发实时流的云服务器以及客户端视频播放器。其中机载计算机部署了智能跨层传输协议栈。端到端的实时流媒体传输过程包括以下步骤:</p>
+<p>  首先，传输模块从机载摄像头获取视频流并通过多个网卡（如WiFi、4G和5G）将其分发到云服务器。而后，云服务器汇聚并转发实时流。在客户端，订阅者通过视频播放器从云服务器拉取实时视频进行观看。Smart-Flycast系统的核心设计为智能跨层传输协议。</p>
+<h2 id="三智能跨层传输协议">三、智能跨层传输协议</h2>
+<p>  智能跨层传输协议分为三个层次，集成了流媒体传输协议集、底层可灵活适配多种传输协议，并支持自研的传输算法库，可实现应用层协议、传输层协议、传输决策算法三种层次的传输方案组合，增强了无人机流媒体传输在动态网络环境中的自适应能力，以及面向多种视频应用需求的可扩展性。如图2所示，应用层的流媒体传输协议集支持多种流媒体传输协议，包括RTMP、RTSP和RTP；传输层支持TCP、QUIC以及多路径扩展MPTCP、MPQUIC，可根据视频传输需求跨层适配协议；传输层内置了传输算法库，支持报文调度算法RR、minRTT、ECF、BLEST、RDDT、DRAMA等，拥塞控制算法CUBIC、Olia、BBR等，可根据网络状态切换传输策略。在此基础上，开发并部署了智能算法驱动的三种传输策略，分别是基于决策树的自适应多路径报文调度DRAMA、面向QoS的自适应多路径拥塞控制ACCeSS[2]、视频内容感知的部分可靠传输算法VICTOR[3]。</p>
+<p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<figure  id="figure-图-2-智能跨层传输协议">
+  <div class="d-flex justify-content-center">
+    <div class="w-100" ><img alt="picture2" srcset="
+               /event/work-sharing-3/picture/picture2_hu3f91bcd9f58fd2f9e18258ea1c05e26d_458143_6c6850f5a98a8c93e32819af0be14ca7.webp 400w,
+               /event/work-sharing-3/picture/picture2_hu3f91bcd9f58fd2f9e18258ea1c05e26d_458143_47297b26449e01040250e96be236d09d.webp 760w,
+               /event/work-sharing-3/picture/picture2_hu3f91bcd9f58fd2f9e18258ea1c05e26d_458143_1200x1200_fit_q75_h2_lanczos_3.webp 1200w"
+               src="/event/work-sharing-3/picture/picture2_hu3f91bcd9f58fd2f9e18258ea1c05e26d_458143_6c6850f5a98a8c93e32819af0be14ca7.webp"
+               width="662"
+               height="760"
+               loading="lazy" data-zoomable /></div>
+  </div><figcaption>
+      图 2 智能跨层传输协议
+    </figcaption></figure>
+</p>
+<p>（1）基于决策树的自适应多路径报文调度</p>
+<p>  异构链路以及无人机飞行期间的网络波动会导致路径状态的差异性增大，MPTCP和MPQUIC的默认报文调度器会产生不合理的决策，导致报文乱序到达从而降低应用的QoS和QoE。为了解决这个问题，使用决策树模型根据网络条件选择适合当前状态的策略。三个子策略包括，“分发”，“复制”和“丢弃”。“分发”策略根据网络状态计算每条路径的报文分配量，使报文尽可能按序到达接收端；“复制”策略将高优先级的报文复制发送到所有路径以保持传输可靠性。“丢弃”策略会主动丢弃低优先级数据的报文，以提供给高优先级报文充足带宽。</p>
+<p>（2）面向QoS的自适应多路径拥塞控制</p>
+<p>  为了满足在无人机动态网络环境的多种QoS，ACCeSS面向吞吐量、丢包以及延迟三种QoS设计效用函数，针对每种类型的QoS要求，ACCeSS求解一个特定QoS的最优问题。ACCeSS包含在线速率控制和离线训练两部分。在线速率控制部分获取网络状态作为效用函数的输入，采用基于梯度的在线学习方法从效用值决定发送速率。同时，网络状态和QoS需求被输入到离线训练部分，从而根据特定QoS类型解决特定的最优问题。ACCeSS采用轻量化的随机森林回归拟合吞吐量、丢包率、延迟和发送速率之间的回归关系，预测性能指标，实现在网络波动的情况下的高效预测。</p>
+<p>（3）视频内容感知的部分可靠传输机制</p>
+<p>  实时流媒体传输是一时延敏感型应用，在某些情况下，完全可靠传输带来的大量重传可能会恶化传输时延从而造成视频的卡顿。因此，我们实现了视频内容感知的部分可靠传输机制VICTOR，减少低优先级数据的重传，从而提高实时流媒体的QoE。VICTOR中实现了不可靠的流类型。在不可靠流上丢失的数据包将被丢弃，并在数据被提交到应用时，用零值填充相应的数据。根据感知到的优先级信息，流媒体内容将被区分发送到可靠和不可靠流传输。</p>
+<h2 id="四平台实现">四、平台实现</h2>
+<p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<figure  id="figure-图-3-smart-flycast硬件平台">
+  <div class="d-flex justify-content-center">
+    <div class="w-100" ><img alt="picture3" srcset="
+               /event/work-sharing-3/picture/picture3_hud0d202719ce924f1b00bf235d3e9c315_560594_bb56d6a8daf0621d2a92562c7e22f83c.webp 400w,
+               /event/work-sharing-3/picture/picture3_hud0d202719ce924f1b00bf235d3e9c315_560594_cc60d0b419afe5350286fda3d6c768d6.webp 760w,
+               /event/work-sharing-3/picture/picture3_hud0d202719ce924f1b00bf235d3e9c315_560594_1200x1200_fit_q75_h2_lanczos_3.webp 1200w"
+               src="/event/work-sharing-3/picture/picture3_hud0d202719ce924f1b00bf235d3e9c315_560594_bb56d6a8daf0621d2a92562c7e22f83c.webp"
+               width="760"
+               height="327"
+               loading="lazy" data-zoomable /></div>
+  </div><figcaption>
+      图 3 Smart-Flycast硬件平台
+    </figcaption></figure>
+</p>
+<p>  Smart-Flycast的硬件平台实现如图3所示，平台载体是一架定制Dji四旋翼无人机，该平台配备了Manifold 2机载计算机，其CPU为Intel Corei7-8550U，内存为8GB RAM。实时流媒体画面通过机载高清摄像头收集。无人机通过多个网卡将流媒体传输到云服务器，网卡分别为华为8372 4G模组，以及华为MH5000 5G模组。</p>
+<h2 id="五总结与展望">五、总结与展望</h2>
+<p>  Smart-Flycast无人机实时视频传输平台基于多路径传输技术，集成了跨应用层、传输层的协议以及传输算法，提升了无人机流媒体传输的实时性、可靠性与自适应能力。如今，智能技术使能网络是一个发展趋势，在诸多机器学习与智能算法中，强化学习被广泛应用于传输控制，已有研究工作将强化学习应用于拥塞控制、调度、路由优化等决策，以增强传输在多种网络状态中的自适应能力[4]。然而，基于智能的无人机传输决策仍面临亟待解决的挑战：一是智能算法的推理开销会加大无人机能耗，从而影响无人机的续航能力；二是无人机飞行导致网络状态的快速波动，智能算法在面临未知网络状态时，可能会产生输出的不可解释从而作出错误决策，进而影响无人机的任务执行。Smart-Flycast系统集成的三种智能传输算法以轻量的智能算法解决了无人机传输在高动态网络环境的挑战，并可支持多种QoS、QoE需求的挑战。作为一种智能技术使能的原型系统, Smart-Flycast通过引入多路径技术提升了传输的可靠性和稳定性，同时弥补了多路径协议缺乏自适应传输能力的短板，将为无人机实时视频传输提供更多的可能性。</p>
+<h2 id="参考文献">参考文献</h2>
+<p>[1] Song C, Han B, Ji X et al. AI-driven Multipath Transmission: Empowering UAV-based Live Streaming.IEEE Network, 2023.</p>
+<p>[2] Ji X, Han B, Li R, et al. ACCeSS: Adaptive QoS-aware Congestion Control for Multipath TCP[A]. 2022 IEEE/ACM 30th International Symposium on Quality of Service, IWQoS 2022[C]. 2022.</p>
+<p>[3] Li Y, Han B, Han X, et al. VICTOR: Video Content-aware Partially Reliable Transmission over Multipath QUIC. IEEE International Conference on Metaverse Computing, Networking and Applications (IEEE MetaCom 2023) 2023[c].</p>
+<p>[4]Song C, Han B and Su J. 4D-MAP: Multipath Adaptive Packet Scheduling for Live Streaming over QUIC . Comput. Sci. Technol.</p>
+    </div>
+
+    
+
+
+
+
+
+<div class="article-tags">
+  
+  <a class="badge badge-light" href="/tag/working-sharing/">working sharing</a>
+  
+  <a class="badge badge-light" href="/tag/%E5%AE%8B%E4%B8%9B%E6%BA%AA/">宋丛溪</a>
+  
+</div>
+
+
+
+<div class="share-box">
+  <ul class="share">
+    
+      
+      
+      
+        
+      
+      
+      
+      
+      
+      
+      
+      <li>
+        <a href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fai4network.github.io%2Fevent%2Fwork-sharing-3%2F&amp;text=Smart-Flycast%EF%BC%9A%E5%9F%BA%E4%BA%8E%E6%97%A0%E4%BA%BA%E6%9C%BA%E5%B9%B3%E5%8F%B0%E7%9A%84%E5%A4%9A%E8%B7%AF%E5%BE%84%E5%AE%9E%E6%97%B6%E8%A7%86%E9%A2%91%E4%BC%A0%E8%BE%93%E7%B3%BB%E7%BB%9F" target="_blank" rel="noopener" class="share-btn-twitter" aria-label="twitter">
+          <i class="fab fa-twitter"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      
+      
+      
+      
+      <li>
+        <a href="https://www.facebook.com/sharer.php?u=https%3A%2F%2Fai4network.github.io%2Fevent%2Fwork-sharing-3%2F&amp;t=Smart-Flycast%EF%BC%9A%E5%9F%BA%E4%BA%8E%E6%97%A0%E4%BA%BA%E6%9C%BA%E5%B9%B3%E5%8F%B0%E7%9A%84%E5%A4%9A%E8%B7%AF%E5%BE%84%E5%AE%9E%E6%97%B6%E8%A7%86%E9%A2%91%E4%BC%A0%E8%BE%93%E7%B3%BB%E7%BB%9F" target="_blank" rel="noopener" class="share-btn-facebook" aria-label="facebook">
+          <i class="fab fa-facebook"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      
+      
+      
+      
+        
+      
+      <li>
+        <a href="mailto:?subject=Smart-Flycast%EF%BC%9A%E5%9F%BA%E4%BA%8E%E6%97%A0%E4%BA%BA%E6%9C%BA%E5%B9%B3%E5%8F%B0%E7%9A%84%E5%A4%9A%E8%B7%AF%E5%BE%84%E5%AE%9E%E6%97%B6%E8%A7%86%E9%A2%91%E4%BC%A0%E8%BE%93%E7%B3%BB%E7%BB%9F&amp;body=https%3A%2F%2Fai4network.github.io%2Fevent%2Fwork-sharing-3%2F" target="_blank" rel="noopener" class="share-btn-email" aria-label="envelope">
+          <i class="fas fa-envelope"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      
+      
+      
+      
+      <li>
+        <a href="https://www.linkedin.com/shareArticle?url=https%3A%2F%2Fai4network.github.io%2Fevent%2Fwork-sharing-3%2F&amp;title=Smart-Flycast%EF%BC%9A%E5%9F%BA%E4%BA%8E%E6%97%A0%E4%BA%BA%E6%9C%BA%E5%B9%B3%E5%8F%B0%E7%9A%84%E5%A4%9A%E8%B7%AF%E5%BE%84%E5%AE%9E%E6%97%B6%E8%A7%86%E9%A2%91%E4%BC%A0%E8%BE%93%E7%B3%BB%E7%BB%9F" target="_blank" rel="noopener" class="share-btn-linkedin" aria-label="linkedin-in">
+          <i class="fab fa-linkedin-in"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      
+      
+      
+      
+      <li>
+        <a href="whatsapp://send?text=Smart-Flycast%EF%BC%9A%E5%9F%BA%E4%BA%8E%E6%97%A0%E4%BA%BA%E6%9C%BA%E5%B9%B3%E5%8F%B0%E7%9A%84%E5%A4%9A%E8%B7%AF%E5%BE%84%E5%AE%9E%E6%97%B6%E8%A7%86%E9%A2%91%E4%BC%A0%E8%BE%93%E7%B3%BB%E7%BB%9F%20https%3A%2F%2Fai4network.github.io%2Fevent%2Fwork-sharing-3%2F" target="_blank" rel="noopener" class="share-btn-whatsapp" aria-label="whatsapp">
+          <i class="fab fa-whatsapp"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      
+      
+      
+      
+      <li>
+        <a href="https://service.weibo.com/share/share.php?url=https%3A%2F%2Fai4network.github.io%2Fevent%2Fwork-sharing-3%2F&amp;title=Smart-Flycast%EF%BC%9A%E5%9F%BA%E4%BA%8E%E6%97%A0%E4%BA%BA%E6%9C%BA%E5%B9%B3%E5%8F%B0%E7%9A%84%E5%A4%9A%E8%B7%AF%E5%BE%84%E5%AE%9E%E6%97%B6%E8%A7%86%E9%A2%91%E4%BC%A0%E8%BE%93%E7%B3%BB%E7%BB%9F" target="_blank" rel="noopener" class="share-btn-weibo" aria-label="weibo">
+          <i class="fab fa-weibo"></i>
+        </a>
+      </li>
+    
+  </ul>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+
+
+
+  
+  
+  
+  
+  
+  <div class="media author-card content-widget-hr">
+    
+      
+      <a href="/author/%E5%AE%8B%E4%B8%9B%E6%BA%AA/"><img class="avatar mr-3 avatar-circle" src="/author/%E5%AE%8B%E4%B8%9B%E6%BA%AA/avatar_hu6b6a8378a4acf448b86d77478a06d0f8_113361_270x270_fill_q75_lanczos_center.jpg" alt="宋丛溪"></a>
+    
+
+    <div class="media-body">
+      <h5 class="card-title"><a href="/author/%E5%AE%8B%E4%B8%9B%E6%BA%AA/">宋丛溪</a></h5>
+      <h6 class="card-subtitle">2020级</h6>
+      
+      <ul class="network-icon" aria-hidden="true">
+  
+    
+    
+    
+      
+    
+    
+    
+    
+    
+      
+    
+    <li>
+      <a href="/congxi1994@sohu.com" >
+        <i class="fas fa-envelope"></i>
+      </a>
+    </li>
+  
+    
+    
+    
+      
+    
+    
+    
+    
+    
+      
+    
+    <li>
+      <a href="https://github.com/cxht/" target="_blank" rel="noopener">
+        <i class="fab fa-github"></i>
+      </a>
+    </li>
+  
+</ul>
+
+    </div>
+  </div>
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+</div>
+  </div>
+
+  <div class="page-footer">
+    
+    
+    <div class="container">
+      <footer class="site-footer">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  
+
+  
+  
+    
+  
+  
+    
+  
+
+  
+
+  
+  <p class="powered-by copyright-license-text">
+    © 2024 Me. This work is licensed under <a href="https://creativecommons.org/licenses/by-nc-nd/4.0" rel="noopener noreferrer" target="_blank">CC BY NC ND 4.0</a>
+  </p>
+  
+
+  <p class="powered-by footer-license-icons">
+    <a href="https://creativecommons.org/licenses/by-nc-nd/4.0" rel="noopener noreferrer" target="_blank" aria-label="Creative Commons">
+      <i class="fab fa-creative-commons fa-2x" aria-hidden="true"></i>
+      <i class="fab fa-creative-commons-by fa-2x" aria-hidden="true"></i>
+      
+        <i class="fab fa-creative-commons-nc fa-2x" aria-hidden="true"></i>
+      
+      
+        <i class="fab fa-creative-commons-nd fa-2x" aria-hidden="true"></i>
+      
+    </a>
+  </p>
+
+
+
+
+
+  <p class="powered-by">
+    
+    
+    
+      
+      
+      
+      
+      
+      
+      Published with <a href="https://wowchemy.com/?utm_campaign=poweredby" target="_blank" rel="noopener">Wowchemy</a> — the free, <a href="https://github.com/wowchemy/wowchemy-hugo-themes" target="_blank" rel="noopener">open source</a> website builder that empowers creators.
+    
+  </p>
+</footer>
+
+    </div>
+    
+  </div>
+
+  
+
+
+<script src="/js/vendor-bundle.min.b4708d4364577c16ab7001b265a063a4.js"></script>
+
+
+
+
+  
+
+  
+  
+
+  
+
+
+
+
+
+
+  <script src="https://cdn.jsdelivr.net/npm/leaflet@1.7.1/dist/leaflet.min.js" integrity="" crossorigin="anonymous"></script>
+
+
+
+
+
+
+
+
+  
+  <script id="search-hit-fuse-template" type="text/x-template">
+    <div class="search-hit" id="summary-{{key}}">
+      <div class="search-hit-content">
+        <div class="search-hit-name">
+          <a href="{{relpermalink}}">{{title}}</a>
+          <div class="article-metadata search-hit-type">{{type}}</div>
+          <p class="search-hit-description">{{snippet}}</p>
+        </div>
+      </div>
+    </div>
+  </script>
+  
+    <script src="https://cdn.jsdelivr.net/gh/krisk/Fuse@v3.2.1/dist/fuse.min.js" integrity="sha512-o38bmzBGX+hD3JHWUFCDA09btWaqrNmoJ3RXLlrysA7PP01Kgs4UlE4MhelE1v5dJR3+cxlR4qQlotsW7jKsnw==" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/gh/julmot/mark.js@8.11.1/dist/jquery.mark.min.js" integrity="sha512-mhbv5DqBMgrWL+32MmsDOt/OAvqr/cHimk6B8y/bx/xS88MVkYGPiVv2ixKVrkywF2qHplNRUvFsAHUdxZ3Krg==" crossorigin="anonymous"></script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+<script id="page-data" type="application/json">{"use_headroom":true}</script>
+
+
+
+  <script src="/js/wowchemy-headroom.db4755770454eb63685f8de785c0a172.js" type="module"></script>
+
+
+
+
+
+
+
+
+
+  
+  
+
+
+<script src="/en/js/wowchemy.min.6ab16275cbca742a586c1726e3d94093.js"></script>
+
+
+
+  <script src="/js/wowchemy-map.a26e9d2f7238ba5b868384f1c5bc6477.js" type="module"></script>
+
+
+
+
+  
+<div id="modal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Cite</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        
+        <pre><code></code></pre>
+      </div>
+      <div class="modal-footer">
+        <a class="btn btn-outline-primary my-1 js-copy-cite" href="#" target="_blank">
+          <i class="fas fa-copy"></i> Copy
+        </a>
+        <a class="btn btn-outline-primary my-1 js-download-cite" href="#" target="_blank">
+          <i class="fas fa-download"></i> Download
+        </a>
+        <div id="modal-error"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+  <script src="/js/wowchemy-publication.68f8d7090562ca65fc6d3cb3f8f2d2cb.js" type="module"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

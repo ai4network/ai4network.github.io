@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>计晓岚 | AI4network 实验室</title>
+    <link>https://ai4network.github.io/zh/author/%E8%AE%A1%E6%99%93%E5%B2%9A/</link>
+      <atom:link href="https://ai4network.github.io/zh/author/%E8%AE%A1%E6%99%93%E5%B2%9A/index.xml" rel="self" type="application/rss+xml" />
+    <description>计晓岚</description>
+    <generator>Wowchemy (https://wowchemy.com)</generator><language>zh-Hans</language><lastBuildDate>Fri, 31 Mar 2023 19:30:00 +0000</lastBuildDate>
+    <image>
+      <url>https://ai4network.github.io/zh/author/%E8%AE%A1%E6%99%93%E5%B2%9A/avatar_hu933d16a9fd2a1b1f3765ff42731090c2_105214_270x270_fill_q75_lanczos_center.jpeg</url>
+      <title>计晓岚</title>
+      <link>https://ai4network.github.io/zh/author/%E8%AE%A1%E6%99%93%E5%B2%9A/</link>
+    </image>
+    
+    <item>
+      <title>2023年秋季学期第7周组会</title>
+      <link>https://ai4network.github.io/zh/event/8/</link>
+      <pubDate>Fri, 31 Mar 2023 19:30:00 +0000</pubDate>
+      <guid>https://ai4network.github.io/zh/event/8/</guid>
+      <description>&lt;p&gt;腾讯会议：840-471-729&lt;/p&gt;
+&lt;p&gt;会议密码：16092&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>2022年秋季学期第16周组会</title>
+      <link>https://ai4network.github.io/zh/event/7/</link>
+      <pubDate>Fri, 02 Dec 2022 19:30:00 +0000</pubDate>
+      <guid>https://ai4network.github.io/zh/event/7/</guid>
+      <description>&lt;p&gt;点击链接入会，或添加至会议列表：
+&lt;a href=&#34;https://meeting.tencent.com/dm/B1P5KTsmzDA7&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://meeting.tencent.com/dm/B1P5KTsmzDA7&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;腾讯会议：961-601-710
+会议密码：123456&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>SIGCOMM22 论文分享 | Elasticity Detection: A Building Block for Internet Congestion Control</title>
+      <link>https://ai4network.github.io/zh/post/paper-sharing-2/</link>
+      <pubDate>Mon, 21 Nov 2022 19:47:34 +0800</pubDate>
+      <guid>https://ai4network.github.io/zh/post/paper-sharing-2/</guid>
+      <description>&lt;p&gt;  本期分享的论文是由微软研究院和MIT发表在SIGCOMM2022拥塞控制会议上的一篇文章。该文主要引入了一个新的度量：“弹性”，用来表征竞争时的交叉流量的性质。弹性捕获了交叉流量是否对可用带宽的变化作出反应这一属性。文章提出的NimbusCC在没有路由器支持的情况下，能够在发送端健壮地检测交叉流量的弹性，而且可以根据弹性检测来启用延迟控制拥塞控制协议，以达到减少延迟而不会损害吞吐量的目标。下面，我将具体地介绍该文的主要内容以及读后感言。&lt;/p&gt;
+&lt;h2 id=&#34;研究动机&#34;&gt;研究动机&lt;/h2&gt;
+&lt;p&gt;  该文首先揭示了“延迟控制”的拥塞控制机制（例如Copa、Vegas等）与其他流量竞争时的性能问题：（1）当它和其他更具有带宽竞争力的“缓冲填充”的拥塞控制机制（例如Cubic、Reno等）竞争时，瓶颈链路的延迟增加后，“延迟控制”拥塞控制机制很快降低了发送速率，从而导致吞吐量低；（2）当它和固定比特率的流量（CBR）竞争时，不仅减少了延迟并且没有损失吞吐量；而对于“缓冲填充”的拥塞控制机制来说，和同类的机制以及CBR流竞争带宽时属公平竞争，但延迟都比较高。&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;picture1&#34; srcset=&#34;
+               /zh/post/paper-sharing-2/picture/picture1_hudeaf8b130eca033ef1a865d23e979785_150612_9ed51923ee17233b53fb59305a19b38f.webp 400w,
+               /zh/post/paper-sharing-2/picture/picture1_hudeaf8b130eca033ef1a865d23e979785_150612_e6f7724d450375e91c809ee062663913.webp 760w,
+               /zh/post/paper-sharing-2/picture/picture1_hudeaf8b130eca033ef1a865d23e979785_150612_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://ai4network.github.io/zh/post/paper-sharing-2/picture/picture1_hudeaf8b130eca033ef1a865d23e979785_150612_9ed51923ee17233b53fb59305a19b38f.webp&#34;
+               width=&#34;760&#34;
+               height=&#34;264&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;picture2&#34; srcset=&#34;
+               /zh/post/paper-sharing-2/picture/picture2_huf529575b65c633bf77999e308600dc51_148902_ec10f1d4b1e101bb77332fd804418a2c.webp 400w,
+               /zh/post/paper-sharing-2/picture/picture2_huf529575b65c633bf77999e308600dc51_148902_b826b50084661afa45f74c3f6e8ad711.webp 760w,
+               /zh/post/paper-sharing-2/picture/picture2_huf529575b65c633bf77999e308600dc51_148902_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://ai4network.github.io/zh/post/paper-sharing-2/picture/picture2_huf529575b65c633bf77999e308600dc51_148902_ec10f1d4b1e101bb77332fd804418a2c.webp&#34;
+               width=&#34;760&#34;
+               height=&#34;266&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;picture3&#34; srcset=&#34;
+               /zh/post/paper-sharing-2/picture/picture3_huf3fb8326073b585765fcf7f1d861b218_146071_fce7e24b7bef0a7633ee9f9835b49980.webp 400w,
+               /zh/post/paper-sharing-2/picture/picture3_huf3fb8326073b585765fcf7f1d861b218_146071_fa5d214117ee47d155220569732fe20a.webp 760w,
+               /zh/post/paper-sharing-2/picture/picture3_huf3fb8326073b585765fcf7f1d861b218_146071_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://ai4network.github.io/zh/post/paper-sharing-2/picture/picture3_huf3fb8326073b585765fcf7f1d861b218_146071_fce7e24b7bef0a7633ee9f9835b49980.webp&#34;
+               width=&#34;760&#34;
+               height=&#34;272&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;  结合上述发现，该文得到了一个关键发现也就是它的研究目标：当发送方拥塞控制机制认为交叉流量是非弹性时，发送方可以使用“延迟控制”协议来减少发送方和交叉流量的延迟，而不用担心降低吞吐量。反之，如果是弹性的，它可以切换到TCP竞争的“缓冲填充”拥塞控制机制。这样能够更好地利用“延迟控制”机制，在具有带宽竞争力的同时，“安全”地降低延迟。&lt;/p&gt;
+&lt;h2 id=&#34;关键技术&#34;&gt;关键技术&lt;/h2&gt;
+&lt;p&gt;  为了实现研究目标，该文首先总结并抽象了不同交叉流量进行带宽竞争时的一种属性：弹性。弹性表征了交叉流量在和其他流量竞争时，能够受其他流量带来的瓶颈可用带宽的影响，改变发送速率。比如一些应用限制的流量或者可用带宽超过比特率的视频流是不会对可用带宽变化而作出反应，因此为非弹性流。&lt;/p&gt;
+&lt;p&gt;  接下来，按照目标需要让发送方知道交叉流量的弹性属性，也就是需要进行弹性检测。这里提出的弹性检测是主动的，是鲁棒的。第一步，他们建立了如下图的交叉流量测速的模型，通过非空非满的瓶颈中，进出流量中发送方和交叉流所占比例守恒这一结论，能够在发送方进入瓶颈的速率S、接收速率R、以及瓶颈估计速率μ已知的情况下，得到交叉流量的速率Z。&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;picture4&#34; srcset=&#34;
+               /zh/post/paper-sharing-2/picture/picture4_huadcf8d13206d05b5a690fc3d17b13c09_143827_1ca91ce9d36c4e5e387606af4d96b0c5.webp 400w,
+               /zh/post/paper-sharing-2/picture/picture4_huadcf8d13206d05b5a690fc3d17b13c09_143827_d354d993c572dbb9fce7748863e96b24.webp 760w,
+               /zh/post/paper-sharing-2/picture/picture4_huadcf8d13206d05b5a690fc3d17b13c09_143827_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://ai4network.github.io/zh/post/paper-sharing-2/picture/picture4_huadcf8d13206d05b5a690fc3d17b13c09_143827_1ca91ce9d36c4e5e387606af4d96b0c5.webp&#34;
+               width=&#34;760&#34;
+               height=&#34;261&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;  接着，他们并没有直接通过交叉流量速率来衡量弹性，而是通过主动增加发送方速率脉冲，然后根据交叉流会以相同频率响应脉冲的原理，在频域上分析交叉流的FFT，如果FFT在发送脉冲相应频率上具有更高的幅值，就证明更具有弹性。
+最后，在发送方根据弹性阈值来切换NimbusCC的模式和应用机制，当交叉流是非弹性时，则应用“延迟控制”机制进行延迟控制模式，以此减少延迟并不损失吞吐量；而当交叉流是弹性时，切换TCP竞争模式，应用类似Cubic之类的机制公平竞争带宽，不考虑延迟问题。总结NimbusCC的整个流程如下图。
+【模式切换】
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;picture5&#34; srcset=&#34;
+               /zh/post/paper-sharing-2/picture/picture5_hu1d14368f60f102f3bf343193d275987f_43326_c21ef3a3ec04cf823fc6a3dbced70aed.webp 400w,
+               /zh/post/paper-sharing-2/picture/picture5_hu1d14368f60f102f3bf343193d275987f_43326_8f197073de3eb465e064674ab19f1120.webp 760w,
+               /zh/post/paper-sharing-2/picture/picture5_hu1d14368f60f102f3bf343193d275987f_43326_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://ai4network.github.io/zh/post/paper-sharing-2/picture/picture5_hu1d14368f60f102f3bf343193d275987f_43326_c21ef3a3ec04cf823fc6a3dbced70aed.webp&#34;
+               width=&#34;549&#34;
+               height=&#34;374&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;h2 id=&#34;实验验证&#34;&gt;实验验证&lt;/h2&gt;
+&lt;p&gt;  该文做了十分充分的实验验证，包括模拟和真实网络情况下，对于理想情况下的基于弹性检测和模式切换的拥塞控制的性能评估，也有一些不满足假设的情况下性能问题的评估等等。而下图就是对比不同的机制，评估NimbusCC在弹性/非弹性交叉流的背景下的吞吐量和延迟，发现NimbusCC在灰色区域的，竞争模式下比单纯的“延迟控制”机制更具有公平竞争带宽的能力；而在后60s，判断交叉流量是弹性的，切换为延迟控制模式，能够有效减少延迟，并且吞吐量和非弹交叉流公平竞争瓶颈带宽。&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;picture6&#34; srcset=&#34;
+               /zh/post/paper-sharing-2/picture/picture6_hu7466ebdd386623c30c006f912bfb60c5_377725_ab907fb67755ed81cb9e9f286d4ded25.webp 400w,
+               /zh/post/paper-sharing-2/picture/picture6_hu7466ebdd386623c30c006f912bfb60c5_377725_6af8bc3bf0f4d94921a2933fbb0dd93d.webp 760w,
+               /zh/post/paper-sharing-2/picture/picture6_hu7466ebdd386623c30c006f912bfb60c5_377725_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://ai4network.github.io/zh/post/paper-sharing-2/picture/picture6_hu7466ebdd386623c30c006f912bfb60c5_377725_ab907fb67755ed81cb9e9f286d4ded25.webp&#34;
+               width=&#34;524&#34;
+               height=&#34;670&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;h2 id=&#34;个人观点&#34;&gt;个人观点&lt;/h2&gt;
+&lt;p&gt;  作为计算机网络领域顶级会议的文章，我认为它同时具备了发现问题的重要性，解决思路的创新性，以及实现技术的实用性。在拥塞控制研究这么多年的背景下，它发现了“延迟控制”这类机制在应用时的问题和现象。而解决问题的思路又不同于大部分能做到的方法创新，而首先基于“概念”创新，能够抽象并提出新的概念，并且具有一定的数理分析。最后，实际的实现技术时利用现有的一些拥塞控制的实现机制进行切换，简单而实用。所以，希望我们都能够从方法论创新走向思想创新，做更有用的研究吧！&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>2022年秋季学期第13周文献分享</title>
+      <link>https://ai4network.github.io/zh/event/2/</link>
+      <pubDate>Thu, 10 Nov 2022 19:30:00 +0000</pubDate>
+      <guid>https://ai4network.github.io/zh/event/2/</guid>
+      <description>&lt;p&gt;文献来源：SIGCOMM22&lt;/p&gt;
+&lt;p&gt;文献题目：Elasticity detection: a building block for internet congestion control&lt;/p&gt;
+&lt;p&gt;摘要：This paper introduces a new metric, “elasticity,” which characterizes the nature of cross-traffic competing with a flow. Elasticity captures whether the cross traffic reacts to changes in available bandwidth. We show that it is possible to robustly detect the elasticity of cross traffic at a sender without router support, and that elasticity detection can reduce delays in the Internet by enabling delay-controlling congestion control protocols to be deployed without hurting flow throughput. Our results show that the proposed method achieves more than 85% accuracy under a variety of network conditions, and that congestion control using elasticity detection achieves throughput comparable to Cubic but with delays that are 50–70 ms lower when cross traffic is inelastic.&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>
