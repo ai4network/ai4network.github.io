@@ -1207,6 +1207,16 @@
   </url><url>
     <loc>https://ai4network.github.io/author/%E6%9D%8E%E7%80%9A%E8%BF%85/</loc>
     <changefreq>weekly</changefreq>
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh-Hans"
+                href="https://ai4network.github.io/zh/author/%E6%9D%8E%E7%80%9A%E8%BF%85/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en-us"
+                href="https://ai4network.github.io/author/%E6%9D%8E%E7%80%9A%E8%BF%85/"
+                />
   </url><url>
     <loc>https://ai4network.github.io/author/%E6%9D%8E%E9%87%91%E8%9E%8D/</loc>
     <changefreq>weekly</changefreq>
@@ -1236,6 +1246,16 @@
   </url><url>
     <loc>https://ai4network.github.io/author/%E7%8E%8B%E6%8B%93/</loc>
     <changefreq>weekly</changefreq>
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh-Hans"
+                href="https://ai4network.github.io/zh/author/%E7%8E%8B%E6%8B%93/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en-us"
+                href="https://ai4network.github.io/author/%E7%8E%8B%E6%8B%93/"
+                />
   </url><url>
     <loc>https://ai4network.github.io/author/%E8%94%A1%E9%98%B3/</loc>
     <changefreq>weekly</changefreq>
@@ -1252,6 +1272,16 @@
   </url><url>
     <loc>https://ai4network.github.io/author/%E8%B5%B5%E4%B8%80%E5%AE%81/</loc>
     <changefreq>weekly</changefreq>
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh-Hans"
+                href="https://ai4network.github.io/zh/author/%E8%B5%B5%E4%B8%80%E5%AE%81/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en-us"
+                href="https://ai4network.github.io/author/%E8%B5%B5%E4%B8%80%E5%AE%81/"
+                />
   </url><url>
     <loc>https://ai4network.github.io/author/%E8%B5%B5%E5%A8%9C/</loc>
     <changefreq>weekly</changefreq>
@@ -1281,6 +1311,16 @@
   </url><url>
     <loc>https://ai4network.github.io/author/%E9%99%88%E4%BA%AD%E7%BE%BD/</loc>
     <changefreq>weekly</changefreq>
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh-Hans"
+                href="https://ai4network.github.io/zh/author/%E9%99%88%E4%BA%AD%E7%BE%BD/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en-us"
+                href="https://ai4network.github.io/author/%E9%99%88%E4%BA%AD%E7%BE%BD/"
+                />
   </url><url>
     <loc>https://ai4network.github.io/author/%E9%99%88%E5%A5%95%E6%A3%A0/</loc>
     <changefreq>weekly</changefreq>
@@ -1319,6 +1359,19 @@
                 rel="alternate"
                 hreflang="en-us"
                 href="https://ai4network.github.io/author/%E9%BB%84%E9%94%A6%E6%A3%AE/"
+                />
+  </url><url>
+    <loc>https://ai4network.github.io/author/%E9%BE%99%E4%BF%8A%E9%94%8B/</loc>
+    <changefreq>weekly</changefreq>
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh-Hans"
+                href="https://ai4network.github.io/zh/author/%E9%BE%99%E4%BF%8A%E9%94%8B/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en-us"
+                href="https://ai4network.github.io/author/%E9%BE%99%E4%BF%8A%E9%94%8B/"
                 />
   </url>
 </urlset>
